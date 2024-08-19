@@ -12,6 +12,8 @@ subtitle: Why you'd want to go on a date with me
 - CV
 - CTFやHack the boxのライトアップ
 - 読み終わったテキストのサマリー
+- 現在の取り組み
+
 このページ以外はすべて英語となっています。
 
 韓国語＞英語＞＝日本語なためです。
