@@ -4,13 +4,22 @@ title: About me
 subtitle: Why you'd want to go on a date with me
 ---
 
-My name is Inigo Montoya. I have the following qualities:
+こんにちは！
 
-- I rock a great mustache
-- I'm extremely loyal to my family
+ホンです。私のブログにようこそ
 
-What else do you need?
+このブログには以下の資料・ポストを書いています。
+- CV
+- CTFやHack the boxのライトアップ
+- 読み終わったテキストのサマリー
+このページ以外はすべて英語となっています。
 
 ### My story
 
-To be honest, I'm having some trouble remembering right now, so why don't you just watch [my movie](https://en.wikipedia.org/wiki/The_Princess_Bride_%28film%29) and it will answer **all** your questions.
+私は韓国出身で世界の色んな経験がしたく、海外で暮らしています。
+
+今は日本、前はオランダに住みました。
+
+日本の寿司が大好きです。
+
+楽しくて仕事とは思われないほどの仕事がしたいです。
