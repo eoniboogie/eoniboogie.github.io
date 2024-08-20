@@ -3,7 +3,7 @@ layout: page
 title: CV
 ---
 # Seongeon Hong
-NTT Docomo                        
+## NTT Docomo                        
 Security Management Office  
 Email: s.hong@ntt.com
 
@@ -19,16 +19,19 @@ Email: s.hong@ntt.com
 - Azure AI fundamentals (2022.08)
 - Azure Fundamentals (2022.05)
 
+
 ## Skills
 ### Languages
 - Korean (Native)
 - English (TOEIC 965)
 - Japanese (JKPT N2)
+  
 ### IT skills
 - Python
 - C
 - Security (SOC)
 - Cloud (Azure)
+
 
 ## Project
 ### NTT DOCOMO (Tokyo, Japan) 2023.10 - Present
@@ -46,7 +49,7 @@ Infrastructure System R&D Team / Research Intern
 Improvement of the encryption module's calculation speed using FPGA.  
 Hardware module has a faster calculation performance. During the internship, I developed the HMAC-SHA256 algorithm module for encryption using [C language and FPGA](https://github.com/eoniboogie/HMAC).  
 I sent packets to FPGA for the calculation job and then sent the calculated packets back to the CPU.   
-Since the calculation had been calculated from the FPGA, the entire encryption speed improved by approximately 40%. 
+Since the calculation had been made using the FPGA, the entire encryption speed improved by approximately 40%. 
 
 
 
