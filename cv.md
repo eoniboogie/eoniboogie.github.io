@@ -24,7 +24,7 @@ Email: s.hong@ntt.com
 ### Languages
 - Korean (Native)
 - English (TOEIC 965)
-- Japanese (JKPT N2)
+- Japanese (JLPT N2)
   
 ### IT skills
 - Python
