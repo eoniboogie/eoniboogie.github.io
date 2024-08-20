@@ -27,10 +27,10 @@ Email: s.hong@ntt.com
 - Japanese (JLPT N2)
   
 ### IT skills
-- Python
-- C
+- Python, C, TypeScript
 - Security (SOC)
 - Cloud (Azure)
+- Log analysis
 
 
 ## Project
