@@ -21,7 +21,7 @@ author: Seongeon Hong
 
 navbar-links:
   About Me: "aboutme"
-  CV: ""
+  CV: "cv"
   Event: ""
   Resources:
     - Beautiful Jekyll: "https://beautifuljekyll.com"
