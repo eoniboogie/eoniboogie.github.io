@@ -22,7 +22,7 @@ author: Seongeon Hong
 navbar-links:
   About Me: "aboutme"
   CV: "cv"
-  Event: ""
+  Event: "https://eoniboogie.github.io/event"
   Resources:
     - Beautiful Jekyll: "https://beautifuljekyll.com"
     - Learn markdown: "https://www.markdowntutorial.com/"
