@@ -236,6 +236,11 @@ paginate: 5
 kramdown:
   input: GFM
 
+
+collections:
+  category:
+    output: true
+
 # Default YAML values (more information on Jekyll's site)
 defaults:
   -
@@ -251,6 +256,12 @@ defaults:
       path: "" # any file that's not a post will be a "page" layout by default
     values:
       layout: "page"
+  -
+    scope:
+      path: ""
+      type: category
+    values:
+      layout: "category"
 
 # Exclude these files from production site
 exclude:
@@ -267,17 +278,6 @@ plugins:
   - jekyll-paginate
   - jekyll-sitemap
 
-collections:
-  category:
-    output: true
-
-defaults:
-  -
-    scope:
-      path: ""
-      type: category
-    values:
-      layout: "category"
 # Beautiful Jekyll / Dean Attali
 # 2fc73a3a967e97599c9763d05e564189
 
