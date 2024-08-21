@@ -17,7 +17,8 @@ navbar-links:
   CV: "cv"
   Category:
     - Security event: "https://eoniboogie.github.io/event/event.html"
-    - Learn markdown: "https://www.markdowntutorial.com/"
+    - Writeup: "https://eoniboogie.github.io/writeup/writeup.html"
+    - Textbook: "https://eoniboogie.github.io/textbook/textbook.html"
 
 ################
 # --- Logo --- #
@@ -227,7 +228,7 @@ date_format: "%B %-d, %Y"
 #################################################################################
 
 # Output options (more information on Jekyll's site)
-timezone: "Japan/Tokyo"
+timezone: "Japan"
 markdown: kramdown
 highlighter: rouge
 permalink: /:year-:month-:day-:title/
