@@ -241,6 +241,12 @@ collections:
   event:
     output: true
     permalink: /:collection/:categories:output_ext
+  textbook:
+    output: true
+    permalink: /:collection/:categories:output_ext
+  writeup:
+    output: true
+    permalink: /:collection/:categories:output_ext
     
 # Default YAML values (more information on Jekyll's site)
 defaults:
