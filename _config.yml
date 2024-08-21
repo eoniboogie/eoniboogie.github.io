@@ -235,12 +235,12 @@ paginate: 5
 
 kramdown:
   input: GFM
-
-
+  
 collections:
-  category:
+  event:
     output: true
-
+    permalink: /:collection/:categories:output_ext
+    
 # Default YAML values (more information on Jekyll's site)
 defaults:
   -
@@ -256,12 +256,6 @@ defaults:
       path: "" # any file that's not a post will be a "page" layout by default
     values:
       layout: "page"
-  -
-    scope:
-      path: ""
-      type: category
-    values:
-      layout: "category"
 
 # Exclude these files from production site
 exclude:
