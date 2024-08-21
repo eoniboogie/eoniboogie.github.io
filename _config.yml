@@ -15,8 +15,8 @@ author: Seongeon Hong
 navbar-links:
   About Me: "aboutme"
   CV: "cv"
-  Resources:
-    - Beautiful Jekyll: "https://beautifuljekyll.com"
+  Category:
+    - Security event: "https://eoniboogie.github.io/event/event.html"
     - Learn markdown: "https://www.markdowntutorial.com/"
 
 ################
