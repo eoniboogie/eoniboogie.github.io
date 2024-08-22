@@ -19,6 +19,7 @@ navbar-links:
     - Security event: "https://eoniboogie.github.io/event/event.html"
     - Writeup: "https://eoniboogie.github.io/writeup/writeup.html"
     - Textbook: "https://eoniboogie.github.io/textbook/textbook.html"
+  Tags: "tags"
 
 ################
 # --- Logo --- #
