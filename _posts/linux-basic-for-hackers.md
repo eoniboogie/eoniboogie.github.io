@@ -110,3 +110,50 @@ It has an s in place of the x. It means the SUID bit is set.
 
 adding 2 in front of permissions.
 `chmod 2644 filename`
+
+# Process management
+
+## Viewing processes
+
+all processess and all users.  
+`ps aux`
+
+```
+USER     PID      % CPU    % MEM         VSZ         RSS TTY         STAT START       TIME       COMMAND Root         1         0.0       0.4         202540     6396 ?        Ss       Apr24         0: 46    / sbin/ init Root         2         0.0       0.0                   0           0 ?        S         Apr24         0: 00    [ kthreadd] Root         3         0.0       0.0                   0           0 ?        S         Apr24         0: 26    [ ksoftirqd/ 0] --snip-- root     39706     0.0     0.2     36096     3204 pts/ 0         R + 15: 05     0: 00         ps aux
+```
+
+It can be used with grep command.
+
+- top command shows the processes by it's size.
+
+## Running processes in the background
+
+Adding & at the end ot the command.
+`leafpad newscript &`
+`flameshot &`
+
+## Moving a process to the foreground
+
+`fg PID`
+if you don't know the PID, you can find it with ps command.
+
+## Scheduling processes
+
+- at : run once at some point in the future
+- crond : run regularly
+
+```
+at 7:20pm
+at 7:20pm June 25
+at noon
+at tomorrow
+at now + 5days
+at 7:20am 09/30/2100
+```
+
+```
+at 7:20am
+at> /root/myscanningscript
+```
+
+myscanningscript will be executed at 7:20am
