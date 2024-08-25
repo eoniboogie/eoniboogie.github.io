@@ -157,3 +157,75 @@ at> /root/myscanningscript
 ```
 
 myscanningscript will be executed at 7:20am
+
+# Managing user environment variables
+
+## Viewing environment vaiables
+
+```
+kali > env
+XDG_VTNR = 7 SSHAGENT_PID = 922 XDG_SESSION_ID = 2 XDG_GREETER_DATA_DIR =/ var/ lib/ lightdm/ data/ root GLADE_PIXMAP_PATH =: echo TERM = xterm SHELL =/ bin/ bash --snip-- USER = root --snip-- PATH =/ usr/ local/ sbin :usr/ local/ bin:/ usr/ sbin:/ sbin/ bin --snip-- HOME =/ root --snip--
+```
+
+- Environment variables are always uppercase.
+- HISTSIZE variable contains command history.  
+  If you don't want to leave any command histoty, then set the HISTSIZE to 0. `kali > HISTSIZE=0`
+
+## Making variable value changes permanent
+
+- change in an environment variable will disapper when the terminal is closed.
+- export will change a value permanently
+
+```
+kali > HISTSIZE=1000
+kali > export HISTSIZE
+```
+
+## Changing your shell prompt
+
+The default shell prompt takes the following format.  
+`username@hostname:current_directory`  
+for example: `root@kali:current_directory`  
+The default shell prompt can be changed by setting the **PS1** varilable.
+
+```
+\u The name of the current user
+\h The host name
+\W The base name of the current working directory
+```
+
+For example
+
+```
+kali > PS1="World's Best Hacker:#"
+World's Best Hacker:#
+World's Best Hacker:#pwd
+/home/eon
+kali > export PS1
+```
+
+```
+kali > export PS1='C:\w> '
+C:/tmp>
+```
+
+## Adding to the PATH variable
+
+A terminal will search for any command in **$PATH**.  
+If I installed a new tool called _newhackingtool_ into the _/root/newhackingtool_ directory, then I need to go to the directory to use the tool.  
+However, if I add it to the $PATH, then I can use the tool from any directories.  
+`kali > PATH=$PATH:/root/newhackingtool`  
+original path + new path of the tool. Appending using ":". Don't forget to contain the original PATH.
+
+- Adding too many path variables could slow down the terminal.
+
+## Creating a user defined variable
+
+```
+kali > NEWVARIABLE="apple apple apple"
+kali > echo $NEWVARIABLE
+apple apple apple
+kali > unset NEWVARIABLE
+kali > echo $NEWVARIABLE
+kali >
+```
