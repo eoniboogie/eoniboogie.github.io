@@ -229,3 +229,28 @@ kali > unset NEWVARIABLE
 kali > echo $NEWVARIABLE
 kali >
 ```
+
+# Bash scripting
+
+## shebang
+
+You need to tell your operating system which interpreter to use.  
+`#!`  
+In the case of bash, `#! /bin/bash`
+
+```
+#! /bin/bash
+# This is bash script. In this one, you prompt /
+# the user for input, place the input in a variable, and /
+# display the variable contents in a string.
+
+echo "what is your name?"
+read name
+echo "what chapter are you on in linux basics for hackers?"
+read chapter
+echo "Welcome" $name "to chapter" $chapter "of linux basics for hackers!"
+```
+
+## /dev/null
+
+/dev/null is simply a place to send output so that it disappears.
