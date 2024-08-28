@@ -254,3 +254,127 @@ echo "Welcome" $name "to chapter" $chapter "of linux basics for hackers!"
 ## /dev/null
 
 /dev/null is simply a place to send output so that it disappears.
+
+# Compressing and Archiving
+
+## tar
+
+- Archiving
+
+```
+kali > tar -cvf HackersArise.tar hackersarise1 hackersarise2 hackersarise3 hackersarise1 hackersarise2 hackersarise3
+```
+
+c: create, v: verbose, f: following file(s)
+
+- See the contents list without extracting.
+
+```
+kali > tar -tvf HackersArise.tar
+-rwxr-xr-x 1 root root               22311     Nov 27     2018 13: 00 hackersarise1. sh
+-rwxr-xr-x 1 root root                 8791     Nov 27     2018 13: 00 hackersarise2. sh
+-rwxr-xr-x 1 root root                 3992     Nov 27     2018 13: 00 hackersarise3. sh
+```
+
+- Extract the files.
+
+```
+kali > tar -xvf HackersArise.tar
+hackersarise1. sh
+hackersarise2. sh
+hackersarise3. sh
+```
+
+## dd
+
+- a bit by bit copy.
+- deleted files are copied too.
+- used in forensic.
+- very slow.
+  `dd if=inputfile of=outputfile`
+
+```
+kali > dd if =/ dev/ sdb of =/ root/ flashcopy
+1257441 = 0 records in
+1257440 + 0 records out
+7643809280 bytes (7.6 GB) copied, 1220.729 s, 5.2 MB/s
+```
+
+# Filesystem and Storage Device Management
+
+## dev directory (device)
+
+```
+brw-rw----    1     root root                 8,           0         May 16 12: 44       sda
+brw-rw----    1     root root                 8,           1         May 16 12: 44       sda1
+brw-rw----    1     root root                 8,           2         May 16 12: 44       sda2
+brw-rw----    1     root root                 8,           5         May 16 12: 44       sda5
+brw-rw----    1     root root                 8,           16       May 16 12: 44       sdb
+brw-rw----    1     root root                 8,           17       May 16 12: 44       sdb1
+```
+
+- Device File Description
+  | Disk | Meaning |
+  | :--- | :--------------------- |
+  | sda | First SATA hard drive |
+  | sdb | Second SATA hard drive |
+  | sdc | Third SATA hard drive |
+  | sdd | Fourth SATA hard drive |
+
+The SATA hard drive (500GB).
+![sata](/assets/img/textbook/sata.jpg)
+
+- Partition Description
+  |Partition|Meaning|
+  |:---|:---|
+  |sda1|The first partition (1) on the first (a) SATA drive|
+  |sda2|The second (2) partition on the first (a) drive|
+  |sda3|The third (3) partition on the first (a) drive|
+  |sda4|The fourth (4) partition on the first (a) drive|
+
+- lists all the partitions of all the drives.
+  ```
+  kali > fdisk -l
+  Device           Boot     Start               End       Sectors       Size     Id     Type
+  /dev/ sdb1                       32     62498815     62498784     29.8G       7     HPFS/ NTFS/ exFAT
+  ```
+- HPFS: High Performance File System
+- NTFS: New Technology File System (new)
+- exFAT: Extended File Allocation Table (old)
+
+These are not linux systems. They are macOS and Windows System. You can guess the OS type by observing the file types.
+
+## listing block device information
+
+```
+kali > lsblk
+Name             MAJ:MIN     RM     SIZE     RO     TYPE     MOUNTPOINT
+fd0                   2: 0           1         4K       0     disk
+sda1                 8: 0           0       20G       0     disk
+|-sda1             8: 1           0 18.7G       0     part    /
+|-sda2             8: 2           0         1K       0     part
+|-sda5             8: 5           0     1.3G       0     part    [ SWAP]
+sdb                   8: 16         1 29.8G       0     disk
+|-sdb1             8.17         1 29.8G       0     disk    / media
+sr0                   11: 0         1     2.7G       0     rom
+```
+
+## Mounting storage devices
+
+`mount /dev/sdb1 /mnt`  
+mount the new hard drive sdb1 at the /mnt directory.  
+`mount /dev/sdc1 /media`  
+mount the flash drive sdc1 at the /media directory.  
+`umount /dev/sdb1`  
+unmount /dev/sdb1. (no n in umount)
+
+## Getting information on mounted disks
+
+```
+kali > df
+Filesystem                     1K-Blocks             Used     Available Use%           Mounted on
+rootfs                               19620732     17096196         1504788     92%          /
+udev                                         10240                   0             10240       0%          /dev
+--snip--
+/dev/sdb1                         29823024     29712544           110480     99%          /media/USB3.0
+```
