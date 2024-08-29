@@ -378,3 +378,34 @@ udev                                         10240       
 --snip--
 /dev/sdb1                         29823024     29712544           110480     99%          /media/USB3.0
 ```
+
+# The Logging System
+
+syslogd automatically log events on your computer.  
+Kali(Debian) comes with _rsyslog_ by default.
+
+## The rsyslog config file
+
+- /etc/rsyslog
+  `mail.* /var/log/mail`  
+  log mail events of all(_) priorities to /var/log/mail.  
+  `kern.crit /var/log/kernel`  
+  log kernel events of critical priority or higher to /var/log/kernel.  
+  `_.emerg \*`  
+  log all events of emergency priority to all logged-on users.
+
+## Cleaning up with logrotate
+
+- regularly moving old logs to other location
+- using cron job to employ the logrotate utility
+- /etc/logrotate.conf
+
+## Removing evidence
+
+- shred overwrites a file many times so that it is hard to recover for forensic investigators.  
+  `shred <File>`  
+  `kali >shred -f -n 10 /var/log/auth.log.*`  
+  -f for permission, -n for a number of times.
+- simply stop the rsyslog daemon  
+  `service rsyslog stop`  
+  But in this case, root privilege is required.
