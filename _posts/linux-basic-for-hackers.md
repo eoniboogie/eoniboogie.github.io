@@ -409,3 +409,24 @@ Kali(Debian) comes with _rsyslog_ by default.
 - simply stop the rsyslog daemon  
   `service rsyslog stop`  
   But in this case, root privilege is required.
+# Using And Abusing Services
+start, stop, or restart.  
+`service servicename start|stop|restart`  
+For example,  
+`service apache2 start`  
+## Apache
+- index file
+`/var/www/html/index.html`  
+## Mysql
+- login as root.  
+`kali >mysql -u root -p`  
+- accessing a remote database
+`mysql -u root -p 192.168.1.101`  
+- see table information
+`describe <table>;`  
+# Becoming Secure And Anonymous
+four methods to explore web anonymously.  
+- The Onion Network
+- Proxy servers
+- Virtual private networks
+- Private encrypted email
