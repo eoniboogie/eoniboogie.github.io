@@ -1,3 +1,12 @@
+---
+layout: post
+title: Linux basic for hackers
+subtitle: Summary of the textbook
+category: textbook
+thumbnail-img: /assets/img/writeup/HTB/cap/result.png
+tags: [textbook, linux]
+author: Hong
+---
 # Text manipulation
 
 ## Numbering the lines
