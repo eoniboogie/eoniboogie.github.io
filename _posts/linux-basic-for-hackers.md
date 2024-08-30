@@ -409,24 +409,64 @@ Kali(Debian) comes with _rsyslog_ by default.
 - simply stop the rsyslog daemon  
   `service rsyslog stop`  
   But in this case, root privilege is required.
+
 # Using And Abusing Services
+
 start, stop, or restart.  
 `service servicename start|stop|restart`  
 For example,  
-`service apache2 start`  
+`service apache2 start`
+
 ## Apache
+
 - index file
-`/var/www/html/index.html`  
+  `/var/www/html/index.html`
+
 ## Mysql
+
 - login as root.  
-`kali >mysql -u root -p`  
+  `kali >mysql -u root -p`
 - accessing a remote database
-`mysql -u root -p 192.168.1.101`  
+  `mysql -u root -p 192.168.1.101`
 - see table information
-`describe <table>;`  
+  `describe <table>;`
+
 # Becoming Secure And Anonymous
-four methods to explore web anonymously.  
+
+four methods to explore web anonymously.
+
 - The Onion Network
 - Proxy servers
 - Virtual private networks
 - Private encrypted email
+
+## Tor network
+
+Uses limited routers separated from regular routers (about 7000).  
+Only the IP address of the previous hop can be seen. The fallback is that it is a lot slower because of the number of routers. In order to use it, you need to just download the [browser](https://www.torproject.org/).  
+To access a darkweb, Tor is required.
+
+## Proxy servers
+
+A proxy server will remain logs. However, an investigator needs subpoena or search warrant to obtain the logs.  
+To harden security, you can use more than one proxy server. It is called a proxy chain.  
+Kali has a proxychain tool. For example,  
+`kali >proxychains nmap -sT -Pn <IP address>`  
+`kali >proxychains firefox www.google.com`
+
+## Proxy config file
+
+- /etc/proxychains.conf
+  you can add proxy servers in the config file. The Tor server is set to default. If you will not use Tor, then comment it out.
+- dynamic chaining
+  When a proxy server is dead, it uses another proxy servers instead. Otherwise, a request will fail.  
+  uncomment dynamic_chain from the config file.
+- random chaining
+  proxy serveres on the list will be chosen randomly. In order to use this option, comment out dynamic_chain and stric_chain. Then, uncomment random_chain and chain_len. The chain_len sets the number of proxy servers to be used.  
+  As the number of chain_len increases, anonymity will increase. However, the latency will increase too.  
+  Also, using free proxy servers should be avoided since they may sell your data and information.
+
+## Virtual private network
+
+The traffic is encrypted. Also, IP address and location of where you are will change so that keep you anonymous. However, the device you connect record your information. Thus, anyone who is able to access the device can uncover your information. There are VPN services that don't record any logs. Using these services is the safest.  
+The strength of VPN is that all of your traffic is encrypted.
