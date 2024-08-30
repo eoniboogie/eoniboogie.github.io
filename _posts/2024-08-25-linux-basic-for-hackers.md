@@ -497,7 +497,7 @@ The strength of VPN is that all of your traffic is encrypted.
 - Modes : managed | master | monitor
   - managed: ready to join (client)
   - master : ready to act (server)
-  - monitor :
+  - monitor : monitor traffics
 
 ### command for wifi interfaces
 
