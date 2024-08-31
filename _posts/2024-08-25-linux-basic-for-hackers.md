@@ -129,7 +129,12 @@ all processess and all users.
 `ps aux`
 
 ```
-USER     PID      % CPU    % MEM         VSZ         RSS TTY         STAT START       TIME       COMMAND Root         1         0.0       0.4         202540     6396 ?        Ss       Apr24         0: 46    / sbin/ init Root         2         0.0       0.0                   0           0 ?        S         Apr24         0: 00    [ kthreadd] Root         3         0.0       0.0                   0           0 ?        S         Apr24         0: 26    [ ksoftirqd/ 0] --snip-- root     39706     0.0     0.2     36096     3204 pts/ 0         R + 15: 05     0: 00         ps aux
+USER     PID      % CPU    % MEM       VSZ       RSS  TTY      STAT     START       TIME     COMMAND
+Root     1        0.0      0.4         202540    6396 ?        Ss       Apr24       0: 46    /sbin/init
+Root     2        0.0      0.0         0         0 ?           S        Apr24       0: 00    [ kthreadd]
+Root     3        0.0      0.0         0         0 ?           S        Apr24       0: 26    [ ksoftirqd/ 0]
+--snip--
+root     39706    0.0      0.2         36096    3204  pts/ 0   R +      15: 05      0: 00    ps aux
 ```
 
 It can be used with grep command.
@@ -281,9 +286,9 @@ c: create, v: verbose, f: following file(s)
 
 ```
 kali > tar -tvf HackersArise.tar
--rwxr-xr-x 1 root root               22311     Nov 27     2018 13: 00 hackersarise1. sh
--rwxr-xr-x 1 root root                 8791     Nov 27     2018 13: 00 hackersarise2. sh
--rwxr-xr-x 1 root root                 3992     Nov 27     2018 13: 00 hackersarise3. sh
+-rwxr-xr-x 1 root root               22311    Nov 27     2018 13: 00 hackersarise1. sh
+-rwxr-xr-x 1 root root               8791     Nov 27     2018 13: 00 hackersarise2. sh
+-rwxr-xr-x 1 root root               3992     Nov 27     2018 13: 00 hackersarise3. sh
 ```
 
 - Extract the files.
@@ -345,8 +350,8 @@ The SATA hard drive (500GB).
 - lists all the partitions of all the drives.
   ```
   kali > fdisk -l
-  Device           Boot     Start               End       Sectors       Size     Id     Type
-  /dev/ sdb1                       32     62498815     62498784     29.8G       7     HPFS/ NTFS/ exFAT
+  Device           Boot     Start          End           Sectors       Size     Id     Type
+  /dev/ sdb1                32             62498815      62498784      29.8G    7     HPFS/ NTFS/ exFAT
   ```
 - HPFS: High Performance File System
 - NTFS: New Technology File System (new)
@@ -358,15 +363,15 @@ These are not linux systems. They are macOS and Windows System. You can guess th
 
 ```
 kali > lsblk
-Name             MAJ:MIN     RM     SIZE     RO     TYPE     MOUNTPOINT
-fd0                   2: 0           1         4K       0     disk
-sda1                 8: 0           0       20G       0     disk
-|-sda1             8: 1           0 18.7G       0     part    /
-|-sda2             8: 2           0         1K       0     part
-|-sda5             8: 5           0     1.3G       0     part    [ SWAP]
-sdb                   8: 16         1 29.8G       0     disk
-|-sdb1             8.17         1 29.8G       0     disk    / media
-sr0                   11: 0         1     2.7G       0     rom
+Name             MAJ:MIN     RM     SIZE     RO    TYPE    MOUNTPOINT
+fd0              2: 0        1      4K       0     disk
+sda1             8: 0        0      20G      0     disk
+|-sda1           8: 1        0      18.7G    0     part    /
+|-sda2           8: 2        0      1K       0     part
+|-sda5           8: 5        0      1.3G     0     part    [ SWAP]
+sdb              8: 16       1      29.8G    0     disk
+|-sdb1           8.17        1      29.8G    0     disk    / media
+sr0              11: 0       1      2.7G     0     rom
 ```
 
 ## Mounting storage devices
@@ -382,11 +387,11 @@ unmount /dev/sdb1. (no n in umount)
 
 ```
 kali > df
-Filesystem                     1K-Blocks             Used     Available Use%           Mounted on
-rootfs                               19620732     17096196         1504788     92%          /
-udev                                         10240                   0             10240       0%          /dev
+Filesystem                     1K-Blocks        Used           Available   Use%         Mounted on
+rootfs                         19620732         17096196       1504788     92%         /
+udev                           10240            0              10240       0%          /dev
 --snip--
-/dev/sdb1                         29823024     29712544           110480     99%          /media/USB3.0
+/dev/sdb1                      29823024         29712544       110480      99%         /media/USB3.0
 ```
 
 # The Logging System
@@ -525,7 +530,8 @@ ESSID:" Hackers-Arise"
 The one we often see from wifi icon.
 
 ```
-kali > nmcli dev wifi *    SSID                       MODE         CHAN     RATE                       SIGNAL     BARS         SECURITY      
+kali > nmcli dev wifi
+*    SSID                       MODE         CHAN     RATE                       SIGNAL     BARS         SECURITY      
 Hackers-Arise     Infra       1           54 Mbits/ s           100                           WPA1 WPA2       Xfinitywifi         Infra       1           54 Mbits/ s           75                             WPA2       TPTV1                     Infra       11         54 Mbits/ s           44                             WPA1 WPA2
 ```
 
@@ -554,7 +560,8 @@ To connect to an AP.
 - Scanning for a bluetooth device.
 
 ```
-kali > hciconfig hci0: Type: BR/ EDR     Bus: USB            
+kali > hciconfig
+hci0: Type: BR/ EDR     Bus: USB            
 BD Address: 10: AE: 60: 58: F1: 37     ACL     MTU: 310: 10     SCO     MTU:     64: 8            
 UP RUNNING PSCAN INQUIRY             RX bytes: 131433 acl: 45 sco: 0 events: 10519     errors: 0            
 TX bytes: 42881     acl: 45 sco: 0 commands: 5081 errors: 0
