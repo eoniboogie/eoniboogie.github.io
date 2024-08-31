@@ -1,12 +1,13 @@
 ---
 layout: post
-title: Linux basic for hackers
-subtitle: Summary of the textbook
+title: Linux basics for hackers
+subtitle: Summary of the textbook linux basics for hackers
 category: textbook
-thumbnail-img: /assets/img/writeup/HTB/cap/result.png
-tags: [textbook, linux]
+thumbnail-img: /assets/img/textbook/linuxbasic.jpg
+tags: [textbook, linux, dd, rc, cron]
 author: Hong
 ---
+
 # Text manipulation
 
 ## Numbering the lines
@@ -591,3 +592,57 @@ Ping: 76: 6E: 46: 63: 72: 66 from 10: AE: 60: 58: F1: 37 (data size 44)...
 44 bytes 76: 6E: 46: 63: 72: 66 id 1 time 27.23ms
 44 bytes 76: 6E: 46: 63: 72: 66 id 2 time 27.59ms
 ```
+
+# Kernel
+
+## checking the kernel
+
+```
+kali >uname -a
+Linux Kali 4.6.0-kalil-amd64 #1 SMP Debian 4.6.4-lkalil (2016-07-21) x86_64
+```
+
+or  
+`cat /proc/version`
+
+# Automating tasks
+
+- /etc/crontab
+  Time representations in crontab.
+
+| Field | Time unit        | Representation |
+| ----- | ---------------- | -------------- |
+| 1     | Minute           | 0-59           |
+| 2     | Hour             | 0-23           |
+| 3     | Day of the month | 1-31           |
+| 4     | Month            | 1-12           |
+| 5     | Day of the week  | 0-7            |
+
+Day of the week : 0 and 7 are Sunday.
+
+```
+M     H     DOM     MON     DOW     USER     COMMAND
+30    2     *       *       1-5     root     / root/ myscanningscript
+```
+
+Every night at 2:30 AM, Monday to Friday.
+
+## crontab shortcuts
+
+crontab provides built in shortcut for scheduling.
+
+- @yearly
+- @annually
+- @monthly
+- @weekly
+- @daily
+- @midnight
+- @noon
+- @reboot  
+  `@midnight      user   / usr/ share/ MySQLsscanner.sh`
+
+## rc scripts to run jobs as start up
+
+`update-rc.d <name of the script or service> <remove|defaults|disable|enable`  
+For example, the below command sets postgreSQL to run every time you boot your system.  
+`kali >update-rc.d postgresql defaults`
