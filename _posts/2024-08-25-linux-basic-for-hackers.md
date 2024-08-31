@@ -1,12 +1,13 @@
 ---
 layout: post
-title: Linux basic for hackers
-subtitle: Summary of the textbook
+title: Linux basics for hackers
+subtitle: Summary of the textbook linux basics for hackers
 category: textbook
-thumbnail-img: /assets/img/writeup/HTB/cap/result.png
-tags: [textbook, linux]
+thumbnail-img: /assets/img/textbook/linuxbasic.jpg
+tags: [textbook, linux, dd, rc, cron]
 author: Hong
 ---
+
 # Text manipulation
 
 ## Numbering the lines
@@ -128,7 +129,12 @@ all processess and all users.
 `ps aux`
 
 ```
-USER     PID      % CPU    % MEM         VSZ         RSS TTY         STAT START       TIME       COMMAND Root         1         0.0       0.4         202540     6396 ?        Ss       Apr24         0: 46    / sbin/ init Root         2         0.0       0.0                   0           0 ?        S         Apr24         0: 00    [ kthreadd] Root         3         0.0       0.0                   0           0 ?        S         Apr24         0: 26    [ ksoftirqd/ 0] --snip-- root     39706     0.0     0.2     36096     3204 pts/ 0         R + 15: 05     0: 00         ps aux
+USER     PID      % CPU    % MEM       VSZ       RSS  TTY      STAT     START       TIME     COMMAND
+Root     1        0.0      0.4         202540    6396 ?        Ss       Apr24       0: 46    /sbin/init
+Root     2        0.0      0.0         0         0 ?           S        Apr24       0: 00    [ kthreadd]
+Root     3        0.0      0.0         0         0 ?           S        Apr24       0: 26    [ ksoftirqd/ 0]
+--snip--
+root     39706    0.0      0.2         36096    3204  pts/ 0   R +      15: 05      0: 00    ps aux
 ```
 
 It can be used with grep command.
@@ -280,9 +286,9 @@ c: create, v: verbose, f: following file(s)
 
 ```
 kali > tar -tvf HackersArise.tar
--rwxr-xr-x 1 root root               22311     Nov 27     2018 13: 00 hackersarise1. sh
--rwxr-xr-x 1 root root                 8791     Nov 27     2018 13: 00 hackersarise2. sh
--rwxr-xr-x 1 root root                 3992     Nov 27     2018 13: 00 hackersarise3. sh
+-rwxr-xr-x 1 root root               22311    Nov 27     2018 13: 00 hackersarise1. sh
+-rwxr-xr-x 1 root root               8791     Nov 27     2018 13: 00 hackersarise2. sh
+-rwxr-xr-x 1 root root               3992     Nov 27     2018 13: 00 hackersarise3. sh
 ```
 
 - Extract the files.
@@ -344,8 +350,8 @@ The SATA hard drive (500GB).
 - lists all the partitions of all the drives.
   ```
   kali > fdisk -l
-  Device           Boot     Start               End       Sectors       Size     Id     Type
-  /dev/ sdb1                       32     62498815     62498784     29.8G       7     HPFS/ NTFS/ exFAT
+  Device           Boot     Start          End           Sectors       Size     Id     Type
+  /dev/ sdb1                32             62498815      62498784      29.8G    7     HPFS/ NTFS/ exFAT
   ```
 - HPFS: High Performance File System
 - NTFS: New Technology File System (new)
@@ -381,11 +387,11 @@ unmount /dev/sdb1. (no n in umount)
 
 ```
 kali > df
-Filesystem                     1K-Blocks             Used           Available   Use%         Mounted on
-rootfs                         19620732              17096196       1504788     92%          /
-udev                           10240                 0              10240       0%           /dev
+Filesystem                     1K-Blocks        Used           Available   Use%         Mounted on
+rootfs                         19620732         17096196       1504788     92%         /
+udev                           10240            0              10240       0%          /dev
 --snip--
-/dev/sdb1                      29823024              29712544       110480      99%          /media/USB3.0
+/dev/sdb1                      29823024         29712544       110480      99%         /media/USB3.0
 ```
 
 # The Logging System
@@ -543,7 +549,7 @@ To connect to an AP.
 
 - To put wireless network in monitor mode, use the airmon-ng command.  
   `kali >airmon-ng start wlan0`  
-  In the monitor mode, it can access all the wireless traffic. And your wireless interface will get a new name.  
+  In the monitor mode, it can access all the wireless traffic. And your wireless interface will get a new name.
 - To find key data from the wireless traffic.  
   `kali >airodump-ng wlan0mon`  
   Capture all packets on channel 10.  
@@ -599,3 +605,57 @@ Ping: 76: 6E: 46: 63: 72: 66 from 10: AE: 60: 58: F1: 37 (data size 44)...
 44 bytes 76: 6E: 46: 63: 72: 66 id 1 time 27.23ms
 44 bytes 76: 6E: 46: 63: 72: 66 id 2 time 27.59ms
 ```
+
+# Kernel
+
+## checking the kernel
+
+```
+kali >uname -a
+Linux Kali 4.6.0-kalil-amd64 #1 SMP Debian 4.6.4-lkalil (2016-07-21) x86_64
+```
+
+or  
+`cat /proc/version`
+
+# Automating tasks
+
+- /etc/crontab
+  Time representations in crontab.
+
+| Field | Time unit        | Representation |
+| ----- | ---------------- | -------------- |
+| 1     | Minute           | 0-59           |
+| 2     | Hour             | 0-23           |
+| 3     | Day of the month | 1-31           |
+| 4     | Month            | 1-12           |
+| 5     | Day of the week  | 0-7            |
+
+Day of the week : 0 and 7 are Sunday.
+
+```
+M     H     DOM     MON     DOW     USER     COMMAND
+30    2     *       *       1-5     root     / root/ myscanningscript
+```
+
+Every night at 2:30 AM, Monday to Friday.
+
+## crontab shortcuts
+
+crontab provides built in shortcut for scheduling.
+
+- @yearly
+- @annually
+- @monthly
+- @weekly
+- @daily
+- @midnight
+- @noon
+- @reboot  
+  `@midnight      user   / usr/ share/ MySQLsscanner.sh`
+
+## rc scripts to run jobs as start up
+
+`update-rc.d <name of the script or service> <remove|defaults|disable|enable`  
+For example, the below command sets postgreSQL to run every time you boot your system.  
+`kali >update-rc.d postgresql defaults`
