@@ -15,7 +15,7 @@ subtitle: Why you'd want to go on a date with me
 
 상위 5%의 보안 엔지니어가 되는 것을 목표로 삼고 있습니다!
 
-![goal]("https://github.com/eoniboogie/eoniboogie.github.io/assets/img/goal.jpg")
+![goal](https://github.com/eoniboogie/eoniboogie.github.io/blob/master/assets/img/goal.jpg)
 
 일이라고 생각되지 않을 만큼 즐거운 일을 하고 싶은 마음입니다.
 
