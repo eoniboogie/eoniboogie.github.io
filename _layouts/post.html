@@ -41,6 +41,7 @@ layout: base
 
       <div class="blog-post">
         {{ content }}
+        {% include toc.html html=content %}
       </div>
 
       {% if page.tags.size > 0 %}
