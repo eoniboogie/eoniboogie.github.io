@@ -4,7 +4,7 @@ title: Linux basics for hackers
 subtitle: Summary of the textbook linux basics for hackers
 category: textbook
 toc: true
-thumbnail-img: https://covers.openlibrary.org/b/isbn/9781593278557-S.jpg
+thumbnail-img: https://covers.openlibrary.org/b/isbn/9781593278557-M.jpg
 tags: [textbook, linux, dd, rc, cron]
 author: Hong
 ---
