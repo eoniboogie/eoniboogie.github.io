@@ -3,6 +3,7 @@ layout: post
 title: Linux basics for hackers
 subtitle: Summary of the textbook linux basics for hackers
 category: textbook
+toc: true
 thumbnail-img: /assets/img/textbook/linuxbasic.jpg
 tags: [textbook, linux, dd, rc, cron]
 author: Hong
