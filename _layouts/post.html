@@ -40,6 +40,7 @@ layout: base
       {% endif %}
 
       <div class="blog-post">
+        {% include toc.html html=content %}
         {{ content }}
       </div>
 
