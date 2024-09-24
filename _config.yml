@@ -251,7 +251,7 @@ collections:
     permalink: /:collection/:categories:output_ext
   knowledge:
     output: true
-    permalink: /:collection/:categories:knowledge
+    permalink: /:collection/:categories:output_ext
     
 # Default YAML values (more information on Jekyll's site)
 defaults:
