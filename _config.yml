@@ -3,7 +3,7 @@
 ############################
 
 # Name of website
-title: ホン ソンオン
+title: 홍성언
 
 # Your name to show in the footer
 author: Seongeon Hong
@@ -19,6 +19,7 @@ navbar-links:
     - Security event: "https://eoniboogie.github.io/event/event.html"
     - Writeup: "https://eoniboogie.github.io/writeup/writeup.html"
     - Textbook: "https://eoniboogie.github.io/textbook/textbook.html"
+    - Knowledge: "https://eoniboogie.github.io/knowledge/knowledge.html"
   Tags: "tags"
 
 ################
