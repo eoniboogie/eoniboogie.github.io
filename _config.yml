@@ -106,9 +106,9 @@ keywords: "hong,seongeon,cv"
 
 # Personalize the colours in your website. Colour values can be any valid CSS colour
 
-page-col: "#2d2628"
+page-col: "#2D2628"
 text-col: "#009900"
-link-col: "#008AFF"
+link-col: "#FF7500"
 hover-col: "#0085A1"
 navbar-col: "#0c070d"
 navbar-text-col: "#07b343"
