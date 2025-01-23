@@ -13,12 +13,13 @@ Email: s.hong@ntt.com
 2015–2018 B.Sc., Economics and Finance, University of Amsterdam (The Netherlands).
 
 ## Certificates
+- CISSP (2025.01 ~)
 - CompTIA Pentest+ (2024.02 ~)
 - CompTIA Security+ (2023.12 ~)
 - Azure Administrator Associate (2023.06 ~)
 - Azure AI fundamentals (2022.08 ~)
 - Azure Fundamentals (2022.05 ~)
-- CISSP (2025.01 ~)
+
 
 
 ## Skills

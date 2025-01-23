@@ -18,11 +18,12 @@ subtitle: Why you'd want to go on a date with me
 
 
 현재 취득 중인 자격증은 아래와 같습니다.
+- CISSP (2025.01 ~)
 - CompTIA Pentest+ (2024.02 ~)
 - CompTIA Security+ (2023.12 ~)
 - Azure Administrator Associate (2023.06 ~)
 - Azure AI fundamentals (2022.08 ~)
 - Azure Fundamentals (2022.05 ~)
-- CISSP (2025.01 ~)
+
 
 현재 OSCP 도전중
