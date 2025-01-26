@@ -3,7 +3,7 @@ layout: post
 title: CVE-2021-3156 취약점 및 예시
 subtitle: Baron Samedit - sudo 버전 취약점점
 category: knowledge
-thumbnail-img: /assets/img/avatar-icon.png
+thumbnail-img: /assets/img/knowledge/baron.webp
 tags: [kernel, sudo, suid, baronsamedit,CVE-2021-3156]
 author: Hong
 ---
