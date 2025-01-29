@@ -1,7 +1,7 @@
 ---
 layout: post
-title: 윈도우 그룹폴리시 취약점점
-subtitle: SharpGPOAbuse를 이용한 윈도우 권한 상승 방법법
+title: 윈도우 그룹폴리시 취약점
+subtitle: SharpGPOAbuse를 이용한 윈도우 권한 상승 방법
 category: knowledge
 thumbnail-img: /assets/img/knowledge/sharp.webp
 tags: [windows, GPO, grouppolicy, sharpgpoabuse]
