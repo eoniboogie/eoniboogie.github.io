@@ -33,6 +33,10 @@ Sudoers I/O plugin version 1.8.31
 
 https://github.com/mohinparamasivam/Sudo-1.8.31-Root-Exploit 여기서 깃을 클론해온다.
 
+위의 리포지토리의 경우 gcc로 컴파일 할 필요가 있기 때문에 시스템에 gcc가 없으면 사용하기 어렵다.
+
+https://github.com/worawit/CVE-2021-3156 여기의 경우 파이썬 파일로도 같은 기능을 하기 때문에 python이 설치되어 있으면 사용할 수 있다.
+
 ```bash
 # 실행전
 www-data@ip-172-20-3-199:/tmp/Sudo-1.8.31-Root-Exploit-main$ whoami
