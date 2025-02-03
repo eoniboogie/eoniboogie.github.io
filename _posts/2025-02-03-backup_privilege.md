@@ -12,7 +12,7 @@ author: Hong
 ![SeBackupPrivilege](/assets/img/knowledge/backuppriv.png)
 
 참고로 위의 권한은 `whoami /priv나 /all 명령어로 확인 할 수 있다.`
-# sam, system 파일을 가져오기기
+# sam, system 파일을 가져오기
 
 이 수법의 특징은 모든 파일을 읽을 수 있다는 것.
 
