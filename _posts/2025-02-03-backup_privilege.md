@@ -45,3 +45,5 @@ download system
 `evil-winrm -i 192.168.x.x -u raj -H <해쉬>`
 
 이렇게해서 백업 권한을 가진 경우 민감한 파일을 복사해 kali로 옮긴 후 해쉬를 추출해보았다.
+
+참고자료:https://www.hackingarticles.in/windows-privilege-escalation-sebackupprivilege/
