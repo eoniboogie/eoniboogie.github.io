@@ -3,7 +3,7 @@ layout: post
 title: UAC bypass로 관리자 권한 쉘 열기
 subtitle: UAC Bypass를 이용한 쉘 권한 높이기 
 category: knowledge
-thumbnail-img: /assets/img/404-southpark.jpg
+thumbnail-img: /assets/img/knowledge/high.png
 tags: [reverseshell, upgrade]
 author: Hong
 ---
