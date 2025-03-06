@@ -7,6 +7,7 @@ thumbnail-img: /assets/img/knowledge/dirtypipe.png
 tags: [linux, dirtypipe, kernel, CVE-2022-0847]
 author: Hong
 ---
+
 # 커널 버전 확인
 아래의 명령어로 리눅스 커널의 버전을 확인한다.
 ```
