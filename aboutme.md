@@ -15,7 +15,7 @@ subtitle: Why you'd want to go on a date with me
 
 사이버 보안, 레드팀에 관심이 있습니다.
 
-![goal](/assets/img/icon.gif)
+![goal](/assets/img/hazard.jpg)
 
 현재 취득 중인 자격증은 아래와 같습니다.
 
