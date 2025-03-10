@@ -3,7 +3,7 @@ layout: post
 title: Dirtypipe 취약점
 subtitle: 리눅스 커널 취약점을 이용한 권한상승
 category: knowledge
-thumbnail-img: /assets/img/knowledge/dirtypipe.png
+thumbnail-img: /assets/img/knowledge/hazard.jpg
 tags: [linux, dirtypipe, kernel, CVE-2022-0847]
 author: Hong
 ---
