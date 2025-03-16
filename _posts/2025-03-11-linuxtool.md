@@ -367,3 +367,11 @@ pdf 파일을 리눅스에서도 볼 수 있다.
 snmp 서비스를 enum할 때 사용한다.
 그냥 snmp-walk보다 더 많은 정보가 나온다.
 `snmpbulkwalk -c public -v2c 192.168.131.149 .`
+
+# git-dumper
+
+웹사이트 조사 중 .git이 있을 때 덤프 하는 툴.
+
+[git-dumper](https://github.com/arthaud/git-dumper)
+
+wget -r 옵션으로도 가능하지만 깃의 용량이 클 경우 매우 긴 시간이 걸리기 때문에 이 툴을 사용하면 금방 덤프할 수 있다.
