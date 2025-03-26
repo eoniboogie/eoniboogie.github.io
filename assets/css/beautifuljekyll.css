@@ -6,6 +6,14 @@ layout: null
 
 :root {
   /* config file CSS variables */
+  
+  --mid-col: #07b343;
+}
+
+/* --- General --- */
+
+html {
+  font-size: 110%;
   --page-col: #FFFFFF;
   --text-col: #404040;
   --link-col: #008AFF;
@@ -21,13 +29,6 @@ layout: null
   /* common CSS variables */
   --body-font: 'Lora', 'Times New Roman', serif;
   --header-font: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  --mid-col: #07b343;
-}
-
-/* --- General --- */
-
-html {
-  font-size: 110%
 }
 
 @media (prefers-color-scheme: dark) {
