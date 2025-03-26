@@ -16,7 +16,7 @@ html {
   --navbar-col: #EAEAEA;
   --navbar-text-col: #404040;
   --navbar-border-col: #DDDDDD;
-  --footer-col: #f50909;
+  --footer-col: #FFFFFF;
   --footer-text-col: #13cbe8;
   --footer-link-col: #aefa09;
   --footer-hover-col: #0085A1;
@@ -36,9 +36,9 @@ html {
     --navbar-col: #EAEAEA;
     --navbar-text-col: #07b343;
     --navbar-border-col: #DDDDDD;
-    --footer-col: #f50909;
-    --footer-text-col: #13cbe8;
-    --footer-link-col: #aefa09;
+    --footer-col: rgb(28, 28, 30);
+    --footer-text-col: #07b343;
+    --footer-link-col: #f59f0a;
     --footer-hover-col: #0085A1;
 	}
 } 
