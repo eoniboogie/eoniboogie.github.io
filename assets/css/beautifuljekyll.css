@@ -33,9 +33,9 @@ html {
     --text-col: #07b343;
     --link-col: #f59f0a;
     --hover-col: #0085A1;
-    --navbar-col: #EAEAEA;
+    --navbar-col: rgb(28, 28, 30);
     --navbar-text-col: #07b343;
-    --navbar-border-col: #DDDDDD;
+    --navbar-border-col: #1a0101;
     --footer-col: rgb(28, 28, 30);
     --footer-text-col: #07b343;
     --footer-link-col: #f59f0a;
