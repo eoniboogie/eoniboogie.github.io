@@ -5,26 +5,25 @@ layout: null
 @import url("pygment_highlights.css");
 
 /* --- General --- */
-@media (prefers-color-scheme: white) {
-  html {
-    font-size: 110%;
-    --page-col: #FFFFFF;
-    --mid-col: #07b343;
-    --text-col: #404040;
-    --link-col: #008AFF;
-    --hover-col: #0085A1;
-    --navbar-col: #EAEAEA;
-    --navbar-text-col: #404040;
-    --navbar-border-col: #DDDDDD;
-    --footer-col: #f50909;
-    --footer-text-col: #13cbe8;
-    --footer-link-col: #aefa09;
-    --footer-hover-col: #0085A1;
-  
-    /* common CSS variables */
-    --body-font: 'Lora', 'Times New Roman', serif;
-    --header-font: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  }
+
+html {
+  font-size: 110%;
+  --page-col: #FFFFFF;
+  --mid-col: #07b343;
+  --text-col: #404040;
+  --link-col: #008AFF;
+  --hover-col: #0085A1;
+  --navbar-col: #EAEAEA;
+  --navbar-text-col: #404040;
+  --navbar-border-col: #DDDDDD;
+  --footer-col: #f50909;
+  --footer-text-col: #13cbe8;
+  --footer-link-col: #aefa09;
+  --footer-hover-col: #0085A1;
+
+  /* common CSS variables */
+  --body-font: 'Lora', 'Times New Roman', serif;
+  --header-font: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
 @media (prefers-color-scheme: dark) {
