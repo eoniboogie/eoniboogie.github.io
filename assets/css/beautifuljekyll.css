@@ -4,17 +4,12 @@ layout: null
 
 @import url("pygment_highlights.css");
 
-:root {
-  /* config file CSS variables */
-  
-  --mid-col: #07b343;
-}
-
 /* --- General --- */
 @media (prefers-color-scheme: white) {
   html {
     font-size: 110%;
     --page-col: #FFFFFF;
+    --mid-col: #07b343;
     --text-col: #404040;
     --link-col: #008AFF;
     --hover-col: #0085A1;
@@ -430,7 +425,7 @@ footer {
 }
 
 footer p.text-muted {
-  color: var(--footer-text-col) !important;
+  color: var(--footer-text-col);
 }
 
 footer a {
