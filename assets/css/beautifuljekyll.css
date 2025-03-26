@@ -21,9 +21,9 @@ layout: null
     --navbar-col: #EAEAEA;
     --navbar-text-col: #404040;
     --navbar-border-col: #DDDDDD;
-    --footer-col: #EAEAEA;
-    --footer-text-col: #777777;
-    --footer-link-col: #404040;
+    --footer-col: #f50909;
+    --footer-text-col: #13cbe8;
+    --footer-link-col: #aefa09;
     --footer-hover-col: #0085A1;
   
     /* common CSS variables */
