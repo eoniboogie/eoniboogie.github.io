@@ -7,7 +7,7 @@ layout: null
 /* --- General --- */
 
 html {
-  font-size: 110%;
+  font-size: 100%;
   --page-col: #FFFFFF;
   --mid-col: #07b343;
   --text-col: #404040;
@@ -28,10 +28,18 @@ html {
 
 @media (prefers-color-scheme: dark) {
 	html {
-		--light-text-color: #07b343;
-  	--link-color: rgb( 100, 210, 255);
-  	--main-background-color: rgb(28, 28, 30);
-  	--main-text-color: #07b343;
+    --page-col: rgb(28, 28, 30);
+    --mid-col: #07b343;
+    --text-col: #07b343;
+    --link-col: #f59f0a;
+    --hover-col: #0085A1;
+    --navbar-col: #EAEAEA;
+    --navbar-text-col: #07b343;
+    --navbar-border-col: #DDDDDD;
+    --footer-col: #f50909;
+    --footer-text-col: #13cbe8;
+    --footer-link-col: #aefa09;
+    --footer-hover-col: #0085A1;
 	}
 } 
 
