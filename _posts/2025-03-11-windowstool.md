@@ -162,3 +162,11 @@ Invoke-BloodHound -CollectionMethod All -OutputDirectory C:\temp -OutputPrefix "
 압축 파일이 생성되는데 이 파일을 bloodhound에 업로드해서 분석할 수 있다.
 
 bin파일은 캐시 정보를 포함할 뿐이기 때문에 지워도 상관없다.
+
+## bloodhound
+zip 파일을 칼리로 옮겼다면 bloodhound를 실행해서 업로드하면 된다.
+```sh
+sudo neo4j start # 초기 비밀번호neo4j/neo4j
+
+bloodhound
+```
