@@ -85,6 +85,8 @@ CanRestart                      : False
 
 사용하기 전에 모듈을 임포트해서 사용한다. `Import-Module`
 
+`Find-LocalAdminAccess`같이 사용 가능.
+
 # sigmapotato
 
 SeImpersonatePrivilege Impersonate a client after authentication Enabled일 때 사용 할 수 있는 툴.
@@ -144,3 +146,19 @@ The command completed successfully.
 파이썬이 설치되어 있지 않아도 간단하게 웹서버를 세울 수 있다. 파일을 옮기거나 할 때 편리하다.
 
 [winsimplehttp](https://github.com/remisarrailh/WinSimpleHTTP)
+
+# sharphound
+
+[다운로드 링크](https://github.com/SpecterOps/SharpHound/releases)에서 맞는 버전의 바이너리 파일을 다운받는다.
+
+예를들어 bloodhound의 버전이 4.3.1인 경우 sharphound는 1.1.1을 다운받아야한다.
+
+```powershell
+powershell -ep bypass
+Import-Module .\Sharphound.ps1
+
+Invoke-BloodHound -CollectionMethod All -OutputDirectory C:\temp -OutputPrefix "corp audit"
+```
+압축 파일이 생성되는데 이 파일을 bloodhound에 업로드해서 분석할 수 있다.
+
+bin파일은 캐시 정보를 포함할 뿐이기 때문에 지워도 상관없다.
