@@ -151,7 +151,7 @@ The command completed successfully.
 
 [다운로드 링크](https://github.com/SpecterOps/SharpHound/releases)에서 맞는 버전의 바이너리 파일을 다운받는다.
 
-예를들어 bloodhound의 버전이 4.3.1인 경우 sharphound는 1.1.1을 다운받아야한다.
+예를들어 bloodhound의 버전이 4.3.1인 경우 꽤 오래된 버전인 sharphound는 1.1.1을 다운받아야하는데 [이 링크](https://github.com/SpecterOps/SharpHound/releases/tag/v1.1.1)에서 받을 수 있다.
 
 ```powershell
 powershell -ep bypass
