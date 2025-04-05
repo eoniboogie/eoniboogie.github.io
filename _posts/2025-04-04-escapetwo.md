@@ -248,6 +248,8 @@ Certification Service (CS)는 인증서를 관리하는 windows의 서비스다.
 
 ![addacl](/assets/img/writeup/HTB/escapetwo/addacl.png)
 
+## certipy-ad
+
 그다음 certipy-ad라는 툴을 이용하여 인증서를 만든다.
 
 Active Directory 환경에서 공격자가 인증을 우회하거나 권한 상승을 시도할 수 있는 **Shadow Credentials**를 자동으로 탐지하고 추출하는 명령어를 입력한다.
