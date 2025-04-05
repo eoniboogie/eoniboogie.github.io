@@ -375,3 +375,11 @@ snmp 서비스를 enum할 때 사용한다.
 [git-dumper](https://github.com/arthaud/git-dumper)
 
 wget -r 옵션으로도 가능하지만 깃의 용량이 클 경우 매우 긴 시간이 걸리기 때문에 이 툴을 사용하면 금방 덤프할 수 있다.
+
+# powerview
+
+[powerview](https://github.com/aniqfakhrul/powerview.py)
+
+파이썬 스크립트로 작성된 툴. 번거롭게 윈도우로 파워뷰를 전송하지 않아도 유저의 크레덴셜을 알면 리눅스에서 실행 할 수 있다.
+
+명령어도 더 쓰기 쉽고 tab 호환도 되서 입력도 빠르다. 그리고 결과가 나오는 속도도 빨라서 좋다.
