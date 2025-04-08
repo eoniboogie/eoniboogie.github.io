@@ -1,29 +1,35 @@
 ---
 layout: page
 title: About me
-subtitle: Why you'd want to go on a date with me
+subtitle: About me as a security engineer
 ---
 
-안녕하세요!
+Hi!
 
-이 블로그에서는 다음과 같은 포스팅을 주로 올리고 있습니다.
+Thanks for visiting my blog.
 
-- CTF, HTB등의 해설
-- 전문서적 리뷰, 내용 정리
-- 보안 관련 이벤트 후기
+In this blog I mainly post about topics below.
+
+- CTF, HTB writeups
+- Textbooks review
+- Security events review
 - CV
 
-사이버 보안, 레드팀에 관심이 있습니다.
+I'm interested in cyber security especially penetration testing.
 
 ![goal](/assets/img/hazard.jpg)
 
-현재 취득 중인 자격증은 아래와 같습니다.
+List below shows certificates that I have.
 
 - CISSP (2025.01 ~)
+- [ATT Training from NF labs](/FLT011K007063_ENG_11ATT.pdf) (2024.07 ~ 2025.01)
+- [Bootup Training from NF labs](/FLT011K007063_ENG_11BUP.pdf) (2024.05 ~ 2024.07)
 - CompTIA Pentest+ (2024.02 ~)
 - CompTIA Security+ (2023.12 ~)
 - Azure Administrator Associate (2023.06 ~)
 - Azure AI fundamentals (2022.08 ~)
 - Azure Fundamentals (2022.05 ~)
 
-현재 OSCP 도전중
+Currently preparing for OSCP exam.
+
+[You can check my CV!](/cv.md)
