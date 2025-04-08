@@ -19,8 +19,8 @@ Email: s.hong@ntt.com
 ## Certificates
 
 - CISSP (2025.01 ~)
-- ATT Training from NF labs (2024.07 ~ 2025.01)
-- Bootup Training from NF labs (2024.05 ~ 2024.07)
+- [ATT Training from NF labs](/FLT011K007063_ENG_11ATT.pdf) (2024.07 ~ 2025.01)
+- [Bootup Training from NF labs](/FLT011K007063_ENG_11BUP.pdf) (2024.05 ~ 2024.07)
 - CompTIA Pentest+ (2024.02 ~)
 - CompTIA Security+ (2023.12 ~)
 - Azure Administrator Associate (2023.06 ~)
