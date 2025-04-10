@@ -1,12 +1,38 @@
 ---
 layout: post
-title: Active Directory ESC1 ESC4 공격
-subtitle: ESC1과 ESC4를 이용하여 도메인 권한 상승하는 방법
+title: Active Directory ESC1 ESC4 ESC8 공격
+subtitle: ADCS의 취약점을 이용한 권한상승 (ESC1, ESC4, ESC8)
 category: knowledge
 thumbnail-img: /assets/img/knowledge/procmon.png
-tags: [knowledge, esc, certipy-ad, powerview, windows]
+tags: [knowledge, esc, certipy-ad, powerview, windows, ADCS]
 author: Hong
 ---
 
+# ADCS란?
+
+마이크로소프트의 공식 문서의 정의에 따르면 ADCS는 AD CS(Active Directory Certificate Services)는 안전한 통신 및 인증 프로토콜에 사용되는
+PKI(공개 키 인프라) 인증서를 발급하고 관리하기 위한 Windows Server 역할을 의미한다.
+
+디지털 인증서는 파일의 암호화, 디지털 서명, *사용자 혹은 디바이스 인증*에도 사용된다.
+
+인증서를 발급하고 관리하는 기관을 CA (Certification Authorities)라고 부른다.
+
+ADCS에 취약점이 있으면 인증 부분을 악용해 권한상승을 노릴 수 있다.
+
+이때 이용되는 공격을 ESC라고 부르는데 1 ~ 8까지 있는 듯 하다.
+
+이번 포스팅에서는 조사한 내용을 바탕으로 1, 4, 8에 대해 설명한다.
+
+# ESC1
+
 https://www.beyondtrust.com/blog/entry/esc1-attacks
+https://www.crowe.com/cybersecurity-watch/exploiting-ad-cs-a-quick-look-at-esc1-esc8
+
+# ESC4
+
 https://www.beyondtrust.com/blog/entry/esc4-attacks
+https://www.igloo.co.kr/security-information/adcs%EC%9D%98-%EC%B7%A8%EC%95%BD%ED%95%9C-%EC%9D%B8%EC%A6%9D%EC%84%9C-%ED%85%9C%ED%94%8C%EB%A6%BF-%EA%B5%AC%EC%84%B1%EC%9D%84-%ED%86%B5%ED%95%9C-esc1-%EA%B3%B5%EA%B2%A9%EA%B8%B0%EC%88%A0offensive-tec/
+https://redfoxsec.com/blog/exploiting-weak-acls-on-active-directory-certificate-templates-esc4/
+
+#ESC8
+https://www.crowe.com/cybersecurity-watch/exploiting-ad-cs-a-quick-look-at-esc1-esc8

@@ -16,7 +16,7 @@ Email: s.hong@ntt.com
 
 2015–2018 B.Sc., Economics and Finance, University of Amsterdam (The Netherlands).
 
-## Certificates
+## Courses & Certificates
 
 - CISSP (2025.01 ~)
 - [ATT Training from NF labs](/FLT011K007063_ENG_11ATT.pdf) (2024.07 ~ 2025.01)
@@ -37,11 +37,9 @@ Email: s.hong@ntt.com
 
 ### IT skills
 
-- Programming: Python, C
-- Security: SOC, CIRT
+- Programming: Python, C, Javascript
+- Security: SOC, CIRT, Penetration test, Log analysis
 - Cloud: Azure
-- Log analysis
-- Pentest
 
 ## Project
 
