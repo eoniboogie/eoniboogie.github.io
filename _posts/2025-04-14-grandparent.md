@@ -18,27 +18,29 @@ We can see the web server is open.
 
 It's using IIS 6.0 version.
 
-Checked the web page but nothing can be found.
+Checked the web page but nothing found.
 
 ![web](/assets/img/writeup/HTB/granny/web.png)
 
 ## metasploit
 
-This machine can be easily cleared by using msfconsole.
+This machine can be easily done by using msfconsole.
+
+`msfconsole`
 
 search if there are any exploits available.
 
 `search iis 6.0`
 
-Use the exploit for the iis one.
+Use the exploit related to iis.
 
-After logging in enumerated the directories and files.
+After running the exploit, I enumerated the directories and files.
 
 ![whoami](/assets/img/writeup/HTB/granny/whoami.png)
 
 Found there's a vulnerablility in user privileges but there was no way to transfer tools.
 
-So, I decided to use metasploit's local exploit suggester.
+Decided to use metasploit's local exploit suggester.
 
 ![suggester](/assets/img/writeup/HTB/granny/suggester.png)
 
@@ -48,9 +50,9 @@ The current session has to be backgrounded to use another session.
 
 ![webdav](/assets/img/writeup/HTB/granny/webdav.png)
 
-Use the available vulnerability and set a session to the session that we connected before.
+Use the available vulnerability and set a session to the session that we connected before, say session 1.
 
-After running the exploit, it may say permission denied. Then you need to go back to the previous session and migrate to NT Authority process.
+After running the exploit, it may say _permission denied_. Then you need to go back to the session 1 and migrate to NT Authority process for higher privileges.
 
 ![migrate](/assets/img/writeup/HTB/granny/migrate.png)
 
