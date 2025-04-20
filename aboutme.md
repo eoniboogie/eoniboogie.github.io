@@ -30,6 +30,10 @@ List below shows certificates that I have.
 - Azure AI fundamentals (2022.08 ~)
 - Azure Fundamentals (2022.05 ~)
 
+Hack the box
+
+- [season 7 silver](https://labs.hackthebox.com/achievement/season/1746857/7)
+
 Currently preparing for OSCP exam.
 
 [You can check my CV!](/cv.md)
