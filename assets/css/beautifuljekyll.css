@@ -9,7 +9,7 @@ layout: null
 html {
   font-size: 100%;
   --page-col: #FFFFFF;
-  --mid-col: #07b343;
+  --mid-col: #4BC776;
   --text-col: #404040;
   --link-col: #008AFF;
   --hover-col: #0085A1;
@@ -29,15 +29,15 @@ html {
 @media (prefers-color-scheme: dark) {
 	html {
     --page-col: rgb(28, 28, 30);
-    --mid-col: #07b343;
-    --text-col: #07b343;
+    --mid-col: #4BC776;
+    --text-col: #4BC776;
     --link-col: #f59f0a;
     --hover-col: #0085A1;
     --navbar-col: rgb(28, 28, 30);
-    --navbar-text-col: #07b343;
+    --navbar-text-col: #4BC776;
     --navbar-border-col: #1a0101;
     --footer-col: rgb(28, 28, 30);
-    --footer-text-col: #07b343;
+    --footer-text-col: #4BC776;
     --footer-link-col: #f59f0a;
     --footer-hover-col: #0085A1;
 	}
