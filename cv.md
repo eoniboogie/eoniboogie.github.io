@@ -7,7 +7,7 @@ title: CV
 
 ## NTT Docomo
 
-Security Management Office  
+Product service department - Support for the development, deployment, and operation of security systems 
 Email: s.hong@ntt.com
 
 ## Education

@@ -1,26 +1,19 @@
 ---
 layout: page
 title: About me
-subtitle: About me as a security engineer
 ---
 
-Hi!
+**経歴**
 
-Thanks for visiting my blog.
+2018: アムステルダム大学経済学部卒業
 
-In this blog I mainly post about topics below.
+2021:　奈良先端科学技術大学院大学情報セキュリティ工学修士卒業
 
-- CTF, HTB writeups
-- Textbooks review
-- Security events review
-- CV
+2021 ~ 現在:NTTドコモ（旧NTTコミュニケーションズ）セキュリティエンジニア
 
-I'm interested in cyber security especially penetration testing.
+---
 
-![goal](/assets/img/hazard.jpg)
-
-List below shows certificates that I have.
-
+**研修・資格**
 - CISSP (2025.01 ~)
 - [ATT Training from NF labs](/FLT011K007063_ENG_11ATT.pdf) (2024.07 ~ 2025.01)
 - [Bootup Training from NF labs](/FLT011K007063_ENG_11BUP.pdf) (2024.05 ~ 2024.07)
@@ -30,10 +23,14 @@ List below shows certificates that I have.
 - Azure AI fundamentals (2022.08 ~)
 - Azure Fundamentals (2022.05 ~)
 
-Hack the box
+---
 
-- [season 7 silver](https://labs.hackthebox.com/achievement/season/1746857/7)
+**Hack The Box・CTF**
 
-Currently preparing for OSCP exam.
+- [HTB season 7 silver](https://labs.hackthebox.com/achievement/season/1746857/7)
 
-[You can check my CV!](/cv.md)
+---
+
+**履歴書**
+
+[履歴書のリンク](/cv.md)
