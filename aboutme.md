@@ -28,6 +28,7 @@ title: About me
 **Hack The Box・CTF**
 
 - [HTB season 7 silver](https://labs.hackthebox.com/achievement/season/1746857/7)
+- 2025/7/30 HTB - Hacker rank
 
 ---
 
