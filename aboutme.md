@@ -29,7 +29,7 @@ title: About me
 
 - [HTB season 7 silver](https://labs.hackthebox.com/achievement/season/1746857/7)
 - 2025/7/30 HTB - Hacker rank
-
+- [HTB season 8 silver](https://labs.hackthebox.com/achievement/season/1746857/8)
 ---
 
 **履歴書**
