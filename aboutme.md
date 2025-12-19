@@ -9,14 +9,14 @@ title: About me
 
 2021:奈良先端科学技術大学院大学情報セキュリティ工学修士卒業
 
-2021 ~ 現在:NTTドコモ（旧NTTコミュニケーションズ）セキュリティエンジニア
+2021 ~ 2025:NTTドコモ（旧NTTコミュニケーションズ）, Security engineer
+
+2025 ~ : GMO Cybersecurity by Ierae, Web Pentest 
 
 ---
 
 **研修・資格**
 - CISSP (2025.01 ~)
-- [ATT Training from NF labs](/FLT011K007063_ENG_11ATT.pdf) (2024.07 ~ 2025.01)
-- [Bootup Training from NF labs](/FLT011K007063_ENG_11BUP.pdf) (2024.05 ~ 2024.07)
 - CompTIA Pentest+ (2024.02 ~)
 - CompTIA Security+ (2023.12 ~)
 - Azure Administrator Associate (2023.06 ~)
@@ -25,11 +25,10 @@ title: About me
 
 ---
 
-**Hack The Box・CTF**
+**CVE Records**
 
-- [HTB season 7 silver](https://labs.hackthebox.com/achievement/season/1746857/7)
-- 2025/7/30 HTB - Hacker rank
-- [HTB season 8 silver](https://labs.hackthebox.com/achievement/season/1746857/8)
+- CVE-2025-67349
+
 ---
 
 **履歴書**
