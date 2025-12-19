@@ -3,19 +3,19 @@ layout: page
 title: About me
 ---
 
-**経歴**
+**Career History**
 
-2018:アムステルダム大学経済学部卒業
+2018:Graduated from the Faculty of Economics and Business, University of Amsterdam
 
-2021:奈良先端科学技術大学院大学情報セキュリティ工学修士卒業
+2021:Graduated with a Master’s degree in Information Security Engineering, Nara Institute of Science and Technology
 
-2021 ~ 2025:NTTドコモ（旧NTTコミュニケーションズ）, Security engineer
+2021 - 2025:NTT Docomo Business（formerly NTT Communications）, Security Engineer
 
-2025 ~ : GMO Cybersecurity by Ierae, Web Pentest 
+2025 - Present: GMO Cybersecurity by Ierae, Web Penetration Tester
 
 ---
 
-**研修・資格**
+**Certifications**
 - CISSP (2025.01 ~)
 - CompTIA Pentest+ (2024.02 ~)
 - CompTIA Security+ (2023.12 ~)
@@ -31,6 +31,6 @@ title: About me
 
 ---
 
-**履歴書**
+**Resume**
 
-[履歴書のリンク](/cv.md)
+[Link to Resume](/cv.md)
