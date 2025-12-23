@@ -7,7 +7,6 @@ thumbnail-img: /assets/img/hazard.jpg
 tags: [knowledge, apt-get, crontab, apt, cron]
 author: Hong
 ---
-
 # cron job으로 등록된 apt-get
 apt-get이나 apt 명령어가 cron잡에 등록되어서 권한상승으로 이어지는 문제를 풀었다.
 
