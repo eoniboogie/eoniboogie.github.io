@@ -27,7 +27,7 @@ title: About me
 
 **CVE Records**
 
-- CVE-2025-67349
+- [CVE-2025-67349](https://nvd.nist.gov/vuln/detail/CVE-2025-67349)
 
 ---
 
