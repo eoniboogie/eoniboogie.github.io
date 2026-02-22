@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Reverseshell :: Tag :: Dragonfly Commando</title>
+    <link>http://localhost:1313/tags/reverseshell/index.html</link>
+    <description></description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 21 Feb 2026 23:34:58 +0900</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/reverseshell/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Stabilize a reverse shell</title>
+      <link>http://localhost:1313/posts/revshell-upgrade/index.html</link>
+      <pubDate>Sat, 21 Feb 2026 23:34:58 +0900</pubDate>
+      <guid>http://localhost:1313/posts/revshell-upgrade/index.html</guid>
+      <description>After getting a reverse shell, we can stabilize it using commands below.&#xA;python3 -c &#39;import pty;pty.spawn(&#34;/bin/bash&#34;)&#39; export TERM=xterm ctrl+z stty raw -echo; fg stty rows 38 columns 116</description>
+    </item>
+  </channel>
+</rss>

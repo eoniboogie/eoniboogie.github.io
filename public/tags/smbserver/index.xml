@@ -1,26 +1,19 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Posts :: Dragonfly Commando</title>
-    <link>http://localhost:1313/posts/index.html</link>
+    <title>Smbserver :: Tag :: Dragonfly Commando</title>
+    <link>http://localhost:1313/tags/smbserver/index.html</link>
     <description></description>
     <generator>Hugo</generator>
     <language>en-us</language>
     <lastBuildDate>Sun, 22 Feb 2026 23:22:16 +0900</lastBuildDate>
-    <atom:link href="http://localhost:1313/posts/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:1313/tags/smbserver/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>File Transfer</title>
       <link>http://localhost:1313/posts/file-transfer/index.html</link>
       <pubDate>Sun, 22 Feb 2026 23:22:16 +0900</pubDate>
       <guid>http://localhost:1313/posts/file-transfer/index.html</guid>
       <description>SMB set up SMB server on kali&#xA;impacket-smbserver test . -smb2support -user user -password 1234&#xA;Connect to the SMB from windows&#xA;net use Z: \\192.168.45.211\test /user:user 1234&#xA;nc linux file receiver</description>
-    </item>
-    <item>
-      <title>Stabilize a reverse shell</title>
-      <link>http://localhost:1313/posts/revshell-upgrade/index.html</link>
-      <pubDate>Sat, 21 Feb 2026 23:34:58 +0900</pubDate>
-      <guid>http://localhost:1313/posts/revshell-upgrade/index.html</guid>
-      <description>After getting a reverse shell, we can stabilize it using commands below.&#xA;python3 -c &#39;import pty;pty.spawn(&#34;/bin/bash&#34;)&#39; export TERM=xterm ctrl+z stty raw -echo; fg stty rows 38 columns 116</description>
     </item>
   </channel>
 </rss>

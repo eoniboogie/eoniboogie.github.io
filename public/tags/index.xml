@@ -1,11 +1,33 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Tags :: My New Hugo Site</title>
+    <title>Tags :: Dragonfly Commando</title>
     <link>http://localhost:1313/tags/index.html</link>
     <description></description>
     <generator>Hugo</generator>
     <language>en-us</language>
+    <lastBuildDate>Sun, 22 Feb 2026 23:22:16 +0900</lastBuildDate>
     <atom:link href="http://localhost:1313/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Tag :: Nc</title>
+      <link>http://localhost:1313/tags/nc/index.html</link>
+      <pubDate>Sun, 22 Feb 2026 23:22:16 +0900</pubDate>
+      <guid>http://localhost:1313/tags/nc/index.html</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Tag :: Smbserver</title>
+      <link>http://localhost:1313/tags/smbserver/index.html</link>
+      <pubDate>Sun, 22 Feb 2026 23:22:16 +0900</pubDate>
+      <guid>http://localhost:1313/tags/smbserver/index.html</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Tag :: Reverseshell</title>
+      <link>http://localhost:1313/tags/reverseshell/index.html</link>
+      <pubDate>Sat, 21 Feb 2026 23:34:58 +0900</pubDate>
+      <guid>http://localhost:1313/tags/reverseshell/index.html</guid>
+      <description></description>
+    </item>
   </channel>
 </rss>
