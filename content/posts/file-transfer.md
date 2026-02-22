@@ -1,6 +1,6 @@
 +++
 date = '2026-02-22T23:22:16+09:00'
-draft = true
+draft = false
 title = 'File Transfer'
 tags = ["smbserver","nc"]
 +++
