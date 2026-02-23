@@ -2,7 +2,23 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>http://localhost:1313/index.html</loc>
-    <lastmod>2026-02-22T23:22:16+09:00</lastmod>
+    <lastmod>2026-02-23T11:11:32+09:00</lastmod>
+  </url>
+  <url>
+    <loc>http://localhost:1313/tags/ligolo/index.html</loc>
+    <lastmod>2026-02-23T11:11:32+09:00</lastmod>
+  </url>
+  <url>
+    <loc>http://localhost:1313/posts/pivoting/index.html</loc>
+    <lastmod>2026-02-23T11:11:32+09:00</lastmod>
+  </url>
+  <url>
+    <loc>http://localhost:1313/posts/index.html</loc>
+    <lastmod>2026-02-23T11:11:32+09:00</lastmod>
+  </url>
+  <url>
+    <loc>http://localhost:1313/tags/index.html</loc>
+    <lastmod>2026-02-23T11:11:32+09:00</lastmod>
   </url>
   <url>
     <loc>http://localhost:1313/posts/file-transfer/index.html</loc>
@@ -13,15 +29,7 @@
     <lastmod>2026-02-22T23:22:16+09:00</lastmod>
   </url>
   <url>
-    <loc>http://localhost:1313/posts/index.html</loc>
-    <lastmod>2026-02-22T23:22:16+09:00</lastmod>
-  </url>
-  <url>
     <loc>http://localhost:1313/tags/smbserver/index.html</loc>
-    <lastmod>2026-02-22T23:22:16+09:00</lastmod>
-  </url>
-  <url>
-    <loc>http://localhost:1313/tags/index.html</loc>
     <lastmod>2026-02-22T23:22:16+09:00</lastmod>
   </url>
   <url>
