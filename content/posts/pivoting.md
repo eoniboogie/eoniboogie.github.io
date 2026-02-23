@@ -43,4 +43,4 @@ or
 
 - from ligolo proxy interface
 
-`interface_add_route --name hong --route 240.0.0.1/32`
+`interface_add_route --name evil-cha --route 240.0.0.1/32`
