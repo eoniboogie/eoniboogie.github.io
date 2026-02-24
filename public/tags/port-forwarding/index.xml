@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Port-Forwarding :: Tag :: Dragonfly Commando</title>
+    <link>http://localhost:1313/tags/port-forwarding/index.html</link>
+    <description></description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 24 Feb 2026 07:48:41 +0900</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/port-forwarding/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Nickel Writeup</title>
+      <link>http://localhost:1313/writeup/proving-grounds/nickel/index.html</link>
+      <pubDate>Tue, 24 Feb 2026 07:48:41 +0900</pubDate>
+      <guid>http://localhost:1313/writeup/proving-grounds/nickel/index.html</guid>
+      <description>Initial foothold Nmap scan PORT STATE SERVICE VERSION 21/tcp open ftp FileZilla ftpd 0.9.60 beta | ftp-syst: |_ SYST: UNIX emulated by FileZilla 22/tcp open ssh OpenSSH for_Windows_8.1 (protocol 2.0) | ssh-hostkey: | 3072 86:84:fd:d5:43:27:05:cf:a7:f2:e9:e2:75:70:d5:f3 (RSA) | 256 9c:93:cf:48:a9:4e:70:f4:60:de:e1:a9:c2:c0:b6:ff (ECDSA) |_ 256 00:4e:d7:3b:0f:9f:e3:74:4d:04:99:0b:b1:8b:de:a5 (ED25519) 135/tcp open msrpc Microsoft Windows RPC 139/tcp open netbios-ssn Microsoft Windows netbios-ssn 445/tcp open microsoft-ds? 3389/tcp open ms-wbt-server Microsoft Terminal Services | rdp-ntlm-info: | Target_Name: NICKEL | NetBIOS_Domain_Name: NICKEL | NetBIOS_Computer_Name: NICKEL | DNS_Domain_Name: nickel | DNS_Computer_Name: nickel | Product_Version: 10.0.18362 |_ System_Time: 2026-02-23T09:53:02+00:00 |_ssl-date: 2026-02-23T09:54:08+00:00; -1s from scanner time. | ssl-cert: Subject: commonName=nickel | Not valid before: 2025-12-06T11:11:21 |_Not valid after: 2026-06-07T11:11:21 5040/tcp open unknown 7680/tcp open pando-pub? 8089/tcp open http Microsoft HTTPAPI httpd 2.0 (SSDP/UPnP) |_http-server-header: Microsoft-HTTPAPI/2.0 |_http-title: Site doesn&#39;t have a title. 33333/tcp open http Microsoft HTTPAPI httpd 2.0 (SSDP/UPnP) |_http-server-header: Microsoft-HTTPAPI/2.0 |_http-title: Site doesn&#39;t have a title. 49664/tcp open msrpc Microsoft Windows RPC 49665/tcp open msrpc Microsoft Windows RPC 49666/tcp open msrpc Microsoft Windows RPC 49667/tcp open msrpc Microsoft Windows RPC 49668/tcp open msrpc Microsoft Windows RPC 49669/tcp open msrpc Microsoft Windows RPC Check FTP, SSH, SMB, WEB services.</description>
+    </item>
+  </channel>
+</rss>

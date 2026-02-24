@@ -13,7 +13,7 @@
       <link>http://localhost:1313/posts/pivoting/index.html</link>
       <pubDate>Mon, 23 Feb 2026 11:11:32 +0900</pubDate>
       <guid>http://localhost:1313/posts/pivoting/index.html</guid>
-      <description>ligolo-ng Set a proxy server ./proxy -selfcert -laddr &#34;0.0.0.0:7878&#34;&#xA;Create an interface interface_create --name &#34;evil-cha&#34;&#xA;Add route (Target’s internal network) interface_add_route --name evil-cha --route 10.10.11.0/24&#xA;Access to the proxy server from the target machine ./agent -connect 10.10.14.3:11601 -ignore-cert&#xA;Check sessions from the proxy sessoins&#xA;Start tunneling tunnel_start --tun evil-cha&#xA;For local port forwarding.&#xA;from kali terminal sudo ip route add 240.0.0.1/32 dev evil-cha</description>
+      <description>ligolo-ng Set a proxy server sudo ./proxy -selfcert -laddr &#34;0.0.0.0:7878&#34;&#xA;Create an interface interface_create --name &#34;evil-cha&#34;&#xA;Add route (Target’s internal network) interface_add_route --name evil-cha --route 10.10.11.0/24&#xA;Access to the proxy server from the target machine ./agent -connect 10.10.14.3:11601 -ignore-cert&#xA;Check sessions from the proxy sessoins&#xA;Start tunneling tunnel_start --tun evil-cha&#xA;For local port forwarding.&#xA;from kali terminal sudo ip route add 240.0.0.1/32 dev evil-cha</description>
     </item>
   </channel>
 </rss>
