@@ -1,6 +1,6 @@
 +++
 date = '2026-02-24T07:48:41+09:00'
-draft = 'false'
+draft = false
 title = 'Nickel'
 tags = ["port-forwarding", "nickel", "writeup"]
 +++

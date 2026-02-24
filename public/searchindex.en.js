@@ -8,14 +8,6 @@ var relearn_searchindex = [
     "uri": "/index.html"
   },
   {
-    "breadcrumb": "Dragonfly Commando \u003e Writeup",
-    "content": "",
-    "description": "",
-    "tags": [],
-    "title": "Proving Grounds",
-    "uri": "/writeup/proving-grounds/index.html"
-  },
-  {
     "breadcrumb": "Dragonfly Commando \u003e Tags",
     "content": "",
     "description": "",
