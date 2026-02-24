@@ -2,6 +2,7 @@ baseURL = 'https://eoniboogie.github.io/'
 languageCode = 'en-us'
 title = 'Dragonfly Commando'
 theme = "hugo-theme-relearn"
+enableRobotsTXT = true
 [params]
     favicon = 'favicon.png'
     searchIsCaseSensitive = false
