@@ -2,6 +2,7 @@
 date = '2026-02-24T07:48:41+09:00'
 draft = false
 title = 'Nickel'
+description = proving grounds nickel writeup
 tags = ["port-forwarding", "nickel", "writeup"]
 +++
 
