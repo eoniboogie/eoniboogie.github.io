@@ -3,7 +3,7 @@
   <channel>
     <title>Writeup :: Dragonfly Commando</title>
     <link>http://localhost:1313/writeup/index.html</link>
-    <description></description>
+    <description>Choose a category from the side menu!</description>
     <generator>Hugo</generator>
     <language>en-us</language>
     <lastBuildDate>Tue, 24 Feb 2026 07:51:20 +0900</lastBuildDate>
@@ -13,7 +13,7 @@
       <link>http://localhost:1313/writeup/proving-grounds/index.html</link>
       <pubDate>Tue, 24 Feb 2026 07:51:20 +0900</pubDate>
       <guid>http://localhost:1313/writeup/proving-grounds/index.html</guid>
-      <description></description>
+      <description>Offsec’s proving grounds writeups.</description>
     </item>
   </channel>
 </rss>

@@ -5,15 +5,15 @@
     <meta name="viewport" content="height=device-height, width=device-width, initial-scale=1.0, minimum-scale=1.0">
     <meta name="generator" content="Hugo 0.154.5">
     <meta name="generator" content="Relearn 9.0.3+5fff5bc8a066e83e5f67f0de49c7dfb57379219e">
-    <meta name="description" content="Initial foothold Nmap scan PORT STATE SERVICE VERSION 21/tcp open ftp FileZilla ftpd 0.9.60 beta | ftp-syst: |_ SYST: UNIX emulated by FileZilla 22/tcp open ssh OpenSSH for_Windows_8.1 (protocol 2.0) | ssh-hostkey: | 3072 86:84:fd:d5:43:27:05:cf:a7:f2:e9:e2:75:70:d5:f3 (RSA) | 256 9c:93:cf:48:a9:4e:70:f4:60:de:e1:a9:c2:c0:b6:ff (ECDSA) |_ 256 00:4e:d7:3b:0f:9f:e3:74:4d:04:99:0b:b1:8b:de:a5 (ED25519) 135/tcp open msrpc Microsoft Windows RPC 139/tcp open netbios-ssn Microsoft Windows netbios-ssn 445/tcp open microsoft-ds? 3389/tcp open ms-wbt-server Microsoft Terminal Services | rdp-ntlm-info: | Target_Name: NICKEL | NetBIOS_Domain_Name: NICKEL | NetBIOS_Computer_Name: NICKEL | DNS_Domain_Name: nickel | DNS_Computer_Name: nickel | Product_Version: 10.0.18362 |_ System_Time: 2026-02-23T09:53:02&#43;00:00 |_ssl-date: 2026-02-23T09:54:08&#43;00:00; -1s from scanner time. | ssl-cert: Subject: commonName=nickel | Not valid before: 2025-12-06T11:11:21 |_Not valid after: 2026-06-07T11:11:21 5040/tcp open unknown 7680/tcp open pando-pub? 8089/tcp open http Microsoft HTTPAPI httpd 2.0 (SSDP/UPnP) |_http-server-header: Microsoft-HTTPAPI/2.0 |_http-title: Site doesn&#39;t have a title. 33333/tcp open http Microsoft HTTPAPI httpd 2.0 (SSDP/UPnP) |_http-server-header: Microsoft-HTTPAPI/2.0 |_http-title: Site doesn&#39;t have a title. 49664/tcp open msrpc Microsoft Windows RPC 49665/tcp open msrpc Microsoft Windows RPC 49666/tcp open msrpc Microsoft Windows RPC 49667/tcp open msrpc Microsoft Windows RPC 49668/tcp open msrpc Microsoft Windows RPC 49669/tcp open msrpc Microsoft Windows RPC The scan reveals several open ports, including FTP, SSH, SMB, and multiple HTTP services. I will begin by enumerating these services.">
+    <meta name="description" content="proving grounds nickel writeup">
     <meta name="author" content="">
     <meta name="twitter:card" content="summary">
     <meta name="twitter:title" content="Nickel :: Dragonfly Commando">
-    <meta name="twitter:description" content="Initial foothold Nmap scan PORT STATE SERVICE VERSION 21/tcp open ftp FileZilla ftpd 0.9.60 beta | ftp-syst: |_ SYST: UNIX emulated by FileZilla 22/tcp open ssh OpenSSH for_Windows_8.1 (protocol 2.0) | ssh-hostkey: | 3072 86:84:fd:d5:43:27:05:cf:a7:f2:e9:e2:75:70:d5:f3 (RSA) | 256 9c:93:cf:48:a9:4e:70:f4:60:de:e1:a9:c2:c0:b6:ff (ECDSA) |_ 256 00:4e:d7:3b:0f:9f:e3:74:4d:04:99:0b:b1:8b:de:a5 (ED25519) 135/tcp open msrpc Microsoft Windows RPC 139/tcp open netbios-ssn Microsoft Windows netbios-ssn 445/tcp open microsoft-ds? 3389/tcp open ms-wbt-server Microsoft Terminal Services | rdp-ntlm-info: | Target_Name: NICKEL | NetBIOS_Domain_Name: NICKEL | NetBIOS_Computer_Name: NICKEL | DNS_Domain_Name: nickel | DNS_Computer_Name: nickel | Product_Version: 10.0.18362 |_ System_Time: 2026-02-23T09:53:02&#43;00:00 |_ssl-date: 2026-02-23T09:54:08&#43;00:00; -1s from scanner time. | ssl-cert: Subject: commonName=nickel | Not valid before: 2025-12-06T11:11:21 |_Not valid after: 2026-06-07T11:11:21 5040/tcp open unknown 7680/tcp open pando-pub? 8089/tcp open http Microsoft HTTPAPI httpd 2.0 (SSDP/UPnP) |_http-server-header: Microsoft-HTTPAPI/2.0 |_http-title: Site doesn&#39;t have a title. 33333/tcp open http Microsoft HTTPAPI httpd 2.0 (SSDP/UPnP) |_http-server-header: Microsoft-HTTPAPI/2.0 |_http-title: Site doesn&#39;t have a title. 49664/tcp open msrpc Microsoft Windows RPC 49665/tcp open msrpc Microsoft Windows RPC 49666/tcp open msrpc Microsoft Windows RPC 49667/tcp open msrpc Microsoft Windows RPC 49668/tcp open msrpc Microsoft Windows RPC 49669/tcp open msrpc Microsoft Windows RPC The scan reveals several open ports, including FTP, SSH, SMB, and multiple HTTP services. I will begin by enumerating these services.">
+    <meta name="twitter:description" content="proving grounds nickel writeup">
     <meta property="og:url" content="http://localhost:1313/writeup/proving-grounds/nickel/index.html">
     <meta property="og:site_name" content="Dragonfly Commando">
     <meta property="og:title" content="Nickel :: Dragonfly Commando">
-    <meta property="og:description" content="Initial foothold Nmap scan PORT STATE SERVICE VERSION 21/tcp open ftp FileZilla ftpd 0.9.60 beta | ftp-syst: |_ SYST: UNIX emulated by FileZilla 22/tcp open ssh OpenSSH for_Windows_8.1 (protocol 2.0) | ssh-hostkey: | 3072 86:84:fd:d5:43:27:05:cf:a7:f2:e9:e2:75:70:d5:f3 (RSA) | 256 9c:93:cf:48:a9:4e:70:f4:60:de:e1:a9:c2:c0:b6:ff (ECDSA) |_ 256 00:4e:d7:3b:0f:9f:e3:74:4d:04:99:0b:b1:8b:de:a5 (ED25519) 135/tcp open msrpc Microsoft Windows RPC 139/tcp open netbios-ssn Microsoft Windows netbios-ssn 445/tcp open microsoft-ds? 3389/tcp open ms-wbt-server Microsoft Terminal Services | rdp-ntlm-info: | Target_Name: NICKEL | NetBIOS_Domain_Name: NICKEL | NetBIOS_Computer_Name: NICKEL | DNS_Domain_Name: nickel | DNS_Computer_Name: nickel | Product_Version: 10.0.18362 |_ System_Time: 2026-02-23T09:53:02&#43;00:00 |_ssl-date: 2026-02-23T09:54:08&#43;00:00; -1s from scanner time. | ssl-cert: Subject: commonName=nickel | Not valid before: 2025-12-06T11:11:21 |_Not valid after: 2026-06-07T11:11:21 5040/tcp open unknown 7680/tcp open pando-pub? 8089/tcp open http Microsoft HTTPAPI httpd 2.0 (SSDP/UPnP) |_http-server-header: Microsoft-HTTPAPI/2.0 |_http-title: Site doesn&#39;t have a title. 33333/tcp open http Microsoft HTTPAPI httpd 2.0 (SSDP/UPnP) |_http-server-header: Microsoft-HTTPAPI/2.0 |_http-title: Site doesn&#39;t have a title. 49664/tcp open msrpc Microsoft Windows RPC 49665/tcp open msrpc Microsoft Windows RPC 49666/tcp open msrpc Microsoft Windows RPC 49667/tcp open msrpc Microsoft Windows RPC 49668/tcp open msrpc Microsoft Windows RPC 49669/tcp open msrpc Microsoft Windows RPC The scan reveals several open ports, including FTP, SSH, SMB, and multiple HTTP services. I will begin by enumerating these services.">
+    <meta property="og:description" content="proving grounds nickel writeup">
     <meta property="og:locale" content="en_us">
     <meta property="og:type" content="article">
     <meta property="article:section" content="Writeup">
@@ -23,33 +23,33 @@
     <meta property="article:tag" content="Nickel">
     <meta property="article:tag" content="Writeup">
     <meta itemprop="name" content="Nickel :: Dragonfly Commando">
-    <meta itemprop="description" content="Initial foothold Nmap scan PORT STATE SERVICE VERSION 21/tcp open ftp FileZilla ftpd 0.9.60 beta | ftp-syst: |_ SYST: UNIX emulated by FileZilla 22/tcp open ssh OpenSSH for_Windows_8.1 (protocol 2.0) | ssh-hostkey: | 3072 86:84:fd:d5:43:27:05:cf:a7:f2:e9:e2:75:70:d5:f3 (RSA) | 256 9c:93:cf:48:a9:4e:70:f4:60:de:e1:a9:c2:c0:b6:ff (ECDSA) |_ 256 00:4e:d7:3b:0f:9f:e3:74:4d:04:99:0b:b1:8b:de:a5 (ED25519) 135/tcp open msrpc Microsoft Windows RPC 139/tcp open netbios-ssn Microsoft Windows netbios-ssn 445/tcp open microsoft-ds? 3389/tcp open ms-wbt-server Microsoft Terminal Services | rdp-ntlm-info: | Target_Name: NICKEL | NetBIOS_Domain_Name: NICKEL | NetBIOS_Computer_Name: NICKEL | DNS_Domain_Name: nickel | DNS_Computer_Name: nickel | Product_Version: 10.0.18362 |_ System_Time: 2026-02-23T09:53:02&#43;00:00 |_ssl-date: 2026-02-23T09:54:08&#43;00:00; -1s from scanner time. | ssl-cert: Subject: commonName=nickel | Not valid before: 2025-12-06T11:11:21 |_Not valid after: 2026-06-07T11:11:21 5040/tcp open unknown 7680/tcp open pando-pub? 8089/tcp open http Microsoft HTTPAPI httpd 2.0 (SSDP/UPnP) |_http-server-header: Microsoft-HTTPAPI/2.0 |_http-title: Site doesn&#39;t have a title. 33333/tcp open http Microsoft HTTPAPI httpd 2.0 (SSDP/UPnP) |_http-server-header: Microsoft-HTTPAPI/2.0 |_http-title: Site doesn&#39;t have a title. 49664/tcp open msrpc Microsoft Windows RPC 49665/tcp open msrpc Microsoft Windows RPC 49666/tcp open msrpc Microsoft Windows RPC 49667/tcp open msrpc Microsoft Windows RPC 49668/tcp open msrpc Microsoft Windows RPC 49669/tcp open msrpc Microsoft Windows RPC The scan reveals several open ports, including FTP, SSH, SMB, and multiple HTTP services. I will begin by enumerating these services.">
+    <meta itemprop="description" content="proving grounds nickel writeup">
     <meta itemprop="datePublished" content="2026-02-24T07:48:41+09:00">
     <meta itemprop="dateModified" content="2026-02-24T07:48:41+09:00">
     <meta itemprop="wordCount" content="782">
     <meta itemprop="keywords" content="Port-Forwarding,Nickel,Writeup">
     <title>Nickel :: Dragonfly Commando</title>
-    <link href="/images/favicon.png?1771892714" rel="icon" type="image/png">
-    <link href="/css/auto-complete/auto-complete.min.css?1771892714" rel="stylesheet">
-    <script src="/js/auto-complete/auto-complete.min.js?1771892714" defer></script>
-    <script src="/js/search-lunr.js?1771892714" defer></script>
-    <script src="/js/search.js?1771892714" defer></script>
+    <link href="/images/favicon.png?1771974573" rel="icon" type="image/png">
+    <link href="/css/auto-complete/auto-complete.min.css?1771974573" rel="stylesheet">
+    <script src="/js/auto-complete/auto-complete.min.js?1771974573" defer></script>
+    <script src="/js/search-lunr.js?1771974573" defer></script>
+    <script src="/js/search.js?1771974573" defer></script>
     <script>
       window.relearn = window.relearn || {};
-      window.relearn.index_js_url="/searchindex.en.js?1771892714";
+      window.relearn.index_js_url="/searchindex.en.js?1771974573";
     </script>
-    <script src="/js/lunr/lunr.min.js?1771892714" defer></script>
-    <script src="/js/lunr/lunr.stemmer.support.min.js?1771892714" defer></script>
-    <script src="/js/lunr/lunr.multi.min.js?1771892714" defer></script>
-    <script src="/js/lunr/lunr.en.min.js?1771892714" defer></script>
+    <script src="/js/lunr/lunr.min.js?1771974573" defer></script>
+    <script src="/js/lunr/lunr.stemmer.support.min.js?1771974573" defer></script>
+    <script src="/js/lunr/lunr.multi.min.js?1771974573" defer></script>
+    <script src="/js/lunr/lunr.en.min.js?1771974573" defer></script>
     <script>
       window.relearn = window.relearn || {};
       window.relearn.contentLangs=['en'];
     </script>
-    <link href="/fonts/fontawesome/css/all.min.css?1771892714" rel="stylesheet" media="print" onload="this.media='all';this.onload=null;"><noscript><link href="/fonts/fontawesome/css/all.min.css?1771892714" rel="stylesheet"></noscript>
-    <link href="/css/perfect-scrollbar/perfect-scrollbar.min.css?1771892714" rel="stylesheet">
-    <link href="/css/theme.css?1771892714" rel="stylesheet">
-    <link href="/css/format-html.css?1771892714" rel="stylesheet" id="R-format-style">
+    <link href="/fonts/fontawesome/css/all.min.css?1771974573" rel="stylesheet" media="print" onload="this.media='all';this.onload=null;"><noscript><link href="/fonts/fontawesome/css/all.min.css?1771974573" rel="stylesheet"></noscript>
+    <link href="/css/perfect-scrollbar/perfect-scrollbar.min.css?1771974573" rel="stylesheet">
+    <link href="/css/theme.css?1771974573" rel="stylesheet">
+    <link href="/css/format-html.css?1771974573" rel="stylesheet" id="R-format-style">
     <script>
       window.relearn = window.relearn || {};
       // configuration
@@ -210,10 +210,10 @@
 <h2 id="web">WEB<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Copy link to clipboard"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
 <p>Accessing the web service on port 8089 reveals the following home page:</p>
 <p>The page contains three buttons. Reviewing the source code shows that these links redirect to endpoints on port 33333.</p>
-<p><a href="#R-image-570426f2129ada11c80d023e34925543" class="lightbox-link"><img alt="Nickel home page" class="lazy lightbox figure-image" loading="lazy" src="/images/nickel/nickel-8089.png" style="height: auto;width: auto;"></a>
-<a href="javascript:history.back();" class="lightbox-back" id="R-image-570426f2129ada11c80d023e34925543"><img alt="Nickel home page" class="lazy lightbox lightbox-image" loading="lazy" src="/images/nickel/nickel-8089.png"></a></p>
-<p><a href="#R-image-94412ef9ea51935e10f0552db6d6e491" class="lightbox-link"><img alt="source-code" class="lazy lightbox figure-image" loading="lazy" src="/images/nickel/nicket-redirect.png" style="height: auto;width: auto;"></a>
-<a href="javascript:history.back();" class="lightbox-back" id="R-image-94412ef9ea51935e10f0552db6d6e491"><img alt="source-code" class="lazy lightbox lightbox-image" loading="lazy" src="/images/nickel/nicket-redirect.png"></a></p>
+<p><a href="#R-image-1b5db5ec9a6d92c52ba5c17ba1e01a69" class="lightbox-link"><img alt="Nickel home page" class="lazy lightbox figure-image" loading="lazy" src="/images/nickel/nickel-8089.png" style="height: auto;width: auto;"></a>
+<a href="javascript:history.back();" class="lightbox-back" id="R-image-1b5db5ec9a6d92c52ba5c17ba1e01a69"><img alt="Nickel home page" class="lazy lightbox lightbox-image" loading="lazy" src="/images/nickel/nickel-8089.png"></a></p>
+<p><a href="#R-image-85ea533b959976e6a641420ba7596068" class="lightbox-link"><img alt="source-code" class="lazy lightbox figure-image" loading="lazy" src="/images/nickel/nicket-redirect.png" style="height: auto;width: auto;"></a>
+<a href="javascript:history.back();" class="lightbox-back" id="R-image-85ea533b959976e6a641420ba7596068"><img alt="source-code" class="lazy lightbox lightbox-image" loading="lazy" src="/images/nickel/nicket-redirect.png"></a></p>
 <ul>
 <li>list-current-deployments</li>
 <li>list-running-procs</li>
@@ -359,8 +359,8 @@
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>ariah4168</span></span></code></pre></div>
 <p>The PDF contains a note regarding three sites and mentions a command endpoint.</p>
-<p><a href="#R-image-b55e37723d22abcd48485a0586dfa04c" class="lightbox-link"><img alt="note" class="lazy lightbox figure-image" loading="lazy" src="/images/nickel/nickel-pdf.png" style="height: auto;width: auto;"></a>
-<a href="javascript:history.back();" class="lightbox-back" id="R-image-b55e37723d22abcd48485a0586dfa04c"><img alt="note" class="lazy lightbox lightbox-image" loading="lazy" src="/images/nickel/nickel-pdf.png"></a></p>
+<p><a href="#R-image-039771d4ef97b687f7c498726fd72204" class="lightbox-link"><img alt="note" class="lazy lightbox figure-image" loading="lazy" src="/images/nickel/nickel-pdf.png" style="height: auto;width: auto;"></a>
+<a href="javascript:history.back();" class="lightbox-back" id="R-image-039771d4ef97b687f7c498726fd72204"><img alt="note" class="lazy lightbox lightbox-image" loading="lazy" src="/images/nickel/nickel-pdf.png"></a></p>
 <p>This endpoint allows command execution. I can access this locally via curl from my existing session or set up port forwarding to access it from my Kali machine.</p>
 <div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cmd" data-lang="cmd"><span style="display:flex;"><span>ariah@NICKEL C:\Users\ariah&gt;curl http://127.0.0.1/?whoami
 </span></span><span style="display:flex;"><span>&lt;!doctype html&gt;&lt;html&gt;&lt;body&gt;dev-api started at 2025-12-07T05:47:35
@@ -371,11 +371,11 @@
 <p>Alternatively, using SSH port forwarding:</p>
 <div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cmd" data-lang="cmd"><span style="display:flex;"><span>ariah@NICKEL C:\Users&gt;ssh -N -R 80:127.0.0.1:80 kali@IP</span></span></code></pre></div>
 <p>The output confirms the API is running as nt authority\system.</p>
-<p><a href="#R-image-ce9c91b16d06cde434691ab5e8b3ac71" class="lightbox-link"><img alt="whoami" class="lazy lightbox figure-image" loading="lazy" src="/images/nickel/nickel-whoami.png" style="height: auto;width: auto;"></a>
-<a href="javascript:history.back();" class="lightbox-back" id="R-image-ce9c91b16d06cde434691ab5e8b3ac71"><img alt="whoami" class="lazy lightbox lightbox-image" loading="lazy" src="/images/nickel/nickel-whoami.png"></a></p>
+<p><a href="#R-image-9c1b460d8fa878bfa4fc3f21eafd523c" class="lightbox-link"><img alt="whoami" class="lazy lightbox figure-image" loading="lazy" src="/images/nickel/nickel-whoami.png" style="height: auto;width: auto;"></a>
+<a href="javascript:history.back();" class="lightbox-back" id="R-image-9c1b460d8fa878bfa4fc3f21eafd523c"><img alt="whoami" class="lazy lightbox lightbox-image" loading="lazy" src="/images/nickel/nickel-whoami.png"></a></p>
 <p>By sending a URL-encoded command, I can read the proof.txt file or execute a reverse shell payload to gain full system access.</p>
-<p><a href="#R-image-b378a634a5f4d2391b17c39bfcb26b10" class="lightbox-link"><img alt="proof.txt" class="lazy lightbox figure-image" loading="lazy" src="/images/nickel/nickel-proof.png" style="height: auto;width: auto;"></a>
-<a href="javascript:history.back();" class="lightbox-back" id="R-image-b378a634a5f4d2391b17c39bfcb26b10"><img alt="proof.txt" class="lazy lightbox lightbox-image" loading="lazy" src="/images/nickel/nickel-proof.png"></a></p>
+<p><a href="#R-image-1d255b2e0148aed8ba1b78164cbe78f0" class="lightbox-link"><img alt="proof.txt" class="lazy lightbox figure-image" loading="lazy" src="/images/nickel/nickel-proof.png" style="height: auto;width: auto;"></a>
+<a href="javascript:history.back();" class="lightbox-back" id="R-image-1d255b2e0148aed8ba1b78164cbe78f0"><img alt="proof.txt" class="lazy lightbox lightbox-image" loading="lazy" src="/images/nickel/nickel-proof.png"></a></p>
 
   <footer class="footline">
               <i class='fa-fw fas fa-calendar'></i> Feb 24, 2026
@@ -443,8 +443,8 @@
 <div id="R-footer" class="default-animation"><p>Built with <a href="https://github.com/McShelby/hugo-theme-relearn" title="love"><i class="fas fa-heart"></i></a> by <a href="https://gohugo.io/">Hugo</a></p></div>
       </div>
     </aside>
-    <script src="/js/perfect-scrollbar/perfect-scrollbar.min.js?1771892714" defer></script>
-    <script src="/js/theme.js?1771892714" defer></script>
+    <script src="/js/perfect-scrollbar/perfect-scrollbar.min.js?1771974573" defer></script>
+    <script src="/js/theme.js?1771974573" defer></script>
     <div id="toast-container" role="status" aria-live="polite" aria-atomic="false"></div>
   </body>
 </html>
