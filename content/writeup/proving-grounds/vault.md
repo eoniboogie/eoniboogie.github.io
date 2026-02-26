@@ -1,7 +1,7 @@
 +++
 date = '2026-02-26T18:26:56+09:00'
 draft = false
-title = 'Valut'
+title = 'Vault'
 tags = ["responder", "DACL", "bloodhound", "ntlm_theft", "SharpGPOAbuse", "impacket-owneredit", "impacket-dacledit"]
 description = 'Learn how to escalate privileges in an Active Directory environment by exploiting SMB guest write access and GPO abuse. This walkthrough covers NTLM hash capturing with Responder, ntlm-theft, and leveraging SharpGPOAbuse to gain local admin rights on a Windows Domain Controller.'
 +++
