@@ -6,8 +6,15 @@
     <description>Offsec’s proving grounds writeups.</description>
     <generator>Hugo</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 25 Feb 2026 08:26:55 +0900</lastBuildDate>
+    <lastBuildDate>Thu, 26 Feb 2026 18:26:56 +0900</lastBuildDate>
     <atom:link href="http://localhost:1313/writeup/proving-grounds/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Valut</title>
+      <link>http://localhost:1313/writeup/proving-grounds/valut/index.html</link>
+      <pubDate>Thu, 26 Feb 2026 18:26:56 +0900</pubDate>
+      <guid>http://localhost:1313/writeup/proving-grounds/valut/index.html</guid>
+      <description>Learn how to escalate privileges in an Active Directory environment by exploiting SMB guest write access and GPO abuse. This walkthrough covers NTLM hash capturing with Responder, ntlm-theft, and leveraging SharpGPOAbuse to gain local admin rights on a Windows Domain Controller.</description>
+    </item>
     <item>
       <title>Access</title>
       <link>http://localhost:1313/writeup/proving-grounds/access/index.html</link>
