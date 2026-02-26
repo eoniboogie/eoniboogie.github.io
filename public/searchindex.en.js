@@ -84,8 +84,8 @@ var relearn_searchindex = [
       "Impacket-Owneredit",
       "Impacket-Dacledit"
     ],
-    "title": "Valut",
-    "uri": "/writeup/proving-grounds/valut/index.html"
+    "title": "Vault",
+    "uri": "/writeup/proving-grounds/vault/index.html"
   },
   {
     "breadcrumb": "Dragonfly Commando \u003e Tags",

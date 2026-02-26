@@ -6,3 +6,8 @@ enableRobotsTXT = true
 [params]
     favicon = 'favicon.png'
     searchIsCaseSensitive = false
+[[menu.shortcuts]]
+    name = '<i class="fab fa-github"></i> CVE Disclosures'
+    url = 'https://github.com/eoniboogie/CVE_Disclosures'
+    weight = 999
+    identifier = 'cve'
