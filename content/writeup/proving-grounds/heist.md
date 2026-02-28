@@ -176,7 +176,7 @@ This privilege allows restoring files and directories, which can be abused to ov
 
 In the Documents folder, I found a PowerShell script referencing:
 
-![powershell_script](images/heist/heist-serestore.png)
+![powershell_script](/images/heist/heist-serestore.png)
 
 It's telling us to check the [github](https://github.com/gtworek/Priv2Admin) for privsec.
 
