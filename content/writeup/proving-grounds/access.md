@@ -3,7 +3,7 @@ date = '2026-02-25T08:26:55+09:00'
 draft = false
 title = 'Access'
 tags = [".htaccess", "RunasCs", "SeManageVolumePrivilege"]
-description = 'An attacker achieve initial access by uploading crafted files. After getting the initial shell, other credentials found using kerberoast attack. Finally, An attacker can escalage privilege bu exploiting SeManageVolumePrivilege.'
+description = 'Access writeup - An attacker achieve initial access by uploading crafted files. After getting the initial shell, other credentials found using kerberoast attack. Finally, An attacker can escalage privilege bu exploiting SeManageVolumePrivilege.'
 +++
 
 # Initial foothold

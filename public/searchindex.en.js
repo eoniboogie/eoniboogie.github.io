@@ -1,5 +1,21 @@
 var relearn_searchindex = [
   {
+    "breadcrumb": "",
+    "content": "",
+    "description": "",
+    "tags": [],
+    "title": "Dragonfly Commando",
+    "uri": "/index.html"
+  },
+  {
+    "breadcrumb": "Dragonfly Commando \u003e Writeup \u003e Proving Grounds",
+    "content": "",
+    "description": "",
+    "tags": [],
+    "title": "Heist",
+    "uri": "/writeup/proving-grounds/heist/index.html"
+  },
+  {
     "breadcrumb": "Dragonfly Commando \u003e Tags",
     "content": "",
     "description": "",
@@ -14,14 +30,6 @@ var relearn_searchindex = [
     "tags": [],
     "title": "Tag :: DACL",
     "uri": "/tags/dacl/index.html"
-  },
-  {
-    "breadcrumb": "",
-    "content": "",
-    "description": "",
-    "tags": [],
-    "title": "Dragonfly Commando",
-    "uri": "/index.html"
   },
   {
     "breadcrumb": "Dragonfly Commando \u003e Tags",

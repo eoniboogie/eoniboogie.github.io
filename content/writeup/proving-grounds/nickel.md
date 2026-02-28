@@ -2,7 +2,7 @@
 date = '2026-02-24T07:48:41+09:00'
 draft = false
 title = 'Nickel'
-description = "proving grounds nickel writeup"
+description = "Nickel writeup – Windows exploitation walkthrough covering HTTP enumeration, credential discovery via process listing, SSH access, PDF password cracking, and SYSTEM command execution."
 tags = ["port-forwarding", "nickel", "writeup"]
 +++
 

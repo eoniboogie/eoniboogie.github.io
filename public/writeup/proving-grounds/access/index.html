@@ -5,15 +5,15 @@
     <meta name="viewport" content="height=device-height, width=device-width, initial-scale=1.0, minimum-scale=1.0">
     <meta name="generator" content="Hugo 0.154.5">
     <meta name="generator" content="Relearn 9.0.3+5fff5bc8a066e83e5f67f0de49c7dfb57379219e">
-    <meta name="description" content="An attacker achieve initial access by uploading crafted files. After getting the initial shell, other credentials found using kerberoast attack. Finally, An attacker can escalage privilege bu exploiting SeManageVolumePrivilege.">
+    <meta name="description" content="Access writeup - An attacker achieve initial access by uploading crafted files. After getting the initial shell, other credentials found using kerberoast attack. Finally, An attacker can escalage privilege bu exploiting SeManageVolumePrivilege.">
     <meta name="author" content="">
     <meta name="twitter:card" content="summary">
     <meta name="twitter:title" content="Access :: Dragonfly Commando">
-    <meta name="twitter:description" content="An attacker achieve initial access by uploading crafted files. After getting the initial shell, other credentials found using kerberoast attack. Finally, An attacker can escalage privilege bu exploiting SeManageVolumePrivilege.">
+    <meta name="twitter:description" content="Access writeup - An attacker achieve initial access by uploading crafted files. After getting the initial shell, other credentials found using kerberoast attack. Finally, An attacker can escalage privilege bu exploiting SeManageVolumePrivilege.">
     <meta property="og:url" content="http://localhost:1313/writeup/proving-grounds/access/index.html">
     <meta property="og:site_name" content="Dragonfly Commando">
     <meta property="og:title" content="Access :: Dragonfly Commando">
-    <meta property="og:description" content="An attacker achieve initial access by uploading crafted files. After getting the initial shell, other credentials found using kerberoast attack. Finally, An attacker can escalage privilege bu exploiting SeManageVolumePrivilege.">
+    <meta property="og:description" content="Access writeup - An attacker achieve initial access by uploading crafted files. After getting the initial shell, other credentials found using kerberoast attack. Finally, An attacker can escalage privilege bu exploiting SeManageVolumePrivilege.">
     <meta property="og:locale" content="en_us">
     <meta property="og:type" content="article">
     <meta property="article:section" content="Writeup">
@@ -23,33 +23,33 @@
     <meta property="article:tag" content="RunasCs">
     <meta property="article:tag" content="SeManageVolumePrivilege">
     <meta itemprop="name" content="Access :: Dragonfly Commando">
-    <meta itemprop="description" content="An attacker achieve initial access by uploading crafted files. After getting the initial shell, other credentials found using kerberoast attack. Finally, An attacker can escalage privilege bu exploiting SeManageVolumePrivilege.">
+    <meta itemprop="description" content="Access writeup - An attacker achieve initial access by uploading crafted files. After getting the initial shell, other credentials found using kerberoast attack. Finally, An attacker can escalage privilege bu exploiting SeManageVolumePrivilege.">
     <meta itemprop="datePublished" content="2026-02-25T08:26:55+09:00">
     <meta itemprop="dateModified" content="2026-02-25T08:26:55+09:00">
     <meta itemprop="wordCount" content="647">
     <meta itemprop="keywords" content=".Htaccess,RunasCs,SeManageVolumePrivilege">
     <title>Access :: Dragonfly Commando</title>
-    <link href="/images/favicon.png?1772102874" rel="icon" type="image/png">
-    <link href="/css/auto-complete/auto-complete.min.css?1772102874" rel="stylesheet">
-    <script src="/js/auto-complete/auto-complete.min.js?1772102874" defer></script>
-    <script src="/js/search-lunr.js?1772102874" defer></script>
-    <script src="/js/search.js?1772102874" defer></script>
+    <link href="/images/favicon.png?1772243226" rel="icon" type="image/png">
+    <link href="/css/auto-complete/auto-complete.min.css?1772243226" rel="stylesheet">
+    <script src="/js/auto-complete/auto-complete.min.js?1772243226" defer></script>
+    <script src="/js/search-lunr.js?1772243226" defer></script>
+    <script src="/js/search.js?1772243226" defer></script>
     <script>
       window.relearn = window.relearn || {};
-      window.relearn.index_js_url="/searchindex.en.js?1772102874";
+      window.relearn.index_js_url="/searchindex.en.js?1772243226";
     </script>
-    <script src="/js/lunr/lunr.min.js?1772102874" defer></script>
-    <script src="/js/lunr/lunr.stemmer.support.min.js?1772102874" defer></script>
-    <script src="/js/lunr/lunr.multi.min.js?1772102874" defer></script>
-    <script src="/js/lunr/lunr.en.min.js?1772102874" defer></script>
+    <script src="/js/lunr/lunr.min.js?1772243226" defer></script>
+    <script src="/js/lunr/lunr.stemmer.support.min.js?1772243226" defer></script>
+    <script src="/js/lunr/lunr.multi.min.js?1772243226" defer></script>
+    <script src="/js/lunr/lunr.en.min.js?1772243226" defer></script>
     <script>
       window.relearn = window.relearn || {};
       window.relearn.contentLangs=['en'];
     </script>
-    <link href="/fonts/fontawesome/css/all.min.css?1772102874" rel="stylesheet" media="print" onload="this.media='all';this.onload=null;"><noscript><link href="/fonts/fontawesome/css/all.min.css?1772102874" rel="stylesheet"></noscript>
-    <link href="/css/perfect-scrollbar/perfect-scrollbar.min.css?1772102874" rel="stylesheet">
-    <link href="/css/theme.css?1772102874" rel="stylesheet">
-    <link href="/css/format-html.css?1772102874" rel="stylesheet" id="R-format-style">
+    <link href="/fonts/fontawesome/css/all.min.css?1772243226" rel="stylesheet" media="print" onload="this.media='all';this.onload=null;"><noscript><link href="/fonts/fontawesome/css/all.min.css?1772243226" rel="stylesheet"></noscript>
+    <link href="/css/perfect-scrollbar/perfect-scrollbar.min.css?1772243226" rel="stylesheet">
+    <link href="/css/theme.css?1772243226" rel="stylesheet">
+    <link href="/css/format-html.css?1772243226" rel="stylesheet" id="R-format-style">
     <script>
       window.relearn = window.relearn || {};
       // configuration
@@ -216,11 +216,11 @@
 <p>I checked the versions of the web components, but no known vulnerabilities were found for these specific versions.</p>
 <p>However, I confirmed that the site is running on an Apache server and is developed in PHP.</p>
 <p>Observe functionality of the web.</p>
-<p><a href="#R-image-f62893d547beac65df10d90f117594cb" class="lightbox-link"><img alt="upload" class="lazy lightbox figure-image" loading="lazy" src="/images/access/access-upload.png" style="height: auto;width: auto;"></a>
-<a href="javascript:history.back();" class="lightbox-back" id="R-image-f62893d547beac65df10d90f117594cb"><img alt="upload" class="lazy lightbox lightbox-image" loading="lazy" src="/images/access/access-upload.png"></a></p>
+<p><a href="#R-image-963ddb0c477f74cc05c76420998be889" class="lightbox-link"><img alt="upload" class="lazy lightbox figure-image" loading="lazy" src="/images/access/access-upload.png" style="height: auto;width: auto;"></a>
+<a href="javascript:history.back();" class="lightbox-back" id="R-image-963ddb0c477f74cc05c76420998be889"><img alt="upload" class="lazy lightbox lightbox-image" loading="lazy" src="/images/access/access-upload.png"></a></p>
 <p>I found a file upload function on the &ldquo;Buy Tickets&rdquo; page.</p>
-<p><a href="#R-image-587b0cf326238cb550433f23b1f15840" class="lightbox-link"><img alt="uploaded" class="lazy lightbox figure-image" loading="lazy" src="/images/access/access-uploaded.png" style="height: auto;width: auto;"></a>
-<a href="javascript:history.back();" class="lightbox-back" id="R-image-587b0cf326238cb550433f23b1f15840"><img alt="uploaded" class="lazy lightbox lightbox-image" loading="lazy" src="/images/access/access-uploaded.png"></a></p>
+<p><a href="#R-image-9d7071c621b6187d5e86dd6fb9def047" class="lightbox-link"><img alt="uploaded" class="lazy lightbox figure-image" loading="lazy" src="/images/access/access-uploaded.png" style="height: auto;width: auto;"></a>
+<a href="javascript:history.back();" class="lightbox-back" id="R-image-9d7071c621b6187d5e86dd6fb9def047"><img alt="uploaded" class="lazy lightbox lightbox-image" loading="lazy" src="/images/access/access-uploaded.png"></a></p>
 <p>The upload filter can be easily bypassed by changing the extension to <code>xxx.php.gif</code></p>
 <p>However, neither a web shell nor a reverse shell would execute.</p>
 <h1 id="exploitation">Exploitation<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Copy link to clipboard"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h1>
@@ -313,6 +313,7 @@
             <li class="" data-nav-id="/posts/index.html"><a class="padding default-animation" href="/posts/index.html">Posts</a><ul id="R-subsections-b4e55eb7e39db1aee6d02808a2267090" class="collapsible-menu"></ul></li>
             <li class="parent " data-nav-id="/writeup/index.html"><a class="padding default-animation" href="/writeup/index.html">Writeup</a><ul id="R-subsections-4c552b9ca9f2e0503cd4c0d79a1b1839" class="collapsible-menu">
             <li class="parent alwaysopen " data-nav-id="/writeup/proving-grounds/index.html"><a class="padding default-animation" href="/writeup/proving-grounds/index.html">Proving Grounds</a><ul id="R-subsections-5c44e917da5921333a506ba619b792ee" class="collapsible-menu">
+            <li class="" data-nav-id="/writeup/proving-grounds/heist/index.html"><a class="padding" href="/writeup/proving-grounds/heist/index.html">Heist</a></li>
             <li class="" data-nav-id="/writeup/proving-grounds/vault/index.html"><a class="padding" href="/writeup/proving-grounds/vault/index.html">Vault</a></li>
             <li class="active " data-nav-id="/writeup/proving-grounds/access/index.html"><a class="padding" href="/writeup/proving-grounds/access/index.html">Access</a></li>
             <li class="" data-nav-id="/writeup/proving-grounds/nickel/index.html"><a class="padding" href="/writeup/proving-grounds/nickel/index.html">Nickel</a></li></ul></li></ul></li>
@@ -335,8 +336,8 @@
 <div id="R-footer" class="default-animation"><p>Built with <a href="https://github.com/McShelby/hugo-theme-relearn" title="love"><i class="fas fa-heart"></i></a> by <a href="https://gohugo.io/">Hugo</a></p></div>
       </div>
     </aside>
-    <script src="/js/perfect-scrollbar/perfect-scrollbar.min.js?1772102874" defer></script>
-    <script src="/js/theme.js?1772102874" defer></script>
+    <script src="/js/perfect-scrollbar/perfect-scrollbar.min.js?1772243226" defer></script>
+    <script src="/js/theme.js?1772243226" defer></script>
     <div id="toast-container" role="status" aria-live="polite" aria-atomic="false"></div>
   </body>
 </html>
