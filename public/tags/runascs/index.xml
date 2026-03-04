@@ -13,7 +13,7 @@
       <link>http://localhost:1313/writeup/proving-grounds/access/index.html</link>
       <pubDate>Wed, 25 Feb 2026 08:26:55 +0900</pubDate>
       <guid>http://localhost:1313/writeup/proving-grounds/access/index.html</guid>
-      <description>An attacker achieve initial access by uploading crafted files. After getting the initial shell, other credentials found using kerberoast attack. Finally, An attacker can escalage privilege bu exploiting SeManageVolumePrivilege.</description>
+      <description>Access writeup - An attacker achieve initial access by uploading crafted files. After getting the initial shell, other credentials found using kerberoast attack. Finally, An attacker can escalage privilege bu exploiting SeManageVolumePrivilege.</description>
     </item>
   </channel>
 </rss>

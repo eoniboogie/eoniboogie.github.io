@@ -13,7 +13,7 @@
       <link>http://localhost:1313/writeup/proving-grounds/nickel/index.html</link>
       <pubDate>Tue, 24 Feb 2026 07:48:41 +0900</pubDate>
       <guid>http://localhost:1313/writeup/proving-grounds/nickel/index.html</guid>
-      <description>proving grounds nickel writeup</description>
+      <description>Nickel writeup – Windows exploitation walkthrough covering HTTP enumeration, credential discovery via process listing, SSH access, PDF password cracking, and SYSTEM command execution.</description>
     </item>
   </channel>
 </rss>
