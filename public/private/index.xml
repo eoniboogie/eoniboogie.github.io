@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Private :: Dragonfly Commando</title>
+    <link>http://localhost:1313/private/index.html</link>
+    <description>프라이빗 창고</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 10 Mar 2026 22:39:02 +0900</lastBuildDate>
+    <atom:link href="http://localhost:1313/private/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>OSCP 시험 후기</title>
+      <link>http://localhost:1313/private/oscp/index.html</link>
+      <pubDate>Tue, 10 Mar 2026 22:39:02 +0900</pubDate>
+      <guid>http://localhost:1313/private/oscp/index.html</guid>
+      <description>결과 우선 결과는 60점.&#xA;윈도우 머신 전부 풀었다.&#xA;stand alone은 하나만 proof까지 풀었다.&#xA;AD공략은 생각보다 쉬웠는데 stand alone은 초기 진입 실패하면 그냥 끝이다.&#xA;어느정도 운도 필요한 듯.&#xA;Active Directory WS26 .206 처음 크레덴셜이 ( r.andrews / BusyOfficeWorker890 ) 주어지고 진입해야 하는 머신.</description>
+    </item>
+  </channel>
+</rss>

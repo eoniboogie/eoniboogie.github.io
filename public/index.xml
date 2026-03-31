@@ -16,6 +16,13 @@
       <description>Cheat Sheets &amp; Tips</description>
     </item>
     <item>
+      <title>Private</title>
+      <link>http://localhost:1313/private/index.html</link>
+      <pubDate>Tue, 24 Feb 2026 07:51:20 +0900</pubDate>
+      <guid>http://localhost:1313/private/index.html</guid>
+      <description>프라이빗 창고</description>
+    </item>
+    <item>
       <title>Writeup</title>
       <link>http://localhost:1313/writeup/index.html</link>
       <pubDate>Sun, 22 Feb 2026 22:44:14 +0900</pubDate>

