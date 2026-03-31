@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Writeup :: Dragonfly Commando</title>
+    <title>Writeup :: Zenu</title>
     <link>http://localhost:1313/writeup/index.html</link>
-    <description>Choose a category from the side menu!</description>
+    <description>Choose a category from the side menu!&#xA;Proving Grounds</description>
     <generator>Hugo</generator>
     <language>en-us</language>
     <lastBuildDate>Tue, 24 Feb 2026 07:51:20 +0900</lastBuildDate>
@@ -13,7 +13,7 @@
       <link>http://localhost:1313/writeup/proving-grounds/index.html</link>
       <pubDate>Tue, 24 Feb 2026 07:51:20 +0900</pubDate>
       <guid>http://localhost:1313/writeup/proving-grounds/index.html</guid>
-      <description>Offsec’s proving grounds writeups.</description>
+      <description>Offsec’s proving grounds writeups.&#xA;Access&#xA;Access writeup - An attacker achieve initial access by uploading crafted files. After getting the initial shell, other credentials found using kerberoast attack. Finally, An attacker can escalage privilege bu exploiting SeManageVolumePrivilege.&#xA;Heist&#xA;Heist writeup - Active Directory penetration testing walkthrough covering NTLM capture, gMSA password extraction, lateral movement with BloodHound, and privilege escalation using SeRestorePrivilege.&#xA;Nickel&#xA;Nickel writeup – Windows exploitation walkthrough covering HTTP enumeration, credential discovery via process listing, SSH access, PDF password cracking, and SYSTEM command execution.</description>
     </item>
   </channel>
 </rss>

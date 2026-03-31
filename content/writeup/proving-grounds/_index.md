@@ -5,3 +5,5 @@ title = 'Proving Grounds'
 +++
 
 Offsec's proving grounds writeups.
+
+{{% children description="true" sort="title" %}}

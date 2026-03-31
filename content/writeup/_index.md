@@ -5,3 +5,5 @@ title = 'Writeup'
 +++
 
 Choose a category from the side menu!
+
+{{% children sort="title" %}}

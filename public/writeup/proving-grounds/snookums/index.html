@@ -8,11 +8,11 @@
     <meta name="description" content="A comprehensive writeup for the OffSec Snookums machine. Learn how to exploit an RFI vulnerability in SimplePHPGallery for an initial foothold, extract database credentials, and achieve root access by exploiting a writable /etc/passwd file.">
     <meta name="author" content="">
     <meta name="twitter:card" content="summary">
-    <meta name="twitter:title" content="Snookums :: Dragonfly Commando">
+    <meta name="twitter:title" content="Snookums :: Zenu">
     <meta name="twitter:description" content="A comprehensive writeup for the OffSec Snookums machine. Learn how to exploit an RFI vulnerability in SimplePHPGallery for an initial foothold, extract database credentials, and achieve root access by exploiting a writable /etc/passwd file.">
     <meta property="og:url" content="http://localhost:1313/writeup/proving-grounds/snookums/index.html">
-    <meta property="og:site_name" content="Dragonfly Commando">
-    <meta property="og:title" content="Snookums :: Dragonfly Commando">
+    <meta property="og:site_name" content="Zenu">
+    <meta property="og:title" content="Snookums :: Zenu">
     <meta property="og:description" content="A comprehensive writeup for the OffSec Snookums machine. Learn how to exploit an RFI vulnerability in SimplePHPGallery for an initial foothold, extract database credentials, and achieve root access by exploiting a writable /etc/passwd file.">
     <meta property="og:locale" content="en_us">
     <meta property="og:type" content="article">
@@ -22,34 +22,34 @@
     <meta property="article:tag" content="Openssl">
     <meta property="article:tag" content="/Etc/Passwd">
     <meta property="article:tag" content="Writable">
-    <meta itemprop="name" content="Snookums :: Dragonfly Commando">
+    <meta itemprop="name" content="Snookums :: Zenu">
     <meta itemprop="description" content="A comprehensive writeup for the OffSec Snookums machine. Learn how to exploit an RFI vulnerability in SimplePHPGallery for an initial foothold, extract database credentials, and achieve root access by exploiting a writable /etc/passwd file.">
     <meta itemprop="datePublished" content="2026-03-31T11:11:14+09:00">
     <meta itemprop="dateModified" content="2026-03-31T11:11:14+09:00">
     <meta itemprop="wordCount" content="428">
     <meta itemprop="keywords" content="Openssl,/Etc/Passwd,Writable">
-    <title>Snookums :: Dragonfly Commando</title>
-    <link href="/images/favicon.png?1774925660" rel="icon" type="image/png">
-    <link href="/css/auto-complete/auto-complete.min.css?1774925660" rel="stylesheet">
-    <script src="/js/auto-complete/auto-complete.min.js?1774925660" defer></script>
-    <script src="/js/search-lunr.js?1774925660" defer></script>
-    <script src="/js/search.js?1774925660" defer></script>
+    <title>Snookums :: Zenu</title>
+    <link href="/images/favicon.png?1774928565" rel="icon" type="image/png">
+    <link href="/css/auto-complete/auto-complete.min.css?1774928565" rel="stylesheet">
+    <script src="/js/auto-complete/auto-complete.min.js?1774928565" defer></script>
+    <script src="/js/search-lunr.js?1774928565" defer></script>
+    <script src="/js/search.js?1774928565" defer></script>
     <script>
       window.relearn = window.relearn || {};
-      window.relearn.index_js_url="/searchindex.en.js?1774925660";
+      window.relearn.index_js_url="/searchindex.en.js?1774928565";
     </script>
-    <script src="/js/lunr/lunr.min.js?1774925660" defer></script>
-    <script src="/js/lunr/lunr.stemmer.support.min.js?1774925660" defer></script>
-    <script src="/js/lunr/lunr.multi.min.js?1774925660" defer></script>
-    <script src="/js/lunr/lunr.en.min.js?1774925660" defer></script>
+    <script src="/js/lunr/lunr.min.js?1774928565" defer></script>
+    <script src="/js/lunr/lunr.stemmer.support.min.js?1774928565" defer></script>
+    <script src="/js/lunr/lunr.multi.min.js?1774928565" defer></script>
+    <script src="/js/lunr/lunr.en.min.js?1774928565" defer></script>
     <script>
       window.relearn = window.relearn || {};
       window.relearn.contentLangs=['en'];
     </script>
-    <link href="/fonts/fontawesome/css/all.min.css?1774925660" rel="stylesheet" media="print" onload="this.media='all';this.onload=null;"><noscript><link href="/fonts/fontawesome/css/all.min.css?1774925660" rel="stylesheet"></noscript>
-    <link href="/css/perfect-scrollbar/perfect-scrollbar.min.css?1774925660" rel="stylesheet">
-    <link href="/css/theme.css?1774925660" rel="stylesheet">
-    <link href="/css/format-html.css?1774925660" rel="stylesheet" id="R-format-style">
+    <link href="/fonts/fontawesome/css/all.min.css?1774928565" rel="stylesheet" media="print" onload="this.media='all';this.onload=null;"><noscript><link href="/fonts/fontawesome/css/all.min.css?1774928565" rel="stylesheet"></noscript>
+    <link href="/css/perfect-scrollbar/perfect-scrollbar.min.css?1774928565" rel="stylesheet">
+    <link href="/css/theme.css?1774928565" rel="stylesheet">
+    <link href="/css/format-html.css?1774928565" rel="stylesheet" id="R-format-style">
     <script>
       window.relearn = window.relearn || {};
       // configuration
@@ -123,7 +123,7 @@
               </div>
             </div>
           </div>
-          <ol class="topbar-breadcrumbs breadcrumbs highlightable" itemscope itemtype="http://schema.org/BreadcrumbList"><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><a itemprop="item" href="/index.html"><span itemprop="name">Dragonfly Commando</span></a><meta itemprop="position" content="1">&nbsp;>&nbsp;</li><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><a itemprop="item" href="/writeup/index.html"><span itemprop="name">Writeup</span></a><meta itemprop="position" content="2">&nbsp;>&nbsp;</li><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><a itemprop="item" href="/writeup/proving-grounds/index.html"><span itemprop="name">Proving Grounds</span></a><meta itemprop="position" content="3">&nbsp;>&nbsp;</li><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><span itemprop="name">Snookums</span><meta itemprop="position" content="4"></li>
+          <ol class="topbar-breadcrumbs breadcrumbs highlightable" itemscope itemtype="http://schema.org/BreadcrumbList"><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><a itemprop="item" href="/index.html"><span itemprop="name">Zenu</span></a><meta itemprop="position" content="1">&nbsp;>&nbsp;</li><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><a itemprop="item" href="/writeup/index.html"><span itemprop="name">Writeup</span></a><meta itemprop="position" content="2">&nbsp;>&nbsp;</li><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><a itemprop="item" href="/writeup/proving-grounds/index.html"><span itemprop="name">Proving Grounds</span></a><meta itemprop="position" content="3">&nbsp;>&nbsp;</li><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><span itemprop="name">Snookums</span><meta itemprop="position" content="4"></li>
           </ol>
           <div class="topbar-area topbar-area-end" data-area="end">
             <div class="topbar-button topbar-button-prev default-animation" data-content-empty="disable" data-width-s="show" data-width-m="show" data-width-l="show">
@@ -201,8 +201,8 @@
 </span></span><span style="display:flex;"><span>Service Info: Host: SNOOKUMS; OS: Unix</span></span></code></pre></div>
 <h1 id="initial-foothold">initial foothold<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Copy link to clipboard"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h1>
 <p>Upon navigating to the web interface, I identified the version of the underlying framework.</p>
-<p><a href="#R-image-6d0c25f33c293ef1e424043bc79dc8b7" class="lightbox-link"><img alt="web" class="lazy lightbox figure-image" loading="lazy" src="/images/snookums/web-1.png" style="height: auto;width: auto;"></a>
-<a href="javascript:history.back();" class="lightbox-back" id="R-image-6d0c25f33c293ef1e424043bc79dc8b7"><img alt="web" class="lazy lightbox lightbox-image" loading="lazy" src="/images/snookums/web-1.png"></a></p>
+<p><a href="#R-image-6f8d441d98a80c5daed4c265bbf5ed1e" class="lightbox-link"><img alt="web" class="lazy lightbox figure-image" loading="lazy" src="/images/snookums/web-1.png" style="height: auto;width: auto;"></a>
+<a href="javascript:history.back();" class="lightbox-back" id="R-image-6f8d441d98a80c5daed4c265bbf5ed1e"><img alt="web" class="lazy lightbox lightbox-image" loading="lazy" src="/images/snookums/web-1.png"></a></p>
 <p>Researching this specific version revealed that version 0.7 is vulnerable to <a href="https://www.exploit-db.com/exploits/48424" rel="external">RFI vulnerability</a>.</p>
 <p>Through further testing, I confirmed that this vulnerability persists in version 0.8 as well.</p>
 <p>To gain an initial shell, I prepared a PHP reverse shell script on my local attacker machine. I then leveraged the RFI vulnerability by pointing the <code>img</code> parameter to my hosted shell:</p>
@@ -246,7 +246,7 @@
       <div id="R-header-topbar" class="default-animation"></div>
       <div id="R-header-wrapper" class="default-animation">
         <a id="R-logo" class="R-default direction-row" href="/index.html">
-          <span class="logo-title default-animation">Dragonfly Commando</span>
+          <span class="logo-title default-animation">Zenu</span>
         </a>
         <search><form action="/search/index.html" method="get">
           <div class="searchbox default-animation">
@@ -281,7 +281,6 @@
         <div class="R-sidebarmenu R-shortcutmenu-main default-animation">
           <ul class="enlarge morespace collapsible-menu">
             <li class="" data-nav-id="/posts/index.html"><a class="padding default-animation" href="/posts/index.html">Posts</a><ul id="R-subsections-b4e55eb7e39db1aee6d02808a2267090" class="collapsible-menu"></ul></li>
-            <li class="" data-nav-id="/private/index.html"><a class="padding default-animation" href="/private/index.html">Private</a><ul id="R-subsections-770b76f7b7b90b1c020ff5111c7b62af" class="collapsible-menu"></ul></li>
             <li class="parent " data-nav-id="/writeup/index.html"><a class="padding default-animation" href="/writeup/index.html">Writeup</a><ul id="R-subsections-4c552b9ca9f2e0503cd4c0d79a1b1839" class="collapsible-menu">
             <li class="parent alwaysopen " data-nav-id="/writeup/proving-grounds/index.html"><a class="padding default-animation" href="/writeup/proving-grounds/index.html">Proving Grounds</a><ul id="R-subsections-5c44e917da5921333a506ba619b792ee" class="collapsible-menu">
             <li class="active " data-nav-id="/writeup/proving-grounds/snookums/index.html"><a class="padding" href="/writeup/proving-grounds/snookums/index.html">Snookums</a></li>
@@ -309,8 +308,8 @@
 <div id="R-footer" class="default-animation"><p>Built with <a href="https://github.com/McShelby/hugo-theme-relearn" title="love"><i class="fas fa-heart"></i></a> by <a href="https://gohugo.io/">Hugo</a></p></div>
       </div>
     </aside>
-    <script src="/js/perfect-scrollbar/perfect-scrollbar.min.js?1774925660" defer></script>
-    <script src="/js/theme.js?1774925660" defer></script>
+    <script src="/js/perfect-scrollbar/perfect-scrollbar.min.js?1774928565" defer></script>
+    <script src="/js/theme.js?1774928565" defer></script>
     <div id="toast-container" role="status" aria-live="polite" aria-atomic="false"></div>
   </body>
 </html>

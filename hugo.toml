@@ -1,6 +1,6 @@
 baseURL = 'https://eoniboogie.github.io/'
 languageCode = 'en-us'
-title = 'Dragonfly Commando'
+title = 'Zenu'
 theme = "hugo-theme-relearn"
 enableRobotsTXT = true
 [params]
@@ -11,3 +11,9 @@ enableRobotsTXT = true
     url = 'https://github.com/eoniboogie/CVE_Disclosures'
     weight = 999
     identifier = 'cve'
+
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.parser]
+      [markup.goldmark.parser.attribute]
+        block = true

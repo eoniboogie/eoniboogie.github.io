@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Posts :: Dragonfly Commando</title>
+    <title>Posts :: Zenu</title>
     <link>http://localhost:1313/posts/index.html</link>
-    <description>Cheat Sheets &amp; Tips</description>
+    <description>Cheat Sheets &amp; Tips&#xA;File Transfer Pivoting Stabilize a reverse shell</description>
     <generator>Hugo</generator>
     <language>en-us</language>
     <lastBuildDate>Mon, 23 Feb 2026 11:11:32 +0900</lastBuildDate>
