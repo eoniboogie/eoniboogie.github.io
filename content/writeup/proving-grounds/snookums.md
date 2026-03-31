@@ -1,6 +1,6 @@
 +++
 date = '2026-03-31T11:11:14+09:00'
-draft = true
+draft = false
 title = 'Snookums'
 tags = ["openssl", "/etc/passwd", "writable"]
 description = "A comprehensive writeup for the OffSec Snookums machine. Learn how to exploit an RFI vulnerability in SimplePHPGallery for an initial foothold, extract database credentials, and achieve root access by exploiting a writable /etc/passwd file."
@@ -52,7 +52,7 @@ Service Info: Host: SNOOKUMS; OS: Unix
 
 Upon navigating to the web interface, I identified the version of the underlying framework.
 
-![web](/home/kali/Documents/지식창고/이미지/web-1.png)
+![web](/images/snookums/web-1.png)
 
 Researching this specific version revealed that version 0.7 is vulnerable to [RFI vulnerability](https://www.exploit-db.com/exploits/48424). 
 

