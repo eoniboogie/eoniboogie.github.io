@@ -1,6 +1,26 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>http://localhost:1313/tags/davtest/index.html</loc>
+    <lastmod>2026-04-15T17:59:18+09:00</lastmod>
+  </url>
+  <url>
+    <loc>http://localhost:1313/tags/index.html</loc>
+    <lastmod>2026-04-15T17:59:18+09:00</lastmod>
+  </url>
+  <url>
+    <loc>http://localhost:1313/tags/webdav/index.html</loc>
+    <lastmod>2026-04-15T17:59:18+09:00</lastmod>
+  </url>
+  <url>
+    <loc>http://localhost:1313/posts/webdav/index.html</loc>
+    <lastmod>2026-04-15T17:59:18+09:00</lastmod>
+  </url>
+  <url>
+    <loc>http://localhost:1313/index.html</loc>
+    <lastmod>2026-04-15T17:59:18+09:00</lastmod>
+  </url>
+  <url>
     <loc>http://localhost:1313/tags//etc/passwd/index.html</loc>
     <lastmod>2026-03-31T11:11:14+09:00</lastmod>
   </url>
@@ -13,15 +33,7 @@
     <lastmod>2026-03-31T11:11:14+09:00</lastmod>
   </url>
   <url>
-    <loc>http://localhost:1313/tags/index.html</loc>
-    <lastmod>2026-03-31T11:11:14+09:00</lastmod>
-  </url>
-  <url>
     <loc>http://localhost:1313/tags/writable/index.html</loc>
-    <lastmod>2026-03-31T11:11:14+09:00</lastmod>
-  </url>
-  <url>
-    <loc>http://localhost:1313/index.html</loc>
     <lastmod>2026-03-31T11:11:14+09:00</lastmod>
   </url>
   <url>

