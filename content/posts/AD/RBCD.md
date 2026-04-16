@@ -1,6 +1,6 @@
 +++
 date = '2026-04-16T22:12:34+09:00'
-draft = true
+draft = false
 title = 'GenericAll permission on a domain computer'
 tags = ["RBCD", "GenericAll"]
 +++
