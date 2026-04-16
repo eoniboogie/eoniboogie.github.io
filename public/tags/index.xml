@@ -6,8 +6,22 @@
     <description></description>
     <generator>Hugo</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 15 Apr 2026 17:59:18 +0900</lastBuildDate>
+    <lastBuildDate>Thu, 16 Apr 2026 22:12:34 +0900</lastBuildDate>
     <atom:link href="http://localhost:1313/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Tag :: GenericAll</title>
+      <link>http://localhost:1313/tags/genericall/index.html</link>
+      <pubDate>Thu, 16 Apr 2026 22:12:34 +0900</pubDate>
+      <guid>http://localhost:1313/tags/genericall/index.html</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Tag :: RBCD</title>
+      <link>http://localhost:1313/tags/rbcd/index.html</link>
+      <pubDate>Thu, 16 Apr 2026 22:12:34 +0900</pubDate>
+      <guid>http://localhost:1313/tags/rbcd/index.html</guid>
+      <description></description>
+    </item>
     <item>
       <title>Tag :: Davtest</title>
       <link>http://localhost:1313/tags/davtest/index.html</link>
@@ -72,7 +86,7 @@
       <description></description>
     </item>
     <item>
-      <title>Tag :: BloodHound</title>
+      <title>Tag :: Bloodhound</title>
       <link>http://localhost:1313/tags/bloodhound/index.html</link>
       <pubDate>Sat, 28 Feb 2026 09:56:41 +0900</pubDate>
       <guid>http://localhost:1313/tags/bloodhound/index.html</guid>

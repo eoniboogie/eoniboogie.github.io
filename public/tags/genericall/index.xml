@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>GenericAll :: Tag :: Zenu</title>
+    <link>http://localhost:1313/tags/genericall/index.html</link>
+    <description></description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 16 Apr 2026 22:12:34 +0900</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/genericall/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>GenericAll permission on a domain computer</title>
+      <link>http://localhost:1313/posts/ad/rbcd/index.html</link>
+      <pubDate>Thu, 16 Apr 2026 22:12:34 +0900</pubDate>
+      <guid>http://localhost:1313/posts/ad/rbcd/index.html</guid>
+      <description>GenericAll permission on a domain computer The user l.livingstone has GenericAll permission on the domain computer RESOURCEDC$.&#xA;GenericAll grants full control over the object — including the ability to write to msDS-AllowedToActOnBehalfOfOtherIdentity. This makes Resource-Based Constrained Delegation (RBCD) abuse possible: we create a machine account we control, configure the target to trust it for delegation, then impersonate any user (including Administrator) to obtain a service ticket via S4U2Proxy.</description>
+    </item>
+  </channel>
+</rss>

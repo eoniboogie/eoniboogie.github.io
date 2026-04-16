@@ -30,27 +30,27 @@
     <meta itemprop="wordCount" content="382">
     <meta itemprop="keywords" content="Squid,Phpmyadmin,Spose,Proxy">
     <title>Squid :: Zenu</title>
-    <link href="/images/favicon.png?1776245617" rel="icon" type="image/png">
-    <link href="/css/auto-complete/auto-complete.min.css?1776245617" rel="stylesheet">
-    <script src="/js/auto-complete/auto-complete.min.js?1776245617" defer></script>
-    <script src="/js/search-lunr.js?1776245617" defer></script>
-    <script src="/js/search.js?1776245617" defer></script>
+    <link href="/images/favicon.png?1776345942" rel="icon" type="image/png">
+    <link href="/css/auto-complete/auto-complete.min.css?1776345942" rel="stylesheet">
+    <script src="/js/auto-complete/auto-complete.min.js?1776345942" defer></script>
+    <script src="/js/search-lunr.js?1776345942" defer></script>
+    <script src="/js/search.js?1776345942" defer></script>
     <script>
       window.relearn = window.relearn || {};
-      window.relearn.index_js_url="/searchindex.en.js?1776245617";
+      window.relearn.index_js_url="/searchindex.en.js?1776345942";
     </script>
-    <script src="/js/lunr/lunr.min.js?1776245617" defer></script>
-    <script src="/js/lunr/lunr.stemmer.support.min.js?1776245617" defer></script>
-    <script src="/js/lunr/lunr.multi.min.js?1776245617" defer></script>
-    <script src="/js/lunr/lunr.en.min.js?1776245617" defer></script>
+    <script src="/js/lunr/lunr.min.js?1776345942" defer></script>
+    <script src="/js/lunr/lunr.stemmer.support.min.js?1776345942" defer></script>
+    <script src="/js/lunr/lunr.multi.min.js?1776345942" defer></script>
+    <script src="/js/lunr/lunr.en.min.js?1776345942" defer></script>
     <script>
       window.relearn = window.relearn || {};
       window.relearn.contentLangs=['en'];
     </script>
-    <link href="/fonts/fontawesome/css/all.min.css?1776245617" rel="stylesheet" media="print" onload="this.media='all';this.onload=null;"><noscript><link href="/fonts/fontawesome/css/all.min.css?1776245617" rel="stylesheet"></noscript>
-    <link href="/css/perfect-scrollbar/perfect-scrollbar.min.css?1776245617" rel="stylesheet">
-    <link href="/css/theme.css?1776245617" rel="stylesheet">
-    <link href="/css/format-html.css?1776245617" rel="stylesheet" id="R-format-style">
+    <link href="/fonts/fontawesome/css/all.min.css?1776345942" rel="stylesheet" media="print" onload="this.media='all';this.onload=null;"><noscript><link href="/fonts/fontawesome/css/all.min.css?1776345942" rel="stylesheet"></noscript>
+    <link href="/css/perfect-scrollbar/perfect-scrollbar.min.css?1776345942" rel="stylesheet">
+    <link href="/css/theme.css?1776345942" rel="stylesheet">
+    <link href="/css/format-html.css?1776345942" rel="stylesheet" id="R-format-style">
     <script>
       window.relearn = window.relearn || {};
       // configuration
@@ -174,8 +174,8 @@
 </span></span><span style="display:flex;"><span>49667/tcp open  msrpc         Microsoft Windows RPC</span></span></code></pre></div>
 <p>The scan results show that a Squid proxy is running on port 3128.</p>
 <h1 id="enumeration">enumeration<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Copy link to clipboard"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h1>
-<p><a href="#R-image-a2a0bf85b5ebfcf2e7b3a6af05794875" class="lightbox-link"><img alt="squid" class="lazy lightbox figure-image" loading="lazy" src="/images/squid/squid-3128.png" style="height: auto;width: auto;"></a>
-<a href="javascript:history.back();" class="lightbox-back" id="R-image-a2a0bf85b5ebfcf2e7b3a6af05794875"><img alt="squid" class="lazy lightbox lightbox-image" loading="lazy" src="/images/squid/squid-3128.png"></a></p>
+<p><a href="#R-image-1764a8c95d172b920db06a2fd5264b32" class="lightbox-link"><img alt="squid" class="lazy lightbox figure-image" loading="lazy" src="/images/squid/squid-3128.png" style="height: auto;width: auto;"></a>
+<a href="javascript:history.back();" class="lightbox-back" id="R-image-1764a8c95d172b920db06a2fd5264b32"><img alt="squid" class="lazy lightbox lightbox-image" loading="lazy" src="/images/squid/squid-3128.png"></a></p>
 <p>When accessing port 3128, only an error page is displayed.</p>
 <p>At first, I had no idea what to do with this port. While researching, I found an <a href="https://angelica.gitbook.io/hacktricks/network-services-pentesting/3128-pentesting-squid" rel="external">article</a> about enumerating Squid proxies.</p>
 <p>According to the article we can use the tool <code>spose.py</code>.</p>
@@ -186,17 +186,17 @@
 </span></span><span style="display:flex;"><span>192.168.137.189:3306 seems OPEN
 </span></span><span style="display:flex;"><span>192.168.137.189:8080 seems OPEN</span></span></code></pre></div>
 <p>This revealed that ports 3306 and 8080 were also accessible. These ports can be reached through the proxy.</p>
-<p><a href="#R-image-3892e6bd44c9f6842523edd536ae80a8" class="lightbox-link"><img alt="proxy" class="lazy lightbox figure-image" loading="lazy" src="/images/squid/squid-proxy.png" style="height: auto;width: auto;"></a>
-<a href="javascript:history.back();" class="lightbox-back" id="R-image-3892e6bd44c9f6842523edd536ae80a8"><img alt="proxy" class="lazy lightbox lightbox-image" loading="lazy" src="/images/squid/squid-proxy.png"></a></p>
+<p><a href="#R-image-027032358b71b56db0ee007576a71341" class="lightbox-link"><img alt="proxy" class="lazy lightbox figure-image" loading="lazy" src="/images/squid/squid-proxy.png" style="height: auto;width: auto;"></a>
+<a href="javascript:history.back();" class="lightbox-back" id="R-image-027032358b71b56db0ee007576a71341"><img alt="proxy" class="lazy lightbox lightbox-image" loading="lazy" src="/images/squid/squid-proxy.png"></a></p>
 <p>I configured proxy settings in FoxyProxy, pointing it to port 3128, and then attempted to access the web application.</p>
-<p><a href="#R-image-48d527d55f7697fe4bb47c0a4b180d6d" class="lightbox-link"><img alt="phpmyadmin" class="lazy lightbox figure-image" loading="lazy" src="/images/squid/squid-phpmyadmin.png" style="height: auto;width: auto;"></a>
-<a href="javascript:history.back();" class="lightbox-back" id="R-image-48d527d55f7697fe4bb47c0a4b180d6d"><img alt="phpmyadmin" class="lazy lightbox lightbox-image" loading="lazy" src="/images/squid/squid-phpmyadmin.png"></a></p>
+<p><a href="#R-image-92ef62000911c86126cd761ec61b752a" class="lightbox-link"><img alt="phpmyadmin" class="lazy lightbox figure-image" loading="lazy" src="/images/squid/squid-phpmyadmin.png" style="height: auto;width: auto;"></a>
+<a href="javascript:history.back();" class="lightbox-back" id="R-image-92ef62000911c86126cd761ec61b752a"><img alt="phpmyadmin" class="lazy lightbox lightbox-image" loading="lazy" src="/images/squid/squid-phpmyadmin.png"></a></p>
 <p>From the landing page, I found a link to <strong>phpmyadmin</strong> page.</p>
 <p>I tried the default credentials:</p>
 <p><code>root / ''</code></p>
 <p>and successfully logged in.</p>
-<p><a href="#R-image-c7bb87f2fda1674fe65546b4ffc107e4" class="lightbox-link"><img alt="login" class="lazy lightbox figure-image" loading="lazy" src="/images/squid/squid-login.png" style="height: auto;width: auto;"></a>
-<a href="javascript:history.back();" class="lightbox-back" id="R-image-c7bb87f2fda1674fe65546b4ffc107e4"><img alt="login" class="lazy lightbox lightbox-image" loading="lazy" src="/images/squid/squid-login.png"></a></p>
+<p><a href="#R-image-94b587ff4fe21ccb4528c90e4d3834dc" class="lightbox-link"><img alt="login" class="lazy lightbox figure-image" loading="lazy" src="/images/squid/squid-login.png" style="height: auto;width: auto;"></a>
+<a href="javascript:history.back();" class="lightbox-back" id="R-image-94b587ff4fe21ccb4528c90e4d3834dc"><img alt="login" class="lazy lightbox lightbox-image" loading="lazy" src="/images/squid/squid-login.png"></a></p>
 <h1 id="exploitation">exploitation<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Copy link to clipboard"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h1>
 <p>Using SQL statements, We can read and wirte files if we have sufficient privileges..</p>
 <p>Since I logged in as root, I had the necessary permissions.</p>
@@ -217,8 +217,8 @@
   </div>
 </details>
 <p>After executing the command, navigate to the URL to confirm that it works.</p>
-<p><a href="#R-image-ac58b12a75c8414cc3b123b9f3952aa2" class="lightbox-link"><img alt="webshell" class="lazy lightbox figure-image" loading="lazy" src="/images/squid/squid-uploader2.png" style="height: auto;width: auto;"></a>
-<a href="javascript:history.back();" class="lightbox-back" id="R-image-ac58b12a75c8414cc3b123b9f3952aa2"><img alt="webshell" class="lazy lightbox lightbox-image" loading="lazy" src="/images/squid/squid-uploader2.png"></a></p>
+<p><a href="#R-image-097c3e63979635f7b00f598da978c771" class="lightbox-link"><img alt="webshell" class="lazy lightbox figure-image" loading="lazy" src="/images/squid/squid-uploader2.png" style="height: auto;width: auto;"></a>
+<a href="javascript:history.back();" class="lightbox-back" id="R-image-097c3e63979635f7b00f598da978c771"><img alt="webshell" class="lazy lightbox lightbox-image" loading="lazy" src="/images/squid/squid-uploader2.png"></a></p>
 <p>Nice! Now we can upload a reverse shell and execute it.</p>
 <div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cmd" data-lang="cmd"><span style="display:flex;"><span>C:\wamp\www<span style="color:#75715e">&gt;whoami</span>
 </span></span><span style="display:flex;"><span>nt authority\local service</span></span></code></pre></div>
@@ -285,6 +285,7 @@
         <div class="R-sidebarmenu R-shortcutmenu-main default-animation">
           <ul class="enlarge morespace collapsible-menu">
             <li class="" data-nav-id="/posts/index.html"><a class="padding default-animation" href="/posts/index.html">Posts</a><ul id="R-subsections-b4e55eb7e39db1aee6d02808a2267090" class="collapsible-menu"></ul></li>
+            <li class="" data-nav-id="/private/index.html"><a class="padding default-animation" href="/private/index.html">Private</a><ul id="R-subsections-770b76f7b7b90b1c020ff5111c7b62af" class="collapsible-menu"></ul></li>
             <li class="parent " data-nav-id="/writeup/index.html"><a class="padding default-animation" href="/writeup/index.html">Writeup</a><ul id="R-subsections-4c552b9ca9f2e0503cd4c0d79a1b1839" class="collapsible-menu">
             <li class="parent alwaysopen " data-nav-id="/writeup/proving-grounds/index.html"><a class="padding default-animation" href="/writeup/proving-grounds/index.html">Proving Grounds</a><ul id="R-subsections-5c44e917da5921333a506ba619b792ee" class="collapsible-menu">
             <li class="" data-nav-id="/writeup/proving-grounds/snookums/index.html"><a class="padding" href="/writeup/proving-grounds/snookums/index.html">Snookums</a></li>
@@ -312,8 +313,8 @@
 <div id="R-footer" class="default-animation"><p>Built with <a href="https://github.com/McShelby/hugo-theme-relearn" title="love"><i class="fas fa-heart"></i></a> by <a href="https://gohugo.io/">Hugo</a></p></div>
       </div>
     </aside>
-    <script src="/js/perfect-scrollbar/perfect-scrollbar.min.js?1776245617" defer></script>
-    <script src="/js/theme.js?1776245617" defer></script>
+    <script src="/js/perfect-scrollbar/perfect-scrollbar.min.js?1776345942" defer></script>
+    <script src="/js/theme.js?1776345942" defer></script>
     <div id="toast-container" role="status" aria-live="polite" aria-atomic="false"></div>
   </body>
 </html>

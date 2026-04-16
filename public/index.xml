@@ -13,7 +13,14 @@
       <link>http://localhost:1313/posts/index.html</link>
       <pubDate>Tue, 24 Feb 2026 07:51:20 +0900</pubDate>
       <guid>http://localhost:1313/posts/index.html</guid>
-      <description>Cheat Sheets &amp; Tips&#xA;File Transfer Pivoting Stabilize a reverse shell WebDAV Exploitation with davtest</description>
+      <description>Cheat Sheets &amp; Tips&#xA;Active Directory File Transfer Pivoting Stabilize a reverse shell WebDAV Exploitation with davtest</description>
+    </item>
+    <item>
+      <title>Private</title>
+      <link>http://localhost:1313/private/index.html</link>
+      <pubDate>Tue, 24 Feb 2026 07:51:20 +0900</pubDate>
+      <guid>http://localhost:1313/private/index.html</guid>
+      <description>프라이빗 창고</description>
     </item>
     <item>
       <title>Writeup</title>

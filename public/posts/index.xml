@@ -3,11 +3,18 @@
   <channel>
     <title>Posts :: Zenu</title>
     <link>http://localhost:1313/posts/index.html</link>
-    <description>Cheat Sheets &amp; Tips&#xA;File Transfer Pivoting Stabilize a reverse shell WebDAV Exploitation with davtest</description>
+    <description>Cheat Sheets &amp; Tips&#xA;Active Directory File Transfer Pivoting Stabilize a reverse shell WebDAV Exploitation with davtest</description>
     <generator>Hugo</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 15 Apr 2026 17:59:18 +0900</lastBuildDate>
+    <lastBuildDate>Thu, 16 Apr 2026 07:51:20 +0900</lastBuildDate>
     <atom:link href="http://localhost:1313/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Active Directory</title>
+      <link>http://localhost:1313/posts/ad/index.html</link>
+      <pubDate>Thu, 16 Apr 2026 07:51:20 +0900</pubDate>
+      <guid>http://localhost:1313/posts/ad/index.html</guid>
+      <description>Active Directory cheatsheet&#xA;GenericAll permission on a domain computer</description>
+    </item>
     <item>
       <title>WebDAV Exploitation with davtest</title>
       <link>http://localhost:1313/posts/webdav/index.html</link>
