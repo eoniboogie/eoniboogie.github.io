@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="height=device-height, width=device-width, initial-scale=1.0, minimum-scale=1.0">
     <meta name="generator" content="Hugo 0.154.5">
-    <meta name="generator" content="Relearn 9.0.3+5fff5bc8a066e83e5f67f0de49c7dfb57379219e">
+    <meta name="generator" content="Relearn 9.0.3+36307e4ed23582638ab689240ac7b427217803ee">
     <meta name="description" content="WebDAV Exploitation WebDAV (Web Distributed Authoring and Versioning) is an HTTP extension that allows clients to perform remote file operations on a web server. When misconfigured, it can be a powerful attack surface — especially if it requires only basic credentials or has loose upload restrictions.
 WebDAV typically requires credentials to interact with.
 Step 1 — Enumerate Allowed File Types with davtest davtest tests which file types can be uploaded and executed on the target WebDAV server.">
@@ -36,27 +36,27 @@ Step 1 — Enumerate Allowed File Types with davtest davtest tests which file ty
     <meta itemprop="wordCount" content="230">
     <meta itemprop="keywords" content="Webdav,Davtest">
     <title>WebDAV Exploitation with davtest :: Zenu</title>
-    <link href="/images/favicon.png?1776345942" rel="icon" type="image/png">
-    <link href="/css/auto-complete/auto-complete.min.css?1776345942" rel="stylesheet">
-    <script src="/js/auto-complete/auto-complete.min.js?1776345942" defer></script>
-    <script src="/js/search-lunr.js?1776345942" defer></script>
-    <script src="/js/search.js?1776345942" defer></script>
+    <link href="/images/favicon.png?1777461976" rel="icon" type="image/png">
+    <link href="/css/auto-complete/auto-complete.min.css?1777461976" rel="stylesheet">
+    <script src="/js/auto-complete/auto-complete.min.js?1777461976" defer></script>
+    <script src="/js/search-lunr.js?1777461976" defer></script>
+    <script src="/js/search.js?1777461976" defer></script>
     <script>
       window.relearn = window.relearn || {};
-      window.relearn.index_js_url="/searchindex.en.js?1776345942";
+      window.relearn.index_js_url="/searchindex.en.js?1777461976";
     </script>
-    <script src="/js/lunr/lunr.min.js?1776345942" defer></script>
-    <script src="/js/lunr/lunr.stemmer.support.min.js?1776345942" defer></script>
-    <script src="/js/lunr/lunr.multi.min.js?1776345942" defer></script>
-    <script src="/js/lunr/lunr.en.min.js?1776345942" defer></script>
+    <script src="/js/lunr/lunr.min.js?1777461976" defer></script>
+    <script src="/js/lunr/lunr.stemmer.support.min.js?1777461976" defer></script>
+    <script src="/js/lunr/lunr.multi.min.js?1777461976" defer></script>
+    <script src="/js/lunr/lunr.en.min.js?1777461976" defer></script>
     <script>
       window.relearn = window.relearn || {};
       window.relearn.contentLangs=['en'];
     </script>
-    <link href="/fonts/fontawesome/css/all.min.css?1776345942" rel="stylesheet" media="print" onload="this.media='all';this.onload=null;"><noscript><link href="/fonts/fontawesome/css/all.min.css?1776345942" rel="stylesheet"></noscript>
-    <link href="/css/perfect-scrollbar/perfect-scrollbar.min.css?1776345942" rel="stylesheet">
-    <link href="/css/theme.css?1776345942" rel="stylesheet">
-    <link href="/css/format-html.css?1776345942" rel="stylesheet" id="R-format-style">
+    <link href="/fonts/fontawesome/css/all.min.css?1777461976" rel="stylesheet" media="print" onload="this.media='all';this.onload=null;"><noscript><link href="/fonts/fontawesome/css/all.min.css?1777461976" rel="stylesheet"></noscript>
+    <link href="/css/perfect-scrollbar/perfect-scrollbar.min.css?1777461976" rel="stylesheet">
+    <link href="/css/theme.css?1777461976" rel="stylesheet">
+    <link href="/css/format-html.css?1777461976" rel="stylesheet" id="R-format-style">
     <script>
       window.relearn = window.relearn || {};
       // configuration
@@ -77,7 +77,7 @@ Step 1 — Enumerate Allowed File Types with davtest davtest tests which file ty
       window.T_N_results_found = `{1} results found for "{0}"`;
       window.T_Browser_unsupported_feature = `This browser doesn't support this feature`;
       // variant stuff
-      window.relearn.themevariants = [ 'auto' ];
+      window.relearn.themevariants = [ 'relearn-light', 'relearn-dark', 'neon', 'zen-dark', 'zen-light' ];
       window.relearn.customvariantprefix = "my-custom-";
       window.relearn.changeVariant = function(variant) {
         var oldVariant = document.documentElement.dataset.rThemeVariant;
@@ -249,6 +249,7 @@ Executes: http://192.168.158.122/DavTestDir_LOqKQmYZCD2Fd/davtest_LOqKQmYZCD2Fd.
         <div class="R-sidebarmenu R-shortcutmenu-main default-animation">
           <ul class="enlarge morespace collapsible-menu">
             <li class="parent " data-nav-id="/posts/index.html"><a class="padding default-animation" href="/posts/index.html">Posts</a><ul id="R-subsections-b4e55eb7e39db1aee6d02808a2267090" class="collapsible-menu">
+            <li class="" data-nav-id="/posts/oscp_cheatsheet/index.html"><a class="padding" href="/posts/oscp_cheatsheet/index.html">OSCP_cheatsheet</a></li>
             <li class="alwaysopen " data-nav-id="/posts/ad/index.html"><a class="padding default-animation" href="/posts/ad/index.html">Active Directory</a><ul id="R-subsections-f4784161091e67b921ce9162ec1e6966" class="collapsible-menu"></ul></li>
             <li class="active " data-nav-id="/posts/webdav/index.html"><a class="padding" href="/posts/webdav/index.html">WebDAV Exploitation with davtest</a></li>
             <li class="" data-nav-id="/posts/pivoting/index.html"><a class="padding" href="/posts/pivoting/index.html">Pivoting</a></li>
@@ -270,13 +271,31 @@ Executes: http://192.168.158.122/DavTestDir_LOqKQmYZCD2Fd/davtest_LOqKQmYZCD2Fd.
         </div>
         <div class="R-sidebarmenu R-shortcutmenu-footercontrols default-animation">
           <ul class="">
+            <li class="R-variantswitcher">
+              <div class="padding menu-control">
+                <i class="fa-fw fas fa-paint-brush"></i>
+                <span>&nbsp;</span>
+                <div class="control-style">
+                  <label class="a11y-only" for="R-select-variant">Theme</label>
+                  <select id="R-select-variant">
+                    <option id="R-select-variant-relearn-light" value="relearn-light" selected>Relearn Light</option>
+                    <option id="R-select-variant-relearn-dark" value="relearn-dark">Relearn Dark</option>
+                    <option id="R-select-variant-neon" value="neon">Neon</option>
+                    <option id="R-select-variant-zen-dark" value="zen-dark">Zen Dark</option>
+                    <option id="R-select-variant-zen-light" value="zen-light">Zen Light</option>
+                  </select>
+                </div>
+                <div class="clear"></div>
+              </div>
+              <script>window.relearn.markVariant();</script>
+            </li>
           </ul>
         </div>
 <div id="R-footer" class="default-animation"><p>Built with <a href="https://github.com/McShelby/hugo-theme-relearn" title="love"><i class="fas fa-heart"></i></a> by <a href="https://gohugo.io/">Hugo</a></p></div>
       </div>
     </aside>
-    <script src="/js/perfect-scrollbar/perfect-scrollbar.min.js?1776345942" defer></script>
-    <script src="/js/theme.js?1776345942" defer></script>
+    <script src="/js/perfect-scrollbar/perfect-scrollbar.min.js?1777461976" defer></script>
+    <script src="/js/theme.js?1777461976" defer></script>
     <div id="toast-container" role="status" aria-live="polite" aria-atomic="false"></div>
   </body>
 </html>

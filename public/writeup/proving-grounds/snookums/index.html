@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="height=device-height, width=device-width, initial-scale=1.0, minimum-scale=1.0">
     <meta name="generator" content="Hugo 0.154.5">
-    <meta name="generator" content="Relearn 9.0.3+5fff5bc8a066e83e5f67f0de49c7dfb57379219e">
+    <meta name="generator" content="Relearn 9.0.3+36307e4ed23582638ab689240ac7b427217803ee">
     <meta name="description" content="A comprehensive writeup for the OffSec Snookums machine. Learn how to exploit an RFI vulnerability in SimplePHPGallery for an initial foothold, extract database credentials, and achieve root access by exploiting a writable /etc/passwd file.">
     <meta name="author" content="">
     <meta name="twitter:card" content="summary">
@@ -29,27 +29,27 @@
     <meta itemprop="wordCount" content="428">
     <meta itemprop="keywords" content="Openssl,/Etc/Passwd,Writable">
     <title>Snookums :: Zenu</title>
-    <link href="/images/favicon.png?1776345942" rel="icon" type="image/png">
-    <link href="/css/auto-complete/auto-complete.min.css?1776345942" rel="stylesheet">
-    <script src="/js/auto-complete/auto-complete.min.js?1776345942" defer></script>
-    <script src="/js/search-lunr.js?1776345942" defer></script>
-    <script src="/js/search.js?1776345942" defer></script>
+    <link href="/images/favicon.png?1777461976" rel="icon" type="image/png">
+    <link href="/css/auto-complete/auto-complete.min.css?1777461976" rel="stylesheet">
+    <script src="/js/auto-complete/auto-complete.min.js?1777461976" defer></script>
+    <script src="/js/search-lunr.js?1777461976" defer></script>
+    <script src="/js/search.js?1777461976" defer></script>
     <script>
       window.relearn = window.relearn || {};
-      window.relearn.index_js_url="/searchindex.en.js?1776345942";
+      window.relearn.index_js_url="/searchindex.en.js?1777461976";
     </script>
-    <script src="/js/lunr/lunr.min.js?1776345942" defer></script>
-    <script src="/js/lunr/lunr.stemmer.support.min.js?1776345942" defer></script>
-    <script src="/js/lunr/lunr.multi.min.js?1776345942" defer></script>
-    <script src="/js/lunr/lunr.en.min.js?1776345942" defer></script>
+    <script src="/js/lunr/lunr.min.js?1777461976" defer></script>
+    <script src="/js/lunr/lunr.stemmer.support.min.js?1777461976" defer></script>
+    <script src="/js/lunr/lunr.multi.min.js?1777461976" defer></script>
+    <script src="/js/lunr/lunr.en.min.js?1777461976" defer></script>
     <script>
       window.relearn = window.relearn || {};
       window.relearn.contentLangs=['en'];
     </script>
-    <link href="/fonts/fontawesome/css/all.min.css?1776345942" rel="stylesheet" media="print" onload="this.media='all';this.onload=null;"><noscript><link href="/fonts/fontawesome/css/all.min.css?1776345942" rel="stylesheet"></noscript>
-    <link href="/css/perfect-scrollbar/perfect-scrollbar.min.css?1776345942" rel="stylesheet">
-    <link href="/css/theme.css?1776345942" rel="stylesheet">
-    <link href="/css/format-html.css?1776345942" rel="stylesheet" id="R-format-style">
+    <link href="/fonts/fontawesome/css/all.min.css?1777461976" rel="stylesheet" media="print" onload="this.media='all';this.onload=null;"><noscript><link href="/fonts/fontawesome/css/all.min.css?1777461976" rel="stylesheet"></noscript>
+    <link href="/css/perfect-scrollbar/perfect-scrollbar.min.css?1777461976" rel="stylesheet">
+    <link href="/css/theme.css?1777461976" rel="stylesheet">
+    <link href="/css/format-html.css?1777461976" rel="stylesheet" id="R-format-style">
     <script>
       window.relearn = window.relearn || {};
       // configuration
@@ -70,7 +70,7 @@
       window.T_N_results_found = `{1} results found for "{0}"`;
       window.T_Browser_unsupported_feature = `This browser doesn't support this feature`;
       // variant stuff
-      window.relearn.themevariants = [ 'auto' ];
+      window.relearn.themevariants = [ 'relearn-light', 'relearn-dark', 'neon', 'zen-dark', 'zen-light' ];
       window.relearn.customvariantprefix = "my-custom-";
       window.relearn.changeVariant = function(variant) {
         var oldVariant = document.documentElement.dataset.rThemeVariant;
@@ -201,8 +201,8 @@
 </span></span><span style="display:flex;"><span>Service Info: Host: SNOOKUMS; OS: Unix</span></span></code></pre></div>
 <h1 id="initial-foothold">initial foothold<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Copy link to clipboard"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h1>
 <p>Upon navigating to the web interface, I identified the version of the underlying framework.</p>
-<p><a href="#R-image-a3bd8ffed60f1a6188c104aaa189ed9f" class="lightbox-link"><img alt="web" class="lazy lightbox figure-image" loading="lazy" src="/images/snookums/web-1.png" style="height: auto;width: auto;"></a>
-<a href="javascript:history.back();" class="lightbox-back" id="R-image-a3bd8ffed60f1a6188c104aaa189ed9f"><img alt="web" class="lazy lightbox lightbox-image" loading="lazy" src="/images/snookums/web-1.png"></a></p>
+<p><a href="#R-image-4fd211944fef37469cfa4214c95e95ec" class="lightbox-link"><img alt="web" class="lazy lightbox figure-image" loading="lazy" src="/images/snookums/web-1.png" style="height: auto;width: auto;"></a>
+<a href="javascript:history.back();" class="lightbox-back" id="R-image-4fd211944fef37469cfa4214c95e95ec"><img alt="web" class="lazy lightbox lightbox-image" loading="lazy" src="/images/snookums/web-1.png"></a></p>
 <p>Researching this specific version revealed that version 0.7 is vulnerable to <a href="https://www.exploit-db.com/exploits/48424" rel="external">RFI vulnerability</a>.</p>
 <p>Through further testing, I confirmed that this vulnerability persists in version 0.8 as well.</p>
 <p>To gain an initial shell, I prepared a PHP reverse shell script on my local attacker machine. I then leveraged the RFI vulnerability by pointing the <code>img</code> parameter to my hosted shell:</p>
@@ -304,13 +304,31 @@
         </div>
         <div class="R-sidebarmenu R-shortcutmenu-footercontrols default-animation">
           <ul class="">
+            <li class="R-variantswitcher">
+              <div class="padding menu-control">
+                <i class="fa-fw fas fa-paint-brush"></i>
+                <span>&nbsp;</span>
+                <div class="control-style">
+                  <label class="a11y-only" for="R-select-variant">Theme</label>
+                  <select id="R-select-variant">
+                    <option id="R-select-variant-relearn-light" value="relearn-light" selected>Relearn Light</option>
+                    <option id="R-select-variant-relearn-dark" value="relearn-dark">Relearn Dark</option>
+                    <option id="R-select-variant-neon" value="neon">Neon</option>
+                    <option id="R-select-variant-zen-dark" value="zen-dark">Zen Dark</option>
+                    <option id="R-select-variant-zen-light" value="zen-light">Zen Light</option>
+                  </select>
+                </div>
+                <div class="clear"></div>
+              </div>
+              <script>window.relearn.markVariant();</script>
+            </li>
           </ul>
         </div>
 <div id="R-footer" class="default-animation"><p>Built with <a href="https://github.com/McShelby/hugo-theme-relearn" title="love"><i class="fas fa-heart"></i></a> by <a href="https://gohugo.io/">Hugo</a></p></div>
       </div>
     </aside>
-    <script src="/js/perfect-scrollbar/perfect-scrollbar.min.js?1776345942" defer></script>
-    <script src="/js/theme.js?1776345942" defer></script>
+    <script src="/js/perfect-scrollbar/perfect-scrollbar.min.js?1777461976" defer></script>
+    <script src="/js/theme.js?1777461976" defer></script>
     <div id="toast-container" role="status" aria-live="polite" aria-atomic="false"></div>
   </body>
 </html>

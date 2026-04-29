@@ -1,6 +1,22 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>http://localhost:1313/posts/oscp_cheatsheet/index.html</loc>
+    <lastmod>2026-04-28T20:19:35+09:00</lastmod>
+  </url>
+  <url>
+    <loc>http://localhost:1313/index.html</loc>
+    <lastmod>2026-04-28T20:19:35+09:00</lastmod>
+  </url>
+  <url>
+    <loc>http://localhost:1313/posts/ad/serestoreprivilege/index.html</loc>
+    <lastmod>2026-04-18T14:48:27+09:00</lastmod>
+  </url>
+  <url>
+    <loc>http://localhost:1313/posts/ad/gmsapassword/index.html</loc>
+    <lastmod>2026-04-18T14:23:37+09:00</lastmod>
+  </url>
+  <url>
     <loc>http://localhost:1313/tags/genericall/index.html</loc>
     <lastmod>2026-04-16T22:12:34+09:00</lastmod>
   </url>
@@ -14,10 +30,6 @@
   </url>
   <url>
     <loc>http://localhost:1313/tags/index.html</loc>
-    <lastmod>2026-04-16T22:12:34+09:00</lastmod>
-  </url>
-  <url>
-    <loc>http://localhost:1313/index.html</loc>
     <lastmod>2026-04-16T22:12:34+09:00</lastmod>
   </url>
   <url>

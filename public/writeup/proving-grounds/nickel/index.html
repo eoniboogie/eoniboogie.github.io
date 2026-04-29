@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="height=device-height, width=device-width, initial-scale=1.0, minimum-scale=1.0">
     <meta name="generator" content="Hugo 0.154.5">
-    <meta name="generator" content="Relearn 9.0.3+5fff5bc8a066e83e5f67f0de49c7dfb57379219e">
+    <meta name="generator" content="Relearn 9.0.3+36307e4ed23582638ab689240ac7b427217803ee">
     <meta name="description" content="Nickel writeup – Windows exploitation walkthrough covering HTTP enumeration, credential discovery via process listing, SSH access, PDF password cracking, and SYSTEM command execution.">
     <meta name="author" content="">
     <meta name="twitter:card" content="summary">
@@ -29,27 +29,27 @@
     <meta itemprop="wordCount" content="782">
     <meta itemprop="keywords" content="Port-Forwarding,Nickel,Writeup">
     <title>Nickel :: Zenu</title>
-    <link href="/images/favicon.png?1776345942" rel="icon" type="image/png">
-    <link href="/css/auto-complete/auto-complete.min.css?1776345942" rel="stylesheet">
-    <script src="/js/auto-complete/auto-complete.min.js?1776345942" defer></script>
-    <script src="/js/search-lunr.js?1776345942" defer></script>
-    <script src="/js/search.js?1776345942" defer></script>
+    <link href="/images/favicon.png?1777461976" rel="icon" type="image/png">
+    <link href="/css/auto-complete/auto-complete.min.css?1777461976" rel="stylesheet">
+    <script src="/js/auto-complete/auto-complete.min.js?1777461976" defer></script>
+    <script src="/js/search-lunr.js?1777461976" defer></script>
+    <script src="/js/search.js?1777461976" defer></script>
     <script>
       window.relearn = window.relearn || {};
-      window.relearn.index_js_url="/searchindex.en.js?1776345942";
+      window.relearn.index_js_url="/searchindex.en.js?1777461976";
     </script>
-    <script src="/js/lunr/lunr.min.js?1776345942" defer></script>
-    <script src="/js/lunr/lunr.stemmer.support.min.js?1776345942" defer></script>
-    <script src="/js/lunr/lunr.multi.min.js?1776345942" defer></script>
-    <script src="/js/lunr/lunr.en.min.js?1776345942" defer></script>
+    <script src="/js/lunr/lunr.min.js?1777461976" defer></script>
+    <script src="/js/lunr/lunr.stemmer.support.min.js?1777461976" defer></script>
+    <script src="/js/lunr/lunr.multi.min.js?1777461976" defer></script>
+    <script src="/js/lunr/lunr.en.min.js?1777461976" defer></script>
     <script>
       window.relearn = window.relearn || {};
       window.relearn.contentLangs=['en'];
     </script>
-    <link href="/fonts/fontawesome/css/all.min.css?1776345942" rel="stylesheet" media="print" onload="this.media='all';this.onload=null;"><noscript><link href="/fonts/fontawesome/css/all.min.css?1776345942" rel="stylesheet"></noscript>
-    <link href="/css/perfect-scrollbar/perfect-scrollbar.min.css?1776345942" rel="stylesheet">
-    <link href="/css/theme.css?1776345942" rel="stylesheet">
-    <link href="/css/format-html.css?1776345942" rel="stylesheet" id="R-format-style">
+    <link href="/fonts/fontawesome/css/all.min.css?1777461976" rel="stylesheet" media="print" onload="this.media='all';this.onload=null;"><noscript><link href="/fonts/fontawesome/css/all.min.css?1777461976" rel="stylesheet"></noscript>
+    <link href="/css/perfect-scrollbar/perfect-scrollbar.min.css?1777461976" rel="stylesheet">
+    <link href="/css/theme.css?1777461976" rel="stylesheet">
+    <link href="/css/format-html.css?1777461976" rel="stylesheet" id="R-format-style">
     <script>
       window.relearn = window.relearn || {};
       // configuration
@@ -70,7 +70,7 @@
       window.T_N_results_found = `{1} results found for "{0}"`;
       window.T_Browser_unsupported_feature = `This browser doesn't support this feature`;
       // variant stuff
-      window.relearn.themevariants = [ 'auto' ];
+      window.relearn.themevariants = [ 'relearn-light', 'relearn-dark', 'neon', 'zen-dark', 'zen-light' ];
       window.relearn.customvariantprefix = "my-custom-";
       window.relearn.changeVariant = function(variant) {
         var oldVariant = document.documentElement.dataset.rThemeVariant;
@@ -210,10 +210,10 @@
 <h2 id="web">WEB<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Copy link to clipboard"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
 <p>Accessing the web service on port 8089 reveals the following home page:</p>
 <p>The page contains three buttons. Reviewing the source code shows that these links redirect to endpoints on port 33333.</p>
-<p><a href="#R-image-861006f36323363219c26aafef4be267" class="lightbox-link"><img alt="Nickel home page" class="lazy lightbox figure-image" loading="lazy" src="/images/nickel/nickel-8089.png" style="height: auto;width: auto;"></a>
-<a href="javascript:history.back();" class="lightbox-back" id="R-image-861006f36323363219c26aafef4be267"><img alt="Nickel home page" class="lazy lightbox lightbox-image" loading="lazy" src="/images/nickel/nickel-8089.png"></a></p>
-<p><a href="#R-image-f98537a02c789931f9c4cccad4c50d0a" class="lightbox-link"><img alt="source-code" class="lazy lightbox figure-image" loading="lazy" src="/images/nickel/nicket-redirect.png" style="height: auto;width: auto;"></a>
-<a href="javascript:history.back();" class="lightbox-back" id="R-image-f98537a02c789931f9c4cccad4c50d0a"><img alt="source-code" class="lazy lightbox lightbox-image" loading="lazy" src="/images/nickel/nicket-redirect.png"></a></p>
+<p><a href="#R-image-ff4ac271c662dec3f1f04c4d2e71c5c8" class="lightbox-link"><img alt="Nickel home page" class="lazy lightbox figure-image" loading="lazy" src="/images/nickel/nickel-8089.png" style="height: auto;width: auto;"></a>
+<a href="javascript:history.back();" class="lightbox-back" id="R-image-ff4ac271c662dec3f1f04c4d2e71c5c8"><img alt="Nickel home page" class="lazy lightbox lightbox-image" loading="lazy" src="/images/nickel/nickel-8089.png"></a></p>
+<p><a href="#R-image-2eeff21faa119e6c576ee5c3c9bb0e8d" class="lightbox-link"><img alt="source-code" class="lazy lightbox figure-image" loading="lazy" src="/images/nickel/nicket-redirect.png" style="height: auto;width: auto;"></a>
+<a href="javascript:history.back();" class="lightbox-back" id="R-image-2eeff21faa119e6c576ee5c3c9bb0e8d"><img alt="source-code" class="lazy lightbox lightbox-image" loading="lazy" src="/images/nickel/nicket-redirect.png"></a></p>
 <ul>
 <li>list-current-deployments</li>
 <li>list-running-procs</li>
@@ -359,8 +359,8 @@
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>ariah4168</span></span></code></pre></div>
 <p>The PDF contains a note regarding three sites and mentions a command endpoint.</p>
-<p><a href="#R-image-a25a025b5ec84833c25d285d156f6867" class="lightbox-link"><img alt="note" class="lazy lightbox figure-image" loading="lazy" src="/images/nickel/nickel-pdf.png" style="height: auto;width: auto;"></a>
-<a href="javascript:history.back();" class="lightbox-back" id="R-image-a25a025b5ec84833c25d285d156f6867"><img alt="note" class="lazy lightbox lightbox-image" loading="lazy" src="/images/nickel/nickel-pdf.png"></a></p>
+<p><a href="#R-image-a15d7dd7fede735bfb32447cb12e32cb" class="lightbox-link"><img alt="note" class="lazy lightbox figure-image" loading="lazy" src="/images/nickel/nickel-pdf.png" style="height: auto;width: auto;"></a>
+<a href="javascript:history.back();" class="lightbox-back" id="R-image-a15d7dd7fede735bfb32447cb12e32cb"><img alt="note" class="lazy lightbox lightbox-image" loading="lazy" src="/images/nickel/nickel-pdf.png"></a></p>
 <p>This endpoint allows command execution. I can access this locally via curl from my existing session or set up port forwarding to access it from my Kali machine.</p>
 <div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cmd" data-lang="cmd"><span style="display:flex;"><span>ariah@NICKEL C:\Users\ariah&gt;curl http://127.0.0.1/?whoami
 </span></span><span style="display:flex;"><span>&lt;!doctype html&gt;&lt;html&gt;&lt;body&gt;dev-api started at 2025-12-07T05:47:35
@@ -371,11 +371,11 @@
 <p>Alternatively, using SSH port forwarding:</p>
 <div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cmd" data-lang="cmd"><span style="display:flex;"><span>ariah@NICKEL C:\Users&gt;ssh -N -R 80:127.0.0.1:80 kali@IP</span></span></code></pre></div>
 <p>The output confirms the API is running as nt authority\system.</p>
-<p><a href="#R-image-4e777326e1bc093ab6a7939f6c8afcfb" class="lightbox-link"><img alt="whoami" class="lazy lightbox figure-image" loading="lazy" src="/images/nickel/nickel-whoami.png" style="height: auto;width: auto;"></a>
-<a href="javascript:history.back();" class="lightbox-back" id="R-image-4e777326e1bc093ab6a7939f6c8afcfb"><img alt="whoami" class="lazy lightbox lightbox-image" loading="lazy" src="/images/nickel/nickel-whoami.png"></a></p>
+<p><a href="#R-image-e75cdd288a758308c7decd7c91b938e6" class="lightbox-link"><img alt="whoami" class="lazy lightbox figure-image" loading="lazy" src="/images/nickel/nickel-whoami.png" style="height: auto;width: auto;"></a>
+<a href="javascript:history.back();" class="lightbox-back" id="R-image-e75cdd288a758308c7decd7c91b938e6"><img alt="whoami" class="lazy lightbox lightbox-image" loading="lazy" src="/images/nickel/nickel-whoami.png"></a></p>
 <p>By sending a URL-encoded command, I can read the proof.txt file or execute a reverse shell payload to gain full system access.</p>
-<p><a href="#R-image-6c028d5262a21a8ff2dd57969472c1bc" class="lightbox-link"><img alt="proof.txt" class="lazy lightbox figure-image" loading="lazy" src="/images/nickel/nickel-proof.png" style="height: auto;width: auto;"></a>
-<a href="javascript:history.back();" class="lightbox-back" id="R-image-6c028d5262a21a8ff2dd57969472c1bc"><img alt="proof.txt" class="lazy lightbox lightbox-image" loading="lazy" src="/images/nickel/nickel-proof.png"></a></p>
+<p><a href="#R-image-90a7f6cbe2fbcb030c2c5999d612a119" class="lightbox-link"><img alt="proof.txt" class="lazy lightbox figure-image" loading="lazy" src="/images/nickel/nickel-proof.png" style="height: auto;width: auto;"></a>
+<a href="javascript:history.back();" class="lightbox-back" id="R-image-90a7f6cbe2fbcb030c2c5999d612a119"><img alt="proof.txt" class="lazy lightbox lightbox-image" loading="lazy" src="/images/nickel/nickel-proof.png"></a></p>
 
   <footer class="footline">
               <i class='fa-fw fas fa-calendar'></i> Feb 24, 2026
@@ -446,13 +446,31 @@
         </div>
         <div class="R-sidebarmenu R-shortcutmenu-footercontrols default-animation">
           <ul class="">
+            <li class="R-variantswitcher">
+              <div class="padding menu-control">
+                <i class="fa-fw fas fa-paint-brush"></i>
+                <span>&nbsp;</span>
+                <div class="control-style">
+                  <label class="a11y-only" for="R-select-variant">Theme</label>
+                  <select id="R-select-variant">
+                    <option id="R-select-variant-relearn-light" value="relearn-light" selected>Relearn Light</option>
+                    <option id="R-select-variant-relearn-dark" value="relearn-dark">Relearn Dark</option>
+                    <option id="R-select-variant-neon" value="neon">Neon</option>
+                    <option id="R-select-variant-zen-dark" value="zen-dark">Zen Dark</option>
+                    <option id="R-select-variant-zen-light" value="zen-light">Zen Light</option>
+                  </select>
+                </div>
+                <div class="clear"></div>
+              </div>
+              <script>window.relearn.markVariant();</script>
+            </li>
           </ul>
         </div>
 <div id="R-footer" class="default-animation"><p>Built with <a href="https://github.com/McShelby/hugo-theme-relearn" title="love"><i class="fas fa-heart"></i></a> by <a href="https://gohugo.io/">Hugo</a></p></div>
       </div>
     </aside>
-    <script src="/js/perfect-scrollbar/perfect-scrollbar.min.js?1776345942" defer></script>
-    <script src="/js/theme.js?1776345942" defer></script>
+    <script src="/js/perfect-scrollbar/perfect-scrollbar.min.js?1777461976" defer></script>
+    <script src="/js/theme.js?1777461976" defer></script>
     <div id="toast-container" role="status" aria-live="polite" aria-atomic="false"></div>
   </body>
 </html>
