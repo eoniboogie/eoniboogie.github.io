@@ -28,7 +28,7 @@ hashcat:
 - windows
 
 ```powershell
-.\Rubeus.exe asreproast /nowrap /outfile:hash.txt`
+.\Rubeus.exe asreproast /nowrap /outfile:hash.txt
 ```
 
 - linux
@@ -103,7 +103,7 @@ rdesktop 192.168.134.165
 
 ## SeManageVolumePrivilege
 
-Execute the (tool)[https://github.com/CsEnox/SeManageVolumeExploit/releases/tag/public?source=post_page-----2ebc0077b961---------------------------------------]
+Execute the [tool](https://github.com/CsEnox/SeManageVolumeExploit/releases/tag/public?source=post_page-----2ebc0077b961---------------------------------------)
 
 # GPO
 
