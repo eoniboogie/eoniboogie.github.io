@@ -7,6 +7,8 @@ enableRobotsTXT = true
     favicon = 'favicon.png'
     searchIsCaseSensitive = false
     themeVariant = ['relearn-light', 'relearn-dark', 'neon', 'zen-dark', 'zen-light']
+    disableLandingPageButton = true
+    showVisitedLinks = true
 [[menu.shortcuts]]
     name = '<i class="fab fa-github"></i> CVE Disclosures'
     url = 'https://github.com/eoniboogie/CVE_Disclosures'
