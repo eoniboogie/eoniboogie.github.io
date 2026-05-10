@@ -6,8 +6,36 @@
     <description></description>
     <generator>Hugo</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 16 Apr 2026 22:12:34 +0900</lastBuildDate>
+    <lastBuildDate>Thu, 30 Apr 2026 10:12:33 +0900</lastBuildDate>
     <atom:link href="http://localhost:1313/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Tag :: 7z</title>
+      <link>http://localhost:1313/tags/7z/index.html</link>
+      <pubDate>Thu, 30 Apr 2026 10:12:33 +0900</pubDate>
+      <guid>http://localhost:1313/tags/7z/index.html</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Tag :: 7za</title>
+      <link>http://localhost:1313/tags/7za/index.html</link>
+      <pubDate>Thu, 30 Apr 2026 10:12:33 +0900</pubDate>
+      <guid>http://localhost:1313/tags/7za/index.html</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Tag :: Php-Wrapper</title>
+      <link>http://localhost:1313/tags/php-wrapper/index.html</link>
+      <pubDate>Thu, 30 Apr 2026 10:12:33 +0900</pubDate>
+      <guid>http://localhost:1313/tags/php-wrapper/index.html</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Tag :: Zip</title>
+      <link>http://localhost:1313/tags/zip/index.html</link>
+      <pubDate>Thu, 30 Apr 2026 10:12:33 +0900</pubDate>
+      <guid>http://localhost:1313/tags/zip/index.html</guid>
+      <description></description>
+    </item>
     <item>
       <title>Tag :: GenericAll</title>
       <link>http://localhost:1313/tags/genericall/index.html</link>

