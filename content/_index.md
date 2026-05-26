@@ -7,12 +7,12 @@ title = 'Home'
 # Welcome!!
 
 {{< cards >}}
-{{% card title="Posts" href="/posts/index.html" image="/images/gladgers-hacker-gers-guardians-of-galaxy.gif" %}}
+{{% card title="Posts" href="/posts/index.html" image="images/rocket-solid-full.svg" %}}
 Posts
 
 
 {{% /card %}}
-{{% card title="Writeup" href="/writeup/index.html" image="/images/apu-apustaja-apu.gif" %}}
+{{% card title="Writeup" href="/writeup/index.html" image="/images/user-astronaut-solid-full.svg" %}}
 Writeups
 
 
