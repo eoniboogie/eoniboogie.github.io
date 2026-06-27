@@ -305,6 +305,20 @@ nxc ldap hutch.offsec -u '' -p '' --query "(sAMAccountName=*)" "" | grep sAMAcco
 nxc ldap hutch.offsec -u '' -p '' --query "(sAMAccountName=*)" "" | grep description   
 ```
 
+## ldapsearch
+
+- make a user list
+
+```
+ldapsearch -x -H ldap://10.129.234.71 -b "dc=baby,dc=vl" | grep -i samaccountname | cut -d ':' -f 2 |tr -d ' ' > users.txt
+```
+
+- enum all properties
+
+```
+ldapsearch -x -b "dc=baby,dc=vl" "*" -H ldap://BabyDC.baby.vl
+```
+
 ## webdav
 
 ### davtest
