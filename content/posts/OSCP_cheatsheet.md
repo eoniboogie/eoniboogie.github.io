@@ -456,3 +456,11 @@ neo4j, bloodhound must be running.
 	3. sudo python3 PlumHound.py -x tasks/default.tasks -p {neo4j password}  (write a report)
 cd reports 
 ```
+
+## git
+
+- git clone with authorized token
+
+```
+git clone http://43ce39bb0bd6bc489284f2905f033ca467a6362f@10.129.234.64:3000/ellen.freeman/website.git
+```
