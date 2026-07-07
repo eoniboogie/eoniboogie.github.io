@@ -4,7 +4,7 @@ title = 'Zenu'
 theme = "hugo-theme-relearn"
 enableRobotsTXT = true
 [params]
-    favicon = 'favicon.png'
+    favicon = 'favicon.ico'
     searchIsCaseSensitive = false
     themeVariant = ['relearn-light', 'relearn-dark', 'neon', 'zen-dark', 'zen-light']
     disableLandingPageButton = true
