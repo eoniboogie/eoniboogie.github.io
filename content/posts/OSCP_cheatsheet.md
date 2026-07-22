@@ -624,3 +624,18 @@ Would you like to save the private key? (y/N)
 - run sudo as other users
 
 `sudo -u username`
+
+## postgres
+
+- login
+
+`psql -h 127.0.0.1 -d register_hetemit -U railsdev`
+
+## systemd
+
+- When there is a writable file in the **systemd** directory.
+
+- [document](https://www.freedesktop.org/software/systemd/man/latest/systemd.service.html?__goaway_challenge=meta-refresh&__goaway_id=1f5d8f391920d4d10122aa7054693dec&__goaway_referer=https%3A%2F%2Fwww.google.com%2F)
+
+- change to root user, add payload and reboot so that the script can be run
+
