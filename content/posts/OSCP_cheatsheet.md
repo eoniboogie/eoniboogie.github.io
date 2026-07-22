@@ -639,3 +639,4 @@ Would you like to save the private key? (y/N)
 
 - change to root user, add payload and reboot so that the script can be run
 
+![systemd](/images/hetemit/systemd.png)
