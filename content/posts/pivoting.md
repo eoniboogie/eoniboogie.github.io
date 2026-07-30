@@ -29,7 +29,7 @@ tags = ["ligolo"]
 
 6. Start tunneling
 
-`tunnel_start`
+`tunnel_start --tun evil-cha`
 
 ---
 
