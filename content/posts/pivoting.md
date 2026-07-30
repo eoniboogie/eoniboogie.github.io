@@ -9,7 +9,7 @@ tags = ["ligolo"]
 
 1. Set a proxy server
 
-`sudo ./proxy -selfcert -laddr "0.0.0.0:7878"`
+`sudo ligolo-proxy -selfcert -laddr "0.0.0.0:7878"`
 
 2. Create an interface
 
@@ -21,15 +21,15 @@ tags = ["ligolo"]
 
 4. Access to the proxy server from the target machine
 
-`./agent -connect 10.10.14.3:11601 -ignore-cert`
+`./agent -connect 10.10.14.3:7878 -ignore-cert`
 
 5. Check sessions from the proxy
 
-`sessoins`
+`sessoin`
 
 6. Start tunneling
 
-`tunnel_start --tun evil-cha`
+`tunnel_start`
 
 ---
 
