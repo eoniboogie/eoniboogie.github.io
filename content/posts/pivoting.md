@@ -21,7 +21,7 @@ tags = ["ligolo"]
 
 4. Access to the proxy server from the target machine
 
-`./agent -connect 10.10.14.3:7878 -ignore-cert`
+`./agent -connect 192.168.45.224:7878 -ignore-cert`
 
 5. Check sessions from the proxy
 
