@@ -38,8 +38,8 @@ file sender
 
 ## linux
 
-'python3 -m http.server 80'
+`python3 -m http.server 80`
 
 ## windows
 
-'.\http-server.exe --ip 10.10.202.147 --port 8888'
+`.\http-server.exe --ip 10.10.202.147 --port 8888`
