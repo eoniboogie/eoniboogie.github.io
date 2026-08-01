@@ -15,6 +15,7 @@ Connect to the SMB from windows
 `net use Z: \\192.168.45.211\test /user:user 1234`
 
 # nc
+
 ## linux
 file receiver
 
@@ -32,3 +33,13 @@ file receiver
 file sender
 
 `nc.exe -w 1 192.168.45.211 1234 < file.txt`
+
+# http
+
+## linux
+
+'python3 -m http.server 80'
+
+## windows
+
+'.\http-server.exe --ip 10.10.202.147 --port 8888'
