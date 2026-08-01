@@ -35,12 +35,13 @@ tags = ["ligolo"]
 
 For local port forwarding.
 
-- from kali terminal
+- Make sure the tunnel has started
 
-`sudo ip route add 240.0.0.1/32 dev evil-cha`
+- From ligolo-proxy add the port forwarding
 
-or 
+`listener_add --addr 0.0.0.0:1234 --to 127.0.0.1:4444`
 
-- from ligolo proxy interface
+Now the pivoting machine forwards inbound port (1234) to kali port (4444)
 
-`interface_add_route --name evil-cha --route 240.0.0.1/32`
+- Check with `listener_list`
+
