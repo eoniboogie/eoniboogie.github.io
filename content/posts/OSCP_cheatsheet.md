@@ -784,3 +784,11 @@ ed
 !'/bin/bash'
 export PATH=$PATH:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 ```
+
+## Magic byte
+
+### hexedit
+
+`sudo hexedit $file`
+
+- save : crtl+x

