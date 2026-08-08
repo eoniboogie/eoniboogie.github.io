@@ -13,21 +13,21 @@
       <link>http://localhost:1313/posts/ad/serestoreprivilege/index.html</link>
       <pubDate>Sat, 18 Apr 2026 14:48:27 +0900</pubDate>
       <guid>http://localhost:1313/posts/ad/serestoreprivilege/index.html</guid>
-      <description>SeRestorePrivilege When an account has SeRestorePrivilege, it can be leveraged to achieve privilege escalation by overwriting protected system files.&#xA;Obtain the required script Download the following script, which enables the privilege in the current session:&#xA;script file.&#xA;Enable the privilege and replace Utilman Execute the script and abuse the privilege to replace Utilman.exe with cmd.exe:&#xA;.\EnableSeRestorePrivilege.ps1 ren C:\Windows\System32\Utilman.exe C:\Windows\System32\Utilman.pwned ren C:\Windows\System32\cmd.exe C:\Windows\System32\utilman.exe This works because SeRestorePrivilege allows bypassing file permissions when writing to system locations.</description>
+      <description>SeRestorePrivilege&#xD;When an account has SeRestorePrivilege, it can be leveraged to achieve privilege escalation by overwriting protected system files.&#xA;Obtain the required script Download the following script, which enables the privilege in the current session:&#xA;script file.&#xA;Enable the privilege and replace Utilman Execute the script and abuse the privilege to replace Utilman.exe with cmd.exe:&#xA;.\EnableSeRestorePrivilege.ps1 ren C:\Windows\System32\Utilman.exe C:\Windows\System32\Utilman.pwned ren C:\Windows\System32\cmd.exe C:\Windows\System32\utilman.exe&#xD;This works because SeRestorePrivilege allows bypassing file permissions when writing to system locations.</description>
     </item>
     <item>
       <title>AD Gmsapassword</title>
       <link>http://localhost:1313/posts/ad/gmsapassword/index.html</link>
       <pubDate>Sat, 18 Apr 2026 14:23:37 +0900</pubDate>
       <guid>http://localhost:1313/posts/ad/gmsapassword/index.html</guid>
-      <description>GMSAPassword When a user has adGMSAPassword permission over a target account, it is possible to retrieve the managed password and derive usable credentials for authentication.&#xA;Abuse workflow Identify GMSA permissions If your account has adGMSAPassword rights over a Group Managed Service Account (gMSA), you can extract its password material.</description>
+      <description>GMSAPassword&#xD;When a user has adGMSAPassword permission over a target account, it is possible to retrieve the managed password and derive usable credentials for authentication.&#xA;Abuse workflow&#xD;Identify GMSA permissions If your account has adGMSAPassword rights over a Group Managed Service Account (gMSA), you can extract its password material.</description>
     </item>
     <item>
       <title>GenericAll permission on a domain computer</title>
       <link>http://localhost:1313/posts/ad/rbcd/index.html</link>
       <pubDate>Thu, 16 Apr 2026 22:12:34 +0900</pubDate>
       <guid>http://localhost:1313/posts/ad/rbcd/index.html</guid>
-      <description>GenericAll permission on a domain computer The user l.livingstone has GenericAll permission on the domain computer RESOURCEDC$.&#xA;GenericAll grants full control over the object — including the ability to write to msDS-AllowedToActOnBehalfOfOtherIdentity. This makes Resource-Based Constrained Delegation (RBCD) abuse possible: we create a machine account we control, configure the target to trust it for delegation, then impersonate any user (including Administrator) to obtain a service ticket via S4U2Proxy.</description>
+      <description>GenericAll permission on a domain computer&#xD;The user l.livingstone has GenericAll permission on the domain computer RESOURCEDC$.&#xA;GenericAll grants full control over the object — including the ability to write to msDS-AllowedToActOnBehalfOfOtherIdentity. This makes Resource-Based Constrained Delegation (RBCD) abuse possible: we create a machine account we control, configure the target to trust it for delegation, then impersonate any user (including Administrator) to obtain a service ticket via S4U2Proxy.</description>
     </item>
   </channel>
 </rss>

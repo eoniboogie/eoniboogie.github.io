@@ -13,7 +13,7 @@
       <link>http://localhost:1313/posts/webdav/index.html</link>
       <pubDate>Wed, 15 Apr 2026 17:59:18 +0900</pubDate>
       <guid>http://localhost:1313/posts/webdav/index.html</guid>
-      <description>WebDAV Exploitation WebDAV (Web Distributed Authoring and Versioning) is an HTTP extension that allows clients to perform remote file operations on a web server. When misconfigured, it can be a powerful attack surface — especially if it requires only basic credentials or has loose upload restrictions.&#xA;WebDAV typically requires credentials to interact with.&#xA;Step 1 — Enumerate Allowed File Types with davtest davtest tests which file types can be uploaded and executed on the target WebDAV server.</description>
+      <description>WebDAV Exploitation&#xD;WebDAV (Web Distributed Authoring and Versioning) is an HTTP extension that allows clients to perform remote file operations on a web server. When misconfigured, it can be a powerful attack surface — especially if it requires only basic credentials or has loose upload restrictions.&#xA;WebDAV typically requires credentials to interact with.&#xA;Step 1 — Enumerate Allowed File Types with davtest&#xD;davtest tests which file types can be uploaded and executed on the target WebDAV server.</description>
     </item>
   </channel>
 </rss>

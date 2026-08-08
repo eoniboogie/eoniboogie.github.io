@@ -3,23 +3,23 @@
   <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
     <meta charset="utf-8">
     <meta name="viewport" content="height=device-height, width=device-width, initial-scale=1.0, minimum-scale=1.0">
-    <meta name="generator" content="Hugo 0.161.1">
+    <meta name="generator" content="Hugo 0.164.0">
     <meta name="generator" content="Relearn 9.0.3+36307e4ed23582638ab689240ac7b427217803ee">
-    <meta name="description" content="WebDAV Exploitation WebDAV (Web Distributed Authoring and Versioning) is an HTTP extension that allows clients to perform remote file operations on a web server. When misconfigured, it can be a powerful attack surface — especially if it requires only basic credentials or has loose upload restrictions.
+    <meta name="description" content="WebDAV ExploitationWebDAV (Web Distributed Authoring and Versioning) is an HTTP extension that allows clients to perform remote file operations on a web server. When misconfigured, it can be a powerful attack surface — especially if it requires only basic credentials or has loose upload restrictions.
 WebDAV typically requires credentials to interact with.
-Step 1 — Enumerate Allowed File Types with davtest davtest tests which file types can be uploaded and executed on the target WebDAV server.">
+Step 1 — Enumerate Allowed File Types with davtestdavtest tests which file types can be uploaded and executed on the target WebDAV server.">
     <meta name="author" content="">
     <meta name="twitter:card" content="summary">
     <meta name="twitter:title" content="WebDAV Exploitation with davtest :: Zenu">
-    <meta name="twitter:description" content="WebDAV Exploitation WebDAV (Web Distributed Authoring and Versioning) is an HTTP extension that allows clients to perform remote file operations on a web server. When misconfigured, it can be a powerful attack surface — especially if it requires only basic credentials or has loose upload restrictions.
+    <meta name="twitter:description" content="WebDAV ExploitationWebDAV (Web Distributed Authoring and Versioning) is an HTTP extension that allows clients to perform remote file operations on a web server. When misconfigured, it can be a powerful attack surface — especially if it requires only basic credentials or has loose upload restrictions.
 WebDAV typically requires credentials to interact with.
-Step 1 — Enumerate Allowed File Types with davtest davtest tests which file types can be uploaded and executed on the target WebDAV server.">
+Step 1 — Enumerate Allowed File Types with davtestdavtest tests which file types can be uploaded and executed on the target WebDAV server.">
     <meta property="og:url" content="http://localhost:1313/posts/webdav/index.html">
     <meta property="og:site_name" content="Zenu">
     <meta property="og:title" content="WebDAV Exploitation with davtest :: Zenu">
-    <meta property="og:description" content="WebDAV Exploitation WebDAV (Web Distributed Authoring and Versioning) is an HTTP extension that allows clients to perform remote file operations on a web server. When misconfigured, it can be a powerful attack surface — especially if it requires only basic credentials or has loose upload restrictions.
+    <meta property="og:description" content="WebDAV ExploitationWebDAV (Web Distributed Authoring and Versioning) is an HTTP extension that allows clients to perform remote file operations on a web server. When misconfigured, it can be a powerful attack surface — especially if it requires only basic credentials or has loose upload restrictions.
 WebDAV typically requires credentials to interact with.
-Step 1 — Enumerate Allowed File Types with davtest davtest tests which file types can be uploaded and executed on the target WebDAV server.">
+Step 1 — Enumerate Allowed File Types with davtestdavtest tests which file types can be uploaded and executed on the target WebDAV server.">
     <meta property="og:locale" content="en_us">
     <meta property="og:type" content="article">
     <meta property="article:section" content="Posts">
@@ -28,36 +28,36 @@ Step 1 — Enumerate Allowed File Types with davtest davtest tests which file ty
     <meta property="article:tag" content="Webdav">
     <meta property="article:tag" content="Davtest">
     <meta itemprop="name" content="WebDAV Exploitation with davtest :: Zenu">
-    <meta itemprop="description" content="WebDAV Exploitation WebDAV (Web Distributed Authoring and Versioning) is an HTTP extension that allows clients to perform remote file operations on a web server. When misconfigured, it can be a powerful attack surface — especially if it requires only basic credentials or has loose upload restrictions.
+    <meta itemprop="description" content="WebDAV ExploitationWebDAV (Web Distributed Authoring and Versioning) is an HTTP extension that allows clients to perform remote file operations on a web server. When misconfigured, it can be a powerful attack surface — especially if it requires only basic credentials or has loose upload restrictions.
 WebDAV typically requires credentials to interact with.
-Step 1 — Enumerate Allowed File Types with davtest davtest tests which file types can be uploaded and executed on the target WebDAV server.">
+Step 1 — Enumerate Allowed File Types with davtestdavtest tests which file types can be uploaded and executed on the target WebDAV server.">
     <meta itemprop="datePublished" content="2026-04-15T17:59:18+09:00">
     <meta itemprop="dateModified" content="2026-04-15T17:59:18+09:00">
     <meta itemprop="wordCount" content="230">
     <meta itemprop="keywords" content="Webdav,Davtest">
     <title>WebDAV Exploitation with davtest :: Zenu</title>
-    <link href="/images/favicon.png?1785740534" rel="icon" type="image/png">
-    <link href="/images/favicon.ico?1785740534" rel="icon" type="image/x-icon" sizes="any">
-    <link href="/css/auto-complete/auto-complete.min.css?1785740534" rel="stylesheet">
-    <script src="/js/auto-complete/auto-complete.min.js?1785740534" defer></script>
-    <script src="/js/search-lunr.js?1785740534" defer></script>
-    <script src="/js/search.js?1785740534" defer></script>
+    <link href="/images/favicon.png?1786181568" rel="icon" type="image/png">
+    <link href="/images/favicon.ico?1786181568" rel="icon" type="image/x-icon" sizes="any">
+    <link href="/css/auto-complete/auto-complete.min.css?1786181568" rel="stylesheet">
+    <script src="/js/auto-complete/auto-complete.min.js?1786181568" defer></script>
+    <script src="/js/search-lunr.js?1786181568" defer></script>
+    <script src="/js/search.js?1786181568" defer></script>
     <script>
       window.relearn = window.relearn || {};
-      window.relearn.index_js_url="/searchindex.en.js?1785740534";
+      window.relearn.index_js_url="/searchindex.en.js?1786181568";
     </script>
-    <script src="/js/lunr/lunr.min.js?1785740534" defer></script>
-    <script src="/js/lunr/lunr.stemmer.support.min.js?1785740534" defer></script>
-    <script src="/js/lunr/lunr.multi.min.js?1785740534" defer></script>
-    <script src="/js/lunr/lunr.en.min.js?1785740534" defer></script>
+    <script src="/js/lunr/lunr.min.js?1786181568" defer></script>
+    <script src="/js/lunr/lunr.stemmer.support.min.js?1786181568" defer></script>
+    <script src="/js/lunr/lunr.multi.min.js?1786181568" defer></script>
+    <script src="/js/lunr/lunr.en.min.js?1786181568" defer></script>
     <script>
       window.relearn = window.relearn || {};
       window.relearn.contentLangs=['en'];
     </script>
-    <link href="/fonts/fontawesome/css/all.min.css?1785740534" rel="stylesheet" media="print" onload="this.media='all';this.onload=null;"><noscript><link href="/fonts/fontawesome/css/all.min.css?1785740534" rel="stylesheet"></noscript>
-    <link href="/css/perfect-scrollbar/perfect-scrollbar.min.css?1785740534" rel="stylesheet">
-    <link href="/css/theme.css?1785740534" rel="stylesheet">
-    <link href="/css/format-html.css?1785740534" rel="stylesheet" id="R-format-style">
+    <link href="/fonts/fontawesome/css/all.min.css?1786181568" rel="stylesheet" media="print" onload="this.media='all';this.onload=null;"><noscript><link href="/fonts/fontawesome/css/all.min.css?1786181568" rel="stylesheet"></noscript>
+    <link href="/css/perfect-scrollbar/perfect-scrollbar.min.css?1786181568" rel="stylesheet">
+    <link href="/css/theme.css?1786181568" rel="stylesheet">
+    <link href="/css/format-html.css?1786181568" rel="stylesheet" id="R-format-style">
     <script>
       window.relearn = window.relearn || {};
       // configuration
@@ -305,8 +305,8 @@ Executes: http://192.168.158.122/DavTestDir_LOqKQmYZCD2Fd/davtest_LOqKQmYZCD2Fd.
 <div id="R-footer" class="default-animation"><p>Built with <a href="https://github.com/McShelby/hugo-theme-relearn" title="love"><i class="fas fa-heart"></i></a> by <a href="https://gohugo.io/">Hugo</a></p></div>
       </div>
     </aside>
-    <script src="/js/perfect-scrollbar/perfect-scrollbar.min.js?1785740534" defer></script>
-    <script src="/js/theme.js?1785740534" defer></script>
+    <script src="/js/perfect-scrollbar/perfect-scrollbar.min.js?1786181568" defer></script>
+    <script src="/js/theme.js?1786181568" defer></script>
     <div id="toast-container" role="status" aria-live="polite" aria-atomic="false"></div>
   </body>
 </html>

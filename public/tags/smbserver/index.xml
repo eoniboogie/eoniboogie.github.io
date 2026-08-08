@@ -13,7 +13,7 @@
       <link>http://localhost:1313/posts/file-transfer/index.html</link>
       <pubDate>Sun, 22 Feb 2026 23:22:16 +0900</pubDate>
       <guid>http://localhost:1313/posts/file-transfer/index.html</guid>
-      <description>SMB set up SMB server on kali&#xA;impacket-smbserver test . -smb2support -user user -password 1234&#xA;Connect to the SMB from windows&#xA;net use Z: \\192.168.45.211\test /user:user 1234&#xA;nc linux file receiver</description>
+      <description>SMB&#xD;set up SMB server on kali&#xA;impacket-smbserver test . -smb2support -user user -password 1234&#xA;Connect to the SMB from windows&#xA;net use Z: \\192.168.45.211\test /user:user 1234&#xA;nc&#xD;linux&#xD;file receiver</description>
     </item>
   </channel>
 </rss>

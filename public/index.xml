@@ -3,7 +3,7 @@
   <channel>
     <title>Home :: Zenu</title>
     <link>http://localhost:1313/index.html</link>
-    <description>Welcome!! Posts&#xD;Writeup</description>
+    <description>Welcome!!&#xD;Posts&#xD;Writeup</description>
     <generator>Hugo</generator>
     <language>en-us</language>
     <lastBuildDate>Tue, 24 Feb 2026 07:51:20 +0900</lastBuildDate>
@@ -13,7 +13,7 @@
       <link>http://localhost:1313/posts/index.html</link>
       <pubDate>Tue, 24 Feb 2026 07:51:20 +0900</pubDate>
       <guid>http://localhost:1313/posts/index.html</guid>
-      <description>Cheat Sheets &amp; Tips&#xA;Active Directory Cheatsheet File Transfer Pivoting Stabilize a reverse shell WebDAV Exploitation with davtest</description>
+      <description>Cheat Sheets &amp; Tips&#xA;Active Directory Cheatsheet File Transfer Pivoting Stabilize a reverse shell WebDAV Exploitation with davtest Webshell</description>
     </item>
     <item>
       <title>Private</title>

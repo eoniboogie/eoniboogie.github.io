@@ -25,7 +25,7 @@ tags = ["ligolo"]
 
 5. Check sessions from the proxy
 
-`sessoin`
+`session`
 
 6. Start tunneling
 
@@ -33,7 +33,7 @@ tags = ["ligolo"]
 
 ---
 
-For local port forwarding.
+For local port forwarding. (3 machines case)
 
 - Make sure the tunnel has started
 
@@ -45,3 +45,32 @@ Now the pivoting machine forwards inbound port (1234) to kali port (4444)
 
 - Check with `listener_list`
 
+---
+
+Dynamic port forwarding (2 machines case)
+
+- To access 127.0.0.1 network of the target machine
+
+1. create an interface
+
+`ifcreate --name ligolo`
+
+2. Add route **240.0.0.1**
+
+`interface_add_route --name ligolo --route 240.0.0.1/32`
+
+3. Connect from the target machine
+
+`.\agent.exe -connect :7878 -ignore-cert`
+
+4. confirm session
+
+`session`
+
+5. Start the tunnel
+
+`tunnel_start --tun ligolo`
+
+6. Check the access
+
+`impacket-mssqlclient hack.smarter/alice.wonderland:'Password1!'@240.0.0.1 -windows-auth`

