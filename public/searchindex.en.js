@@ -250,7 +250,7 @@ var relearn_searchindex = [
     "content": "",
     "description": "",
     "tags": [],
-    "title": "Tag :: Bloodhound",
+    "title": "Tag :: BloodHound",
     "uri": "/tags/bloodhound/index.html"
   },
   {
@@ -267,7 +267,7 @@ var relearn_searchindex = [
     "description": "Heist writeup - Active Directory penetration testing walkthrough covering NTLM capture, gMSA password extraction, lateral movement with BloodHound, and privilege escalation using SeRestorePrivilege.",
     "tags": [
       "SeRestorePrivilege",
-      "Bloodhound",
+      "BloodHound",
       "ReadGMSAPassword",
       "Responder",
       "GMSApassword",
@@ -355,7 +355,7 @@ var relearn_searchindex = [
     "tags": [
       "Responder",
       "DACL",
-      "Bloodhound",
+      "BloodHound",
       "Ntlm_theft",
       "SharpGPOAbuse",
       "Impacket-Owneredit",
