@@ -21,3 +21,6 @@ enableRobotsTXT = true
       [markup.goldmark.parser.attribute]
         block = true
 
+[services]
+  [services.googleAnalytics]
+    id = 'G-DCM6KK9XFG'
