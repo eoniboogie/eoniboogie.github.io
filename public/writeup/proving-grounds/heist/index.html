@@ -32,28 +32,29 @@
     <meta itemprop="wordCount" content="787">
     <meta itemprop="keywords" content="SeRestorePrivilege,BloodHound,ReadGMSAPassword,Responder,GMSApassword,Utilman">
     <title>Heist :: Zenu</title>
-    <link href="/images/favicon.png?1788181740" rel="icon" type="image/png">
-    <link href="/images/favicon.ico?1788181740" rel="icon" type="image/x-icon" sizes="any">
-    <link href="/css/auto-complete/auto-complete.min.css?1788181740" rel="stylesheet">
-    <script src="/js/auto-complete/auto-complete.min.js?1788181740" defer></script>
-    <script src="/js/search-lunr.js?1788181740" defer></script>
-    <script src="/js/search.js?1788181740" defer></script>
+    <link href="/writeup/proving-grounds/heist/index.print.html" rel="alternate" type="text/html" title="Heist :: Zenu">
+    <link href="/images/favicon.png?1788226668" rel="icon" type="image/png">
+    <link href="/images/favicon.ico?1788226668" rel="icon" type="image/x-icon" sizes="any">
+    <link href="/css/auto-complete/auto-complete.min.css?1788226668" rel="stylesheet">
+    <script src="/js/auto-complete/auto-complete.min.js?1788226668" defer></script>
+    <script src="/js/search-lunr.js?1788226668" defer></script>
+    <script src="/js/search.js?1788226668" defer></script>
     <script>
       window.relearn = window.relearn || {};
-      window.relearn.index_js_url="/searchindex.en.js?1788181740";
+      window.relearn.index_js_url="/searchindex.en.js?1788226668";
     </script>
-    <script src="/js/lunr/lunr.min.js?1788181740" defer></script>
-    <script src="/js/lunr/lunr.stemmer.support.min.js?1788181740" defer></script>
-    <script src="/js/lunr/lunr.multi.min.js?1788181740" defer></script>
-    <script src="/js/lunr/lunr.en.min.js?1788181740" defer></script>
+    <script src="/js/lunr/lunr.min.js?1788226668" defer></script>
+    <script src="/js/lunr/lunr.stemmer.support.min.js?1788226668" defer></script>
+    <script src="/js/lunr/lunr.multi.min.js?1788226668" defer></script>
+    <script src="/js/lunr/lunr.en.min.js?1788226668" defer></script>
     <script>
       window.relearn = window.relearn || {};
       window.relearn.contentLangs=['en'];
     </script>
-    <link href="/fonts/fontawesome/css/all.min.css?1788181740" rel="stylesheet" media="print" onload="this.media='all';this.onload=null;"><noscript><link href="/fonts/fontawesome/css/all.min.css?1788181740" rel="stylesheet"></noscript>
-    <link href="/css/perfect-scrollbar/perfect-scrollbar.min.css?1788181740" rel="stylesheet">
-    <link href="/css/theme.css?1788181740" rel="stylesheet">
-    <link href="/css/format-html.css?1788181740" rel="stylesheet" id="R-format-style">
+    <link href="/fonts/fontawesome/css/all.min.css?1788226668" rel="stylesheet" media="print" onload="this.media='all';this.onload=null;"><noscript><link href="/fonts/fontawesome/css/all.min.css?1788226668" rel="stylesheet"></noscript>
+    <link href="/css/perfect-scrollbar/perfect-scrollbar.min.css?1788226668" rel="stylesheet">
+    <link href="/css/theme.css?1788226668" rel="stylesheet">
+    <link href="/css/format-html.css?1788226668" rel="stylesheet" id="R-format-style">
     <script>
       window.relearn = window.relearn || {};
       // configuration
@@ -102,6 +103,15 @@
       window.relearn.initVariant();
       window.relearn.markVariant();
     </script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-DCM6KK9XFG"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-DCM6KK9XFG');
+</script>
+
   </head>
   <body class="mobile-support html" data-origin="/writeup/proving-grounds/heist/index.html">
     <div id="R-body" class="default-animation">
@@ -141,6 +151,9 @@
           <ol class="topbar-breadcrumbs breadcrumbs highlightable" itemscope itemtype="http://schema.org/BreadcrumbList"><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><a itemprop="item" href="/index.html"><span itemprop="name">Home</span></a><meta itemprop="position" content="1">&nbsp;>&nbsp;</li><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><a itemprop="item" href="/writeup/index.html"><span itemprop="name">Writeup</span></a><meta itemprop="position" content="2">&nbsp;>&nbsp;</li><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><a itemprop="item" href="/writeup/proving-grounds/index.html"><span itemprop="name">Proving Grounds</span></a><meta itemprop="position" content="3">&nbsp;>&nbsp;</li><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><span itemprop="name">Heist</span><meta itemprop="position" content="4"></li>
           </ol>
           <div class="topbar-area topbar-area-end" data-area="end">
+            <div class="topbar-button topbar-button-print default-animation" data-content-empty="disable" data-width-s="area-more" data-width-m="show" data-width-l="show">
+<span class="btn cstyle button link noborder notitle interactive"><a href="/writeup/proving-grounds/heist/index.print.html" title="Print whole chapter (CTRL+ALT+p)"><i class="fa-fw fas fa-print"></i></a></span>
+            </div>
             <div class="topbar-button topbar-button-prev default-animation" data-content-empty="disable" data-width-s="show" data-width-m="show" data-width-l="show">
 <span class="btn cstyle button link noborder notitle interactive"><a href="/writeup/proving-grounds/squid/index.html" title="Squid (🡐)"><i class="fa-fw fas fa-chevron-left"></i></a></span>
             </div>
@@ -225,8 +238,8 @@
 <h1 id="enumeration">enumeration<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Copy link to clipboard"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h1>
 <h2 id="web">WEB<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Copy link to clipboard"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
 <p>The web page contains a URL input field. To test whether the application makes outbound connections, I entered my own IP address and monitored for incoming traffic.</p>
-<p><a href="#R-image-995fa5c997c456952daa2db88cfa8cf9" class="lightbox-link"><img alt="url-input" class="lazy lightbox figure-image" loading="lazy" src="/images/heist/heist-web.png" style="height: auto;width: auto;"></a>
-<a href="javascript:history.back();" class="lightbox-back" id="R-image-995fa5c997c456952daa2db88cfa8cf9"><img alt="url-input" class="lazy lightbox lightbox-image" loading="lazy" src="/images/heist/heist-web.png"></a></p>
+<p><a href="#R-image-7f6292d769c3c81f88ef2896a4d4cf1f" class="lightbox-link"><img alt="url-input" class="lazy lightbox figure-image" loading="lazy" src="/images/heist/heist-web.png" style="height: auto;width: auto;"></a>
+<a href="javascript:history.back();" class="lightbox-back" id="R-image-7f6292d769c3c81f88ef2896a4d4cf1f"><img alt="url-input" class="lazy lightbox lightbox-image" loading="lazy" src="/images/heist/heist-web.png"></a></p>
 <p>Using Responder, I was able to capture NTLM authentication from the user enox.</p>
 <div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo responder -I tun0
 </span></span><span style="display:flex;"><span>
@@ -260,8 +273,8 @@
 <p>Service accounts often have elevated privileges, making this a promising target.</p>
 <h2 id="bloodhound">Bloodhound<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Copy link to clipboard"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
 <p>I ran BloodHound to analyze privilege escalation paths.</p>
-<p><a href="#R-image-95c6325dbd9c234165a339b63907b512" class="lightbox-link"><img alt="bloodhound" class="lazy lightbox figure-image" loading="lazy" src="/images/heist/heist-webadmin.png" style="height: auto;width: auto;"></a>
-<a href="javascript:history.back();" class="lightbox-back" id="R-image-95c6325dbd9c234165a339b63907b512"><img alt="bloodhound" class="lazy lightbox lightbox-image" loading="lazy" src="/images/heist/heist-webadmin.png"></a></p>
+<p><a href="#R-image-65b32f77470d149dc1a4eb12b7102407" class="lightbox-link"><img alt="bloodhound" class="lazy lightbox figure-image" loading="lazy" src="/images/heist/heist-webadmin.png" style="height: auto;width: auto;"></a>
+<a href="javascript:history.back();" class="lightbox-back" id="R-image-65b32f77470d149dc1a4eb12b7102407"><img alt="bloodhound" class="lazy lightbox lightbox-image" loading="lazy" src="/images/heist/heist-webadmin.png"></a></p>
 <p>BloodHound revealed that the user enox has the <strong>ReadGMSAPassword</strong> permission over svc_apache$.</p>
 <p>This means we can retrieve the managed password for that account.</p>
 <p>Using gmsapasswordreader.exe, I extracted the password hashes:</p>
@@ -307,8 +320,8 @@ SeIncreaseWorkingSetPrivilege Increase a process working set Enabled</code></pre
 <p>I confrimed the user has <em>SeRestorePrivilege</em>.</p>
 <p>This privilege allows restoring files and directories, which can be abused to overwrite protected system files.</p>
 <p>In the Documents folder, I found a PowerShell script referencing:</p>
-<p><a href="#R-image-757103252e7e0c235009f46e8d2890a5" class="lightbox-link"><img alt="powershell_script" class="lazy lightbox figure-image" loading="lazy" src="/images/heist/heist-serestore.png" style="height: auto;width: auto;"></a>
-<a href="javascript:history.back();" class="lightbox-back" id="R-image-757103252e7e0c235009f46e8d2890a5"><img alt="powershell_script" class="lazy lightbox lightbox-image" loading="lazy" src="/images/heist/heist-serestore.png"></a></p>
+<p><a href="#R-image-e270d7367f84e5f820445fd869df17ff" class="lightbox-link"><img alt="powershell_script" class="lazy lightbox figure-image" loading="lazy" src="/images/heist/heist-serestore.png" style="height: auto;width: auto;"></a>
+<a href="javascript:history.back();" class="lightbox-back" id="R-image-e270d7367f84e5f820445fd869df17ff"><img alt="powershell_script" class="lazy lightbox lightbox-image" loading="lazy" src="/images/heist/heist-serestore.png"></a></p>
 <p>It&rsquo;s telling us to check the <a href="https://github.com/gtworek/Priv2Admin" rel="external">github</a> for privsec.</p>
 <h2 id="abusing-serestoreprivilege">Abusing SeRestorePrivilege<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Copy link to clipboard"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
 <p>According to the guidance:</p>
@@ -323,12 +336,12 @@ SeIncreaseWorkingSetPrivilege Increase a process working set Enabled</code></pre
 </span></span><span style="display:flex;"><span>mv C:\Windows\System32\cmd.exe C:\Windows\System32\utilman.exe</span></span></code></pre></div>
 <p>Then I opened remote desktop to interact.</p>
 <div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>rdesktop 192.168.115.165</span></span></code></pre></div>
-<p><a href="#R-image-e3043659f9f0d2b299d89a48ea9ec686" class="lightbox-link"><img alt="windows" class="lazy lightbox figure-image" loading="lazy" src="/images/heist/heist-rdesktop.png" style="height: auto;width: auto;"></a>
-<a href="javascript:history.back();" class="lightbox-back" id="R-image-e3043659f9f0d2b299d89a48ea9ec686"><img alt="windows" class="lazy lightbox lightbox-image" loading="lazy" src="/images/heist/heist-rdesktop.png"></a></p>
+<p><a href="#R-image-8ed4aa5a944df060efd0a7dc1eca87a4" class="lightbox-link"><img alt="windows" class="lazy lightbox figure-image" loading="lazy" src="/images/heist/heist-rdesktop.png" style="height: auto;width: auto;"></a>
+<a href="javascript:history.back();" class="lightbox-back" id="R-image-8ed4aa5a944df060efd0a7dc1eca87a4"><img alt="windows" class="lazy lightbox lightbox-image" loading="lazy" src="/images/heist/heist-rdesktop.png"></a></p>
 <p>From the login screen, clicking the Ease of Access (Utility Manager) icon launches utilman.exe.</p>
 <p>Since we replaced it with cmd.exe, a SYSTEM shell is spawned.</p>
-<p><a href="#R-image-80cf40e55eec9716f9b94a0755a17528" class="lightbox-link"><img alt="cmd" class="lazy lightbox figure-image" loading="lazy" src="/images/heist/heist-systemshell.png" style="height: auto;width: auto;"></a>
-<a href="javascript:history.back();" class="lightbox-back" id="R-image-80cf40e55eec9716f9b94a0755a17528"><img alt="cmd" class="lazy lightbox lightbox-image" loading="lazy" src="/images/heist/heist-systemshell.png"></a></p>
+<p><a href="#R-image-9f496d65f364c47a7c815f7d839ec96f" class="lightbox-link"><img alt="cmd" class="lazy lightbox figure-image" loading="lazy" src="/images/heist/heist-systemshell.png" style="height: auto;width: auto;"></a>
+<a href="javascript:history.back();" class="lightbox-back" id="R-image-9f496d65f364c47a7c815f7d839ec96f"><img alt="cmd" class="lazy lightbox lightbox-image" loading="lazy" src="/images/heist/heist-systemshell.png"></a></p>
 <p>We now have full SYSTEM access on the Domain Controller!</p>
 
   <footer class="footline">
@@ -457,8 +470,8 @@ SeIncreaseWorkingSetPrivilege Increase a process working set Enabled</code></pre
 </div></div>
       </div>
     </aside>
-    <script src="/js/perfect-scrollbar/perfect-scrollbar.min.js?1788181740" defer></script>
-    <script src="/js/theme.js?1788181740" defer></script>
+    <script src="/js/perfect-scrollbar/perfect-scrollbar.min.js?1788226668" defer></script>
+    <script src="/js/theme.js?1788226668" defer></script>
     <div id="toast-container" role="status" aria-live="polite" aria-atomic="false"></div>
   </body>
 </html>

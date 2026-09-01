@@ -9,6 +9,8 @@ enableRobotsTXT = true
     themeVariant = ['relearn-light', 'relearn-dark', 'neon', 'zen-dark', 'zen-light']
     disableLandingPageButton = true
     showVisitedLinks = true
+    disablePrintButton = false
+
 [[menu.shortcuts]]
     name = '<i class="fab fa-github"></i> CVE Disclosures'
     url = 'https://github.com/eoniboogie/CVE_Disclosures'
@@ -24,3 +26,17 @@ enableRobotsTXT = true
 [services]
   [services.googleAnalytics]
     id = 'G-DCM6KK9XFG'
+
+[outputs]
+  home = ['html', 'rss', 'print']
+  page = ['html', 'print']
+  section = ['html', 'rss', 'print']
+
+[outputFormats]
+  [outputFormats.print]
+    baseName = 'index.print'
+    isHTML = true
+    mediaType = 'text/html'
+    name = 'print'
+    noUgly = true
+    permalinkable = false
