@@ -6,6 +6,5 @@ title = 'Writeup'
   menuPre = '<i class="fa-solid fa-cat"></i> '
 +++
 
-Choose a category from the side menu!
 
 {{% children sort="title" %}}

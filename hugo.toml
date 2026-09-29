@@ -3,6 +3,7 @@ languageCode = 'en-us'
 title = 'Zenu'
 theme = "hugo-theme-relearn"
 enableRobotsTXT = true
+timeZone = 'Asia/Tokyo'
 [params]
     favicon = 'favicon.ico'
     searchIsCaseSensitive = false
@@ -12,10 +13,22 @@ enableRobotsTXT = true
     disablePrintButton = false
 
 [[menu.shortcuts]]
+    name = '<i class="fab fa-linkedin"></i> LinkedIn'
+    url = 'https://www.linkedin.com/in/eon0708/'
+    weight = 900
+    identifier = 'linkedin'
+
+[[menu.shortcuts]]
     name = '<i class="fab fa-github"></i> CVE Disclosures'
     url = 'https://github.com/eoniboogie/CVE_Disclosures'
-    weight = 999
+    weight = 990
     identifier = 'cve'
+
+[[menu.shortcuts]]
+    name = '<i class="fab fa-at"></i> Email'
+    url = 'mailto:monkey9327@gmail.com'
+    weight = 995
+    identifier = 'email'
 
 [markup]
   [markup.goldmark]
