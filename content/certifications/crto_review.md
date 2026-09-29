@@ -13,7 +13,7 @@ In this post, I'll share my experience with the new version of the CRTO exam, in
 
 ![score](/images/certs/crto_score.png)
 
-# What changed in the new exam?
+## What changed in the new exam?
 
 The previous version of the CRTO exam required candidates to capture at least six out of eight flags. The new version shifts the focus from collecting flags to completing an objective: uploading a designated file to a specific server.
 
@@ -21,7 +21,7 @@ OPSEC also plays an important role. Reaching the objective is not only part of t
 
 Compared with my OSCP experience, I had to pay much closer attention to how my actions might be detected.
 
-# Exam environment
+## Exam environment
 
 The exam takes place in a large Active Directory environment spanning multiple domains. You establish an initial foothold in one domain and work your way through the environment toward the objective.
 
@@ -31,7 +31,7 @@ Of course the exam environment is different from the labs. Therefore, it won't w
 
 You need to understand what each command does.
 
-# Difficulty
+## Difficulty
 
 With an OSCP background, I found the exam manageable. Familiarity with Active Directory helped, although I felt that CRTO required a deeper understanding of AD than OSCP did.
 
@@ -41,7 +41,7 @@ Another adjustment was working through Cobalt Strike, the command-and-control (C
 
 For me, the difficulty came down to two things: understanding Active Directory and becoming comfortable with Cobalt Strike.
 
-# Thoughts
+## Thoughts
 
 One thing I appreciated was the unlimited exam retakes. At the time of my exam, an unsuccessful attempt came with a one-week cooldown before you could try again. Once you passed, however, you could no longer retake it.
 
@@ -51,7 +51,7 @@ For OPSEC, the methods demonstrated in the course labs were a useful starting po
 
 Pay particular attention during lateral movement. It's easy to focus on reaching the next machine and overlook the processes your actions create—and those processes can be monitored too.
 
-# Tips
+## Tips
 
 Here are some tips.
 
