@@ -18,8 +18,6 @@ ssh -N -L 8000:127.0.0.1:8000 dev@192.168.249.150
 
 ## chisel
 
-## chisel
-
 - Requirement: Need to install Chisel on both sides.
 
 ### remote port forwarding  
